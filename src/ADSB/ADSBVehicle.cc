@@ -6,7 +6,6 @@
  * COPYING.md in the root of the source code directory.
  *
  ****************************************************************************/
-
 #include "ADSBVehicle.h"
 #include "QGCLoggingCategory.h"
 #include "QGC.h"
@@ -28,10 +27,10 @@ ADSBVehicle::ADSBVehicle(const ADSBVehicleInfo_t & vehicleInfo, QObject* parent)
 void ADSBVehicle::update(const ADSBVehicleInfo_t & vehicleInfo)
 {
     if (_icaoAddress != vehicleInfo.icaoAddress) {
-        qCWarning(ADSBVehicleManagerLog) << "ICAO address mismatch expected:actual" << _icaoAddress << vehicleInfo.icaoAddress;
+        qCWarning(ADSBVehicleManagerLog) << "Địa chỉ ICAO không khớp, mong đợi:thực tế" << _icaoAddress << vehicleInfo.icaoAddress;
         return;
     }
-    qCDebug(ADSBVehicleManagerLog) << "Updating" << QStringLiteral("%1 Flags: %2").arg(vehicleInfo.icaoAddress, 0, 16).arg(vehicleInfo.availableFlags, 0, 2);
+    qCDebug(ADSBVehicleManagerLog) << "Đang cập nhật" << QStringLiteral("%1 Cờ: %2").arg(vehicleInfo.icaoAddress, 0, 16).arg(vehicleInfo.availableFlags, 0, 2);
 
     if (vehicleInfo.availableFlags & CallsignAvailable) {
         if (vehicleInfo.callsign != _callsign) {
