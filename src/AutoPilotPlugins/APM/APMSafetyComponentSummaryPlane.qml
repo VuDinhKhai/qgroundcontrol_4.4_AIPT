@@ -24,23 +24,23 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Throttle failsafe:")
-            valueText:  _failsafeThrEnable.value != 0 ? _failsafeThrValue.valueString : qsTr("Disabled")
+            labelText: qsTr("An toàn ga:")
+            valueText:  _failsafeThrEnable.value != 0 ? _failsafeThrValue.valueString : qsTr("Vô hiệu hóa")
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Voltage failsafe:")
-            valueText:  _failsafeBattVoltage.value == 0 ? qsTr("Disabled") : _failsafeBattVoltage.valueString + " " + _failsafeBattVoltage.units
+            labelText: qsTr("An toàn điện áp:")
+            valueText:  _failsafeBattVoltage.value == 0 ? qsTr("Vô hiệu hóa") : _failsafeBattVoltage.valueString + " " + _failsafeBattVoltage.units
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("mAh failsafe:")
-            valueText:  _failsafeBattMah.value == 0 ? qsTr("Disabled") : _failsafeBattMah.valueString + " " + _failsafeBattMah.units
+            labelText: qsTr("An toàn mAh:")
+            valueText:  _failsafeBattMah.value == 0 ? qsTr("Vô hiệu hóa") : _failsafeBattMah.valueString + " " + _failsafeBattMah.units
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("RTL min alt:")
-            valueText: _rtlAltFact.value < 0 ? qsTr("current") : _rtlAltFact.valueString + " " + _rtlAltFact.units
+            labelText: qsTr("Độ cao tối thiểu RTL:")
+            valueText: _rtlAltFact.value < 0 ? qsTr("hiện tại") : _rtlAltFact.valueString + " " + _rtlAltFact.units
         }
     }
 }

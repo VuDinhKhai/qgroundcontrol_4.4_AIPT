@@ -13,7 +13,7 @@
 
 ESP8266Component::ESP8266Component(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("WiFi Bridge"))
+    , _name(tr("Cầu nối WiFi"))
 {
 
 }
@@ -25,7 +25,7 @@ QString ESP8266Component::name(void) const
 
 QString ESP8266Component::description(void) const
 {
-    return tr("The ESP8266 WiFi Bridge Component is used to setup the WiFi link.");
+    return tr("Thành phần Cầu nối WiFi ESP8266 được sử dụng để thiết lập kết nối WiFi.");
 }
 
 QString ESP8266Component::iconResource(void) const

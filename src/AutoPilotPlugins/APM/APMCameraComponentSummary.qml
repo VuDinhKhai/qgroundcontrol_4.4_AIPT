@@ -15,7 +15,7 @@ Item {
     property Fact _mountRCInRoll:   controller.getParameterFact(-1, "MNT_RC_IN_ROLL")
     property Fact _mountRCInPan:    controller.getParameterFact(-1, "MNT_RC_IN_PAN")
 
-    // MNT_TYPE parameter is not in older firmware versions
+    // Tham số MNT_TYPE không có trong các phiên bản firmware cũ hơn
     property bool   _mountTypeExists: controller.parameterExists(-1, "MNT_TYPE")
     property string _mountTypeValue: _mountTypeExists ? controller.getParameterFact(-1, "MNT_TYPE").enumStringValue : ""
 
@@ -24,22 +24,22 @@ Item {
 
         VehicleSummaryRow {
             visible:    _mountTypeExists
-            labelText:  qsTr("Gimbal type")
+            labelText:  qsTr("Loại gimbal")
             valueText:  _mountTypeValue
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Tilt input channel")
+            labelText:  qsTr("Kênh đầu vào nghiêng")
             valueText:  _mountRCInTilt.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Pan input channel")
+            labelText:  qsTr("Kênh đầu vào quay")
             valueText:  _mountRCInPan.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Roll input channel")
+            labelText:  qsTr("Kênh đầu vào cuộn")
             valueText:  _mountRCInRoll.enumStringValue
         }
     }

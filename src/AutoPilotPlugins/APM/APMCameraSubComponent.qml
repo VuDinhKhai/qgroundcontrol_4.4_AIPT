@@ -184,19 +184,19 @@ SetupPage {
 
             ListModel {
                 id: gimbalOutModel
-                ListElement { text: qsTr("Disabled");   value: 0 }
-                ListElement { text: qsTr("Channel 5");  value: 5 }
-                ListElement { text: qsTr("Channel 6");  value: 6 }
-                ListElement { text: qsTr("Channel 7");  value: 7 }
-                ListElement { text: qsTr("Channel 8");  value: 8 }
-                ListElement { text: qsTr("Channel 9");  value: 9 }
-                ListElement { text: qsTr("Channel 10"); value: 10 }
-                ListElement { text: qsTr("Channel 11"); value: 11 }
-                ListElement { text: qsTr("Channel 12"); value: 12 }
-                ListElement { text: qsTr("Channel 13"); value: 13 }
-                ListElement { text: qsTr("Channel 14"); value: 14 }
-                ListElement { text: qsTr("Channel 15"); value: 15 }
-                ListElement { text: qsTr("Channel 16"); value: 16 }
+                ListElement { text: qsTr("Vô hiệu hóa");   value: 0 }
+                ListElement { text: qsTr("Kênh 5");  value: 5 }
+                ListElement { text: qsTr("Kênh 6");  value: 6 }
+                ListElement { text: qsTr("Kênh 7");  value: 7 }
+                ListElement { text: qsTr("Kênh 8");  value: 8 }
+                ListElement { text: qsTr("Kênh 9");  value: 9 }
+                ListElement { text: qsTr("Kênh 10"); value: 10 }
+                ListElement { text: qsTr("Kênh 11"); value: 11 }
+                ListElement { text: qsTr("Kênh 12"); value: 12 }
+                ListElement { text: qsTr("Kênh 13"); value: 13 }
+                ListElement { text: qsTr("Kênh 14"); value: 14 }
+                ListElement { text: qsTr("Kênh 15"); value: 15 }
+                ListElement { text: qsTr("Kênh 16"); value: 16 }
             }
 
             QGCCheckBox {
@@ -318,7 +318,7 @@ SetupPage {
                                             QGCLabel {
                                                 id:               gimbalOutLabel
                                                 anchors.baseline: outputChan.baseline
-                                                text:             qsTr("Output channel:")
+                                                text:             qsTr("Kênh đầu ra:")
                                             }
 
                                             QGCComboBox {
@@ -343,7 +343,7 @@ SetupPage {
                                         enabled: directionEnabled
 
                                         FactCheckBox {
-                                            text:           qsTr("Servo reverse")
+                                            text:           qsTr("Đảo ngược servo")
                                             checkedValue:   _servoReverseIsBool ? 1 : -1
                                             uncheckedValue: _servoReverseIsBool ? 0 : 1
                                             fact:           servoReverseFact
@@ -353,9 +353,9 @@ SetupPage {
 
                                         FactCheckBox {
                                             anchors.margins: _margins
-                                            text:            qsTr("Stabilize")
+                                            text:            qsTr("Cân bằng")
                                             fact:            mountStabFact
-                                            checkedValue:    1
+                                            checkedValue:     1
                                             uncheckedValue:  0
                                             visible:         _allVisible.checked
                                         }
@@ -371,7 +371,7 @@ SetupPage {
                                     property var _labelBaseline: servoPWMMinField.baseline
 
                                     QGCLabel {
-                                        text:             qsTr("Servo PWM limits:")
+                                        text:             qsTr("Giới hạn PWM servo:")
                                         anchors.baseline: servoLimitRow._labelBaseline
                                         width:            angleLimitLabel.width
                                     }
@@ -407,7 +407,7 @@ SetupPage {
 
                                     QGCLabel {
                                         id:                 angleLimitLabel
-                                        text:               qsTr("Gimbal angle limits:")
+                                        text:               qsTr("Giới hạn góc gimbal:")
                                         anchors.baseline:   angleLimitRow._labelBaseline
                                     }
 
@@ -448,7 +448,7 @@ SetupPage {
 
                     QGCLabel {
                         id:             settingsLabel
-                        text:           qsTr("Gimbal Settings")
+                        text:           qsTr("Cài đặt Gimbal")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -465,7 +465,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   gimbalTypeCombo.baseline
-                            text:               qsTr("Type:")
+                            text:               qsTr("Loại:")
                         }
 
                         FactComboBox {
@@ -487,7 +487,7 @@ SetupPage {
                             anchors.right:          parent.right
                             anchors.top:            gimbalTypeCombo.bottom
                             wrapMode:               Text.WordWrap
-                            text:                   qsTr("Gimbal Type changes takes affect next reboot of autopilot")
+                            text:                   qsTr("Thay đổi Loại Gimbal sẽ có hiệu lực sau khi khởi động lại autopilot")
                         }
 
                         QGCLabel {
@@ -495,7 +495,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   gimbalModeCombo.baseline
-                            text:               qsTr("Default Mode:")
+                            text:               qsTr("Chế độ mặc định:")
                         }
 
                         FactComboBox {
@@ -516,7 +516,7 @@ SetupPage {
                 sourceComponent:    gimbalDirectionSettings
 
                 property int    hardCodedChanned:   8 // ArduSub/joystick.cpp cam_tilt
-                property string directionTitle:     qsTr("Tilt")
+                property string directionTitle:     qsTr("Góc nghiêng")
                 property bool   directionEnabled:   _tiltEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInTilt
@@ -536,7 +536,7 @@ SetupPage {
                 visible:            _allVisible.checked
 
                 property int    hardCodedChanned:   0 // ArduSub/joystick.cpp cam_roll does not exist
-                property string directionTitle:     qsTr("Roll")
+                property string directionTitle:     qsTr("Cuộn")
                 property bool   directionEnabled:   _rollEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInRoll
@@ -556,7 +556,7 @@ SetupPage {
                 visible:            _allVisible.checked
 
                 property int    hardCodedChanned:   7 // ArduSub/joystick.cpp cam_pan
-                property string directionTitle:     qsTr("Pan")
+                property string directionTitle:     qsTr("Quay")
                 property bool   directionEnabled:   _panEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInPan

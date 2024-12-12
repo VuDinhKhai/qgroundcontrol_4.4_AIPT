@@ -38,7 +38,7 @@ SetupPage {
                 spacing: _margins
                 QGCButton {
                     id:             atcButton
-                    text:           qsTr("Attitude Controller Parameters")
+                    text:           qsTr("Thông số bộ điều khiển góc")
                     autoExclusive:  true
                     checked:        true
                     onClicked:      checked = true
@@ -46,14 +46,14 @@ SetupPage {
 
                 QGCButton {
                     id:             posButton
-                    text:           qsTr("Position Controller Parameters")
+                    text:           qsTr("Thông số bộ điều khiển vị trí")
                     autoExclusive:  true
                     onClicked:      checked = true
                 }
 
                 QGCButton {
                     id:             navButton
-                    text:           qsTr("Waypoint navigation parameters")
+                    text:           qsTr("Thông số điều hướng điểm")
                     autoExclusive:  true
                     onClicked:      checked = true
                 }

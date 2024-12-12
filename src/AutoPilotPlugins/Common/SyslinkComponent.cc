@@ -13,7 +13,7 @@
 
 SyslinkComponent::SyslinkComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("Syslink"))
+    , _name(tr("Liên kết hệ thống"))
 {
 
 }
@@ -25,7 +25,7 @@ QString SyslinkComponent::name(void) const
 
 QString SyslinkComponent::description(void) const
 {
-    return tr("The Syslink Component is used to setup the radio connection on Crazyflies.");
+    return tr("Thành phần Liên kết hệ thống được sử dụng để thiết lập kết nối radio trên Crazyflies.");
 }
 
 QString SyslinkComponent::iconResource(void) const

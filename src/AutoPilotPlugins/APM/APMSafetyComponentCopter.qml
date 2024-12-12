@@ -1,9 +1,9 @@
 /****************************************************************************
  *
- *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ *   (c) 2009-2016 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
+ * QGroundControl được cấp phép theo các điều khoản trong tệp
+ * COPYING.md trong thư mục nguồn mã nguồn.
  *
  ****************************************************************************/
 
@@ -82,7 +82,7 @@ SetupPage {
                 visible: _batt1MonitorEnabled && _batt1ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery1 Failsafe Triggers")
+                    text:       qsTr("Kích hoạt an toàn pin 1")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -103,7 +103,7 @@ SetupPage {
                             columnSpacing:  _margins
                             rowSpacing:     _margins
                             columns:        2
-                            QGCLabel { text: qsTr("Battery low action:") }
+                            QGCLabel { text: qsTr("Hành động khi pin yếu:") }
                             FactComboBox {
                                 fact:               _failsafeBattLowAct
                                 indexModel:         false
@@ -111,7 +111,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:       qsTr("Battery critical action:")
+                                text:       qsTr("Hành động khi pin nguy kịch:")
                                 visible:    _failsafeBattCritActAvailable
                             }
                             FactComboBox {
@@ -122,7 +122,7 @@ SetupPage {
                             }
 
                             QGCCheckBox {
-                                text:      qsTr("Voltage threshold:")
+                                text:      qsTr("Ngưỡng điện áp:")
                                 checked:   _failsafeBattVoltage.value != 0
                                 onClicked: _failsafeBattVoltage.value = checked ? 10.5 : 0
                             }
@@ -133,7 +133,7 @@ SetupPage {
                             }
 
                             QGCCheckBox {
-                                text:       qsTr("MAH threshold:")
+                                text:       qsTr("Ngưỡng MAH:")
                                 checked:    _failsafeBattMah.value != 0
                                 onClicked:  _failsafeBattMah.value = checked ? 600 : 0
                             }
@@ -152,7 +152,7 @@ SetupPage {
                 visible:    _batt2MonitorEnabled && _batt2ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery2 Failsafe Triggers")
+                    text:       qsTr("Kích hoạt an toàn pin 2")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -175,7 +175,7 @@ SetupPage {
                             columns:        2
                             visible:        _batt2MonitorEnabled && _failsafeBatt2LowActAvailable
 
-                            QGCLabel { text: qsTr("Battery low action:") }
+                            QGCLabel { text: qsTr("Hành động khi pin yếu:") }
                             FactComboBox {
                                 fact:               _failsafeBatt2LowAct
                                 indexModel:         false
@@ -183,7 +183,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:       qsTr("Battery critical action:")
+                                text:       qsTr("Hành động khi pin nguy kịch:")
                             }
                             FactComboBox {
                                 fact:               _failsafeBatt2CritAct
@@ -192,7 +192,7 @@ SetupPage {
                             }
 
                             QGCCheckBox {
-                                text:      qsTr("Voltage threshold:")
+                                text:      qsTr("Ngưỡng điện áp:")
                                 checked:   _failsafeBatt2Voltage.value != 0
                                 onClicked: _failsafeBatt2Voltage.value = checked ? 10.5 : 0
                             }
@@ -203,7 +203,7 @@ SetupPage {
                             }
 
                             QGCCheckBox {
-                                text:       qsTr("MAH threshold:")
+                                text:       qsTr("Ngưỡng MAH:")
                                 checked:    _failsafeBatt2Mah.value != 0
                                 onClicked:  _failsafeBatt2Mah.value = checked ? 600 : 0
                             }
@@ -221,7 +221,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:       qsTr("General Failsafe Triggers")
+                    text:       qsTr("Kích hoạt an toàn chung")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -242,24 +242,24 @@ SetupPage {
                             rowSpacing:     _margins
                             columns:        2
 
-                            QGCLabel { text: qsTr("Ground Station failsafe:") }
+                            QGCLabel { text: qsTr("An toàn trạm mặt đất:") }
                             FactComboBox {
                                 fact:               _failsafeGCSEnable
                                 indexModel:         false
                                 Layout.fillWidth:   true
                             }
 
-                            QGCLabel { text: qsTr("Throttle failsafe:") }
+                            QGCLabel { text: qsTr("An toàn bộ điều tốc:") }
                             QGCComboBox {
-                                model:              [qsTr("Disabled"), qsTr("Always RTL"),
-                                    qsTr("Continue with Mission in Auto Mode"), qsTr("Always Land")]
+                                model:              [qsTr("Vô hiệu"), qsTr("Luôn RTL"),
+                                    qsTr("Tiếp tục nhiệm vụ ở chế độ tự động"), qsTr("Luôn hạ cánh")]
                                 currentIndex:       _failsafeThrEnable.value
                                 Layout.fillWidth:   true
 
                                 onActivated: _failsafeThrEnable.value = index
                             }
 
-                            QGCLabel { text: qsTr("PWM threshold:") }
+                            QGCLabel { text: qsTr("Ngưỡng PWM:") }
                             FactTextField {
                                 fact:               _failsafeThrValue
                                 showUnits:          true
@@ -275,7 +275,7 @@ SetupPage {
 
                 QGCLabel {
                     id:             geoFenceLabel
-                    text:           qsTr("GeoFence")
+                    text:           qsTr("Hàng rào địa lý")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -290,7 +290,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.top:        parent.top
-                        text:               qsTr("Circle GeoFence enabled")
+                        text:               qsTr("Bật hàng rào địa lý hình tròn")
                         checked:            _fenceEnable.value != 0 && _fenceType.value & 2
 
                         onClicked: {
@@ -315,7 +315,7 @@ SetupPage {
                         anchors.topMargin:  _margins / 2
                         anchors.left:       circleGeo.left
                         anchors.top:        circleGeo.bottom
-                        text:               qsTr("Altitude GeoFence enabled")
+                        text:               qsTr("Bật hàng rào địa lý độ cao")
                         checked:            _fenceEnable.value != 0 && _fenceType.value & 1
 
                         onClicked: {
@@ -340,7 +340,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.top:        altitudeGeo.bottom
-                        text:               qsTr("Report only")
+                        text:               qsTr("Chỉ báo cáo")
                         exclusiveGroup:     fenceActionRadioGroup
                         checked:            _fenceAction.value == 0
 
@@ -352,7 +352,7 @@ SetupPage {
                         anchors.topMargin:  _margins / 2
                         anchors.left:       circleGeo.left
                         anchors.top:        geoReportRadio.bottom
-                        text:               qsTr("RTL or Land")
+                        text:               qsTr("RTL hoặc hạ cánh")
                         exclusiveGroup:     fenceActionRadioGroup
                         checked:            _fenceAction.value == 1
 
@@ -363,7 +363,7 @@ SetupPage {
                         id:                 fenceRadiusLabel
                         anchors.left:       circleGeo.left
                         anchors.baseline:   fenceRadiusField.baseline
-                        text:               qsTr("Max radius:")
+                        text:               qsTr("Bán kính tối đa:")
                     }
 
                     FactTextField {
@@ -379,7 +379,7 @@ SetupPage {
                         id:                 fenceAltMaxLabel
                         anchors.left:       circleGeo.left
                         anchors.baseline:   fenceAltMaxField.baseline
-                        text:               qsTr("Max altitude:")
+                        text:               qsTr("Độ cao tối đa:")
                     }
 
                     FactTextField {
@@ -399,7 +399,7 @@ SetupPage {
 
                 QGCLabel {
                     id:             rtlLabel
-                    text:           qsTr("Return to Launch")
+                    text:           qsTr("Trở về điểm phóng")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -435,7 +435,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       _showIcon ? icon.right : parent.left
                         anchors.top:        parent.top
-                        text:               qsTr("Return at current altitude")
+                        text:               qsTr("Trở về ở độ cao hiện tại")
                         checked:            _rtlAltFact.value == 0
                         exclusiveGroup:     returnAltRadioGroup
 
@@ -447,7 +447,7 @@ SetupPage {
                         anchors.topMargin:  _margins
                         anchors.left:       returnAtCurrentRadio.left
                         anchors.top:        returnAtCurrentRadio.bottom
-                        text:               qsTr("Return at specified altitude:")
+                        text:               qsTr("Trở về ở độ cao chỉ định:")
                         exclusiveGroup:     returnAltRadioGroup
                         checked:            _rtlAltFact.value != 0
 
@@ -469,7 +469,7 @@ SetupPage {
                         anchors.left:       returnAtCurrentRadio.left
                         anchors.baseline:   landDelayField.baseline
                         checked:            _rtlLoitTimeFact.value > 0
-                        text:               qsTr("Loiter above Home for:")
+                        text:               qsTr("Bay lượn trên điểm Home trong:")
 
                         onClicked: _rtlLoitTimeFact.value = (checked ? 60 : 0)
                     }
@@ -488,7 +488,7 @@ SetupPage {
                         id:                 landRadio
                         anchors.left:       returnAtCurrentRadio.left
                         anchors.baseline:   landSpeedField.baseline
-                        text:               qsTr("Land with descent speed:")
+                        text:               qsTr("Hạ cánh với tốc độ giảm:")
                         checked:            _rtlAltFinalFact.value == 0
                         exclusiveGroup:     landLoiterRadioGroup
 
@@ -509,7 +509,7 @@ SetupPage {
                         id:                 finalLoiterRadio
                         anchors.left:       returnAtCurrentRadio.left
                         anchors.baseline:   rltAltFinalField.baseline
-                        text:               qsTr("Final loiter altitude:")
+                        text:               qsTr("Độ cao bay lượn cuối cùng:")
                         exclusiveGroup:     landLoiterRadioGroup
 
                         onClicked: _rtlAltFinalFact.value = _rtlAltFact.value
@@ -531,7 +531,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:           qsTr("Arming Checks")
+                    text:           qsTr("Kiểm tra vũ trang")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -562,7 +562,7 @@ SetupPage {
                             anchors.right:  parent.right
                             wrapMode:       Text.WordWrap
                             color:          qgcPal.warningText
-                            text:            qsTr("Warning: Turning off arming checks can lead to loss of Vehicle control.")
+                            text:            qsTr("Cảnh báo: Tắt kiểm tra vũ trang có thể dẫn đến mất kiểm soát phương tiện.")
                             visible:        _armingCheck.value != 1
                         }
                     }

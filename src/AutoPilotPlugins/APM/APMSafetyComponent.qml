@@ -63,7 +63,7 @@ SetupPage {
             property bool _roverFirmware:   controller.parameterExists(-1, "MODE1") // This catches all usage of ArduRover firmware vehicle types: Rover, Boat...
 
 
-            property string _restartRequired: qsTr("Requires vehicle reboot")
+            property string _restartRequired: qsTr("Yêu cầu khởi động lại phương tiện")
 
             Component {
                 id: batteryFailsafeComponent
@@ -76,21 +76,21 @@ SetupPage {
                         columnSpacing:  _margins
                         rowSpacing:     _margins
                         columns:        2
-                        QGCLabel { text: qsTr("Low action:") }
+                        QGCLabel { text: qsTr("Hành động khi pin yếu:") }
                         FactComboBox {
                             fact:               failsafeBattLowAct
                             indexModel:         false
                             Layout.fillWidth:   true
                         }
 
-                        QGCLabel { text: qsTr("Critical action:") }
+                        QGCLabel { text: qsTr("Hành động khi pin cực yếu:") }
                         FactComboBox {
                             fact:               failsafeBattCritAct
                             indexModel:         false
                             Layout.fillWidth:   true
                         }
 
-                        QGCLabel { text: qsTr("Low voltage threshold:") }
+                        QGCLabel { text: qsTr("Ngưỡng điện áp pin yếu:") }
                         FactTextField {
                             fact:               failsafeBattLowVoltage
                             showUnits:          true
@@ -98,21 +98,21 @@ SetupPage {
                         }
 
 
-                        QGCLabel { text: qsTr("Critical voltage threshold:") }
+                        QGCLabel { text: qsTr("Ngưỡng điện áp pin cực yếu:") }
                         FactTextField {
                             fact:               failsafeBattCritVoltage
                             showUnits:          true
                             Layout.fillWidth:   true
                         }
 
-                        QGCLabel { text: qsTr("Low mAh threshold:") }
+                        QGCLabel { text: qsTr("Ngưỡng mAh pin yếu:") }
                         FactTextField {
                             fact:               failsafeBattLowMah
                             showUnits:          true
                             Layout.fillWidth:   true
                         }
 
-                        QGCLabel { text: qsTr("Critical mAh threshold:") }
+                        QGCLabel { text: qsTr("Ngưỡng mAh pin cực yếu:") }
                         FactTextField {
                             fact:               failsafeBattCritMah
                             showUnits:          true
@@ -133,7 +133,7 @@ SetupPage {
                     }
 
                     QGCButton {
-                        text:       qsTr("Reboot vehicle")
+                        text:       qsTr("Khởi động lại phương tiện")
                         onClicked:  controller.vehicle.rebootVehicle()
                     }
                 }
@@ -144,7 +144,7 @@ SetupPage {
                 visible: _batt1MonitorEnabled
 
                 QGCLabel {
-                    text:       qsTr("Battery1 Failsafe Triggers")
+                    text:       qsTr("Kích hoạt Failsafe Pin 1")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -178,7 +178,7 @@ SetupPage {
                 visible: _batt2MonitorEnabled
 
                 QGCLabel {
-                    text:       qsTr("Battery2 Failsafe Triggers")
+                    text:       qsTr("Kích hoạt Failsafe Pin 2")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -217,7 +217,7 @@ SetupPage {
                     property Fact _failsafeGCSEnable:   controller.getParameterFact(-1, "FS_GCS_ENABL")
 
                     QGCLabel {
-                        text:       qsTr("Failsafe Triggers")
+                        text:       qsTr("Kích hoạt Failsafe")
                         font.family: ScreenTools.demiboldFontFamily
                     }
 
@@ -235,7 +235,7 @@ SetupPage {
                             RowLayout {
                                 QGCCheckBox {
                                     id:                 throttleEnableCheckBox
-                                    text:               qsTr("Throttle PWM threshold:")
+                                    text:               qsTr("Ngưỡng PWM ga:")
                                     checked:            _failsafeThrEnable.value === 1
 
                                     onClicked: _failsafeThrEnable.value = (checked ? 1 : 0)
@@ -249,13 +249,13 @@ SetupPage {
                             }
 
                             QGCCheckBox {
-                                text:       qsTr("GCS failsafe")
+                                text:       qsTr("Failsafe GCS")
                                 checked:    _failsafeGCSEnable.value != 0
                                 onClicked:  _failsafeGCSEnable.value = checked ? 1 : 0
                             }
                         }
-                    } // Rectangle - Failsafe trigger settings
-                } // Column - Failsafe trigger settings
+                    } // Rectangle - Cài đặt kích hoạt failsafe
+                } // Column - Cài đặt kích hoạt failsafe
             }
 
             Loader {
@@ -276,7 +276,7 @@ SetupPage {
 
                     QGCLabel {
                         id:         failsafeLabel
-                        text:       qsTr("Failsafe Triggers")
+                        text:       qsTr("Kích hoạt Failsafe")
                         font.family: ScreenTools.demiboldFontFamily
                     }
 
@@ -293,35 +293,38 @@ SetupPage {
                             anchors.top:        parent.top
                             columns:            2
 
-                            QGCLabel { text: qsTr("Ground Station failsafe:") }
+                            QGCLabel { text: qsTr("Failsafe GCS:") }
                             FactComboBox {
                                 Layout.fillWidth:   true
                                 fact:               _failsafeGCSEnable
                                 indexModel:         false
                             }
 
-                            QGCLabel { text: qsTr("Throttle failsafe:") }
-                            FactComboBox {
+                            QGCLabel { text: qsTr("Failsafe Throttle:") }
+                            QGCComboBox {
+                                model:              [qsTr("Tắt"), qsTr("Luôn RTL"),
+                                    qsTr("Tiếp tục với Nhiệm vụ trong Chế độ Tự động"), qsTr("Luôn Hạ cánh")]
+                                currentIndex:       _failsafeThrEnable.value
                                 Layout.fillWidth:   true
-                                fact:               _failsafeThrEnable
-                                indexModel:         false
+
+                                onActivated: _failsafeThrEnable.value = index
                             }
 
-                            QGCLabel { text: qsTr("PWM threshold:") }
+                            QGCLabel { text: qsTr("Ngưỡng PWM:") }
                             FactTextField {
                                 Layout.fillWidth:   true
                                 fact:               _failsafeThrValue
                             }
 
-                            QGCLabel { text: qsTr("Failsafe Crash Check:") }
+                            QGCLabel { text: qsTr("Kiểm tra va chạm Failsafe:") }
                             FactComboBox {
                                 Layout.fillWidth:   true
                                 fact:               _failsafeCrashCheck
                                 indexModel:         false
                             }
                         }
-                    } // Rectangle - Failsafe Settings
-                } // Column - Failsafe Settings
+                    } // Rectangle - Cài đặt kích hoạt failsafe
+                } // Column - Cài đặt kích hoạt failsafe
             }
 
             Loader {
@@ -342,7 +345,7 @@ SetupPage {
                     property Fact _failsafeThrValue:                controller.getParameterFact(-1, "FS_THR_VALUE")
 
                     QGCLabel {
-                        text:       qsTr("General Failsafe Triggers")
+                        text:       qsTr("Kích hoạt Failsafe Tổng quát")
                         font.family: ScreenTools.demiboldFontFamily
                     }
 
@@ -356,31 +359,31 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.top:        parent.top
                             anchors.left:       parent.left
-                            spacing:            _margins
+                            spacing: _margins
 
                             GridLayout {
                                 columnSpacing:  _margins
                                 rowSpacing:     _margins
                                 columns:        2
 
-                                QGCLabel { text: qsTr("Ground Station failsafe:") }
+                                QGCLabel { text: qsTr("Failsafe GCS:") }
                                 FactComboBox {
                                     fact:               _failsafeGCSEnable
                                     indexModel:         false
                                     Layout.fillWidth:   true
                                 }
 
-                                QGCLabel { text: qsTr("Throttle failsafe:") }
+                                QGCLabel { text: qsTr("Failsafe Throttle:") }
                                 QGCComboBox {
-                                    model:              [qsTr("Disabled"), qsTr("Always RTL"),
-                                        qsTr("Continue with Mission in Auto Mode"), qsTr("Always Land")]
+                                    model:              [qsTr("Tắt"), qsTr("Luôn RTL"),
+                                        qsTr("Tiếp tục với Nhiệm vụ trong Chế độ Tự động"), qsTr("Luôn Hạ cánh")]
                                     currentIndex:       _failsafeThrEnable.value
                                     Layout.fillWidth:   true
 
                                     onActivated: _failsafeThrEnable.value = index
                                 }
 
-                                QGCLabel { text: qsTr("PWM threshold:") }
+                                QGCLabel { text: qsTr("Ngưỡng PWM:") }
                                 FactTextField {
                                     fact:               _failsafeThrValue
                                     showUnits:          true
@@ -388,8 +391,8 @@ SetupPage {
                                 }
                             } // GridLayout
                         } // Column
-                    } // Rectangle - Failsafe Settings
-                } // Column - General Failsafe Settings
+                    } // Rectangle - Cài đặt kích hoạt failsafe
+                } // Column - Cài đặt kích hoạt failsafe
             }
 
             Loader {
@@ -414,7 +417,7 @@ SetupPage {
                     readonly property int _polygonFenceBitMask:     4
 
                     QGCLabel {
-                        text:           qsTr("GeoFence")
+                        text:           qsTr("Rào Địa lý")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -431,7 +434,7 @@ SetupPage {
 
                             FactCheckBox {
                                 id:     enabledCheckBox
-                                text:   qsTr("Enabled")
+                                text:   qsTr("Bật")
                                 fact:   _fenceEnable
                             }
 
@@ -440,7 +443,7 @@ SetupPage {
                                 enabled:    enabledCheckBox.checked
 
                                 QGCCheckBox {
-                                    text:       qsTr("Maximum Altitude")
+                                    text:       qsTr("Độ cao Tối đa")
                                     checked:    _fenceType.rawValue & _maxAltitudeFenceBitMask
 
                                     onClicked: {
@@ -457,7 +460,7 @@ SetupPage {
                                 }
 
                                 QGCCheckBox {
-                                    text:       qsTr("Circle centered on Home")
+                                    text:       qsTr("Hình tròn tập trung tại Home")
                                     checked:    _fenceType.rawValue & _circleFenceBitMask
 
                                     onClicked: {
@@ -475,7 +478,7 @@ SetupPage {
                                 }
 
                                 QGCCheckBox {
-                                    text:       qsTr("Inclusion/Exclusion Circles+Polygons")
+                                    text:       qsTr("Hình tròn và Đa giác bao gồm/Loại trừ")
                                     checked:    _fenceType.rawValue & _polygonFenceBitMask
 
                                     onClicked: {
@@ -503,7 +506,7 @@ SetupPage {
                                 enabled: enabledCheckBox.checked
 
                                 QGCLabel {
-                                    text: qsTr("Breach action")
+                                    text: qsTr("Hành động vi phạm")
                                 }
 
                                 FactComboBox {
@@ -512,7 +515,7 @@ SetupPage {
                                 }
 
                                 QGCLabel {
-                                    text: qsTr("Fence margin")
+                                    text: qsTr("Lề rào")
                                 }
 
                                 FactTextField {
@@ -520,8 +523,8 @@ SetupPage {
                                 }
                             }
                         }
-                    } // Rectangle - GeoFence Settings
-                } // Column - GeoFence Settings
+                    } // Rectangle - Cài đặt Rào Địa lý
+                } // Column - Cài đặt Rào Địa lý Settings
             }
 
             Loader {
@@ -541,7 +544,7 @@ SetupPage {
 
                     QGCLabel {
                         id:             rtlLabel
-                        text:           qsTr("Return to Launch")
+                        text:           qsTr("Trở về Điểm Cất cánh")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -577,7 +580,7 @@ SetupPage {
                             anchors.margins:    _innerMargin
                             anchors.left:       _showIcon ? icon.right : parent.left
                             anchors.top:        parent.top
-                            text:               qsTr("Return at current altitude")
+                            text:               qsTr("Trở về tại độ cao hiện tại")
                             checked:            _rtlAltFact.value == 0
 
                             onClicked: _rtlAltFact.value = 0
@@ -588,7 +591,7 @@ SetupPage {
                             anchors.topMargin:  _innerMargin
                             anchors.top:        returnAtCurrentRadio.bottom
                             anchors.left:       returnAtCurrentRadio.left
-                            text:               qsTr("Return at specified altitude:")
+                            text:               qsTr("Trở về tại độ cao chỉ định:")
                             checked:            _rtlAltFact.value != 0
 
                             onClicked: _rtlAltFact.value = 1500
@@ -609,7 +612,7 @@ SetupPage {
                             anchors.left:       returnAtCurrentRadio.left
                             anchors.baseline:   landDelayField.baseline
                             checked:            _rtlLoitTimeFact.value > 0
-                            text:               qsTr("Loiter above Home for:")
+                            text:               qsTr("Lượn quanh trên Home trong:")
 
                             onClicked: _rtlLoitTimeFact.value = (checked ? 60 : 0)
                         }
@@ -627,7 +630,7 @@ SetupPage {
                         QGCLabel {
                             anchors.left:       returnAtCurrentRadio.left
                             anchors.baseline:   rltAltFinalField.baseline
-                            text:               qsTr("Final land stage altitude:")
+                            text:               qsTr("Độ cao giai đoạn hạ cánh cuối cùng:")
                         }
 
                         FactTextField {
@@ -642,7 +645,7 @@ SetupPage {
                         QGCLabel {
                             anchors.left:       returnAtCurrentRadio.left
                             anchors.baseline:   landSpeedField.baseline
-                            text:               qsTr("Final land stage descent speed:")
+                            text:               qsTr("Tốc độ hạ cánh giai đoạn cuối:")
                         }
 
                         FactTextField {
@@ -653,8 +656,8 @@ SetupPage {
                             fact:               _landSpeedFact
                             showUnits:          true
                         }
-                    } // Rectangle - RTL Settings
-                } // Column - RTL Settings
+                    } // Rectangle - Cài đặt Trở về Điểm Cất cánh
+                } // Column - Cài đặt Trở về Điểm Cất cánh Settings
             }
 
             Loader {
@@ -670,7 +673,7 @@ SetupPage {
                     property Fact _rtlAltFact: controller.getParameterFact(-1, "ALT_HOLD_RTL")
 
                     QGCLabel {
-                        text:           qsTr("Return to Launch")
+                        text:           qsTr("Trở về Điểm Cất cánh")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -684,7 +687,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.top:        parent.top
-                            text:               qsTr("Return at current altitude")
+                            text:               qsTr("Trở về tại độ cao hiện tại")
                             checked:            _rtlAltFact.value < 0
 
                             onClicked: _rtlAltFact.value = -1
@@ -695,7 +698,7 @@ SetupPage {
                             anchors.topMargin:  _margins / 2
                             anchors.left:       returnAtCurrentRadio.left
                             anchors.top:        returnAtCurrentRadio.bottom
-                            text:               qsTr("Return at specified altitude:")
+                            text:               qsTr("Trở về tại độ cao chỉ định:")
                             checked:            _rtlAltFact.value >= 0
 
                             onClicked: _rtlAltFact.value = 10000
@@ -710,8 +713,8 @@ SetupPage {
                             showUnits:          true
                             enabled:            returnAltRadio.checked
                         }
-                    } // Rectangle - RTL Settings
-                } // Column - RTL Settings
+                    } // Rectangle - Cài đặt Trở về Điểm Cất cánh
+                } // Column - Cài đặt Trở về Điểm Cất cánh Settings
             }
 
             Loader {
@@ -722,7 +725,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:           qsTr("Arming Checks")
+                    text:           qsTr("Kiểm tra Đóng")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -753,12 +756,12 @@ SetupPage {
                             anchors.right:  parent.right
                             wrapMode:       Text.WordWrap
                             color:          qgcPal.warningText
-                            text:            qsTr("Warning: Turning off arming checks can lead to loss of Vehicle control.")
+                            text:            qsTr("Cảnh báo: Tắt kiểm tra đóng có thể dẫn đến mất kiểm soát phương tiện.")
                             visible:        _armingCheck.value != 1
                         }
                     }
-                } // Rectangle - Arming checks
-            } // Column - Arming Checks
+                } // Rectangle - Kiểm tra Đóng
+            } // Column - Kiểm tra Đóng
         } // Flow
     } // Component - safetyPageComponent
 } // SetupView

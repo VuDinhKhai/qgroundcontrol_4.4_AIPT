@@ -12,7 +12,7 @@
 
 APMHeliComponent::APMHeliComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("Heli"))
+    , _name(tr("Trực thăng"))
 {
 }
 
@@ -23,7 +23,7 @@ QString APMHeliComponent::name(void) const
 
 QString APMHeliComponent::description(void) const
 {
-    return tr("Heli Setup is used to setup parameters which are specific to a helicopter.");
+    return tr("Cài đặt Trực thăng được sử dụng để thiết lập các tham số dành riêng cho trực thăng.");
 }
 
 QString APMHeliComponent::iconResource(void) const

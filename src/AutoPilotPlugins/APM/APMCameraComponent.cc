@@ -17,7 +17,7 @@
 
 APMCameraComponent::APMCameraComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("Camera"))
+    , _name(tr("Camera", "Tên thành phần: Máy ảnh"))
 {
 }
 
@@ -28,7 +28,7 @@ QString APMCameraComponent::name(void) const
 
 QString APMCameraComponent::description(void) const
 {
-    return tr("Camera setup is used to adjust camera and gimbal settings.");
+    return tr("Cài đặt máy ảnh được sử dụng để điều chỉnh cài đặt máy ảnh và gimbal.");
 }
 
 QString APMCameraComponent::iconResource(void) const

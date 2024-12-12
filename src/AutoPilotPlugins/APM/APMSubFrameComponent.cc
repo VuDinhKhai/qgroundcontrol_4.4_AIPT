@@ -18,7 +18,7 @@
 
 APMSubFrameComponent::APMSubFrameComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("Frame"))
+    , _name(tr("Khung"))
 {
 }
 
@@ -29,10 +29,10 @@ QString APMSubFrameComponent::name(void) const
 
 QString APMSubFrameComponent::description(void) const
 {
-    return tr("Frame setup allows you to choose your vehicle's motor configuration. Install <b>clockwise</b>" \
-              "<br>propellers on the <b>green thrusters</b> and <b>counter-clockwise</b> propellers on the <b>blue thrusters</b>" \
-              "<br>(or vice-versa). The flight controller will need to be rebooted to apply changes." \
-              "<br>When selecting a frame, you can choose to load the default parameter set for that frame configuration if available.");
+    return tr("Thiết lập khung cho phép bạn chọn cấu hình động cơ của phương tiện. Lắp cánh quạt <b>quay theo chiều kim đồng hồ</b>" \
+              "<br>vào <b>động cơ đẩy màu xanh lá</b> và cánh quạt <b>quay ngược chiều kim đồng hồ</b> vào <b>động cơ đẩy màu xanh dương</b>" \
+              "<br>(hoặc ngược lại). Bộ điều khiển bay sẽ cần được khởi động lại để áp dụng các thay đổi." \
+              "<br>Khi chọn khung, bạn có thể chọn tải bộ tham số mặc định cho cấu hình khung đó nếu có sẵn.");
 }
 
 QString APMSubFrameComponent::iconResource(void) const

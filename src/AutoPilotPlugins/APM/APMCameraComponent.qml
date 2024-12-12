@@ -170,9 +170,7 @@ SetupPage {
 
             ListModel {
                 id: gimbalOutModel
-                // It appears that QGCComboBox can't handle models that don't have a initial item
-                // after onModelChanged
-                ListElement { text: qsTr("Disabled"); value: 0 }
+                ListElement { text: qsTr("Tắt"); value: 0 }
 
                 function update(number) {
                     // Not enough channels
@@ -180,7 +178,7 @@ SetupPage {
                         return
                     }
                     for(var i = 5; i <= number; i++) {
-                        var text = qsTr("Channel ") + i
+                        var text = qsTr("Kênh ") + i
                         append({"text": text, "value": i})
                     }
                 }
@@ -247,7 +245,7 @@ SetupPage {
                             id:                 servoReverseCheckBox
                             anchors.margins:    _margins
                             anchors.top:        mountStabCheckBox.bottom
-                            anchors.right:       parent.right
+                            anchors.right:      parent.right
                             text:               qsTr("Servo reverse")
                             checkedValue:       _servoReverseIsBool ? 1 : -1
                             uncheckedValue:     _servoReverseIsBool ? 0 : 1
@@ -262,7 +260,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   gimbalOutCombo.baseline
-                            text:               qsTr("Output channel:")
+                            text:               qsTr("Kênh đầu ra:")
                         }
 
                         QGCComboBox {
@@ -283,7 +281,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   mountRcInCombo.baseline
-                            text:               qsTr("Input channel:")
+                            text:               qsTr("Kênh đầu vào:")
                             enabled:            directionEnabled
                         }
 
@@ -303,7 +301,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   mountAngMinField.baseline
-                            text:               qsTr("Gimbal angle limits:")
+                            text:               qsTr("Giới hạn góc Gimbal:")
                             enabled:            directionEnabled
                         }
 
@@ -312,7 +310,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       mountAngLabel.right
                             anchors.baseline:   mountAngMinField.baseline
-                            text:               qsTr("min")
+                            text:               qsTr("nhỏ nhất")
                             enabled:            directionEnabled
                         }
 
@@ -330,7 +328,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       mountAngMinField.right
                             anchors.baseline:   mountAngMinField.baseline
-                            text:               qsTr("max")
+                            text:               qsTr("lớn nhất")
                             enabled:            directionEnabled
                         }
 
@@ -348,7 +346,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   servoPWMMinField.baseline
-                            text:               qsTr("Servo PWM limits:")
+                            text:               qsTr("Giới hạn Servo PWM:")
                             enabled:            directionEnabled
                         }
 
@@ -356,7 +354,7 @@ SetupPage {
                             id:                 servoPWMMinLabel
                             anchors.left:       mountAngMinLabel.left
                             anchors.baseline:   servoPWMMinField.baseline
-                            text:               qsTr("min")
+                            text:               qsTr("nhỏ nhất")
                             enabled:            directionEnabled
                         }
 
@@ -375,7 +373,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       servoPWMMinField.right
                             anchors.baseline:   servoPWMMinField.baseline
-                            text:               qsTr("max")
+                            text:               qsTr("lớn nhất")
                             enabled:            directionEnabled
                         }
 
@@ -403,7 +401,7 @@ SetupPage {
 
                     QGCLabel {
                         id:             settingsLabel
-                        text:           qsTr("Gimbal Settings")
+                        text:           qsTr("Cài đặt Gimbal")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -420,7 +418,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   gimbalTypeCombo.baseline
-                            text:               qsTr("Type:")
+                            text:               qsTr("Loại:")
                         }
 
                         FactComboBox {
@@ -442,7 +440,7 @@ SetupPage {
                             anchors.right:          parent.right
                             anchors.top:            gimbalTypeCombo.bottom
                             wrapMode:               Text.WordWrap
-                            text:                   qsTr("Gimbal Type changes takes affect next reboot of autopilot")
+                            text:                   qsTr("Thay đổi Loại Gimbal sẽ có hiệu lực sau khi khởi động lại autopilot")
                         }
 
                         QGCLabel {
@@ -450,7 +448,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   gimbalModeCombo.baseline
-                            text:               qsTr("Default Mode:")
+                            text:               qsTr("Chế độ mặc định:")
                         }
 
                         FactComboBox {
@@ -470,7 +468,8 @@ SetupPage {
                 id:                 gimbalDirectionTiltLoader
                 sourceComponent:    gimbalDirectionSettings
 
-                property string directionTitle:     qsTr("Tilt")
+
+                property string directionTitle:     qsTr("Góc nghiêng")
                 property bool   directionEnabled:   _tiltEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInTilt
@@ -488,7 +487,7 @@ SetupPage {
                 id:                 gimbalDirectionRollLoader
                 sourceComponent:    gimbalDirectionSettings
 
-                property string directionTitle:     qsTr("Roll")
+                property string directionTitle:     qsTr("Cuộn")
                 property bool   directionEnabled:   _rollEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInRoll
@@ -506,7 +505,7 @@ SetupPage {
                 id:                 gimbalDirectionPanLoader
                 sourceComponent:    gimbalDirectionSettings
 
-                property string directionTitle:     qsTr("Pan")
+                property string directionTitle:     qsTr("Quay")
                 property bool   directionEnabled:   _panEnabled
                 property int    gimbalOutIndex:     0
                 property Fact   mountRcInFact:      _mountRCInPan

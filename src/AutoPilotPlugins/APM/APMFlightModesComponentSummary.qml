@@ -25,32 +25,32 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 1")
+            labelText: qsTr("Chế độ bay 1")
             valueText: flightMode1.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 2")
+            labelText: qsTr("Chế độ bay 2")
             valueText: flightMode2.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 3")
+            labelText: qsTr("Chế độ bay 3")
             valueText: flightMode3.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 4")
+            labelText: qsTr("Chế độ bay 4")
             valueText: flightMode4.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 5")
+            labelText: qsTr("Chế độ bay 5")
             valueText: flightMode5.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Flight Mode 6")
+            labelText: qsTr("Chế độ bay 6")
             valueText: flightMode6.enumStringValue
         }
     }

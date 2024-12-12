@@ -21,15 +21,15 @@ AudioOutput::AudioOutput(QGCApplication* app, QGCToolbox* toolbox)
     , _tts      (nullptr)
 {
     if (qgcApp()->runningUnitTests()) {
-        // Cloud based unit tests don't have speech capabilty. If you try to crank up
-        // speech engine it will pop a qWarning which prevents usage of QT_FATAL_WARNINGS
+        // Các bài kiểm tra đơn vị trên đám mây không có khả năng đọc văn bản thành tiếng.
+        // Nếu thử khởi động engine đọc văn bản, sẽ xuất hiện cảnh báo và ngăn sử dụng QT_FATAL_WARNINGS.
         return;
     }
 
     _tts = new QTextToSpeech(this);
 
-    //-- Force TTS engine to English as all incoming messages from the autopilot
-    //   are in English and not localized.
+    //-- Bắt buộc engine TTS sử dụng tiếng Anh vì tất cả các thông báo từ autopilot
+    //   đều bằng tiếng Anh và không được bản địa hóa.
 #ifdef Q_OS_LINUX
     _tts->setLocale(QLocale("en_US"));
 #endif
@@ -39,7 +39,7 @@ AudioOutput::AudioOutput(QGCApplication* app, QGCToolbox* toolbox)
 void AudioOutput::say(const QString& inText)
 {
     if (!_tts) {
-        qDebug() << "say" << inText;
+        qDebug() << "Nói" << inText;
         return;
     }
 
@@ -49,7 +49,7 @@ void AudioOutput::say(const QString& inText)
         QString text = fixTextMessageForAudio(inText);
         if(_tts->state() == QTextToSpeech::Speaking) {
             if(!_texts.contains(text)) {
-                //-- Some arbitrary limit
+                //-- Một giới hạn tùy ý
                 if(_texts.size() > 20) {
                     _texts.removeFirst();
                 }
@@ -91,90 +91,87 @@ QString AudioOutput::fixTextMessageForAudio(const QString& string) {
     QString newNumber;
     QString result = string;
 
-    //-- Look for codified terms
+    //-- Tìm các thuật ngữ mã hóa
     if(result.contains("ERR ", Qt::CaseInsensitive)) {
-        result.replace("ERR ", "error ", Qt::CaseInsensitive);
+        result.replace("ERR ", "lỗi ", Qt::CaseInsensitive);
     }
     if(result.contains("ERR:", Qt::CaseInsensitive)) {
-        result.replace("ERR:", "error.", Qt::CaseInsensitive);
+        result.replace("ERR:", "lỗi.", Qt::CaseInsensitive);
     }
     if(result.contains("POSCTL", Qt::CaseInsensitive)) {
-        result.replace("POSCTL", "Position Control", Qt::CaseInsensitive);
+        result.replace("POSCTL", "Kiểm soát vị trí", Qt::CaseInsensitive);
     }
     if(result.contains("ALTCTL", Qt::CaseInsensitive)) {
-        result.replace("ALTCTL", "Altitude Control", Qt::CaseInsensitive);
+        result.replace("ALTCTL", "Kiểm soát độ cao", Qt::CaseInsensitive);
     }
     if(result.contains("AUTO_RTL", Qt::CaseInsensitive)) {
-        result.replace("AUTO_RTL", "auto Return To Launch", Qt::CaseInsensitive);
+        result.replace("AUTO_RTL", "tự động quay về điểm khởi hành", Qt::CaseInsensitive);
     } else if(result.contains("RTL", Qt::CaseInsensitive)) {
-        result.replace("RTL", "Return To Launch", Qt::CaseInsensitive);
+        result.replace("RTL", "quay về điểm khởi hành", Qt::CaseInsensitive);
     }
     if(result.contains("ACCEL ", Qt::CaseInsensitive)) {
-        result.replace("ACCEL ", "accelerometer ", Qt::CaseInsensitive);
+        result.replace("ACCEL ", "gia tốc kế ", Qt::CaseInsensitive);
     }
     if(result.contains("RC_MAP_MODE_SW", Qt::CaseInsensitive)) {
-        result.replace("RC_MAP_MODE_SW", "RC mode switch", Qt::CaseInsensitive);
+        result.replace("RC_MAP_MODE_SW", "chuyển chế độ RC", Qt::CaseInsensitive);
     }
     if(result.contains("REJ.", Qt::CaseInsensitive)) {
-        result.replace("REJ.", "Rejected", Qt::CaseInsensitive);
+        result.replace("REJ.", "bị từ chối", Qt::CaseInsensitive);
     }
     if(result.contains("WP", Qt::CaseInsensitive)) {
-        result.replace("WP", "way point", Qt::CaseInsensitive);
+        result.replace("WP", "điểm đường", Qt::CaseInsensitive);
     }
     if(result.contains("CMD", Qt::CaseInsensitive)) {
-        result.replace("CMD", "command", Qt::CaseInsensitive);
+        result.replace("CMD", "lệnh", Qt::CaseInsensitive);
     }
     if(result.contains("COMPID", Qt::CaseInsensitive)) {
-        result.replace("COMPID", "component eye dee", Qt::CaseInsensitive);
+        result.replace("COMPID", "ID thành phần", Qt::CaseInsensitive);
     }
     if(result.contains(" params ", Qt::CaseInsensitive)) {
-        result.replace(" params ", " parameters ", Qt::CaseInsensitive);
+        result.replace(" params ", " tham số ", Qt::CaseInsensitive);
     }
     if(result.contains(" id ", Qt::CaseInsensitive)) {
-        result.replace(" id ", " eye dee ", Qt::CaseInsensitive);
+        result.replace(" id ", " ID ", Qt::CaseInsensitive);
     }
     if(result.contains(" ADSB ", Qt::CaseInsensitive)) {
-        result.replace(" ADSB ", " Hey Dee Ess Bee ", Qt::CaseInsensitive);
+        result.replace(" ADSB ", " ADSB ", Qt::CaseInsensitive);
     }
     if(result.contains(" EKF ", Qt::CaseInsensitive)) {
-        result.replace(" EKF ", " Eee Kay Eff ", Qt::CaseInsensitive);
+        result.replace(" EKF ", " EKF ", Qt::CaseInsensitive);
     }
     if(result.contains("PREARM", Qt::CaseInsensitive)) {
-        result.replace("PREARM", "pre arm", Qt::CaseInsensitive);
+        result.replace("PREARM", "chuẩn bị", Qt::CaseInsensitive);
     }
     if(result.contains("PITOT", Qt::CaseInsensitive)) {
-        result.replace("PITOT", "pee toe", Qt::CaseInsensitive);
+        result.replace("PITOT", "pitot", Qt::CaseInsensitive);
     }
 
-    // Convert negative numbers
+    // Chuyển đổi số âm
     QRegularExpression re(QStringLiteral("(-)[0-9]*\\.?[0-9]"));
     QRegularExpressionMatch reMatch = re.match(result);
     while (reMatch.hasMatch()) {
         if (!reMatch.captured(1).isNull()) {
-            // There is a negative prefix
-            result.replace(reMatch.capturedStart(1), reMatch.capturedEnd(1) - reMatch.capturedStart(1), tr(" negative "));
+            result.replace(reMatch.capturedStart(1), reMatch.capturedEnd(1) - reMatch.capturedStart(1), tr(" âm "));
         }
         reMatch = re.match(result);
     }
 
-    // Convert real number with decimal point
+    // Chuyển đổi số thực với dấu chấm thập phân
     re.setPattern(QStringLiteral("([0-9]+)(\\.)([0-9]+)"));
     reMatch = re.match(result);
     while (reMatch.hasMatch()) {
         if (!reMatch.captured(2).isNull()) {
-            // There is a decimal point
-            result.replace(reMatch.capturedStart(2), reMatch.capturedEnd(2) - reMatch.capturedStart(2), tr(" point "));
+            result.replace(reMatch.capturedStart(2), reMatch.capturedEnd(2) - reMatch.capturedStart(2), tr(" phẩy "));
         }
         reMatch = re.match(result);
     }
 
-    // Convert meter postfix after real number
+    // Chuyển đổi hậu tố mét
     re.setPattern(QStringLiteral("[0-9]*\\.?[0-9]\\s?(m)([^A-Za-z]|$)"));
     reMatch = re.match(result);
     while (reMatch.hasMatch()) {
         if (!reMatch.captured(1).isNull()) {
-            // There is a meter postfix
-            result.replace(reMatch.capturedStart(1), reMatch.capturedEnd(1) - reMatch.capturedStart(1), tr(" meters"));
+            result.replace(reMatch.capturedStart(1), reMatch.capturedEnd(1) - reMatch.capturedStart(1), tr(" mét"));
         }
         reMatch = re.match(result);
     }
@@ -183,14 +180,14 @@ QString AudioOutput::fixTextMessageForAudio(const QString& string) {
     if(getMillisecondString(string, match, number) && number > 1000) {
         if(number < 60000) {
             int seconds = number / 1000;
-            newNumber = QString("%1 second%2").arg(seconds).arg(seconds > 1 ? "s" : "");
+            newNumber = QString("%1 giây").arg(seconds);
         } else {
             int minutes = number / 60000;
             int seconds = (number - (minutes * 60000)) / 1000;
             if (!seconds) {
-                newNumber = QString("%1 minute%2").arg(minutes).arg(minutes > 1 ? "s" : "");
+                newNumber = QString("%1 phút").arg(minutes);
             } else {
-                newNumber = QString("%1 minute%2 and %3 second%4").arg(minutes).arg(minutes > 1 ? "s" : "").arg(seconds).arg(seconds > 1 ? "s" : "");
+                newNumber = QString("%1 phút và %2 giây").arg(minutes).arg(seconds);
             }
         }
         result.replace(match, newNumber);

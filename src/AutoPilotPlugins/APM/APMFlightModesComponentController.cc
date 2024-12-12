@@ -35,7 +35,7 @@ APMFlightModesComponentController::APMFlightModesComponentController(void)
     _modeParamPrefix = arduRoverFirmware ? QStringLiteral("MODE") : QStringLiteral("FLTMODE");
     _modeChannelParam = arduRoverFirmware ? QStringLiteral("MODE_CH") : QStringLiteral("FLTMODE_CH");
 
-    _simpleModeNames << tr("Off") << tr("Simple") << tr("Super-Simple") << tr("Custom");
+    _simpleModeNames << tr("Tắt") << tr("Đơn giản") << tr("Siêu Đơn giản") << tr("Tùy chỉnh");
     for (int i=0; i<_cFltModes; i++) {
         _simpleModeEnabled.append(QVariant(false));
         _superSimpleModeEnabled.append(QVariant(false));
@@ -74,7 +74,7 @@ APMFlightModesComponentController::APMFlightModesComponentController(void)
     connect(_vehicle, &Vehicle::rcChannelsChanged, this, &APMFlightModesComponentController::_rcChannelsChanged);
 }
 
-/// Connected to Vehicle::rcChannelsChanged signal
+/// Kết nối đến tín hiệu Vehicle::rcChannelsChanged
 void APMFlightModesComponentController::_rcChannelsChanged(int channelCount, int pwmValues[Vehicle::cMaxRcChannels])
 {
     int flightModeChannel = 4;

@@ -43,7 +43,7 @@ SetupPage {
 
                 QGCLabel {
                     visible:            QGroundControl.settingsManager.appSettings.forwardMavlinkAPMSupportHostName.visible
-                    text:               qsTr("Host name:")
+                    text:               qsTr("Tên máy chủ:")
                 }
                 FactTextField {
                     id:                     mavlinkForwardingHostNameField
@@ -51,7 +51,7 @@ SetupPage {
                     Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 40
                 }
                 QGCButton {
-                    text:    qsTr("Connect")
+                    text:    qsTr("Kết nối")
                     enabled: !QGroundControl.linkManager.mavlinkSupportForwardingEnabled
 
                     onPressed: {
@@ -60,7 +60,7 @@ SetupPage {
                 }
                 QGCLabel {
                     visible:            QGroundControl.linkManager.mavlinkSupportForwardingEnabled
-                    text:               qsTr("Forwarding traffic: Mavlink traffic will keep being forwarded until application restarts")
+                    text:               qsTr("Đang chuyển tiếp lưu lượng: Lưu lượng Mavlink sẽ tiếp tục được chuyển tiếp cho đến khi ứng dụng được khởi động lại")
                 }
             }
         }

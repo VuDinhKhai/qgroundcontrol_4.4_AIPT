@@ -33,7 +33,7 @@ Item {
         case 7:
             return "Custom"
         default:
-            return "Unknown"
+            return "Không xác định"
         }
     }
 
@@ -41,18 +41,18 @@ Item {
         anchors.fill:       parent
         VehicleSummaryRow {
             id: nameRow;
-            labelText: qsTr("Frame Type")
+            labelText: qsTr("Loại khung")
             valueText: frameName()
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Firmware Version")
-            valueText: globals.activeVehicle.firmwareMajorVersion == -1 ? qsTr("Unknown") : globals.activeVehicle.firmwareMajorVersion + "." + globals.activeVehicle.firmwareMinorVersion + "." + globals.activeVehicle.firmwarePatchVersion + " " + globals.activeVehicle.firmwareVersionTypeString
+            labelText: qsTr("Phiên bản firmware")
+            valueText: globals.activeVehicle.firmwareMajorVersion == -1 ? qsTr("Không xác định") : globals.activeVehicle.firmwareMajorVersion + "." + globals.activeVehicle.firmwareMinorVersion + "." + globals.activeVehicle.firmwarePatchVersion + " " + globals.activeVehicle.firmwareVersionTypeString
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Git Revision")
-            valueText: globals.activeVehicle.gitHash == -1 ? qsTr("Unknown") : globals.activeVehicle.gitHash
+            labelText: qsTr("Phiên bản Git")
+            valueText: globals.activeVehicle.gitHash == -1 ? qsTr("Không xác định") : globals.activeVehicle.gitHash
         }
     }
 }

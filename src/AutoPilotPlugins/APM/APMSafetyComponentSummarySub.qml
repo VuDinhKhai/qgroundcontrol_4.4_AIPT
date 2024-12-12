@@ -39,27 +39,27 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Arming Checks:")
-            valueText:  _armingCheck.value & 1 ? qsTr("Enabled") : qsTr("Some disabled")
+            labelText: qsTr("Kiểm tra vũ trang:")
+            valueText:  _armingCheck.value & 1 ? qsTr("Đã bật") : qsTr("Một số đã tắt")
         }
         VehicleSummaryRow {
-            labelText: qsTr("GCS failsafe:")
+            labelText: qsTr("An toàn GCS:")
             valueText: _failsafeGCSEnable.enumOrValueString
         }
         VehicleSummaryRow {
-            labelText: qsTr("Leak failsafe:")
+            labelText: qsTr("An toàn rò rỉ:")
             valueText:  _failsafeLeakEnable.enumOrValueString
         }
         VehicleSummaryRow {
             visible: !_firmware34
-            labelText: qsTr("Battery failsafe:")
+            labelText: qsTr("An toàn pin:")
             valueText: {
                 if(_firmware34) {
-                    return "Firmware not supported"
+                    return "Firmware không được hỗ trợ"
                 }
 
                 if (!_failsafeBatteryEnable) {
-                    return "Disabled"
+                    return "Vô hiệu hóa"
                 }
 
                 return _failsafeBatteryEnable.enumOrValueString
@@ -67,20 +67,20 @@ Item {
         }
         VehicleSummaryRow {
             visible: !_firmware34
-            labelText: qsTr("EKF failsafe:")
+            labelText: qsTr("An toàn EKF:")
             valueText: _firmware34 ? "" : _failsafeEKFEnable.enumOrValueString
         }
         VehicleSummaryRow {
             visible: !_firmware34
-            labelText: qsTr("Pilot Input failsafe:")
+            labelText: qsTr("An toàn đầu vào phi công:")
             valueText: _firmware34 ? "" : _failsafePilotEnable.enumOrValueString
         }
         VehicleSummaryRow {
-            labelText: qsTr("Int. Temperature failsafe:")
+            labelText: qsTr("An toàn nhiệt độ trong:")
             valueText:  _failsafeTemperatureEnable.enumOrValueString
         }
         VehicleSummaryRow {
-            labelText: qsTr("Int. Pressure failsafe:")
+            labelText: qsTr("An toàn áp suất trong:")
             valueText:  _failsafePressureEnable.enumOrValueString
         }
     }

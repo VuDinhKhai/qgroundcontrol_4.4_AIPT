@@ -50,7 +50,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:       qsTr("Failsafe Triggers")
+                    text:       qsTr("Kích hoạt an toàn")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -64,7 +64,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   throttlePWMField.baseline
-                        text:               qsTr("Throttle PWM threshold:")
+                        text:               qsTr("Ngưỡng PWM ga:")
                         checked:            _failsafeThrEnable.value == 1
 
                         onClicked: _failsafeThrEnable.value = (checked ? 1 : 0)
@@ -85,7 +85,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   voltageField.baseline
-                        text:               qsTr("Voltage threshold:")
+                        text:               qsTr("Ngưỡng điện áp:")
                         checked:            _failsafeBattVoltage.value != 0
 
                         onClicked: _failsafeBattVoltage.value = checked ? 10.5 : 0
@@ -106,7 +106,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   mahField.baseline
-                        text:               qsTr("MAH threshold:")
+                        text:               qsTr("Ngưỡng MAH:")
                         checked:            _failsafeBattMah.value != 0
 
                         onClicked: _failsafeBattMah.value = checked ? 600 : 0
@@ -127,7 +127,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.top:        mahField.bottom
-                        text:               qsTr("GCS failsafe")
+                        text:               qsTr("An toàn GCS")
                         checked:            _failsafeGCSEnable.value != 0
 
                         onClicked: _failsafeGCSEnable.value = checked ? 1 : 0
@@ -139,7 +139,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:           qsTr("Return to Launch")
+                    text:           qsTr("Quay về điểm phóng")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -153,7 +153,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.top:        parent.top
-                        text:               qsTr("Return at current altitude")
+                        text:               qsTr("Quay về ở độ cao hiện tại")
                         checked:            _rtlAltFact.value < 0
                         exclusiveGroup:     returnAltRadioGroup
 
@@ -165,7 +165,7 @@ SetupPage {
                         anchors.topMargin:  _margins / 2
                         anchors.left:       returnAtCurrentRadio.left
                         anchors.top:        returnAtCurrentRadio.bottom
-                        text:               qsTr("Return at specified altitude:")
+                        text:               qsTr("Quay về ở độ cao chỉ định:")
                         exclusiveGroup:     returnAltRadioGroup
                         checked:            _rtlAltFact.value >= 0
 

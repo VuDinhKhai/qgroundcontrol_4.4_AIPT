@@ -124,7 +124,7 @@ SetupPage {
                 visible:            !advanced
 
                 QGCLabel {
-                    text:       qsTr("Basic Tuning")
+                    text:       qsTr("Điều chỉnh cơ bản")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -148,12 +148,12 @@ SetupPage {
                             anchors.right:      parent.right
 
                             QGCLabel {
-                                text:       qsTr("Roll/Pitch Sensitivity")
+                                text:       qsTr("Độ nhạy Roll/Pitch")
                                 font.family: ScreenTools.demiboldFontFamily
                             }
 
                             QGCLabel {
-                                text: qsTr("Slide to the right if the copter is sluggish or slide to the left if the copter is twitchy")
+                                text: qsTr("Trượt sang phải nếu máy bay phản ứng chậm hoặc trượt sang trái nếu máy bay phản ứng quá nhanh")
                             }
 
                             Slider {
@@ -181,12 +181,12 @@ SetupPage {
                             anchors.right:      parent.right
 
                             QGCLabel {
-                                text:       qsTr("Climb Sensitivity")
+                                text:       qsTr("Độ nhạy leo cao")
                                 font.family: ScreenTools.demiboldFontFamily
                             }
 
                             QGCLabel {
-                                text: qsTr("Slide to the right to climb more aggressively or slide to the left to climb more gently")
+                                text: qsTr("Trượt sang phải để leo cao mạnh mẽ hơn hoặc trượt sang trái để leo cao nhẹ nhàng hơn")
                             }
 
                             Slider {
@@ -214,12 +214,12 @@ SetupPage {
                             visible:            _atcInputTCAvailable
 
                             QGCLabel {
-                                text:       qsTr("RC Roll/Pitch Feel")
+                                text:       qsTr("Cảm giác RC Roll/Pitch")
                                 font.family: ScreenTools.demiboldFontFamily
                             }
 
                             QGCLabel {
-                                text: qsTr("Slide to the left for soft control, slide to the right for crisp control")
+                                text: qsTr("Trượt sang trái để điều khiển mềm mại, trượt sang phải để điều khiển sắc nét")
                             }
 
                             Slider {
@@ -244,12 +244,12 @@ SetupPage {
                             anchors.right:      parent.right
 
                             QGCLabel {
-                                text:       qsTr("Spin While Armed")
+                                text:       qsTr("Quay khi vũ trang")
                                 font.family: ScreenTools.demiboldFontFamily
                             }
 
                             QGCLabel {
-                                text: qsTr("Adjust the amount the motors spin to indicate armed")
+                                text: qsTr("Điều chỉnh mức độ quay của động cơ để chỉ báo đã vũ trang")
                             }
 
                             Slider {
@@ -274,16 +274,16 @@ SetupPage {
                             anchors.right:      parent.right
 
                             QGCLabel {
-                                text:       qsTr("Minimum Thrust")
+                                text:       qsTr("Lực đẩy tối thiểu")
                                 font.family: ScreenTools.demiboldFontFamily
                             }
 
                             QGCLabel {
-                                text: qsTr("Adjust the minimum amount of thrust require for the vehicle to move")
+                                text: qsTr("Điều chỉnh lực đẩy tối thiểu cần thiết để phương tiện di chuyển")
                             }
 
                             QGCLabel {
-                                text:       qsTr("Warning: This setting should be higher than 'Spin While Armed'")
+                                text:       qsTr("Cảnh báo: Giá trị này nên cao hơn 'Quay khi vũ trang'")
                                 color:      qgcPal.warningText
                                 visible:    _motSpinMin.rawValue < _motSpinArm.rawValue
                             }
@@ -319,7 +319,7 @@ SetupPage {
 
                         QGCLabel {
                             id:                 autoTuneLabel
-                            text:               qsTr("AutoTune")
+                            text:               qsTr("Tự động điều chỉnh")
                             font.family:        ScreenTools.demiboldFontFamily
                         }
 
@@ -340,7 +340,7 @@ SetupPage {
                                 Row {
                                     spacing: _margins
 
-                                    QGCLabel { text: qsTr("Axes to AutoTune:") }
+                                    QGCLabel { text: qsTr("Trục để tự động điều chỉnh:") }
                                     FactBitmask { fact: _autoTuneAxes }
                                 }
 
@@ -349,13 +349,13 @@ SetupPage {
 
                                     QGCLabel {
                                         anchors.baseline:   autoTuneChannelCombo.baseline
-                                        text:               qsTr("Channel for AutoTune switch:")
+                                        text:               qsTr("Kênh cho công tắc tự động điều chỉnh:")
                                     }
 
                                     QGCComboBox {
                                         id:             autoTuneChannelCombo
                                         width:          ScreenTools.defaultFontPixelWidth * 14
-                                        model:          [qsTr("None"), qsTr("Channel 7"), qsTr("Channel 8"), qsTr("Channel 9"), qsTr("Channel 10"), qsTr("Channel 11"), qsTr("Channel 12") ]
+                                        model:          [qsTr("Không"), qsTr("Kênh 7"), qsTr("Kênh 8"), qsTr("Kênh 9"), qsTr("Kênh 10"), qsTr("Kênh 11"), qsTr("Kênh 12") ]
                                         currentIndex:   _autoTuneSwitchChannelIndex
 
                                         onActivated: {
@@ -379,7 +379,7 @@ SetupPage {
 
                         QGCLabel {
                             id:                 inFlightTuneLabel
-                            text:               qsTr("In Flight Tuning")
+                            text:               qsTr("Điều chỉnh trong khi bay")
                             font.family:        ScreenTools.demiboldFontFamily
                         }
 
@@ -403,7 +403,7 @@ SetupPage {
 
                                     QGCLabel {
                                         anchors.baseline:   optCombo.baseline
-                                        text:               qsTr("RC Channel 6 Option (Tuning):")
+                                        text:               qsTr("Tùy chọn kênh RC 6 (Điều chỉnh):")
                                         //color:            controller.channelOptionEnabled[modelData] ? "yellow" : qgcPal.text
                                     }
 
@@ -421,7 +421,7 @@ SetupPage {
 
                                     QGCLabel {
                                         anchors.baseline:   tuneMinField.baseline
-                                        text:               qsTr("Min:")
+                                        text:               qsTr("Tối thiểu:")
                                         //color:            controller.channelOptionEnabled[modelData] ? "yellow" : qgcPal.text
                                     }
 
@@ -433,7 +433,7 @@ SetupPage {
 
                                     QGCLabel {
                                         anchors.baseline:   tuneMaxField.baseline
-                                        text:               qsTr("Max:")
+                                        text:               qsTr("Tối đa:")
                                         //color:            controller.channelOptionEnabled[modelData] ? "yellow" : qgcPal.text
                                     }
 
@@ -466,12 +466,12 @@ SetupPage {
                     property var roll: QtObject {
                         property string name: qsTr("Roll")
                         property var plot: [
-                            { name: "Response", value: globals.activeVehicle.rollRate.value },
-                            { name: "Setpoint", value: globals.activeVehicle.setpoint.rollRate.value }
+                            { name: "Phản hồi", value: globals.activeVehicle.rollRate.value },
+                            { name: "Điểm đặt", value: globals.activeVehicle.setpoint.rollRate.value }
                         ]
                         property var params: ListModel {
                             ListElement {
-                                title:          qsTr("Roll axis angle controller P gain")
+                                title:          qsTr("Hệ số P điều khiển góc trục Roll")
                                 param:          "ATC_ANG_RLL_P"
                                 description:    ""
                                 min:            3
@@ -479,7 +479,7 @@ SetupPage {
                                 step:           1
                             }
                             ListElement {
-                                title:          qsTr("Roll axis rate controller P gain")
+                                title:          qsTr("Hệ số P điều khiển tốc độ Roll")
                                 param:          "ATC_RAT_RLL_P"
                                 description:    ""
                                 min:            0.001
@@ -487,7 +487,7 @@ SetupPage {
                                 step:           0.025
                             }
                             ListElement {
-                                title:          qsTr("Roll axis rate controller I gain")
+                                title:          qsTr("Hệ số I điều khiển tốc độ Roll")
                                 param:          "ATC_RAT_RLL_I"
                                 description:    ""
                                 min:            0.01
@@ -495,7 +495,7 @@ SetupPage {
                                 step:           0.05
                             }
                             ListElement {
-                                title:          qsTr("Roll axis rate controller D gain")
+                                title:          qsTr("Hệ số D điều khiển tốc độ Roll")
                                 param:          "ATC_RAT_RLL_D"
                                 description:    ""
                                 min:            0.0
@@ -507,12 +507,12 @@ SetupPage {
                     property var pitch: QtObject {
                         property string name: qsTr("Pitch")
                         property var plot: [
-                            { name: "Response", value: globals.activeVehicle.pitchRate.value },
-                            { name: "Setpoint", value: globals.activeVehicle.setpoint.pitchRate.value }
+                            { name: "Phản hồi", value: globals.activeVehicle.pitchRate.value },
+                            { name: "Điểm đặt", value: globals.activeVehicle.setpoint.pitchRate.value }
                         ]
                         property var params: ListModel {
                             ListElement {
-                                title:          qsTr("Pitch axis angle controller P gain")
+                                title:          qsTr("Hệ số P điều khiển góc trục Pitch")
                                 param:          "ATC_ANG_PIT_P"
                                 description:    ""
                                 min:            3
@@ -520,7 +520,7 @@ SetupPage {
                                 step:           1
                             }
                             ListElement {
-                                title:          qsTr("Pitch axis rate controller P gain")
+                                title:          qsTr("Hệ số P điều khiển tốc độ Pitch")
                                 param:          "ATC_RAT_PIT_P"
                                 description:    ""
                                 min:            0.001
@@ -528,7 +528,7 @@ SetupPage {
                                 step:           0.025
                             }
                             ListElement {
-                                title:          qsTr("Pitch axis rate controller I gain")
+                                title:          qsTr("Hệ số I điều khiển tốc độ Pitch")
                                 param:          "ATC_RAT_PIT_I"
                                 description:    ""
                                 min:            0.01
@@ -536,7 +536,7 @@ SetupPage {
                                 step:           0.05
                             }
                             ListElement {
-                                title:          qsTr("Pitch axis rate controller D gain")
+                                title:          qsTr("Hệ số D điều khiển tốc độ Pitch")
                                 param:          "ATC_RAT_PIT_D"
                                 description:    ""
                                 min:            0.0
@@ -548,12 +548,12 @@ SetupPage {
                     property var yaw: QtObject {
                         property string name: qsTr("Yaw")
                         property var plot: [
-                            { name: "Response", value: globals.activeVehicle.yawRate.value },
-                            { name: "Setpoint", value: globals.activeVehicle.setpoint.yawRate.value }
+                            { name: "Phản hồi", value: globals.activeVehicle.yawRate.value },
+                            { name: "Điểm đặt", value: globals.activeVehicle.setpoint.yawRate.value }
                         ]
                         property var params: ListModel {
                             ListElement {
-                                title:          qsTr("Yaw axis angle controller P gain")
+                                title:          qsTr("Hệ số P điều khiển góc trục Yaw")
                                 param:          "ATC_ANG_YAW_P"
                                 description:    ""
                                 min:            3
@@ -561,7 +561,7 @@ SetupPage {
                                 step:           1
                             }
                             ListElement {
-                                title:          qsTr("Yaw axis rate controller P gain")
+                                title:          qsTr("Hệ số P điều khiển tốc độ Yaw")
                                 param:          "ATC_RAT_YAW_P"
                                 description:    ""
                                 min:            0.1
@@ -569,7 +569,7 @@ SetupPage {
                                 step:           0.05
                             }
                             ListElement {
-                                title:          qsTr("Yaw axis rate controller I gain")
+                                title:          qsTr("Hệ số I điều khiển tốc độ Yaw")
                                 param:          "ATC_RAT_YAW_I"
                                 description:    ""
                                 min:            0.01

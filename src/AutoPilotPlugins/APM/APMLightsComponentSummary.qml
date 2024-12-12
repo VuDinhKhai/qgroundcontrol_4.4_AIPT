@@ -86,12 +86,12 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText:  qsTr("Lights Output 1")
+            labelText:  qsTr("Đầu ra Đèn 1")
             valueText:  lightsOutModel.get(lightsLoader.lights1OutIndex).text
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Lights Output 2")
+            labelText:  qsTr("Đầu ra Đèn 2")
             valueText:  lightsOutModel.get(lightsLoader.lights2OutIndex).text
         }
     }

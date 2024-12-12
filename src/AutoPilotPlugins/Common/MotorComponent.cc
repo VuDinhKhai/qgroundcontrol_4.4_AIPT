@@ -11,7 +11,7 @@
 
 MotorComponent::MotorComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent) :
     VehicleComponent(vehicle, autopilot, parent),
-    _name(tr("Motors"))
+    _name(tr("Động cơ"))
 {
 
 }
@@ -23,7 +23,7 @@ QString MotorComponent::name(void) const
 
 QString MotorComponent::description(void) const
 {
-    return tr("Motors Setup is used to manually test motor control and direction.");
+    return tr("Thiết lập động cơ được sử dụng để kiểm tra thủ công điều khiển và hướng động cơ.");
 }
 
 QString MotorComponent::iconResource(void) const

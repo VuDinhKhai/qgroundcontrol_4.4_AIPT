@@ -29,7 +29,7 @@ QString APMLightsComponent::name(void) const
 
 QString APMLightsComponent::description(void) const
 {
-    return tr("Lights setup is used to adjust light output channels.");
+    return tr("Cài đặt đèn được sử dụng để điều chỉnh các kênh đầu ra ánh sáng.");
 }
 
 QString APMLightsComponent::iconResource(void) const

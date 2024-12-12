@@ -7,7 +7,6 @@
  *
  ****************************************************************************/
 
-
 #include "APMAutoPilotPlugin.h"
 #include "UAS.h"
 #include "APMParameterMetaData.h"
@@ -37,7 +36,7 @@
 #include <QSerialPortInfo>
 #endif
 
-/// This is the AutoPilotPlugin implementatin for the MAV_AUTOPILOT_ARDUPILOT type.
+/// Đây là triển khai của AutoPilotPlugin dành cho loại MAV_AUTOPILOT_ARDUPILOT.
 APMAutoPilotPlugin::APMAutoPilotPlugin(Vehicle* vehicle, QObject* parent)
     : AutoPilotPlugin           (vehicle, parent)
     , _incorrectParameterVersion(false)
@@ -56,7 +55,7 @@ APMAutoPilotPlugin::APMAutoPilotPlugin(Vehicle* vehicle, QObject* parent)
     , _heliComponent            (nullptr)
     , _apmRemoteSupportComponent(nullptr)
 #if 0
-    // Follow me not ready for Stable
+    // Tính năng Theo dõi chưa sẵn sàng để phát hành ổn định
     , _followComponent          (nullptr)
 #endif
 {
@@ -84,7 +83,7 @@ const QVariantList& APMAutoPilotPlugin::vehicleComponents(void)
                 _components.append(QVariant::fromValue((VehicleComponent*)_radioComponent));
             }
 
-            // No flight modes component for Sub versions 3.5 and up
+            // Không có thành phần chế độ bay cho các phiên bản Sub từ 3.5 trở lên
             if (!_vehicle->sub() || (_vehicle->versionCompare(3, 5, 0) < 0)) {
                 _flightModesComponent = new APMFlightModesComponent(_vehicle, this);
                 _flightModesComponent->setupTriggerSignals();
@@ -110,7 +109,7 @@ const QVariantList& APMAutoPilotPlugin::vehicleComponents(void)
             _components.append(QVariant::fromValue((VehicleComponent*)_safetyComponent));
 
 #if 0
-    // Follow me not ready for Stable
+    // Tính năng Theo dõi chưa sẵn sàng để phát hành ổn định
 
             if ((qobject_cast<ArduCopterFirmwarePlugin*>(_vehicle->firmwarePlugin()) || qobject_cast<ArduRoverFirmwarePlugin*>(_vehicle->firmwarePlugin())) &&
                     _vehicle->parameterManager()->parameterExists(-1, QStringLiteral("FOLL_ENABLE"))) {
@@ -148,7 +147,7 @@ const QVariantList& APMAutoPilotPlugin::vehicleComponents(void)
                 }
             }
 
-            //-- Is there an ESP8266 Connected?
+            //-- Kiểm tra xem có ESP8266 được kết nối không
             if(_vehicle->parameterManager()->parameterExists(MAV_COMP_ID_UDP_BRIDGE, "SW_VER")) {
                 _esp8266Component = new ESP8266Component(_vehicle, this);
                 _esp8266Component->setupTriggerSignals();
@@ -159,7 +158,7 @@ const QVariantList& APMAutoPilotPlugin::vehicleComponents(void)
             _apmRemoteSupportComponent->setupTriggerSignals();
             _components.append(QVariant::fromValue((VehicleComponent*)_apmRemoteSupportComponent));
         } else {
-            qWarning() << "Call to vehicleCompenents prior to parametersReady";
+            qWarning() << "Gọi đến vehicleComponents trước khi parametersReady";
         }
     }
 
@@ -202,12 +201,12 @@ QString APMAutoPilotPlugin::prerequisiteSetup(VehicleComponent* component) const
 }
 
 #if !defined(NO_SERIAL_LINK) && !defined(__android__)
-/// The following code is executed when the Vehicle is parameter ready. It checks for the service bulletin against Cube Blacks.
+/// Mã sau được thực thi khi phương tiện đã sẵn sàng tham số. Nó kiểm tra các bảng dịch vụ đối với Cube Blacks.
 void APMAutoPilotPlugin::_checkForBadCubeBlack(void)
 {
     bool cubeBlackFound = false;
 #if 0
-    // FIXME: Put back
+    // FIXME: Cần khôi phục lại
     for (const QVariant& varLink: _vehicle->links()) {
         SerialLink* serialLink = varLink.value<SerialLink*>();
         if (serialLink && QSerialPortInfo(*serialLink->_hackAccessToPort()).description().contains(QStringLiteral("CubeBlack"))) {
@@ -229,7 +228,7 @@ void APMAutoPilotPlugin::_checkForBadCubeBlack(void)
     if (paramMgr->parameterExists(-1, paramAcc3) && paramMgr->getParameter(-1, paramAcc3)->rawValue().toInt() == 0 &&
             paramMgr->parameterExists(-1, paramGyr3) && paramMgr->getParameter(-1, paramGyr3)->rawValue().toInt() == 0 &&
             paramMgr->parameterExists(-1, paramEnableMask) && paramMgr->getParameter(-1, paramEnableMask)->rawValue().toInt() >= 7) {
-        qgcApp()->showAppMessage(tr("WARNING: The flight board you are using has a critical service bulletin against it which advises against flying. For details see: https://discuss.cubepilot.org/t/sb-0000002-critical-service-bulletin-for-cubes-purchased-between-january-2019-to-present-do-not-fly/406"));
+        qgcApp()->showAppMessage(tr("CẢNH BÁO: Bo mạch bay bạn đang sử dụng có cảnh báo dịch vụ nghiêm trọng khuyên không nên bay. Chi tiết xem tại: https://discuss.cubepilot.org/t/sb-0000002-critical-service-bulletin-for-cubes-purchased-between-january-2019-to-present-do-not-fly/406"));
 
     }
 }

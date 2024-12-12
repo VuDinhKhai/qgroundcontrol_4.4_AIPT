@@ -7,6 +7,7 @@
  *
  ****************************************************************************/
 
+
 #include "APMAirframeComponentController.h"
 #include "QGCMAVLink.h"
 #include "MultiVehicleManager.h"
@@ -23,7 +24,7 @@
 #include <QJsonParseError>
 #include <QJsonObject>
 
-// These should match the ArduCopter FRAME_CLASS parameter enum meta data
+// Các giá trị này phải khớp với dữ liệu meta của tham số FRAME_CLASS trong ArduCopter
 #define FRAME_CLASS_UNDEFINED       0
 #define FRAME_CLASS_QUAD            1
 #define FRAME_CLASS_HEX             2
@@ -39,7 +40,7 @@
 #define FRAME_CLASS_DODECAHEXA      12
 #define FRAME_CLASS_HELIQUAD        13
 
-// These should match the ArduCopter FRAME_TYPE parameter enum meta data
+// Các giá trị này phải khớp với dữ liệu meta của tham số FRAME_TYPE trong ArduCopter
 #define FRAME_TYPE_PLUS         0
 #define FRAME_TYPE_X            1
 #define FRAME_TYPE_V            2
@@ -52,12 +53,12 @@
 #define FRAME_TYPE_DJIX         13
 #define FRAME_TYPE_CLOCKWISEX   14
 
-// These should match the Rover FRAME_CLASS parameter enum meta data
+// Các giá trị này phải khớp với dữ liệu meta của tham số FRAME_CLASS trong Rover
 #define FRAME_CLASS_ROVER       1
 #define FRAME_CLASS_BOAT        2
 #define FRAME_CLASS_BALANCEBOT  3
 
-// These should match the Rover FRAME_TYPE parameter enum meta data
+// Các giá trị này phải khớp với dữ liệu meta của tham số FRAME_TYPE trong Rover
 #define FRAME_TYPE_UNDEFINED    0
 #define FRAME_TYPE_OMNI3        1
 #define FRAME_TYPE_OMNIX        2
@@ -70,31 +71,31 @@ typedef struct {
 } FrameToImageInfo_t;
 
 static const FrameToImageInfo_t s_rgFrameToImageCopter[] = {
-    { FRAME_CLASS_QUAD,         FRAME_TYPE_X,       "QuadRotorX" },             // Default
+    { FRAME_CLASS_QUAD,         FRAME_TYPE_X,       "QuadRotorX" },             // Mặc định
     { FRAME_CLASS_QUAD,         FRAME_TYPE_PLUS,    "QuadRotorPlus" },
     { FRAME_CLASS_QUAD,         FRAME_TYPE_V,       "QuadRotorWide" },
     { FRAME_CLASS_QUAD,         FRAME_TYPE_H,       "QuadRotorH" },
     { FRAME_CLASS_QUAD,         FRAME_TYPE_V_TAIL,  "QuadRotorVTail" },
     { FRAME_CLASS_QUAD,         FRAME_TYPE_A_TAIL,  "QuadRotorATail" },
 
-    { FRAME_CLASS_HEX,          FRAME_TYPE_X,       "HexaRotorX" },             // Default
+    { FRAME_CLASS_HEX,          FRAME_TYPE_X,       "HexaRotorX" },             // Mặc định
     { FRAME_CLASS_HEX,          FRAME_TYPE_PLUS,    "HexaRotorPlus" },
 
-    { FRAME_CLASS_OCTA,         FRAME_TYPE_X,       "OctoRotorX" },             // Default
+    { FRAME_CLASS_OCTA,         FRAME_TYPE_X,       "OctoRotorX" },             // Mặc định
     { FRAME_CLASS_OCTA,         FRAME_TYPE_PLUS,    "OctoRotorPlus" },
     { FRAME_CLASS_OCTA,         FRAME_TYPE_V,       "AirframeUnknown" },
     { FRAME_CLASS_OCTA,         FRAME_TYPE_H,       "AirframeUnknown" },
 
-    { FRAME_CLASS_OCTAQUAD,     FRAME_TYPE_X,       "OctoRotorXCoaxial" },      // Default
+    { FRAME_CLASS_OCTAQUAD,     FRAME_TYPE_X,       "OctoRotorXCoaxial" },      // Mặc định
     { FRAME_CLASS_OCTAQUAD,     FRAME_TYPE_PLUS,    "OctoRotorPlusCoaxial" },
     { FRAME_CLASS_OCTAQUAD,     FRAME_TYPE_V,       "AirframeUnknown" },
     { FRAME_CLASS_OCTAQUAD,     FRAME_TYPE_H,       "AirframeUnknown" },
 
-    { FRAME_CLASS_Y6,           FRAME_TYPE_Y6B,     "Y6B" },                    // Default
+    { FRAME_CLASS_Y6,           FRAME_TYPE_Y6B,     "Y6B" },                    // Mặc định
     { FRAME_CLASS_Y6,           FRAME_TYPE_Y6F,     "AirframeUnknown" },
     { FRAME_CLASS_Y6,           -1,                 "Y6A" },
 
-    { FRAME_CLASS_DODECAHEXA,   FRAME_TYPE_X,       "AirframeUnknown" },        // Default
+    { FRAME_CLASS_DODECAHEXA,   FRAME_TYPE_X,       "AirframeUnknown" },        // Mặc định
     { FRAME_CLASS_DODECAHEXA,   FRAME_TYPE_PLUS,    "AirframeUnknown" },
 
     { FRAME_CLASS_HELI,         -1,                 "Helicopter" },
@@ -106,8 +107,8 @@ static const FrameToImageInfo_t s_rgFrameToImageRover[] = {
     { FRAME_CLASS_BOAT,     -1, "Boat" },
 };
 
-/// Returns the image resource for the frameClass, frameType pair
-///     @param[in,out] frameType Specified frame type, or -1 to match first item in list (frameType found will be returned)
+/// Trả về tài nguyên hình ảnh cho cặp frameClass, frameType
+///     @param[in,out] frameType Loại frame được chỉ định, hoặc -1 để khớp với mục đầu tiên trong danh sách (loại frame tìm thấy sẽ được trả về)
 static QString s_findImageResourceCopter(int frameClass, int& frameType)
 {
     for (size_t i=0; i<sizeof(s_rgFrameToImageCopter)/sizeof(s_rgFrameToImageCopter[0]); i++) {
@@ -170,7 +171,7 @@ void APMAirframeComponentController::_fillFrameClasses()
             int     frameClass =        _frameClassFact->enumValues()[i].toInt();
 
             if (frameClass == FRAME_CLASS_HELI) {
-                // Heli requires it's own firmware variant. You can't switch to Heli from a Copter variant firmware.
+                // Heli yêu cầu biến thể firmware riêng. Không thể chuyển đổi sang Heli từ firmware biến thể Copter.
                 continue;
             }
 
@@ -189,7 +190,7 @@ void APMAirframeComponentController::_loadParametersFromDownloadFile(const QStri
 {
     QFile parametersFile(downloadedParamFile);
     if (!parametersFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "Unable to open downloaded parameter file" << downloadedParamFile << parametersFile.errorString();
+        qWarning() << "Không thể mở tệp thông số đã tải xuống" << downloadedParamFile << parametersFile.errorString();
         qgcApp()->restoreOverrideCursor();
         return;
     }
@@ -228,7 +229,7 @@ void APMAirframeComponentController::_githubJsonDownloadComplete(QString /*remot
     if (errorMsg.isEmpty()) {
         QFile jsonFile(localFile);
         if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            qWarning() << "Unable to open github json file" << localFile << jsonFile.errorString();
+            qWarning() << "Không thể mở tệp json từ github" << localFile << jsonFile.errorString();
             qgcApp()->restoreOverrideCursor();
             return;
         }
@@ -238,7 +239,7 @@ void APMAirframeComponentController::_githubJsonDownloadComplete(QString /*remot
         QJsonParseError jsonParseError;
         QJsonDocument doc = QJsonDocument::fromJson(bytes, &jsonParseError);
         if (jsonParseError.error != QJsonParseError::NoError) {
-            qWarning() <<  "Unable to open json document" << localFile << jsonParseError.errorString();
+            qWarning() <<  "Không thể mở tài liệu json" << localFile << jsonParseError.errorString();
             qgcApp()->restoreOverrideCursor();
             return;
         }
@@ -248,7 +249,7 @@ void APMAirframeComponentController::_githubJsonDownloadComplete(QString /*remot
         connect(downloader, &QGCFileDownload::downloadComplete, this, &APMAirframeComponentController::_paramFileDownloadComplete);
         downloader->download(json[QLatin1String("download_url")].toString());
     } else {
-        qgcApp()->showAppMessage(tr("Param file github json download failed: %1").arg(errorMsg));
+        qgcApp()->showAppMessage(tr("Tải xuống tệp json từ github thất bại: %1").arg(errorMsg));
         qgcApp()->restoreOverrideCursor();
     }
 }
@@ -258,7 +259,7 @@ void APMAirframeComponentController::_paramFileDownloadComplete(QString /*remote
     if (errorMsg.isEmpty()) {
         _loadParametersFromDownloadFile(localFile);
     } else {
-        qgcApp()->showAppMessage(tr("Param file download failed: %1").arg(errorMsg));
+        qgcApp()->showAppMessage(tr("Tải xuống tệp thông số thất bại: %1").arg(errorMsg));
         qgcApp()->restoreOverrideCursor();
     }
 }
@@ -285,13 +286,13 @@ APMFrameClass::APMFrameClass(const QString& name, bool copter, int frameClass, F
 
             if (pFrameToImageInfo->frameClass == frameClass) {
                 if (_defaultFrameType == -1) {
-                    // Default frame type/icon is the first item found to match frameClass
+                    // Loại frame/icon mặc định là mục đầu tiên tìm thấy khớp với frameClass
                     _defaultFrameType = pFrameToImageInfo->frameType;
                     _imageResourceDefault = QStringLiteral("/qmlimages/Airframe/%1").arg(pFrameToImageInfo->imageResource);
                 }
 
                 if (pFrameToImageInfo->frameType != -1) {
-                    // The list includes the supported frame types for the class
+                    // Danh sách bao gồm các loại frame được hỗ trợ cho lớp này
                     rgSupportedFrameTypes.append(pFrameToImageInfo->frameType);
                 }
             }
@@ -300,7 +301,7 @@ APMFrameClass::APMFrameClass(const QString& name, bool copter, int frameClass, F
             _imageResourceDefault = QStringLiteral("/qmlimages/Airframe/AirframeUnknown");
         }
 
-        // Filter the enums
+        // Lọc các giá trị enum
         for (const int frameType: rgSupportedFrameTypes) {
             int index = frameTypeFact->enumValues().indexOf(frameType);
             if (index != -1) {
@@ -312,7 +313,7 @@ APMFrameClass::APMFrameClass(const QString& name, bool copter, int frameClass, F
         _imageResourceDefault = imageResource();
     }
 
-    // If the frameClass is not in the list then frame type is not supported
+    // Nếu frameClass không có trong danh sách thì loại frame không được hỗ trợ
     _frameTypeSupported = _defaultFrameType != -1;
 }
 

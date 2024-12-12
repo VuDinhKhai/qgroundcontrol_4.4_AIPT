@@ -799,7 +799,7 @@ void RadioComponentController::_startCalibration(void)
     // Let the mav known we are starting calibration. This should turn off motors and so forth.
     _vehicle->startCalibration(Vehicle::CalibrationRadio);
 
-    _nextButton->setProperty("text", tr("Next"));
+    _nextButton->setProperty("text", tr("Tiếp theo"));
     _cancelButton->setEnabled(true);
 
     _currentStep = 0;
@@ -821,7 +821,7 @@ void RadioComponentController::_stopCalibration(void)
     }
 
     if(_statusText)   _statusText->setProperty("text", "");
-    if(_nextButton)   _nextButton->setProperty("text", tr("Calibrate"));
+    if(_nextButton)   _nextButton->setProperty("text", tr("Hiệu chuẩn"));
     if(_nextButton)   _nextButton->setEnabled(true);
     if(_cancelButton) _cancelButton->setEnabled(false);
     if(_skipButton)   _skipButton->setEnabled(false);
@@ -845,8 +845,8 @@ void RadioComponentController::_rcCalSave(void)
 
     if(_statusText) _statusText->setProperty(
         "text",
-        tr("The current calibration settings are now displayed for each channel on screen.\n\n"
-        "Click the Next button to upload calibration to board. Click Cancel if you don't want to save these values."));
+        tr("Các cài đặt hiệu chuẩn hiện tại đang được hiển thị cho từng kênh trên màn hình.\n\n"
+        "Nhấn nút Tiếp theo để tải hiệu chuẩn lên bo mạch. Nhấn Hủy nếu bạn không muốn lưu các giá trị này."));
 
     if(_nextButton)     _nextButton->setEnabled(true);
     if(_skipButton)     _skipButton->setEnabled(false);

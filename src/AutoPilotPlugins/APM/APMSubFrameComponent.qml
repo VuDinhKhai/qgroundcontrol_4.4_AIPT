@@ -199,7 +199,7 @@ SetupPage {
 
         QGCPopupDialog {
             id:         confirmFrameDialog
-            title:      qsTr("Frame selection")
+            title:      qsTr("Lựa chọn khung")
             buttons:    StandardButton.Close
 
             ColumnLayout {
@@ -208,14 +208,14 @@ SetupPage {
                     width:              firstButton.width
                     wrapMode:           Text.WordWrap
                     text:               frameModelSelected.paramFileName != undefined ?
-                                            qsTr("Would you like to load the default parameters for the frame?") :
-                                            qsTr("Would you like to set the desired frame?")
+                                            qsTr("Bạn có muốn tải các tham số mặc định cho khung không?") :
+                                            qsTr("Bạn có muốn thiết lập khung mong muốn không?")
                 }
 
                 QGCButton {
                     id:                 firstButton
                     Layout.fillWidth:   true
-                    text:               qsTr("Yes, Load default parameter set for %1").arg(frameModelSelected.name)
+                    text:               qsTr("Có, tải bộ tham số mặc định cho %1").arg(frameModelSelected.name)
                     visible:            frameModelSelected.paramFileName != undefined
 
                     onClicked: {
@@ -228,8 +228,8 @@ SetupPage {
                 QGCButton {
                     Layout.fillWidth:   true
                     text:               frameModelSelected.paramFileName != undefined ?
-                                            qsTr("No, set frame only") :
-                                            qsTr("Confirm frame %1").arg(frameModelSelected.name)
+                                            qsTr("Không, chỉ thiết lập khung") :
+                                            qsTr("Xác nhận khung %1").arg(frameModelSelected.name)
 
                     onClicked: {
                         setFrameConfig(frameModelSelected.paramValue)

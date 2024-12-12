@@ -40,7 +40,7 @@ SetupPage {
             }
 
             QGCLabel {
-                text: qsTr("Radio Settings")
+                text: qsTr("Cài đặt Radio")
                 font.family: ScreenTools.demiboldFontFamily
             }
 
@@ -58,7 +58,7 @@ SetupPage {
                     columnSpacing:      ScreenTools.defaultFontPixelWidth
 
                     QGCLabel {
-                        text:               qsTr("Channel")
+                        text:               qsTr("Kênh")
                     }
 
                     QGCTextField {
@@ -78,12 +78,12 @@ SetupPage {
                         Layout.fillWidth:   true
                         font.pointSize:     ScreenTools.smallFontPointSize
                         wrapMode:           Text.WordWrap
-                        text:               "Channel can be between 0 and 125"
+                        text:               "Kênh có thể từ 0 đến 125"
                     }
 
                     QGCLabel {
                         id:                 addressLabel
-                        text:               qsTr("Address")
+                        text:               qsTr("Địa chỉ")
                     }
 
                     QGCTextField {
@@ -103,13 +103,13 @@ SetupPage {
                         Layout.fillWidth:   true
                         font.pointSize:     ScreenTools.smallFontPointSize
                         wrapMode:           Text.WordWrap
-                        text:               qsTr("Address in hex. Default is E7E7E7E7E7.")
+                        text:               qsTr("Địa chỉ dạng hex. Mặc định là E7E7E7E7E7.")
                     }
 
 
                     QGCLabel {
                         id:                 rateLabel
-                        text:               qsTr("Data Rate")
+                        text:               qsTr("Tốc độ dữ liệu")
                     }
 
                     QGCComboBox {
@@ -123,7 +123,7 @@ SetupPage {
                     }
 
                     QGCButton {
-                        text:                           qsTr("Restore Defaults")
+                        text:                           qsTr("Khôi phục mặc định")
                         width:                          textEditWidth
                         onClicked: {
                             controller.resetDefaults()

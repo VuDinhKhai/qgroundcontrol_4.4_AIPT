@@ -7,7 +7,6 @@
  *
  ****************************************************************************/
 
-
 import QtQuick          2.3
 import QtQuick.Controls 1.2
 import QtQuick.Dialogs  1.2
@@ -36,7 +35,7 @@ SetupPage {
             property real _boxSpace:            ScreenTools.defaultFontPixelWidth
             property real _margins:             ScreenTools.defaultFontPixelWidth
             property Fact _frameClass:          controller.getParameterFact(-1, "FRAME_CLASS")
-            property Fact _frameType:           controller.getParameterFact(-1, "FRAME_TYPE", false)    // FRAME_TYPE is not available on all Rover versions
+            property Fact _frameType:           controller.getParameterFact(-1, "FRAME_TYPE", false)    // FRAME_TYPE không có sẵn trên tất cả các phiên bản Rover
             property bool _frameTypeAvailable:  controller.vehicle.multiRotor
 
             readonly property real spacerHeight: ScreenTools.defaultFontPixelHeight
@@ -48,12 +47,12 @@ SetupPage {
                 var sw  = 0
                 var rw  = 0
                 var idx = Math.floor(mainColumn.width / (_minW + ScreenTools.defaultFontPixelWidth))
-                if(idx < 1) {
+                if (idx < 1) {
                     _boxWidth = mainColumn.width
                     _boxSpace = 0
                 } else {
                     _boxSpace = 0
-                    if(idx > 1) {
+                    if (idx > 1) {
                         _boxSpace = ScreenTools.defaultFontPixelWidth
                         sw = _boxSpace * (idx - 1)
                     }
@@ -68,11 +67,11 @@ SetupPage {
                 id:                 helpText
                 Layout.fillWidth:   true
                 text:               (_frameClass.rawValue === 0 ?
-                                         qsTr("Airframe is currently not set.") :
-                                         qsTr("Currently set to frame class '%1'").arg(_frameClass.enumStringValue) +
-                                         (_frameTypeAvailable ?  qsTr(" and frame type '%2'").arg(_frameType.enumStringValue) : "") +
-                                         qsTr(".", "period for end of sentence")) +
-                                    qsTr(" To change this configuration, select the desired frame class below and then reboot the vehicle.")
+                                         qsTr("Khung máy bay hiện chưa được thiết lập.") :
+                                         qsTr("Hiện đang được thiết lập thành loại khung máy bay '%1'").arg(_frameClass.enumStringValue) +
+                                         (_frameTypeAvailable ?  qsTr(" và kiểu khung máy bay '%2'").arg(_frameType.enumStringValue) : "") +
+                                         qsTr(".", "dấu chấm để kết thúc câu")) +
+                                    qsTr(" Để thay đổi cấu hình này, hãy chọn loại khung máy bay mong muốn bên dưới và sau đó khởi động lại phương tiện.")
                 font.family:        ScreenTools.demiboldFontFamily
                 wrapMode:           Text.WordWrap
             }
@@ -95,7 +94,7 @@ SetupPage {
                 Repeater {
                     model: controller.frameClassModel
 
-                    // Outer summary item rectangle
+                    // Hộp tóm tắt bên ngoài
                     Rectangle {
                         id:     outerRect
                         width:  _boxWidth
@@ -149,7 +148,6 @@ SetupPage {
                                 }
 
                                 QGCCheckBox {
-                                    // Although this item is invisible we still use it to manage state
                                     id:             airframeCheckBox
                                     checked:        object.frameClass === _frameClass.rawValue
                                     exclusiveGroup: airframeTypeExclusive
@@ -163,7 +161,7 @@ SetupPage {
                                 }
 
                                 QGCLabel {
-                                    text:           qsTr("Frame Type")
+                                    text:           qsTr("Kiểu khung máy bay")
                                     font.pointSize: ScreenTools.smallFontPointSize
                                     color:          qgcPal.buttonHighlightText
                                     visible:        airframeCheckBox.checked && object.frameTypeSupported
@@ -185,7 +183,6 @@ SetupPage {
                                     function selectFrameType() {
                                         var index = object.frameTypeEnumValues.findIndex(checkFrameType)
                                         if (index == -1 && combo.visible) {
-                                            // Frame Class/Type is set to an invalid combination
                                             combo.valid = false
                                         } else {
                                             combo.currentIndex = index
@@ -206,13 +203,13 @@ SetupPage {
 
                         QGCLabel {
                             anchors.fill:   imageComboRect
-                            text:           qsTr("Invalid setting for FRAME_TYPE. Click to Reset.")
+                            text:           qsTr("Cài đặt không hợp lệ cho FRAME_TYPE. Nhấn để đặt lại.")
                             wrapMode:       Text.WordWrap
                             visible:        !combo.valid
                         }
                     }
-                } // Repeater - summary boxes
-            } // Flow - summary boxes
+                } // Repeater - hộp tóm tắt
+            } // Flow - hộp tóm tắt
         } // Column
     } // Component
 } // SetupPage

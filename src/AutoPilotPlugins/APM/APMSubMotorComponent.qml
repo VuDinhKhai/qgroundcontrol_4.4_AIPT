@@ -113,7 +113,7 @@ SetupPage {
                         anchors.left:   parent.left
                         anchors.right:  parent.right
                         wrapMode:       Text.WordWrap
-                        text:           qsTr("Reverse Motor Direction")
+                        text:           qsTr("Đảo Chiều Động Cơ")
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignBottom
                     }
@@ -160,8 +160,8 @@ SetupPage {
                 anchors.left:   parent.left
                 anchors.right:  parent.right
                 wrapMode:       Text.WordWrap
-                text:           qsTr("Moving the sliders will cause the motors to spin. Make sure the motors and propellers are clear from obstructions! The direction of the motor rotation is dependent on how the three phases of the motor are physically connected to the ESCs (if any two wires are swapped, the direction of rotation will flip). Because we cannot guarantee what order the phases are connected, the motor directions must be configured in software. When a slider is moved DOWN, the thruster should push air/water TOWARD the cable entering the housing. Click the checkbox to reverse the direction of the corresponding thruster.\n\n"
-                                     + "Blue Robotics thrusters are lubricated by water and are not designed to be run in air. Testing the thrusters in air is ok at low speeds for short periods of time. Extended operation of Blue Robotics in air may lead to overheating and permanent damage. Without water lubrication, Blue Robotics thrusters may also make some unpleasant noises when operated in air; this is normal.")
+                text:           qsTr("Di chuyển thanh trượt sẽ khiến động cơ quay. Đảm bảo động cơ và cánh quạt không bị cản trở! Hướng quay của động cơ phụ thuộc vào cách ba pha của động cơ được kết nối vật lý với ESC (nếu hai dây bất kỳ bị hoán đổi, hướng quay sẽ đảo ngược). Vì chúng tôi không thể đảm bảo thứ tự kết nối các pha, hướng động cơ phải được cấu hình trong phần mềm. Khi thanh trượt được di chuyển XUỐNG, động cơ đẩy phải đẩy không khí/nước HƯỚNG VỀ dây cáp đi vào vỏ. Nhấp vào hộp kiểm để đảo ngược hướng của động cơ đẩy tương ứng.\n\n"
+                                     + "Động cơ đẩy Blue Robotics được bôi trơn bằng nước và không được thiết kế để chạy trong không khí. Việc thử nghiệm động cơ đẩy trong không khí ở tốc độ thấp trong thời gian ngắn là được. Vận hành kéo dài Blue Robotics trong không khí có thể dẫn đến quá nhiệt và hư hỏng vĩnh viễn. Không có bôi trơn bằng nước, động cơ đẩy Blue Robotics cũng có thể phát ra một số tiếng ồn khó chịu khi hoạt động trong không khí; điều này là bình thường.")
             }
 
             Row {
@@ -203,8 +203,8 @@ SetupPage {
                     anchors.verticalCenter: safetySwitch.verticalCenter
                     color:  qgcPal.warningText
                     text:   coolDownTimer.running
-                                ? qsTr("A 10 second coooldown is required before testing again, please stand by...")
-                                : qsTr("Slide this switch to arm the vehicle and enable the motor test (CAUTION!)")
+                                ? qsTr("Cần thời gian làm mát 10 giây trước khi thử lại, vui lòng chờ...")
+                                : qsTr("Trượt công tắc này để kích hoạt phương tiện và bật thử động cơ (THẬN TRỌNG!)")
                 }
             } // Row
 
@@ -214,7 +214,7 @@ SetupPage {
                 anchors.left:        parent.left
                 anchors.right:       parent.right
                 font.pointSize:      ScreenTools.largeFontPointSize
-                text:                qsTr("Automatic Motor Direction Detection")
+                text:                qsTr("Tự Động Phát Hiện Hướng Động Cơ")
             }
 
             QGCLabel {
@@ -222,9 +222,9 @@ SetupPage {
                 anchors.left:   parent.left
                 anchors.right:  parent.right
                 wrapMode:       Text.WordWrap
-                text:           qsTr("This will attempt to automatically detect the direction (normal/reversed) of your thrusters.\n"
-                                   + "Please place your vehicle in water, click the button, and wait. Note that the thrusters still need "
-                                   + "to be connected to the correct outputs (thrusters 2 and 3 can't be swapped, for example).")
+                text:           qsTr("Điều này sẽ cố gắng tự động phát hiện hướng (bình thường/đảo ngược) của động cơ đẩy của bạn.\n"
+                                   + "Vui lòng đặt phương tiện của bạn trong nước, nhấp vào nút và đợi. Lưu ý rằng động cơ đẩy vẫn cần "
+                                   + "được kết nối với đầu ra chính xác (ví dụ: động cơ đẩy 2 và 3 không thể hoán đổi cho nhau).")
             }
 
             Row {
@@ -236,7 +236,7 @@ SetupPage {
 
                     QGCButton {
                         id: startAutoDetection
-                        text: "Auto-Detect Directions"
+                        text: "Tự Động Phát Hiện Hướng"
                         enabled: controller.vehicle.flightMode !== 'Motor Detection'
 
                         onClicked: function() {

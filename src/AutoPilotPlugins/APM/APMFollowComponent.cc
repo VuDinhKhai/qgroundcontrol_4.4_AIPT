@@ -14,7 +14,7 @@
 
 APMFollowComponent::APMFollowComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent),
-    _name(tr("Follow Me"))
+    _name(tr("Theo dõi Tôi"))
 {
 }
 
@@ -25,7 +25,7 @@ QString APMFollowComponent::name(void) const
 
 QString APMFollowComponent::description(void) const
 {
-    return tr("Follow Me Setup is used to configure support for the vehicle following the ground station location.");
+    return tr("Cài đặt Theo dõi Tôi được sử dụng để cấu hình hỗ trợ cho phương tiện theo dõi vị trí trạm mặt đất.");
 }
 
 QString APMFollowComponent::iconResource(void) const

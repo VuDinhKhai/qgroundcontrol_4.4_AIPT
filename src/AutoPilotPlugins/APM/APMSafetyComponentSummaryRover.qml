@@ -51,32 +51,32 @@ Item {
     function setFailsafeActionText() {
         switch (_failsafeAction.value) {
         case 0:
-            _failsafeActionText = qsTr("Disabled")
+            _failsafeActionText = qsTr("Vô hiệu hóa")
             break
         case 1:
-            _failsafeActionText = qsTr("Always RTL")
+            _failsafeActionText = qsTr("Luôn RTL")
             break
         case 2:
-            _failsafeActionText = qsTr("Always Hold")
+            _failsafeActionText = qsTr("Luôn giữ")
             break
         default:
-            _failsafeActionText = qsTr("Unknown")
+            _failsafeActionText = qsTr("Không xác định")
         }
     }
 
     function setFailsafeCrashCheckText() {
         switch (_failsafeCrashCheck.value) {
         case 0:
-            _failsafeCrashCheckText = qsTr("Disabled")
+            _failsafeCrashCheckText = qsTr("Vô hiệu hóa")
             break
         case 1:
-            _failsafeCrashCheckText = qsTr("Hold")
+            _failsafeCrashCheckText = qsTr("Giữ")
             break
         case 2:
-            _failsafeCrashCheckText = qsTr("Hold and Disarm")
+            _failsafeCrashCheckText = qsTr("Giữ và Tắt động cơ")
             break
         default:
-            _failsafeCrashCheckText = qsTr("Unknown")
+            _failsafeCrashCheckText = qsTr("Không xác định")
         }
     }
 
@@ -84,22 +84,22 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Arming Checks:")
-            valueText:  _armingCheck.value & 1 ? qsTr("Enabled") : qsTr("Some disabled")
+            labelText: qsTr("Kiểm tra vũ trang:")
+            valueText:  _armingCheck.value & 1 ? qsTr("Đã bật") : qsTr("Một số đã tắt")
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Throttle failsafe:")
-            valueText:  _failsafeThrEnable.value != 0 ? _failsafeThrValue.valueString : qsTr("Disabled")
+            labelText: qsTr("An toàn ga:")
+            valueText:  _failsafeThrEnable.value != 0 ? _failsafeThrValue.valueString : qsTr("Vô hiệu hóa")
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Failsafe Action:")
+            labelText: qsTr("Hành động an toàn:")
             valueText: _failsafeActionText
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Failsafe Crash Check:")
+            labelText: qsTr("Kiểm tra va chạm an toàn:")
             valueText: _failsafeCrashCheckText
         }
 

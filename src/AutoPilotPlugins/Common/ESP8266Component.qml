@@ -30,7 +30,7 @@ Item {
     property real _statusWidth:     ScreenTools.defaultFontPixelWidth * 6
     property real _smallFont:       ScreenTools.smallFontPointSize
 
-    readonly property string    dialogTitle:    qsTr("controller WiFi Bridge")
+    readonly property string    dialogTitle:    qsTr("Cầu nối WiFi điều khiển")
     property int                stStatus:       XMLHttpRequest.UNSENT
     property int                stErrorCount:   0
     property bool               stResetCounters:false
@@ -63,7 +63,7 @@ Item {
             if (stStatus === XMLHttpRequest.DONE) {
                 var objectArray = JSON.parse(req.responseText);
                 if (objectArray.errors !== undefined) {
-                    console.log(qsTr("Error fetching WiFi Bridge Status: %1").arg(objectArray.errors[0].message))
+                    console.log(qsTr("Lỗi khi lấy trạng thái cầu nối WiFi: %1").arg(objectArray.errors[0].message))
                     stErrorCount = stErrorCount + 1
                     if(stErrorCount < 2)
                         timer.start()
@@ -113,7 +113,7 @@ Item {
                 anchors.horizontalCenter:               parent.horizontalCenter
                 Item { width: 1; height: _margins * 0.5; }
                 QGCLabel {
-                    text:                               qsTr("ESP WiFi Bridge Settings")
+                    text:                               qsTr("Cài đặt cầu nối WiFi ESP")
                     font.family:                        ScreenTools.demiboldFontFamily
                 }
                 Rectangle {
@@ -140,14 +140,14 @@ Item {
                             Row {
                                 visible:                    wifiMode
                                 QGCLabel {
-                                    text:                   qsTr("WiFi Mode")
+                                    text:                   qsTr("Chế độ WiFi")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       modeField.baseline
                                 }
                                 QGCComboBox {
                                     id:                     modeField
                                     width:                  _editFieldWidth
-                                    model:                  ["Access Point Mode", "Station Mode"]
+                                    model:                  ["Chế độ điểm truy cập", "Chế độ trạm"]
                                     currentIndex:           wifiMode ? wifiMode.value : 0
                                     onActivated: {
                                         wifiMode.value = index
@@ -156,7 +156,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("WiFi Channel")
+                                    text:                   qsTr("Kênh WiFi")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       channelField.baseline
                                 }
@@ -173,7 +173,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("WiFi AP SSID")
+                                    text:                   qsTr("SSID WiFi AP")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       ssidField.baseline
                                 }
@@ -189,7 +189,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("WiFi AP Password")
+                                    text:                   qsTr("Mật khẩu WiFi AP")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       passwordField.baseline
                                 }
@@ -205,7 +205,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("WiFi STA SSID")
+                                    text:                   qsTr("SSID WiFi STA")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       stassidField.baseline
                                 }
@@ -222,7 +222,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("WiFi STA Password")
+                                    text:                   qsTr("Mật khẩu WiFi STA")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       passwordStaField.baseline
                                 }
@@ -239,7 +239,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("UART Baud Rate")
+                                    text:                   qsTr("Tốc độ UART")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       baudField.baseline
                                 }
@@ -255,7 +255,7 @@ Item {
                             }
                             Row {
                                 QGCLabel {
-                                    text:                   qsTr("QGC UDP Port")
+                                    text:                   qsTr("Cổng UDP QGC")
                                     width:                  _middleRowWidth
                                     anchors.baseline:       qgcportField.baseline
                                 }
@@ -274,7 +274,7 @@ Item {
                     }
                 }
                 QGCLabel {
-                    text:                               qsTr("ESP WiFi Bridge Status")
+                    text:                               qsTr("Trạng thái cầu nối WiFi ESP")
                     font.family:                        ScreenTools.demiboldFontFamily
                 }
                 Rectangle {
@@ -287,21 +287,21 @@ Item {
                        columnSpacing:                   _margins * 2
                        anchors.centerIn:                parent
                        QGCLabel {
-                           text:                        qsTr("Bridge/Vehicle Link")
+                           text:                        qsTr("Kết nối cầu nối/Phương tiện")
                            Layout.alignment:            Qt.AlignHCenter
                        }
                        QGCLabel {
-                           text:                        qsTr("Bridge/QGC Link")
+                           text:                        qsTr("Kết nối cầu nối/QGC")
                            Layout.alignment:            Qt.AlignHCenter
                        }
                        QGCLabel {
-                           text:                        qsTr("QGC/Bridge Link")
+                           text:                        qsTr("Kết nối QGC/Cầu nối")
                            Layout.alignment:            Qt.AlignHCenter
                        }
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Received")
+                               text:                    qsTr("Tin nhắn đã nhận")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -316,7 +316,7 @@ Item {
                            spacing:                     _margins
                            QGCLabel {
                                font.pointSize:          _smallFont
-                               text:                    qsTr("Messages Received")
+                               text:                    qsTr("Tin nhắn đã nhận")
                                width:                   _labelWidth
                            }
                            QGCLabel {
@@ -330,7 +330,7 @@ Item {
                            spacing:                     _margins
                            QGCLabel {
                                font.pointSize:          _smallFont
-                               text:                    qsTr("Messages Received")
+                               text:                    qsTr("Tin nhắn đã nhận")
                                width:                   _labelWidth
                            }
                            QGCLabel {
@@ -343,7 +343,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Lost")
+                               text:                    qsTr("Tin nhắn bị mất")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -357,7 +357,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Lost")
+                               text:                    qsTr("Tin nhắn bị mất")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -371,7 +371,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Lost")
+                               text:                    qsTr("Tin nhắn bị mất")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -385,7 +385,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Sent")
+                               text:                    qsTr("Tin nhắn đã gửi")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -399,7 +399,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Sent")
+                               text:                    qsTr("Tin nhắn đã gửi")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -413,7 +413,7 @@ Item {
                        Row {
                            spacing:                     _margins
                            QGCLabel {
-                               text:                    qsTr("Messages Sent")
+                               text:                    qsTr("Tin nhắn đã gửi")
                                font.pointSize:          _smallFont
                                width:                   _labelWidth
                            }
@@ -430,14 +430,14 @@ Item {
                     spacing:                            _margins
                     anchors.horizontalCenter:           parent.horizontalCenter
                     QGCButton {
-                        text:                           qsTr("Restore Defaults")
+                        text:                           qsTr("Khôi phục mặc định")
                         width:                          _editFieldWidth
                         onClicked: {
                             controller.restoreDefaults()
                         }
                     }
                     QGCButton {
-                        text:                           qsTr("Restart WiFi Bridge")
+                        text:                           qsTr("Khởi động lại cầu nối WiFi")
                         enabled:                        !controller.busy
                         width:                          _editFieldWidth
                         onClicked: {
@@ -448,8 +448,8 @@ Item {
                             visible:    false
                             icon:       StandardIcon.Warning
                             standardButtons: StandardButton.Yes | StandardButton.No
-                            title:      qsTr("Reboot WiFi Bridge")
-                            text:       qsTr("This will restart the WiFi Bridge so the settings you've changed can take effect. Note that you may have to change your computer WiFi settings and QGroundControl link settings to match these changes. Are you sure you want to restart it?")
+                            title:      qsTr("Khởi động lại cầu nối WiFi")
+                            text:       qsTr("Điều này sẽ khởi động lại cầu nối WiFi để các cài đặt bạn đã thay đổi có thể có hiệu lực. Lưu ý rằng bạn có thể phải thay đổi cài đặt WiFi máy tính và cài đặt liên kết QGroundControl để phù hợp với những thay đổi này. Bạn có chắc chắn muốn khởi động lại không?")
                             onYes: {
                                 controller.reboot()
                                 rebootDialog.visible = false
@@ -460,7 +460,7 @@ Item {
                         }
                     }
                     QGCButton {
-                        text:                           qsTr("Reset Counters")
+                        text:                           qsTr("Đặt lại bộ đếm")
                         width:                          _editFieldWidth
                         onClicked: {
                             stResetCounters = true;

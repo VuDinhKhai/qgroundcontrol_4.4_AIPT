@@ -81,17 +81,17 @@ SetupPage {
             property Fact _hColYaw:         controller.getParameterFact(-1, "H_COLYAW")
 
             QGCGroupBox {
-                title: qsTr("Servo Setup")
+                title: qsTr("Thiết lập Servo")
 
                 GridLayout {
                     columns: 6
 
                     QGCLabel { text: qsTr("Servo") }
-                    QGCLabel { text: qsTr("Function") }
+                    QGCLabel { text: qsTr("Chức năng") }
                     QGCLabel { text: qsTr("Min") }
                     QGCLabel { text: qsTr("Max") }
-                    QGCLabel { text: qsTr("Trim") }
-                    QGCLabel { text: qsTr("Reversed") }
+                    QGCLabel { text: qsTr("Cân chỉnh") }
+                    QGCLabel { text: qsTr("Đảo chiều") }
 
                     QGCLabel { text: qsTr("1") }
                     FactComboBox {
@@ -280,7 +280,7 @@ SetupPage {
             }
 
             QGCGroupBox {
-                title: qsTr("Swashplate Setup")
+                title: qsTr("Cài đặt Swashplate")
 
                 GridLayout {
                     columns: 2
@@ -339,7 +339,7 @@ SetupPage {
             }
 
             QGCGroupBox {
-                title: qsTr("Throttle Settings")
+                title: qsTr("Cài đặt Throttle")
 
                 GridLayout {
                     columns: 2
@@ -386,7 +386,7 @@ SetupPage {
             }
 
             QGCGroupBox {
-                title: qsTr("Governor Settings")
+                title: qsTr("Cài đặt Governor")
 
                 GridLayout {
                     columns: 2
@@ -412,12 +412,12 @@ SetupPage {
             }
 
             QGCGroupBox {
-                title: qsTr("Miscellaneous Settings")
+                title: qsTr("Cài đặt khác")
 
                 GridLayout {
                     columns: 2
 
-                    QGCLabel { text: qsTr("* Stabilize Collective Curve *") }
+                    QGCLabel { text: qsTr("* Đồ thị ổn định tập thể *") }
                     QGCLabel { text: qsTr("") }
 
                     QGCLabel { text: _imStbCol1.shortDescription }
@@ -432,7 +432,7 @@ SetupPage {
                     QGCLabel { text: _imStbCol4.shortDescription }
                     FactTextField { fact: _imStbCol4 }
 
-                    QGCLabel { text: qsTr("* Tail & Gyros *") }
+                    QGCLabel { text: qsTr("* Đuôi & Gyros *") }
                     QGCLabel { text: qsTr("") }
 
                     QGCLabel { text: _hTailType.shortDescription }

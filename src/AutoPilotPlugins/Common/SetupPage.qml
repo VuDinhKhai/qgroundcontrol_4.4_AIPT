@@ -39,9 +39,9 @@ Item {
     property bool   _disableDueToArmed:     vehicleComponent ? (!vehicleComponent.allowSetupWhileArmed && _vehicleArmed) : false
     // FIXME: The _vehicleIsRover checkl is a hack to work around https://github.com/PX4/Firmware/issues/10969
     property bool   _disableDueToFlying:    vehicleComponent ? (!_vehicleIsRover && !vehicleComponent.allowSetupWhileFlying && _vehicleFlying) : false
-    property string _disableReason:         _disableDueToArmed ? qsTr("armed") : qsTr("flying")
+    property string _disableReason:         _disableDueToArmed ? qsTr("đang vũ trang") : qsTr("đang bay")
     property real   _margins:               ScreenTools.defaultFontPixelHeight * 0.5
-    property string _pageTitle:             qsTr("%1 Setup").arg(pageName)
+    property string _pageTitle:             qsTr("Thiết lập %1").arg(pageName)
 
     Component.onCompleted: {
         if(pageLoader.item && pageLoader.item.setupPageCompleted) {
@@ -63,7 +63,7 @@ Item {
 
             QGCCheckBox {
                 id:         advancedCheckBox
-                text:       qsTr("Advanced")
+                text:       qsTr("Nâng cao")
                 visible:    showAdvanced
             }
 
@@ -74,7 +74,7 @@ Item {
                 QGCLabel {
                     Layout.fillWidth:   true
                     font.pointSize:     ScreenTools.largeFontPointSize
-                    text:               !setupView.enabled ? _pageTitle + "<font color=\"red\">" + qsTr(" (Disabled while the vehicle is %1)").arg(_disableReason) + "</font>" : _pageTitle
+                    text:               !setupView.enabled ? _pageTitle + "<font color=\"red\">" + qsTr(" (Bị vô hiệu hóa khi phương tiện %1)").arg(_disableReason) + "</font>" : _pageTitle
                     visible:            !ScreenTools.isShortScreen
                 }
 

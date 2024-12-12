@@ -134,7 +134,7 @@ SetupPage {
                 id: lightsOutModel
                 // It appears that QGCComboBox can't handle models that don't have a initial item
                 // after onModelChanged
-                ListElement { text: qsTr("Disabled"); value: 0 }
+                ListElement { text: qsTr("Vô hiệu hóa"); value: 0 }
 
                 function update(number) {
                     // Not enough channels
@@ -142,7 +142,7 @@ SetupPage {
                         return
                     }
                     for(var i = 5; i <= number; i++) {
-                        var text = qsTr("Channel ") + i
+                        var text = qsTr("Kênh ") + i
                         append({"text": text, "value": i})
                     }
                 }
@@ -166,7 +166,7 @@ SetupPage {
 
                     QGCLabel {
                         id:             settingsLabel
-                        text:           qsTr("Light Output Channels")
+                        text:           qsTr("Kênh Đầu Ra Ánh Sáng")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
 
@@ -183,7 +183,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.right:      lights1Combo.left
                             anchors.baseline:   lights1Combo.baseline
-                            text:               qsTr("Lights 1:")
+                            text:               qsTr("Đèn 1:")
                         }
 
                         QGCComboBox {
@@ -204,7 +204,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.right:      lights2Combo.left
                             anchors.baseline:   lights2Combo.baseline
-                            text:               qsTr("Lights 2:")
+                            text:               qsTr("Đèn 2:")
                         }
 
                         QGCComboBox {
@@ -225,7 +225,7 @@ SetupPage {
                             anchors.margins:    _margins
                             anchors.left:       parent.left
                             anchors.baseline:   lightsStepCombo.baseline
-                            text:               qsTr("Brightness Steps:")
+                            text:               qsTr("Bước Độ Sáng:")
                         }
 
                         QGCComboBox {

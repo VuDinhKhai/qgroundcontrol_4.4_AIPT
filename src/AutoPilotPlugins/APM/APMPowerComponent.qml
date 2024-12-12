@@ -47,17 +47,17 @@ SetupPage {
             property bool _escCalibrationAvailable: controller.parameterExists(-1, "ESC_CALIBRATION")
             property Fact _escCalibration:          controller.getParameterFact(-1, "ESC_CALIBRATION", false /* reportMissing */)
 
-            property string _restartRequired: qsTr("Requires vehicle reboot")
+            property string _restartRequired: qsTr("Yêu cầu khởi động lại phương tiện")
 
             QGCPalette { id: ggcPal; colorGroupEnabled: true }
 
-            // Battery1 Monitor settings only - used when only monitor param is available
+            // Các cài đặt theo dõi pin của pin 1 - được sử dụng khi chỉ có tham số theo dõi
             Column {
                 spacing: _margins / 2
                 visible: !_batt1MonitorEnabled || !_batt1ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery 1")
+                    text:       qsTr("Pin 1")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -77,7 +77,7 @@ SetupPage {
                             id:                 batt1MonitorRow
                             spacing:            ScreenTools.defaultFontPixelWidth
 
-                            QGCLabel { text: qsTr("Battery1 monitor:") }
+                            QGCLabel { text: qsTr("Theo dõi pin 1:") }
                             FactComboBox {
                                 id:         monitor1Combo
                                 fact:       _batt1Monitor
@@ -92,7 +92,7 @@ SetupPage {
                         }
 
                         QGCButton {
-                            text:       qsTr("Reboot vehicle")
+                            text:       qsTr("Khởi động lại phương tiện")
                             visible:    _showBatt1Reboot
                             onClicked:  controller.vehicle.rebootVehicle()
                         }
@@ -100,14 +100,14 @@ SetupPage {
                 }
             }
 
-            // Battery 1 settings
+            // Các cài đặt pin 1
             Column {
                 id:         _batt1FullSettings
                 spacing:    _margins / 2
                 visible:    _batt1MonitorEnabled && _batt1ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery 1")
+                    text:       qsTr("Pin 1")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -138,13 +138,13 @@ SetupPage {
                 }
             }
 
-            // Battery2 Monitor settings only - used when only monitor param is available
+            // Các cài đặt theo dõi pin của pin 2 - được sử dụng khi chỉ có tham số theo dõi
             Column {
                 spacing: _margins / 2
                 visible: !_batt2MonitorEnabled || !_batt2ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery 2")
+                    text:       qsTr("Pin 2")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -164,7 +164,7 @@ SetupPage {
                             id:                 batt2MonitorRow
                             spacing:            ScreenTools.defaultFontPixelWidth
 
-                            QGCLabel { text: qsTr("Battery2 monitor:") }
+                            QGCLabel { text: qsTr("Theo dõi pin 2:") }
                             FactComboBox {
                                 id:         monitor2Combo
                                 fact:       _batt2Monitor
@@ -179,7 +179,7 @@ SetupPage {
                         }
 
                         QGCButton {
-                            text:       qsTr("Reboot vehicle")
+                            text:       qsTr("Khởi động lại phương tiện")
                             visible:    _showBatt2Reboot
                             onClicked:  controller.vehicle.rebootVehicle()
                         }
@@ -187,14 +187,14 @@ SetupPage {
                 }
             }
 
-            // Battery 2 settings - Used when full params are available
+            // Các cài đặt pin 2 - Sử dụng khi có đầy đủ tham số
             Column {
                 id:         batt2FullSettings
                 spacing:    _margins / 2
                 visible:    _batt2MonitorEnabled && _batt2ParamsAvailable
 
                 QGCLabel {
-                    text:       qsTr("Battery 2")
+                    text:       qsTr("Pin 2")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -230,7 +230,7 @@ SetupPage {
                 visible:    _escCalibrationAvailable
 
                 QGCLabel {
-                    text:       qsTr("ESC Calibration")
+                    text:       qsTr("Hiệu chuẩn ESC")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -249,7 +249,7 @@ SetupPage {
                             spacing: _margins
 
                             QGCLabel {
-                                text:   qsTr("WARNING: Remove props prior to calibration!")
+                                text:   qsTr("CẢNH BÁO: Hãy gỡ bánh quạt trước khi hiệu chuẩn!")
                                 color:  qgcPal.warningText
                             }
 
@@ -257,22 +257,22 @@ SetupPage {
                                 spacing: _margins
 
                                 QGCButton {
-                                    text: qsTr("Calibrate")
+                                    text: qsTr("Hiệu chuẩn")
                                     enabled:    _escCalibration && _escCalibration.rawValue === 0
                                     onClicked:  if(_escCalibration) _escCalibration.rawValue = 3
                                 }
 
                                 Column {
                                     enabled: _escCalibration && _escCalibration.rawValue === 3
-                                    QGCLabel { text:   _escCalibration ? (_escCalibration.rawValue === 3 ? qsTr("Now perform these steps:") : qsTr("Click Calibrate to start, then:")) : "" }
-                                    QGCLabel { text:   qsTr("- Disconnect USB and battery so flight controller powers down") }
-                                    QGCLabel { text:   qsTr("- Connect the battery") }
-                                    QGCLabel { text:   qsTr("- The arming tone will be played (if the vehicle has a buzzer attached)") }
-                                    QGCLabel { text:   qsTr("- If using a flight controller with a safety button press it until it displays solid red") }
-                                    QGCLabel { text:   qsTr("- You will hear a musical tone then two beeps") }
-                                    QGCLabel { text:   qsTr("- A few seconds later you should hear a number of beeps (one for each battery cell you're using)") }
-                                    QGCLabel { text:   qsTr("- And finally a single long beep indicating the end points have been set and the ESC is calibrated") }
-                                    QGCLabel { text:   qsTr("- Disconnect the battery and power up again normally") }
+                                    QGCLabel { text:   _escCalibration ? (_escCalibration.rawValue === 3 ? qsTr("Bây giờ thực hiện các bước sau:") : qsTr("Nhấp vào Hiệu chuẩn để bắt đầu, sau đó:")) : "" }
+                                    QGCLabel { text:   qsTr("- Ngắt kết nối USB và pin năng lượng để bộ điều khiển bay tắt nguồn") }
+                                    QGCLabel { text:   qsTr("- Kết nối pin năng lượng") }
+                                    QGCLabel { text:   qsTr("- Âm thanh cảnh báo sẽ được phát (nếu phương tiện có một loa báo đính kèm)") }
+                                    QGCLabel { text:   qsTr("- Nếu sử dụng bộ điều khiển bay có nút an toàn, nhấn nó cho đến khi nó hiển thị màu đỏ đậm") }
+                                    QGCLabel { text:   qsTr("- Bạn sẽ nghe một âm thanh nhạc sau đó là hai tiếng bíp") }
+                                    QGCLabel { text:   qsTr("- Vài giây sau bạn sẽ nghe một số tiếng bíp (một tiếng cho mỗi ô pin năng lượng bạn đang sử dụng)") }
+                                    QGCLabel { text:   qsTr("- Và cuối cùng là một tiếng bíp dài duy nhất chỉ ra rằng các điểm cuối cùng đã được thiết lập và ESC đã được hiệu chuẩn") }
+                                    QGCLabel { text:   qsTr("- Ngắt kết nối pin năng lượng và khởi động lại bình thường") }
                                 }
                             }
                         }
@@ -314,7 +314,7 @@ SetupPage {
                 id: sensorModel
 
                 ListElement {
-                    text:       qsTr("Power Module 90A")
+                    text:       qsTr("Mô-đun Năng lượng 90A")
                     voltPin:    2
                     currPin:    3
                     voltMult:   10.1
@@ -323,7 +323,7 @@ SetupPage {
                 }
 
                 ListElement {
-                    text:       qsTr("Power Module HV")
+                    text:       qsTr("Mô-đun Năng lượng HV")
                     voltPin:    2
                     currPin:    3
                     voltMult:   12.02
@@ -341,7 +341,7 @@ SetupPage {
                 }
 
                 ListElement {
-                    text:       qsTr("Blue Robotics Power Sense Module")
+                    text:       qsTr("Mô-đun Cảm biến Năng lượng Blue Robotics")
                     voltPin:    2
                     currPin:    3
                     voltMult:   11.000
@@ -350,7 +350,7 @@ SetupPage {
                 }
 
                 ListElement {
-                    text:       qsTr("Navigator w/ Blue Robotics Power Sense Module")
+                    text:       qsTr("Navigator với Mô-đun Cảm biến Năng lượng Blue Robotics")
                     voltPin:    5
                     currPin:    4
                     voltMult:   11.000
@@ -359,7 +359,7 @@ SetupPage {
                 }
 
                 ListElement {
-                    text:       qsTr("Other")
+                    text:       qsTr("Khác")
                 }
             }
 
@@ -369,7 +369,7 @@ SetupPage {
                 rowSpacing:     _margins
                 columnSpacing:  _margins
 
-                QGCLabel { text: qsTr("Battery monitor:") }
+                QGCLabel { text: qsTr("Theo dõi pin năng lượng:") }
 
                 FactComboBox {
                     id:         monitorCombo
@@ -381,7 +381,7 @@ SetupPage {
                 QGCLabel {
                     Layout.row:     1
                     Layout.column:  0
-                    text:           qsTr("Battery capacity:")
+                    text:           qsTr("Dung lượng pin năng lượng:")
                 }
 
                 FactTextField {
@@ -393,7 +393,7 @@ SetupPage {
                 QGCLabel {
                     Layout.row:     2
                     Layout.column:  0
-                    text:           qsTr("Minimum arming voltage:")
+                    text:           qsTr("Điện áp kích hoạt tối thiểu:")
                 }
 
                 FactTextField {
@@ -405,7 +405,7 @@ SetupPage {
                 QGCLabel {
                     Layout.row:     3
                     Layout.column:  0
-                    text:           qsTr("Power sensor:")
+                    text:           qsTr("Cảm biến năng lượng:")
                 }
 
                 QGCComboBox {
@@ -456,11 +456,10 @@ SetupPage {
                     visible:                _showAdvanced
                     sizeToContents:         true
                 }
-
                 QGCLabel {
                     Layout.row:     6
                     Layout.column:  0
-                    text:           qsTr("Voltage multiplier:")
+                    text:           qsTr("Nhân của điện áp:")
                     visible:        _showAdvanced
                 }
 
@@ -471,7 +470,7 @@ SetupPage {
                 }
 
                 QGCButton {
-                    text:       qsTr("Calculate")
+                    text:       qsTr("Tính toán")
                     visible:    _showAdvanced
                     onClicked:  calcVoltageMultiplierDlgComponent.createObject(mainWindow, { vehicleVoltageFact: vehicleVoltage, battVoltMultFact: battVoltMult }).open()
                 }
@@ -481,12 +480,12 @@ SetupPage {
                     Layout.fillWidth:   true
                     font.pointSize:     ScreenTools.smallFontPointSize
                     wrapMode:           Text.WordWrap
-                    text:               qsTr("If the battery voltage reported by the vehicle is largely different than the voltage read externally using a voltmeter you can adjust the voltage multiplier value to correct this. Click the Calculate button for help with calculating a new value.")
+                    text:               qsTr("Nếu điện áp pin báo cáo bởi phương tiện khác biệt lớn so với điện áp đọc ngoài bằng vôn kế, bạn có thể điều chỉnh giá trị nhân của điện áp để sửa chữa điều này. Nhấp vào nút Tính toán để được trợ giúp trong việc tính toán giá trị mới.")
                     visible:            _showAdvanced
                 }
 
                 QGCLabel {
-                    text:       qsTr("Amps per volt:")
+                    text:       qsTr("Amp trên mỗi volt:")
                     visible:    _showAdvanced
                 }
 
@@ -497,7 +496,7 @@ SetupPage {
                 }
 
                 QGCButton {
-                    text:       qsTr("Calculate")
+                    text:       qsTr("Tính toán")
                     visible:    _showAdvanced
                     onClicked:  calcAmpsPerVoltDlgComponent.createObject(mainWindow, { vehicleCurrentFact: vehicleCurrent, battAmpPerVoltFact: battAmpPerVolt }).open()
                 }
@@ -507,12 +506,12 @@ SetupPage {
                     Layout.fillWidth:   true
                     font.pointSize:     ScreenTools.smallFontPointSize
                     wrapMode:           Text.WordWrap
-                    text:               qsTr("If the current draw reported by the vehicle is largely different than the current read externally using a current meter you can adjust the amps per volt value to correct this. Click the Calculate button for help with calculating a new value.")
+                    text:               qsTr("Nếu dòng điện tiêu thụ báo cáo bởi phương tiện khác biệt lớn so với dòng điện đọc ngoài bằng ampe kế, bạn có thể điều chỉnh giá trị amp trên mỗi volt để sửa chữa điều này. Nhấp vào nút Tính toán để được trợ giúp trong việc tính toán giá trị mới.")
                     visible:            _showAdvanced
                 }
 
                 QGCLabel {
-                    text:       qsTr("Amps Offset:")
+                    text:       qsTr("Dịch chuyển Amp:")
                     visible:    _showAdvanced
                 }
 
@@ -527,7 +526,7 @@ SetupPage {
                     Layout.fillWidth:   true
                     font.pointSize:     ScreenTools.smallFontPointSize
                     wrapMode:           Text.WordWrap
-                    text:               qsTr("If the vehicle reports a high current read when there is little or no current going through it, adjust the Amps Offset. It should be equal to the voltage reported by the sensor when the current is zero.")
+                    text:               qsTr("Nếu phương tiện báo cáo một dòng điện cao khi có rất ít hoặc không có dòng điện chảy qua nó, hãy điều chỉnh Dịch chuyển Amp. Nó nên bằng với điện áp báo cáo bởi cảm biến khi dòng điện là không.")
                     visible:            _showAdvanced
                 }
 
@@ -539,7 +538,7 @@ SetupPage {
         id: calcVoltageMultiplierDlgComponent
 
         QGCPopupDialog {
-            title:      qsTr("Calculate Voltage Multiplier")
+            title:      qsTr("Tính toán Nhân của Điện áp")
             buttons:    StandardButton.Close
 
             property Fact vehicleVoltageFact
@@ -551,7 +550,7 @@ SetupPage {
                 QGCLabel {
                     Layout.preferredWidth:  gridLayout.width
                     wrapMode:               Text.WordWrap
-                    text:                   qsTr("Measure battery voltage using an external voltmeter and enter the value below. Click Calculate to set the new adjusted voltage multiplier.")
+                    text:                   qsTr("Đo điện áp pin sử dụng một vôn kế ngoài và nhập giá trị dưới đây. Nhấp vào Tính toán để đặt giá trị nhân của điện áp mới được điều chỉnh.")
                 }
 
                 GridLayout {
@@ -559,19 +558,19 @@ SetupPage {
                     columns:    2
 
                     QGCLabel {
-                        text: qsTr("Measured voltage:")
+                        text: qsTr("Điện áp đo được:")
                     }
                     QGCTextField { id: measuredVoltage }
 
-                    QGCLabel { text: qsTr("Vehicle voltage:") }
+                    QGCLabel { text: qsTr("Điện áp phương tiện:") }
                     FactLabel { fact: vehicleVoltageFact }
 
-                    QGCLabel { text: qsTr("Voltage multiplier:") }
+                    QGCLabel { text: qsTr("Nhân của điện áp:") }
                     FactLabel { fact: battVoltMultFact }
                 }
 
                 QGCButton {
-                    text: qsTr("Calculate And Set")
+                    text: qsTr("Tính toán và Đặt")
 
                     onClicked:  {
                         var measuredVoltageValue = parseFloat(measuredVoltage.text)
@@ -592,7 +591,7 @@ SetupPage {
         id: calcAmpsPerVoltDlgComponent
 
         QGCPopupDialog {
-            title:      qsTr("Calculate Amps per Volt")
+            title:      qsTr("Tính toán Amp trên mỗi Volt")
             buttons:    StandardButton.Close
 
             property Fact vehicleCurrentFact
@@ -604,7 +603,7 @@ SetupPage {
                 QGCLabel {
                     Layout.preferredWidth:  gridLayout.width
                     wrapMode:               Text.WordWrap
-                    text:                   qsTr("Measure current draw using an external current meter and enter the value below. Click Calculate to set the new amps per volt value.")
+                    text:                   qsTr("Đo dòng điện tiêu thụ sử dụng một ampe kế ngoài và nhập giá trị dưới đây. Nhấp vào Tính toán để đặt giá trị mới của amp trên mỗi volt.")
                 }
 
                 GridLayout {
@@ -612,19 +611,19 @@ SetupPage {
                     columns:    2
 
                     QGCLabel {
-                        text: qsTr("Measured current:")
+                        text: qsTr("Dòng điện đo được:")
                     }
                     QGCTextField { id: measuredCurrent }
 
-                    QGCLabel { text: qsTr("Vehicle current:") }
+                    QGCLabel { text: qsTr("Dòng điện phương tiện:") }
                     FactLabel { fact: vehicleCurrentFact }
 
-                    QGCLabel { text: qsTr("Amps per volt:") }
+                    QGCLabel { text: qsTr("Amp trên mỗi volt:") }
                     FactLabel { fact: battAmpPerVoltFact }
                 }
 
                 QGCButton {
-                    text: qsTr("Calculate And Set")
+                    text: qsTr("Tính toán và Đặt")
 
                     onClicked:  {
                         var measuredCurrentValue = parseFloat(measuredCurrent.text)

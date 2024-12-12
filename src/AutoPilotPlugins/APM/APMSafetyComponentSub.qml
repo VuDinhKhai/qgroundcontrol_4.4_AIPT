@@ -67,7 +67,7 @@ SetupPage {
 
                 QGCLabel {
                     id:         failsafeLabel
-                    text:       qsTr("Failsafe Actions")
+                    text:       qsTr("Hành động an toàn")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -93,7 +93,7 @@ SetupPage {
                                 id:                     gcsEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: gcsEnableCombo.verticalCenter
-                                text:                   qsTr("GCS Heartbeat:")
+                                text:                   qsTr("Nhịp tim GCS:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -112,7 +112,7 @@ SetupPage {
                                 id:                     leakEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: leakEnableCombo.verticalCenter
-                                text:                   qsTr("Leak:")
+                                text:                   qsTr("Rò rỉ:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -124,7 +124,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Detector Pin:")
+                                text:                   qsTr("Chân cảm biến:")
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: leakEnableCombo.verticalCenter
                                 visible:                leakEnableCombo.currentIndex != 0
@@ -139,7 +139,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Logic when Dry:")
+                                text:                   qsTr("Logic khi khô:")
                                 width:                  failsafeSettings._labelWidth
                                 visible:                leakEnableCombo.currentIndex != 0
                                 anchors.verticalCenter: leakEnableCombo.verticalCenter
@@ -162,7 +162,7 @@ SetupPage {
                                 id:                     batteryEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: batteryEnableCombo.verticalCenter
-                                text:                   qsTr("Battery:")
+                                text:                   qsTr("Pin:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -175,7 +175,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Power module not set up")
+                                text:                   qsTr("Mô-đun nguồn chưa được thiết lập")
                                 width:                  failsafeSettings._labelWidth
                                 color:                  ggcPal.warningText
                                 anchors.verticalCenter: batteryEnableCombo.verticalCenter
@@ -183,7 +183,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Voltage:")
+                                text:                   qsTr("Điện áp:")
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: batteryEnableCombo.verticalCenter
                                 visible:                batteryEnableCombo.currentIndex != 0
@@ -197,7 +197,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Remaining Capacity:")
+                                text:                   qsTr("Dung lượng còn lại:")
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: batteryEnableCombo.verticalCenter
                                 visible:                batteryEnableCombo.currentIndex != 0
@@ -231,7 +231,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text: "Threshold:"
+                                text: qsTr("Ngưỡng:")
                                 width:              failsafeSettings._labelWidth
                                 visible:            ekfEnableCombo.currentIndex != 0
                                 anchors.baseline:   ekfEnableCombo.baseline
@@ -253,7 +253,7 @@ SetupPage {
                                 id:                     pilotEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: pilotEnableCombo.verticalCenter
-                                text:                   qsTr("Pilot Input:")
+                                text:                   qsTr("Đầu vào từ người lái:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -265,7 +265,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:                   qsTr("Timeout:")
+                                text:                   qsTr("Thời gian chờ:")
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: pilotEnableCombo.verticalCenter
                                 visible:                pilotEnableCombo.currentIndex != 0
@@ -288,7 +288,7 @@ SetupPage {
                                 id:                     temperatureEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: temperatureEnableCombo.verticalCenter
-                                text:                   qsTr("Internal Temperature:")
+                                text:                   qsTr("Nhiệt độ trong:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -300,7 +300,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:               qsTr("Threshold:")
+                                text:               qsTr("Ngưỡng:")
                                 width:              failsafeSettings._labelWidth
                                 visible:            temperatureEnableCombo.currentIndex != 0
                                 anchors.baseline:   temperatureEnableCombo.baseline
@@ -321,7 +321,7 @@ SetupPage {
                                 id:                     pressureEnableLabel
                                 width:                  failsafeSettings._labelWidth
                                 anchors.verticalCenter: pressureEnableCombo.verticalCenter
-                                text:                   qsTr("Internal Pressure:")
+                                text:                   qsTr("Áp suất trong:")
                                 wrapMode:               Text.Wrap
                             }
 
@@ -333,7 +333,7 @@ SetupPage {
                             }
 
                             QGCLabel {
-                                text:               qsTr("Threshold:")
+                                text:               qsTr("Ngưỡng:")
                                 width:              failsafeSettings._labelWidth
                                 visible:            pressureEnableCombo.currentIndex != 0
                                 anchors.baseline:   pressureEnableCombo.baseline
@@ -354,7 +354,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:           qsTr("Arming Checks")
+                    text:           qsTr("Kiểm tra vũ trang")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -385,7 +385,7 @@ SetupPage {
                             anchors.right:  parent.right
                             wrapMode:       Text.WordWrap
                             color:          qgcPal.warningText
-                            text:            qsTr("Warning: Turning off arming checks can lead to loss of Vehicle control.")
+                            text:            qsTr("Cảnh báo: Tắt kiểm tra vũ trang có thể dẫn đến mất kiểm soát phương tiện.")
                             visible:        _armingCheck.value != 1
                         }
                     }

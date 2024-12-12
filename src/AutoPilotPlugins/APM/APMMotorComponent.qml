@@ -36,7 +36,7 @@ SetupPage {
             spacing: ScreenTools.defaultFontPixelHeight
 
             QGCLabel {
-                text:       qsTr("Warning: Unable to determine motor count")
+                text:       qsTr("Cảnh báo: Không thể xác định số lượng động cơ")
                 color:      qgcPal.warningText
                 visible:    controller.vehicle.motorCount == -1
             }
@@ -93,7 +93,7 @@ SetupPage {
                 Column {
                     QGCLabel {
                         anchors.horizontalCenter:   parent.horizontalCenter
-                        text:                       qsTr("All")
+                        text:                       qsTr("Tất cả")
                     }
 
                     QGCSlider {
@@ -119,7 +119,7 @@ SetupPage {
                 anchors.left:   parent.left
                 anchors.right:  parent.right
                 wrapMode:       Text.WordWrap
-                text:           qsTr("Moving the sliders will causes the motors to spin. Make sure you remove all props.")
+                text:           qsTr("Di chuyển các thanh trượt sẽ khiến các động cơ quay. Hãy đảm bảo bạn đã tháo hết cánh quạt.")
             }
 
             Row {
@@ -139,7 +139,7 @@ SetupPage {
 
                 QGCLabel {
                     color:  qgcPal.warningText
-                    text:   safetySwitch.checked ? qsTr("Careful: Motor sliders are enabled") : qsTr("Propellers are removed - Enable motor sliders")
+                    text:   safetySwitch.checked ? qsTr("Cẩn thận: Thanh trượt động cơ đã được bật") : qsTr("Cánh quạt đã được tháo - Bật thanh trượt động cơ")
                 }
             } // Row
         } // Column

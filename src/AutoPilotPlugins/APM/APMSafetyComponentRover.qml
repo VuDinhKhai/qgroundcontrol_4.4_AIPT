@@ -50,7 +50,7 @@ SetupPage {
 
                 QGCLabel {
                     id:         failsafeLabel
-                    text:       qsTr("Failsafe Triggers")
+                    text:       qsTr("Kích hoạt an toàn")
                     font.family: ScreenTools.demiboldFontFamily
                 }
 
@@ -65,7 +65,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   gcsEnableCombo.baseline
-                        text:               qsTr("Ground Station failsafe:")
+                        text:               qsTr("An toàn trạm mặt đất:")
                     }
 
                     FactComboBox {
@@ -84,7 +84,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   throttleEnableCombo.baseline
-                        text:               qsTr("Throttle failsafe:")
+                        text:               qsTr("An toàn ga:")
                     }
 
                     FactComboBox {
@@ -102,7 +102,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   throttlePWMField.baseline
-                        text:               qsTr("PWM threshold:")
+                        text:               qsTr("Ngưỡng PWM:")
                     }
 
                     FactTextField {
@@ -119,7 +119,7 @@ SetupPage {
                         anchors.margins:    _margins
                         anchors.left:       parent.left
                         anchors.baseline:   crashCheckCombo.baseline
-                        text:               qsTr("Failsafe Crash Check:")
+                        text:               qsTr("Kiểm tra sự cố an toàn:")
                     }
 
                     QGCComboBox {
@@ -128,7 +128,7 @@ SetupPage {
                         anchors.left:       gcsEnableCombo.left
                         anchors.top:        throttlePWMField.bottom
                         width:              throttlePWMField.width
-                        model:              [qsTr("Disabled"), qsTr("Hold"), qsTr("Hold and Disarm")]
+                        model:              [qsTr("Vô hiệu hóa"), qsTr("Giữ"), qsTr("Giữ và Tắt động cơ")]
                         currentIndex:       _failsafeCrashCheck.value
 
                         onActivated: _failsafeCrashCheck.value = index
@@ -140,7 +140,7 @@ SetupPage {
                 spacing: _margins / 2
 
                 QGCLabel {
-                    text:           qsTr("Arming Checks")
+                    text:           qsTr("Kiểm tra vũ trang")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
 
@@ -171,7 +171,7 @@ SetupPage {
                             anchors.right:  parent.right
                             wrapMode:       Text.WordWrap
                             color:          qgcPal.warningText
-                            text:            qsTr("Warning: Turning off arming checks can lead to loss of Vehicle control.")
+                            text:            qsTr("Cảnh báo: Tắt kiểm tra vũ trang có thể dẫn đến mất kiểm soát phương tiện.")
                             visible:        _armingCheck.value != 1
                         }
                     }

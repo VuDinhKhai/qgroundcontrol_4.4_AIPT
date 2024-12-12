@@ -15,7 +15,7 @@
 
 APMTuningComponent::APMTuningComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent)
     : VehicleComponent(vehicle, autopilot, parent)
-    , _name(tr("Tuning"))
+    , _name(tr("Điều chỉnh"))
 {
 }
 
@@ -26,7 +26,7 @@ QString APMTuningComponent::name(void) const
 
 QString APMTuningComponent::description(void) const
 {
-    return tr("Tuning Setup is used to tune the flight characteristics of the Vehicle.");
+    return tr("Thiết lập điều chỉnh được sử dụng để điều chỉnh đặc tính bay của Phương tiện.");
 }
 
 QString APMTuningComponent::iconResource(void) const

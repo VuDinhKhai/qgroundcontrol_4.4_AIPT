@@ -28,7 +28,7 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-        labelText:  qsTr("Compasses:")
+        labelText:  qsTr("La bàn:")
         valueText: ""
         }
 
@@ -44,22 +44,22 @@ Item {
                                 (sensorParams.rgCompassCalibrated[index] ?
                                      getPriority(index) +
                                      (sensorParams.rgCompassExternalParamAvailable[index] ?
-                                          (sensorParams.rgCompassExternal[index] ? ", External" : ", Internal" ) :
+                                          (sensorParams.rgCompassExternal[index] ? ", Bên ngoài" : ", Bên trong" ) :
                                           "") :
-                                     qsTr("Setup required")) :
-                                qsTr("Not installed")
+                                     qsTr("Yêu cầu thiết lập")) :
+                                qsTr("Chưa cài đặt")
 
                     function getPriority (index) {
                         if (sensorParams.rgCompassId[index].value == sensorParams.rgCompassPrio[0].value) {
-                            return "Primary"
+                            return "Chính"
                         }
                         if (sensorParams.rgCompassId[index].value == sensorParams.rgCompassPrio[1].value) {
-                            return "Secondary"
+                            return "Phụ"
                         }
                         if (sensorParams.rgCompassId[index].value == sensorParams.rgCompassPrio[2].value) {
-                            return "Tertiary"
+                            return "Thứ ba"
                         }
-                        return "Unused"
+                        return "Không sử dụng"
                     }
                 }
 
@@ -73,8 +73,8 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Accelerometer(s):")
-            valueText: controller.accelSetupNeeded ? qsTr("Setup required") : qsTr("Ready")
+            labelText: qsTr("Gia tốc kế:")
+            valueText: controller.accelSetupNeeded ? qsTr("Yêu cầu thiết lập") : qsTr("Sẵn sàng")
         }
 
         Repeater {
@@ -86,8 +86,8 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Barometer(s):")
-            valueText: sensorParams.baroIdAvailable ? "" : qsTr("Not Supported(Over APM 4.1)")
+            labelText: qsTr("Áp kế:")
+            valueText: sensorParams.baroIdAvailable ? "" : qsTr("Không hỗ trợ (Trên APM 4.1)")
         }
 
         Repeater {

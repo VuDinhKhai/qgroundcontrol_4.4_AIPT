@@ -18,7 +18,7 @@
 
 APMSensorsComponent::APMSensorsComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent) :
     VehicleComponent(vehicle, autopilot, parent),
-    _name(tr("Sensors"))
+    _name(tr("Cảm biến"))
 {
 
 }
@@ -30,7 +30,7 @@ QString APMSensorsComponent::name(void) const
 
 QString APMSensorsComponent::description(void) const
 {
-    return tr("Sensors Setup is used to calibrate the sensors within your vehicle.");
+    return tr("Thiết lập cảm biến được sử dụng để hiệu chỉnh các cảm biến trong phương tiện của bạn.");
 }
 
 QString APMSensorsComponent::iconResource(void) const

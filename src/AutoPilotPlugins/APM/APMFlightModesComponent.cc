@@ -26,7 +26,7 @@ QString APMFlightModesComponent::name(void) const
 
 QString APMFlightModesComponent::description(void) const
 {
-    return tr("Flight Modes Setup is used to configure the transmitter switches associated with Flight Modes.");
+    return tr("Cài đặt Chế độ Bay được sử dụng để cấu hình các công tắc truyền phát liên quan đến Chế độ Bay.");
 }
 
 QString APMFlightModesComponent::iconResource(void) const

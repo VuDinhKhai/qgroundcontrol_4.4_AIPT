@@ -190,7 +190,7 @@ SetupPage {
             QGCPalette { id: ggcPal; colorGroupEnabled: true }
 
             QGCCheckBox {
-                text:       qsTr("Enable Follow Me")
+                text:       qsTr("Bật chế độ Theo sát")
                 checked:    _followEnabled.rawValue == 1
                 onClicked: {
                     if (checked) {
@@ -209,7 +209,7 @@ SetupPage {
 
             QGCLabel {
                 id:         vehicleParamRefreshLabel
-                text:       qsTr("Waiting for Vehicle to update")
+                text:       qsTr("Đang chờ phương tiện cập nhật")
                 visible:    false
             }
 
@@ -221,13 +221,12 @@ SetupPage {
                 QGCLabel {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("The vehicle parameters required for follow me are currently set in a way which is not supported. Using follow with this setup may lead to unpredictable/hazardous results.")
+                    text:           qsTr("Các tham số phương tiện cần thiết cho chế độ theo sát hiện đang được thiết lập theo cách không được hỗ trợ. Sử dụng chế độ theo sát với thiết lập này có thể dẫn đến kết quả khó lường/nguy hiểm.")
                     wrapMode:       Text.WordWrap
-                    onWidthChanged: console.log('width', width)
                 }
 
                 QGCButton {
-                    text:       qsTr("Reset To Supported Settings")
+                    text:       qsTr("Đặt lại về cài đặt được hỗ trợ")
                     onClicked:  _setFollowMeParamDefaults()
                 }
             }
@@ -245,11 +244,11 @@ SetupPage {
                         Layout.fillWidth:   true
                         columns:            2
 
-                        QGCLabel { text: qsTr("Vehicle Position") }
+                        QGCLabel { text: qsTr("Vị trí phương tiện") }
                         QGCComboBox {
                             id:                 followPositionCombo
                             Layout.fillWidth:   true
-                            model:              [ qsTr("Maintain Current Offsets"), qsTr("Specify Offsets")]
+                            model:              [ qsTr("Duy trì bù hiện tại"), qsTr("Chỉ định bù")]
 
                             onActivated: {
                                 if (index == 0) {
@@ -262,7 +261,7 @@ SetupPage {
                         }
 
                         QGCLabel {
-                            text:       qsTr("Point Vehicle")
+                            text:       qsTr("Chỉ hướng phương tiện")
                             visible:    !_roverFirmware
                         }
                         QGCComboBox {
@@ -272,7 +271,7 @@ SetupPage {
                             visible:                !_roverFirmware
                             onActivated:            _followYawBehavior.rawValue = rgValues[index]
 
-                            property var rgText:    [ qsTr("Maintain current vehicle orientation"), qsTr("Point at ground station location"), qsTr("Same direction as ground station movement") ]
+                            property var rgText:    [ qsTr("Duy trì hướng phương tiện hiện tại"), qsTr("Chỉ về vị trí trạm mặt đất"), qsTr("Cùng hướng với chuyển động của trạm mặt đất") ]
                             property var rgValues:  [ _followYawBehaviorNone, _followYawBehaviorFace, _followYawBehaviorFlight ]
                         }
                     }
@@ -285,16 +284,16 @@ SetupPage {
                         QGCLabel {
                             Layout.columnSpan:  2
                             Layout.alignment:   Qt.AlignHCenter
-                            text:               qsTr("Vehicle Offsets")
+                            text:               qsTr("Bù phương tiện")
                         }
 
-                        QGCLabel { text: qsTr("Angle") }
+                        QGCLabel { text: qsTr("Góc") }
                         FactTextField {
                             fact:       controller.angle
-                            onUpdated:  { console.log("updated"); _setXYOffsetByAngleAndDistance(controller.angle.rawValue, controller.distance.rawValue) }
+                            onUpdated:  { _setXYOffsetByAngleAndDistance(controller.angle.rawValue, controller.distance.rawValue) }
                         }
 
-                        QGCLabel { text: qsTr("Distance") }
+                        QGCLabel { text: qsTr("Khoảng cách") }
                         FactTextField {
                             fact:       controller.distance
                             onUpdated:  _setXYOffsetByAngleAndDistance(controller.angle.rawValue, controller.distance.rawValue)
@@ -302,7 +301,7 @@ SetupPage {
 
                         QGCLabel {
                             id:         heightLabel
-                            text:       qsTr("Height")
+                            text:       qsTr("Chiều cao")
                             visible:    !_roverFirmware && !_followMaintain
                         }
                         FactTextField {
@@ -343,7 +342,7 @@ SetupPage {
                         anchors.horizontalCenter:   parent.horizontalCenter
                         anchors.topMargin:          parent.height / 4
                         anchors.top:                parent.top
-                        text:                       qsTr("Click in the graphic to change angle")
+                        text:                       qsTr("Nhấn vào đồ họa để thay đổi góc")
                         opacity:                    0.5
                     }
 

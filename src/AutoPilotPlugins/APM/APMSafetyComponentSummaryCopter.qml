@@ -38,59 +38,59 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Arming Checks:")
-            valueText: _armingCheck.value & 1 ? qsTr("Enabled") : qsTr("Some disabled")
+            labelText: qsTr("Kiểm tra vũ trang:")
+            valueText: _armingCheck.value & 1 ? qsTr("Đã bật") : qsTr("Một số đã tắt")
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("Throttle failsafe:")
+            labelText: qsTr("Bảo vệ ga:")
             valueText: _failsafeThrEnable.enumStringValue
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt1 low failsafe:")
+            labelText:  qsTr("Pin 1 yếu:")
             valueText:  _batt1MonitorEnabled ? _batt1FSLowAct.enumStringValue : ""
             visible:    _batt1MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt1 critical failsafe:")
+            labelText:  qsTr("Pin 1 nguy kịch:")
             valueText:  _batt1FSCritActAvailable ? _batt1FSCritAct.enumStringValue : ""
             visible:    _batt1FSCritActAvailable
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt2 low failsafe:")
+            labelText:  qsTr("Pin 2 yếu:")
             valueText:  _batt2MonitorEnabled ? _batt2FSLowAct.enumStringValue : ""
             visible:    _batt2MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt2 critical failsafe:")
+            labelText:  qsTr("Pin 2 nguy kịch:")
             valueText:  _batt2MonitorEnabled ? _batt2FSCritAct.enumStringValue : ""
             visible:    _batt2MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("GeoFence:")
+            labelText: qsTr("Hàng rào địa lý:")
             valueText: _fenceEnable.value == 0 || _fenceType == 0 ?
-                           qsTr("Disabled") :
+                           qsTr("Đã tắt") :
                            (_fenceType.value == 1 ?
-                                qsTr("Altitude") :
-                                (_fenceType.value == 2 ? qsTr("Circle") : qsTr("Altitude,Circle")))
+                                qsTr("Độ cao") :
+                                (_fenceType.value == 2 ? qsTr("Vòng tròn") : qsTr("Độ cao,Vòng tròn")))
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("GeoFence:")
+            labelText: qsTr("Hàng rào địa lý:")
             valueText: _fenceAction.value == 0 ?
-                           qsTr("Report only") :
-                           (_fenceAction.value == 1 ? qsTr("RTL or Land") : qsTr("Unknown"))
+                           qsTr("Chỉ báo cáo") :
+                           (_fenceAction.value == 1 ? qsTr("RTL hoặc hạ cánh") : qsTr("Không xác định"))
             visible:    _fenceEnable.value != 0
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("RTL min alt:")
-            valueText: _rtlAltFact.value == 0 ? qsTr("current") : _rtlAltFact.valueString + " " + _rtlAltFact.units
+            labelText: qsTr("RTL độ cao tối thiểu:")
+            valueText: _rtlAltFact.value == 0 ? qsTr("hiện tại") : _rtlAltFact.valueString + " " + _rtlAltFact.units
         }
     }
 }

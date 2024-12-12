@@ -34,14 +34,14 @@ Item {
         anchors.fill:       parent
 
         VehicleSummaryRow {
-            labelText: qsTr("Arming Checks:")
-            valueText: fact ? (fact.value & 1 ? qsTr("Enabled") : qsTr("Some disabled")) : ""
+            labelText: qsTr("Kiểm tra vũ trang:")
+            valueText: fact ? (fact.value & 1 ? qsTr("Đã bật") : qsTr("Một số đã tắt")) : ""
 
             property Fact fact: controller.getParameterFact(-1, "ARMING_CHECK")
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Throttle failsafe:")
+            labelText:  qsTr("An toàn ga:")
             valueText:  fact ? fact.enumStringValue : ""
             visible:    controller.vehicle.multiRotor
 
@@ -49,7 +49,7 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Throttle failsafe:")
+            labelText:  qsTr("An toàn ga:")
             valueText:  fact ? fact.enumStringValue : ""
             visible:    controller.vehicle.fixedWing
 
@@ -57,7 +57,7 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Throttle failsafe:")
+            labelText:  qsTr("An toàn ga:")
             valueText:  fact ? fact.enumStringValue : ""
             visible:    _roverFirmware
 
@@ -65,7 +65,7 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Failsafe Action:")
+            labelText:  qsTr("Hành động an toàn:")
             valueText:  fact ? fact.enumStringValue : ""
             visible:    _roverFirmware
 
@@ -73,7 +73,7 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Failsafe Crash Check:")
+            labelText:  qsTr("Kiểm tra sự cố an toàn:")
             valueText:  fact ? fact.enumStringValue : ""
             visible:    _roverFirmware
 
@@ -81,43 +81,43 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt1 low failsafe:")
+            labelText:  qsTr("An toàn pin 1 thấp:")
             valueText:  _batt1MonitorEnabled ? _batt1FSLowAct.enumStringValue : ""
             visible:    _batt1MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt1 critical failsafe:")
+            labelText:  qsTr("An toàn pin 1 nguy kịch:")
             valueText:  _batt1FSCritActAvailable ? _batt1FSCritAct.enumStringValue : ""
             visible:    _batt1FSCritActAvailable
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt2 low failsafe:")
+            labelText:  qsTr("An toàn pin 2 thấp:")
             valueText:  _batt2MonitorEnabled ? _batt2FSLowAct.enumStringValue : ""
             visible:    _batt2MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("Batt2 critical failsafe:")
+            labelText:  qsTr("An toàn pin 2 nguy kịch:")
             valueText:  _batt2MonitorEnabled ? _batt2FSCritAct.enumStringValue : ""
             visible:    _batt2MonitorEnabled
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("GeoFence:")
+            labelText: qsTr("Hàng rào địa lý:")
             valueText: {
                 if(_copterFenceEnable && _copterFenceType) {
                     if(_copterFenceEnable.value == 0 || _copterFenceType == 0) {
-                        return qsTr("Disabled")
+                        return qsTr("Vô hiệu hóa")
                     } else {
                         if(_copterFenceType.value == 1) {
-                            return qsTr("Altitude")
+                            return qsTr("Độ cao")
                         }
                         if(_copterFenceType.value == 2) {
-                            return qsTr("Circle")
+                            return qsTr("Vòng tròn")
                         }
-                        return qsTr("Altitude,Circle")
+                        return qsTr("Độ cao,Vòng tròn")
                     }
                 }
                 return ""
@@ -126,24 +126,24 @@ Item {
         }
 
         VehicleSummaryRow {
-            labelText: qsTr("GeoFence:")
+            labelText: qsTr("Hàng rào địa lý:")
             valueText: _copterFenceAction.value == 0 ?
-                           qsTr("Report only") :
-                           (_copterFenceAction.value == 1 ? qsTr("RTL or Land") : qsTr("Unknown"))
+                           qsTr("Chỉ báo cáo") :
+                           (_copterFenceAction.value == 1 ? qsTr("RTL hoặc hạ cánh") : qsTr("Không xác định"))
             visible: controller.vehicle.multiRotor && _copterFenceEnable.value !== 0
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("RTL min alt:")
-            valueText:  fact ? (fact.value == 0 ? qsTr("current") : fact.valueString + " " + fact.units) : ""
+            labelText:  qsTr("Độ cao tối thiểu RTL:")
+            valueText:  fact ? (fact.value == 0 ? qsTr("hiện tại") : fact.valueString + " " + fact.units) : ""
             visible:    controller.vehicle.multiRotor
 
             property Fact fact: controller.getParameterFact(-1, "RTL_ALT", false /* reportMissing */)
         }
 
         VehicleSummaryRow {
-            labelText:  qsTr("RTL min alt:")
-            valueText:  fact ? (fact.value < 0 ? qsTr("current") : fact.valueString + " " + fact.units) : ""
+            labelText:  qsTr("Độ cao tối thiểu RTL:")
+            valueText:  fact ? (fact.value < 0 ? qsTr("hiện tại") : fact.valueString + " " + fact.units) : ""
             visible:    controller.vehicle.fixedWing
 
             property Fact fact: controller.getParameterFact(-1, "ALT_HOLD_RTL", false /* reportMissing */)

@@ -26,15 +26,15 @@ Item {
     Column {
         anchors.fill:       parent
         VehicleSummaryRow {
-            labelText: qsTr("Firmware Version")
+            labelText: qsTr("Phiên bản firmware")
             valueText: esp8266.version
         }
         VehicleSummaryRow {
-            labelText: qsTr("WiFi Mode")
-            valueText: wifiMode ? (wifiMode.value === 0 ? qsTr("AP Mode") : qsTr("Station Mode")) : qsTr("AP Mode")
+            labelText: qsTr("Chế độ WiFi")
+            valueText: wifiMode ? (wifiMode.value === 0 ? qsTr("Chế độ AP") : qsTr("Chế độ trạm")) : qsTr("Chế độ AP")
         }
         VehicleSummaryRow {
-            labelText:  qsTr("WiFi Channel")
+            labelText:  qsTr("Kênh WiFi")
             valueText:  wifiChannel ? wifiChannel.valueString : ""
             visible:    wifiMode ? wifiMode.value === 0 : true
         }
@@ -43,7 +43,7 @@ Item {
             valueText: esp8266.wifiSSID
         }
         VehicleSummaryRow {
-            labelText: qsTr("WiFi AP Password")
+            labelText: qsTr("Mật khẩu WiFi AP")
             valueText: esp8266.wifiPassword
         }
         /* Too much info makes it all crammed
@@ -52,12 +52,12 @@ Item {
             valueText: esp8266.wifiSSIDSta
         }
         VehicleSummaryRow {
-            labelText: qsTr("WiFi STA Password")
+            labelText: qsTr("Mật khẩu WiFi STA")
             valueText: esp8266.wifiPasswordSta
         }
         */
         VehicleSummaryRow {
-            labelText: qsTr("UART Baud Rate")
+            labelText: qsTr("Tốc độ Baud UART")
             valueText: uartBaud ? uartBaud.valueString : ""
         }
     }

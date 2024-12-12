@@ -180,7 +180,7 @@ void APMSensorsComponentController::_stopCalibration(APMSensorsComponentControll
     
     switch (code) {
     case StopCalibrationSuccess:
-        _orientationCalAreaHelpText->setProperty("text", tr("Calibration complete"));
+        _orientationCalAreaHelpText->setProperty("text", tr("Hiệu chuẩn hoàn tất"));
         emit resetStatusTextArea();
         emit calibrationComplete(_calTypeInProgress);
         break;
@@ -197,7 +197,7 @@ void APMSensorsComponentController::_stopCalibration(APMSensorsComponentControll
     default:
         // Assume failed
         _hideAllCalAreas();
-        qgcApp()->showAppMessage(tr("Calibration failed. Calibration log will be displayed."));
+        qgcApp()->showAppMessage(tr("Hiệu chuẩn thất bại. Nhật ký hiệu chuẩn sẽ được hiển thị."));
         break;
     }
     
@@ -261,7 +261,7 @@ void APMSensorsComponentController::_mavCommandResult(int vehicleId, int compone
             _previousCompassCalFitness = compassCalFitness->rawValue().toFloat();
             getParameterFact(FactSystem::defaultComponentId, _compassCalFitnessParam)->setRawValue(100.0);
 
-            _appendStatusLog(tr("Rotate the vehicle randomly around all axes until the progress bar fills all the way to the right ."));
+            _appendStatusLog(tr("Xoay phương tiện ngẫu nhiên theo tất cả các trục cho đến khi thanh tiến trình đầy đến bên phải."));
             _vehicle->sendMavCommand(_vehicle->defaultComponentId(),
                                      MAV_CMD_DO_START_MAG_CAL,
                                      true,          // showError
@@ -276,10 +276,10 @@ void APMSensorsComponentController::_mavCommandResult(int vehicleId, int compone
         _restorePreviousCompassCalFitness();
     } else if (command == MAV_CMD_FIXED_MAG_CAL_YAW) {
         if (result == MAV_RESULT_ACCEPTED) {
-            _appendStatusLog(tr("Successfully completed"));
+            _appendStatusLog(tr("Hoàn thành thành công"));
             _stopCalibration(StopCalibrationSuccessShowLog);
         } else {
-            _appendStatusLog(tr("Failed"));
+            _appendStatusLog(tr("Thất bại"));
             _stopCalibration(StopCalibrationFailed);
         }
     }
@@ -315,7 +315,7 @@ void APMSensorsComponentController::calibrateAccel(bool doSimpleAccelCal)
     _vehicle->vehicleLinkManager()->setCommunicationLostEnabled(false);
     _startVisualCalibration();
     _cancelButton->setEnabled(false);
-    _orientationCalAreaHelpText->setProperty("text", tr("Hold still in the current orientation and press Next when ready"));
+    _orientationCalAreaHelpText->setProperty("text", tr("Giữ yên ở hướng hiện tại và nhấn Tiếp theo khi sẵn sàng"));
 
     // Reset all progress indication
     _orientationCalDownSideDone = false;
@@ -360,9 +360,9 @@ void APMSensorsComponentController::calibrateMotorInterference(void)
     _calTypeInProgress = CalTypeCompassMot;
     _vehicle->vehicleLinkManager()->setCommunicationLostEnabled(false);
     _startLogCalibration();
-    _appendStatusLog(tr("Raise the throttle slowly to between 50% ~ 75% (the props will spin!) for 5 ~ 10 seconds."));
-    _appendStatusLog(tr("Quickly bring the throttle back down to zero"));
-    _appendStatusLog(tr("Press the Next button to complete the calibration"));
+    _appendStatusLog(tr("Từ từ tăng ga lên khoảng 50% ~ 75% (cánh quạt sẽ quay!) trong 5 ~ 10 giây."));
+    _appendStatusLog(tr("Nhanh chóng giảm ga về không"));
+    _appendStatusLog(tr("Nhấn nút Tiếp theo để hoàn thành hiệu chuẩn"));
     _vehicle->startCalibration(Vehicle::CalibrationAPMCompassMot);
 }
 
@@ -371,7 +371,7 @@ void APMSensorsComponentController::levelHorizon(void)
     _calTypeInProgress = CalTypeLevelHorizon;
     _vehicle->vehicleLinkManager()->setCommunicationLostEnabled(false);
     _startLogCalibration();
-    _appendStatusLog(tr("Hold the vehicle in its level flight position."));
+    _appendStatusLog(tr("Giữ phương tiện ở vị trí bay cân bằng."));
     _vehicle->startCalibration(Vehicle::CalibrationLevel);
 }
 
@@ -380,7 +380,7 @@ void APMSensorsComponentController::calibratePressure(void)
     _calTypeInProgress = CalTypePressure;
     _vehicle->vehicleLinkManager()->setCommunicationLostEnabled(false);
     _startLogCalibration();
-    _appendStatusLog(tr("Requesting pressure calibration..."));
+    _appendStatusLog(tr("Đang yêu cầu hiệu chuẩn áp suất..."));
     _vehicle->startCalibration(Vehicle::CalibrationAPMPressureAirspeed);
 }
 
@@ -389,7 +389,7 @@ void APMSensorsComponentController::calibrateGyro(void)
     _calTypeInProgress = CalTypeGyro;
     _vehicle->vehicleLinkManager()->setCommunicationLostEnabled(false);
     _startLogCalibration();
-    _appendStatusLog(tr("Requesting gyro calibration..."));
+    _appendStatusLog(tr("Đang yêu cầu hiệu chuẩn con quay hồi chuyển..."));
     _vehicle->startCalibration(Vehicle::CalibrationGyro);
 }
 
@@ -515,14 +515,14 @@ void APMSensorsComponentController::_handleCommandAck(mavlink_message_t& message
         if (commandAck.command == MAV_CMD_PREFLIGHT_CALIBRATION) {
             switch (commandAck.result) {
             case MAV_RESULT_IN_PROGRESS:
-                _appendStatusLog(tr("In progress"));
+                _appendStatusLog(tr("Đang tiến hành"));
                 break;
             case MAV_RESULT_ACCEPTED:
-                _appendStatusLog(tr("Successfully completed"));
+                _appendStatusLog(tr("Hoàn thành thành công"));
                 _stopCalibration(StopCalibrationSuccessShowLog);
                 break;
             default:
-                _appendStatusLog(tr("Failed"));
+                _appendStatusLog(tr("Thất bại"));
                 _stopCalibration(StopCalibrationFailed);
                 break;
             }
@@ -570,9 +570,9 @@ void APMSensorsComponentController::_handleMagCalReport(mavlink_message_t& messa
         bool additionalCompassCompleted = false;
         if (magCalReport.compass_id < 3 && !_rgCompassCalComplete[magCalReport.compass_id]) {
             if (magCalReport.cal_status == MAG_CAL_SUCCESS) {
-                _appendStatusLog(tr("Compass %1 calibration complete").arg(magCalReport.compass_id));
+                _appendStatusLog(tr("Hiệu chuẩn La bàn %1 hoàn thành").arg(magCalReport.compass_id));
             } else {
-                _appendStatusLog(tr("Compass %1 calibration below quality threshold").arg(magCalReport.compass_id));
+                _appendStatusLog(tr("Hiệu chuẩn La bàn %1 dưới ngưỡng chất lượng").arg(magCalReport.compass_id));
             }
             _rgCompassCalComplete[magCalReport.compass_id] = true;
             _rgCompassCalSucceeded[magCalReport.compass_id] = magCalReport.cal_status == MAG_CAL_SUCCESS;
@@ -591,16 +591,16 @@ void APMSensorsComponentController::_handleMagCalReport(mavlink_message_t& messa
             emit compass2CalSucceededChanged(_rgCompassCalSucceeded[1]);
             emit compass3CalSucceededChanged(_rgCompassCalSucceeded[2]);
             if (_rgCompassCalSucceeded[0] && _rgCompassCalSucceeded[1] && _rgCompassCalSucceeded[2]) {
-                _appendStatusLog(tr("All compasses calibrated successfully"));
-                _appendStatusLog(tr("YOU MUST REBOOT YOUR VEHICLE NOW FOR NEW SETTINGS TO TAKE AFFECT"));
+                _appendStatusLog(tr("Tất cả la bàn đã được hiệu chuẩn thành công"));
+                _appendStatusLog(tr("BẠN PHẢI KHỞI ĐỘNG LẠI PHƯƠNG TIỆN NGAY BÂY GIỜ ĐỂ CÀI ĐẶT MỚI CÓ HIỆU LỰC"));
                 _stopCalibration(StopCalibrationSuccessShowLog);
             } else {
-                _appendStatusLog(tr("Compass calibration failed"));
-                _appendStatusLog(tr("YOU MUST REBOOT YOUR VEHICLE NOW AND RETRY COMPASS CALIBRATION PRIOR TO FLIGHT"));
+                _appendStatusLog(tr("Hiệu chuẩn la bàn thất bại"));
+                _appendStatusLog(tr("BẠN PHẢI KHỞI ĐỘNG LẠI PHƯƠNG TIỆN NGAY BÂY GIỜ VÀ THỬ HIỆU CHUẨN LA BÀN LẠI TRƯỚC KHI BAY"));
                 _stopCalibration(StopCalibrationFailed);
             }
         } else if (additionalCompassCompleted) {
-            _appendStatusLog(tr("Continue rotating..."));
+            _appendStatusLog(tr("Tiếp tục xoay..."));
         }
 
     }

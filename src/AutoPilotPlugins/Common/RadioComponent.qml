@@ -49,15 +49,15 @@ SetupPage {
                 nextButton:     nextButton
                 skipButton:     skipButton
                 onChannelCountChanged:              updateChannelCount()
-                onFunctionMappingChangedAPMReboot:  mainWindow.showMessageDialog(qsTr("Reboot required"), qsTr("Your stick mappings have changed, you must reboot the vehicle for correct operation."))
-                onThrottleReversedCalFailure:       mainWindow.showMessageDialog(qsTr("Throttle channel reversed"), qsTr("Calibration failed. The throttle channel on your transmitter is reversed. You must correct this on your transmitter in order to complete calibration."))
+                onFunctionMappingChangedAPMReboot:  mainWindow.showMessageDialog(qsTr("Yêu cầu khởi động lại"), qsTr("Cấu hình điều khiển của bạn đã thay đổi, bạn phải khởi động lại phương tiện để hoạt động chính xác."))
+                onThrottleReversedCalFailure:       mainWindow.showMessageDialog(qsTr("Kênh ga bị đảo ngược"), qsTr("Hiệu chuẩn thất bại. Kênh ga trên bộ phát của bạn bị đảo ngược. Bạn phải sửa lỗi này trên bộ phát để hoàn tất hiệu chuẩn."))
             }
 
             Component {
                 id: spektrumBindDialogComponent
 
                 QGCPopupDialog {
-                    title:      qsTr("Spektrum Bind")
+                    title:      qsTr("Ghép nối Spektrum")
                     buttons:    StandardButton.Ok | StandardButton.Cancel
 
                     onAccepted: { controller.spektrumBindMode(radioGroup.checkedButton.bindMode) }
@@ -69,29 +69,29 @@ SetupPage {
 
                         QGCLabel {
                             wrapMode:   Text.WordWrap
-                            text:       qsTr("Click Ok to place your Spektrum receiver in the bind mode.")
+                            text:       qsTr("Nhấn Ok để đặt bộ thu Spektrum vào chế độ ghép nối.")
                         }
 
                         QGCLabel {
                             wrapMode:   Text.WordWrap
-                            text:       qsTr("Select the specific receiver type below:")
+                            text:       qsTr("Chọn loại bộ thu cụ thể bên dưới:")
                         }
 
                         QGCRadioButton {
-                            text:               qsTr("DSM2 Mode")
+                            text:               qsTr("Chế độ DSM2")
                             ButtonGroup.group:  radioGroup
                             property int bindMode: RadioComponentController.DSM2
                         }
 
                         QGCRadioButton {
-                            text:               qsTr("DSMX (7 channels or less)")
+                            text:               qsTr("DSMX (7 kênh hoặc ít hơn)")
                             ButtonGroup.group:  radioGroup
                             property int bindMode: RadioComponentController.DSMX7
                         }
 
                         QGCRadioButton {
                             checked:            true
-                            text:               qsTr("DSMX (8 channels or more)")
+                            text:               qsTr("DSMX (8 kênh hoặc nhiều hơn)")
                             ButtonGroup.group:  radioGroup
                             property int bindMode: RadioComponentController.DSMX8
                         }
@@ -147,7 +147,7 @@ SetupPage {
                         anchors.fill:           parent
                         horizontalAlignment:    Text.AlignHCenter
                         verticalAlignment:      Text.AlignVCenter
-                        text:                   qsTr("Not Mapped")
+                        text:                   qsTr("Chưa được ánh xạ")
                         visible:                !mapped
                     }
 
@@ -173,7 +173,7 @@ SetupPage {
                 Column {
                     width:      parent.width
                     spacing:    5
-                    QGCLabel { text: qsTr("Attitude Controls") }
+                    QGCLabel { text: qsTr("Điều khiển góc độ") }
 
                     Item {
                         width:  parent.width
@@ -181,7 +181,7 @@ SetupPage {
                         QGCLabel {
                             id:     rollLabel
                             width:  globals.defaultTextWidth * 10
-                            text:   qsTr("Roll")
+                            text:   qsTr("Lăn")
                         }
 
                         Loader {
@@ -210,7 +210,7 @@ SetupPage {
                         QGCLabel {
                             id:     pitchLabel
                             width:  globals.defaultTextWidth * 10
-                            text:   qsTr("Pitch")
+                            text:   qsTr("Nghiêng")
                         }
 
                         Loader {
@@ -239,7 +239,7 @@ SetupPage {
                         QGCLabel {
                             id:     yawLabel
                             width:  globals.defaultTextWidth * 10
-                            text:   qsTr("Yaw")
+                            text:   qsTr("Quay")
                         }
 
                         Loader {
@@ -268,7 +268,7 @@ SetupPage {
                         QGCLabel {
                             id:     throttleLabel
                             width:  globals.defaultTextWidth * 10
-                            text:   qsTr("Throttle")
+                            text:   qsTr("Ga")
                         }
 
                         Loader {
@@ -296,33 +296,33 @@ SetupPage {
 
                     QGCButton {
                         id:         skipButton
-                        text:       qsTr("Skip")
+                        text:       qsTr("Bỏ qua")
                         onClicked:  controller.skipButtonClicked()
                     }
 
                     QGCButton {
                         id:         cancelButton
-                        text:       qsTr("Cancel")
+                        text:       qsTr("Hủy")
                         onClicked:  controller.cancelButtonClicked()
                     }
 
                     QGCButton {
                         id:         nextButton
                         primary:    true
-                        text:       qsTr("Calibrate")
+                        text:       qsTr("Hiệu chuẩn")
 
                         onClicked: {
-                            if (text === qsTr("Calibrate")) {
+                            if (text === qsTr("Hiệu chuẩn")) {
                                 if (controller.channelCount < controller.minChannelCount) {
-                                    mainWindow.showMessageDialog(qsTr("Radio Not Ready"),
-                                                                 controller.channelCount == 0 ? qsTr("Please turn on transmitter.") :
+                                    mainWindow.showMessageDialog(qsTr("Radio chưa sẵn sàng"),
+                                                                 controller.channelCount == 0 ? qsTr("Vui lòng bật bộ phát.") :
                                                                                                 (controller.channelCount < controller.minChannelCount ?
-                                                                                                     qsTr("%1 channels or more are needed to fly.").arg(controller.minChannelCount) :
-                                                                                                     qsTr("Ready to calibrate.")))
+                                                                                                     qsTr("Cần %1 kênh hoặc nhiều hơn để bay.").arg(controller.minChannelCount) :
+                                                                                                     qsTr("Sẵn sàng hiệu chuẩn.")))
                                 } else {
-                                    mainWindow.showMessageDialog(qsTr("Zero Trims"),
-                                                                 qsTr("Before calibrating you should zero all your trims and subtrims. Click Ok to start Calibration.\n\n%1").arg(
-                                                                     (QGroundControl.multiVehicleManager.activeVehicle.px4Firmware ? "" : qsTr("Please ensure all motor power is disconnected AND all props are removed from the vehicle."))),
+                                    mainWindow.showMessageDialog(qsTr("Đặt lại cân bằng"),
+                                                                 qsTr("Trước khi hiệu chuẩn, bạn nên đặt lại tất cả các cân bằng và cân bằng phụ về không. Nhấn Ok để bắt đầu hiệu chuẩn.\n\n%1").arg(
+                                                                     (QGroundControl.multiVehicleManager.activeVehicle.px4Firmware ? "" : qsTr("Vui lòng đảm bảo tất cả nguồn động cơ đã được ngắt kết nối VÀ tất cả cánh quạt đã được tháo khỏi phương tiện."))),
                                                                  StandardButton.Ok,
                                                                  function() { controller.nextButtonClicked() })
                                 }
@@ -347,7 +347,7 @@ SetupPage {
                     border.width:   1
                 }
 
-                QGCLabel { text: qsTr("Additional Radio setup:") }
+                QGCLabel { text: qsTr("Cài đặt Radio bổ sung:") }
 
                 GridLayout {
                     id:                 switchSettingsGrid
@@ -384,14 +384,14 @@ SetupPage {
                 RowLayout {
                     QGCButton {
                         id:         bindButton
-                        text:       qsTr("Spektrum Bind")
+                        text:       qsTr("Ghép nối Spektrum")
                         onClicked:  spektrumBindDialogComponent.createObject(mainWindow).open()
                     }
 
                     QGCButton {
-                        text:       qsTr("Copy Trims")
-                        onClicked:  mainWindow.showMessageDialog(qsTr("Copy Trims"),
-                                                                 qsTr("Center your sticks and move throttle all the way down, then press Ok to copy trims. After pressing Ok, reset the trims on your radio back to zero."),
+                        text:       qsTr("Sao chép cân bằng")
+                        onClicked:  mainWindow.showMessageDialog(qsTr("Sao chép cân bằng"),
+                                                                 qsTr("Đặt các cần điều khiển vào giữa và đẩy ga xuống hoàn toàn, sau đó nhấn Ok để sao chép cân bằng. Sau khi nhấn Ok, đặt lại cân bằng trên radio của bạn về không."),
                                                                  StandardButton.Ok | StandardButton.Cancel,
                                                                  function() { controller.copyTrims() })
                     }
@@ -401,7 +401,7 @@ SetupPage {
             Item {
                 id:             columnSpacer
                 anchors.right:  rightColumn.left
-                width:          20
+                width:         20
             }
 
             // Right side column
@@ -416,13 +416,13 @@ SetupPage {
                     spacing: ScreenTools.defaultFontPixelWidth
 
                     QGCRadioButton {
-                        text:       qsTr("Mode 1")
+                        text:       qsTr("Chế độ 1")
                         checked:    controller.transmitterMode == 1
                         onClicked:  controller.transmitterMode = 1
                     }
 
                     QGCRadioButton {
-                        text:       qsTr("Mode 2")
+                        text:       qsTr("Chế độ 2")
                         checked:    controller.transmitterMode == 2
                         onClicked:  controller.transmitterMode = 2
                     }
