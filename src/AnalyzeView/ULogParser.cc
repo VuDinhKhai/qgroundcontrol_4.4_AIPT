@@ -36,7 +36,7 @@ int ULogParser::sizeOfType(QString& typeName)
         return 1;
     }
 
-    qWarning() << "Unknown type in ULog : " << typeName;
+    qWarning() << "Loại không xác định trong ULog: " << typeName;
     return 0;
 }
 
@@ -90,16 +90,16 @@ bool ULogParser::getTagsFromLog(QByteArray& log, QList<GeoTagWorker::cameraFeedb
 {
     errorMessage.clear();
 
-    //verify it's an ULog file
-    if(!log.contains(_ULogMagic)) {
-        errorMessage = tr("Could not detect ULog file header magic");
+    // Kiểm tra đây có phải tệp ULog không
+    if (!log.contains(_ULogMagic)) {
+        errorMessage = tr("Không thể phát hiện tiêu đề tệp ULog");
         return false;
     }
 
     int index = ULOG_FILE_HEADER_LEN;
     bool geotagFound = false;
 
-    while(index < log.count() - 1) {
+    while (index < log.count() - 1) {
 
         ULogMessageHeader header;
         memset(&header, 0, sizeof(header));
@@ -117,7 +117,7 @@ bool ULogParser::getTagsFromLog(QByteArray& log, QList<GeoTagWorker::cameraFeedb
                 QString messageName = fmt.left(posSeparator);
                 QString messageFields = fmt.mid(posSeparator + 1, header.msgSize - posSeparator - 1);
 
-                if(messageName == QLatin1String("camera_capture")) {
+                if (messageName == QLatin1String("camera_capture")) {
                     parseFieldFormat(messageFields);
                 }
                 break;
@@ -131,7 +131,7 @@ bool ULogParser::getTagsFromLog(QByteArray& log, QList<GeoTagWorker::cameraFeedb
 
                 QString messageName(addLoggedMsg.msgName);
 
-                if(messageName.contains(QLatin1String("camera_capture"))) {
+                if (messageName.contains(QLatin1String("camera_capture"))) {
                     _cameraCaptureMsgID = addLoggedMsg.msgID;
                     geotagFound = true;
                 }
@@ -146,13 +146,13 @@ bool ULogParser::getTagsFromLog(QByteArray& log, QList<GeoTagWorker::cameraFeedb
 
                 if (geotagFound && msgID == _cameraCaptureMsgID) {
 
-                    // Completely dynamic parsing, so that changing/reordering the message format will not break the parser
+                    // Phân tích hoàn toàn động, để thay đổi/thay thế định dạng thông điệp sẽ không làm hỏng trình phân tích cú pháp
                     GeoTagWorker::cameraFeedbackPacket feedback;
                     memset(&feedback, 0, sizeof(feedback));
                     memcpy(&feedback.timestamp, log.data() + index + 5 + _cameraCaptureOffsets.value(QStringLiteral("timestamp")), 8);
-                    feedback.timestamp /= 1.0e6; // to seconds
+                    feedback.timestamp /= 1.0e6; // chuyển đổi sang giây
                     memcpy(&feedback.timestampUTC, log.data() + index + 5 + _cameraCaptureOffsets.value(QStringLiteral("timestamp_utc")), 8);
-                    feedback.timestampUTC /= 1.0e6; // to seconds
+                    feedback.timestampUTC /= 1.0e6; // chuyển đổi sang giây
                     memcpy(&feedback.imageSequence, log.data() + index + 5 + _cameraCaptureOffsets.value(QStringLiteral("seq")), 4);
                     memcpy(&feedback.latitude, log.data() + index + 5 + _cameraCaptureOffsets.value(QStringLiteral("lat")), 8);
                     memcpy(&feedback.longitude, log.data() + index + 5 + _cameraCaptureOffsets.value(QStringLiteral("lon")), 8);
@@ -177,7 +177,7 @@ bool ULogParser::getTagsFromLog(QByteArray& log, QList<GeoTagWorker::cameraFeedb
     }
 
     if (cameraFeedback.count() == 0) {
-        errorMessage = tr("Could not detect camera_capture packets in ULog");
+        errorMessage = tr("Không thể phát hiện các gói camera_capture trong ULog");
         return false;
     }
 

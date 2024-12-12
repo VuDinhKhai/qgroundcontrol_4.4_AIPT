@@ -6,7 +6,7 @@
  * COPYING.md in the root of the source code directory.
  *
  ****************************************************************************/
-
+ 
 #include "GeoTagController.h"
 #include "QGCLoggingCategory.h"
 #include <math.h>
@@ -55,7 +55,7 @@ void GeoTagController::setImageDirectory(QString dir)
         if(_worker.saveDirectory() == "") {
             QDir saveDirectory = QDir(_worker.imageDirectory() + kTagged);
             if(saveDirectory.exists()) {
-                _setErrorMessage(tr("Images have alreay been tagged. Existing images will be removed."));
+                _setErrorMessage(tr("Hình ảnh đã được gắn thẻ trước đó. Các hình ảnh hiện tại sẽ bị xóa."));
                 return;
             }
         }
@@ -70,7 +70,7 @@ void GeoTagController::setSaveDirectory(QString dir)
     if (!dir.isEmpty()) {
         _worker.setSaveDirectory(dir);
         emit saveDirectoryChanged(dir);
-        //-- Check and see if there are images already there
+        //-- Kiểm tra nếu thư mục lưu đã có hình ảnh
         QDir saveDirectory = QDir(_worker.saveDirectory());
         saveDirectory.setFilter(QDir::Files | QDir::Readable | QDir::NoSymLinks | QDir::Writable);
         QStringList nameFilters;
@@ -78,7 +78,7 @@ void GeoTagController::setSaveDirectory(QString dir)
         saveDirectory.setNameFilters(nameFilters);
         QStringList imageList = saveDirectory.entryList();
         if(!imageList.isEmpty()) {
-            _setErrorMessage(tr("The save folder already contains images."));
+            _setErrorMessage(tr("Thư mục lưu đã có hình ảnh."));
             return;
         }
     }
@@ -92,7 +92,7 @@ void GeoTagController::startTagging()
     emit errorMessageChanged(_errorMessage);
     QDir imageDirectory = QDir(_worker.imageDirectory());
     if(!imageDirectory.exists()) {
-        _setErrorMessage(tr("Cannot find the image directory."));
+        _setErrorMessage(tr("Không thể tìm thấy thư mục hình ảnh."));
         return;
     }
     if(_worker.saveDirectory() == "") {
@@ -100,14 +100,14 @@ void GeoTagController::startTagging()
         if(oldTaggedFolder.exists()) {
             oldTaggedFolder.removeRecursively();
             if(!imageDirectory.mkdir(_worker.imageDirectory() + kTagged)) {
-                _setErrorMessage(tr("Couldn't replace the previously tagged images"));
+                _setErrorMessage(tr("Không thể thay thế các hình ảnh đã được gắn thẻ trước đó"));
                 return;
             }
         }
     } else {
         QDir saveDirectory = QDir(_worker.saveDirectory());
         if(!saveDirectory.exists()) {
-            _setErrorMessage(tr("Cannot find the save directory."));
+            _setErrorMessage(tr("Không thể tìm thấy thư mục lưu."));
             return;
         }
     }
@@ -125,7 +125,6 @@ void GeoTagController::_workerError(QString errorMessage)
     _errorMessage = errorMessage;
     emit errorMessageChanged(errorMessage);
 }
-
 
 void GeoTagController::_setErrorMessage(const QString& error)
 {
@@ -145,7 +144,7 @@ void GeoTagWorker::run()
     emit progressChanged(1);
     double nSteps = 5;
 
-    // Load Images
+    // Tải hình ảnh
     _imageList.clear();
     QDir imageDirectory = QDir(_imageDirectory);
     imageDirectory.setFilter(QDir::Files | QDir::Readable | QDir::NoSymLinks | QDir::Writable);
@@ -155,18 +154,18 @@ void GeoTagWorker::run()
     imageDirectory.setNameFilters(nameFilters);
     _imageList = imageDirectory.entryInfoList();
     if(_imageList.isEmpty()) {
-        emit error(tr("The image directory doesn't contain images, make sure your images are of the JPG format"));
+        emit error(tr("Thư mục hình ảnh không chứa hình ảnh, hãy đảm bảo các hình ảnh của bạn ở định dạng JPG"));
         return;
     }
     emit progressChanged((100/nSteps));
 
-    // Parse EXIF
+    // Phân tích EXIF
     ExifParser exifParser;
     _imageTime.clear();
     for (int i = 0; i < _imageList.size(); ++i) {
         QFile file(_imageList.at(i).absoluteFilePath());
         if (!file.open(QIODevice::ReadOnly)) {
-            emit error(tr("Geotagging failed. Couldn't open an image."));
+            emit error(tr("Gắn thẻ địa lý thất bại. Không thể mở hình ảnh."));
             return;
         }
         QByteArray imageBuffer = file.readAll();
@@ -177,23 +176,23 @@ void GeoTagWorker::run()
         emit progressChanged((100/nSteps) + ((100/nSteps) / _imageList.size())*i);
 
         if (_cancel) {
-            qCDebug(GeotaggingLog) << "Tagging cancelled";
-            emit error(tr("Tagging cancelled"));
+            qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+            emit error(tr("Gắn thẻ bị hủy"));
             return;
         }
     }
 
-    // Load log
+    // Tải nhật ký
     bool isULog = _logFile.endsWith(".ulg", Qt::CaseSensitive);
     QFile file(_logFile);
     if (!file.open(QIODevice::ReadOnly)) {
-        emit error(tr("Geotagging failed. Couldn't open log file."));
+        emit error(tr("Gắn thẻ địa lý thất bại. Không thể mở tệp nhật ký."));
         return;
     }
     QByteArray log = file.readAll();
     file.close();
 
-    // Instantiate appropriate parser
+    // Khởi tạo trình phân tích phù hợp
     _triggerList.clear();
     bool parseComplete = false;
     QString errorString;
@@ -209,59 +208,59 @@ void GeoTagWorker::run()
 
     if (!parseComplete) {
         if (_cancel) {
-            qCDebug(GeotaggingLog) << "Tagging cancelled";
-            emit error(tr("Tagging cancelled"));
+            qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+            emit error(tr("Gắn thẻ bị hủy"));
             return;
         } else {
-            qCDebug(GeotaggingLog) << "Log parsing failed";
-            errorString = tr("%1 - tagging cancelled").arg(errorString.isEmpty() ? tr("Log parsing failed") : errorString);
+            qCDebug(GeotaggingLog) << "Phân tích nhật ký thất bại";
+            errorString = tr("%1 - gắn thẻ bị hủy").arg(errorString.isEmpty() ? tr("Phân tích nhật ký thất bại") : errorString);
             emit error(errorString);
             return;
         }
     }
     emit progressChanged(3*(100/nSteps));
 
-    qCDebug(GeotaggingLog) << "Found " << _triggerList.count() << " trigger logs.";
+    qCDebug(GeotaggingLog) << "Tìm thấy " << _triggerList.count() << " nhật ký kích hoạt.";
 
     if (_cancel) {
-        qCDebug(GeotaggingLog) << "Tagging cancelled";
-        emit error(tr("Tagging cancelled"));
+        qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+        emit error(tr("Gắn thẻ bị hủy"));
         return;
     }
 
-    // Filter Trigger
+    // Lọc kích hoạt
     if (!triggerFiltering()) {
-        qCDebug(GeotaggingLog) << "Geotagging failed in trigger filtering";
-        emit error(tr("Geotagging failed in trigger filtering"));
+        qCDebug(GeotaggingLog) << "Gắn thẻ địa lý thất bại trong quá trình lọc kích hoạt";
+        emit error(tr("Gắn thẻ địa lý thất bại trong quá trình lọc kích hoạt"));
         return;
     }
     emit progressChanged(4*(100/nSteps));
 
     if (_cancel) {
-        qCDebug(GeotaggingLog) << "Tagging cancelled";
-        emit error(tr("Tagging cancelled"));
+        qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+        emit error(tr("Gắn thẻ bị hủy"));
         return;
     }
 
-    // Tag images
+    // Gắn thẻ hình ảnh
     int maxIndex = std::min(_imageIndices.count(), _triggerIndices.count());
     maxIndex = std::min(maxIndex, _imageList.count());
     for(int i = 0; i < maxIndex; i++) {
         int imageIndex = _imageIndices[i];
         if (imageIndex >= _imageList.count()) {
-            emit error(tr("Geotagging failed. Requesting image #%1, but only %2 images present.").arg(imageIndex).arg(_imageList.count()));
+            emit error(tr("Gắn thẻ địa lý thất bại. Yêu cầu hình ảnh #%1, nhưng chỉ có %2 hình ảnh.").arg(imageIndex).arg(_imageList.count()));
             return;
         }
         QFile fileRead(_imageList.at(_imageIndices[i]).absoluteFilePath());
         if (!fileRead.open(QIODevice::ReadOnly)) {
-            emit error(tr("Geotagging failed. Couldn't open an image."));
+            emit error(tr("Gắn thẻ địa lý thất bại. Không thể mở hình ảnh."));
             return;
         }
         QByteArray imageBuffer = fileRead.readAll();
         fileRead.close();
 
         if (!exifParser.write(imageBuffer, _triggerList[_triggerIndices[i]])) {
-            emit error(tr("Geotagging failed. Couldn't write to image."));
+            emit error(tr("Gắn thẻ địa lý thất bại. Không thể ghi vào hình ảnh."));
             return;
         } else {
             QFile fileWrite;
@@ -271,7 +270,7 @@ void GeoTagWorker::run()
                 fileWrite.setFileName(_saveDirectory + "/" + _imageList.at(_imageIndices[i]).fileName());
             }
             if (!fileWrite.open(QFile::WriteOnly)) {
-                emit error(tr("Geotagging failed. Couldn't write to an image."));
+                emit error(tr("Gắn thẻ địa lý thất bại. Không thể ghi vào hình ảnh."));
                 return;
             }
             fileWrite.write(imageBuffer);
@@ -280,15 +279,15 @@ void GeoTagWorker::run()
         emit progressChanged(4*(100/nSteps) + ((100/nSteps) / maxIndex)*i);
 
         if (_cancel) {
-            qCDebug(GeotaggingLog) << "Tagging cancelled";
-            emit error(tr("Tagging cancelled"));
+            qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+            emit error(tr("Gắn thẻ bị hủy"));
             return;
         }
     }
 
     if (_cancel) {
-        qCDebug(GeotaggingLog) << "Tagging cancelled";
-        emit error(tr("Tagging cancelled"));
+        qCDebug(GeotaggingLog) << "Gắn thẻ bị hủy";
+        emit error(tr("Gắn thẻ bị hủy"));
         return;
     }
 
@@ -299,10 +298,10 @@ bool GeoTagWorker::triggerFiltering()
 {
     _imageIndices.clear();
     _triggerIndices.clear();
-    if(_imageList.count() > _triggerList.count()) {             // Logging dropouts
-        qCDebug(GeotaggingLog) << "Detected missing feedback packets.";
-    } else if (_imageList.count() < _triggerList.count()) {     // Camera skipped frames
-        qCDebug(GeotaggingLog) << "Detected missing image frames.";
+    if(_imageList.count() > _triggerList.count()) {             // Mất gói phản hồi
+        qCDebug(GeotaggingLog) << "Phát hiện thiếu gói phản hồi.";
+    } else if (_imageList.count() < _triggerList.count()) {     // Máy ảnh bỏ qua khung hình
+        qCDebug(GeotaggingLog) << "Phát hiện thiếu khung hình hình ảnh.";
     }
     for(int i = 0; i < _imageList.count() && i < _triggerList.count(); i++) {
         _imageIndices.append(static_cast<int>(_triggerList[i].imageSequence));

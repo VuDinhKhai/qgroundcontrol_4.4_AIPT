@@ -27,7 +27,7 @@ QGCMAVLinkMessageField::QGCMAVLinkMessageField(QGCMAVLinkMessage *parent, QStrin
     , _name(name)
     , _msg(parent)
 {
-    qCDebug(MAVLinkInspectorLog) << "Field:" << name << type;
+    qCDebug(MAVLinkInspectorLog) << "Trường:" << name << type;
 }
 
 //-----------------------------------------------------------------------------
@@ -160,7 +160,7 @@ QGCMAVLinkMessage::QGCMAVLinkMessage(QObject *parent, mavlink_message_t* message
         return;
     }
     _name = QString(msgInfo->name);
-    qCDebug(MAVLinkInspectorLog) << "New Message:" << _name;
+    qCDebug(MAVLinkInspectorLog) << "Thông điệp mới:" << _name;
     for (unsigned int i = 0; i < msgInfo->num_fields; ++i) {
         QString type = QString("?");
         switch (msgInfo->fields[i].type) {
@@ -244,13 +244,14 @@ void QGCMAVLinkMessage::_updateFields(void)
 {
     const mavlink_message_info_t* msgInfo = mavlink_get_message_info(&_message);
     if (!msgInfo) {
-        qWarning() << QStringLiteral("QGCMAVLinkMessage::update NULL msgInfo msgid(%1)").arg(_message.msgid);
-        return;
-    }
-    if(_fields.count() != static_cast<int>(msgInfo->num_fields)) {
-        qWarning() << QStringLiteral("QGCMAVLinkMessage::update msgInfo field count mismatch msgid(%1)").arg(_message.msgid);
-        return;
-    }
+    qWarning() << QStringLiteral("QGCMAVLinkMessage::cập nhật msgInfo NULL msgid(%1)").arg(_message.msgid);
+    return;
+}
+if (_fields.count() != static_cast<int>(msgInfo->num_fields)) {
+    qWarning() << QStringLiteral("QGCMAVLinkMessage::cập nhật không khớp số lượng trường msgid(%1)").arg(_message.msgid);
+    return;
+}
+
     uint8_t* m = reinterpret_cast<uint8_t*>(&_message.payload64[0]);
     for (unsigned int i = 0; i < msgInfo->num_fields; ++i) {
         QGCMAVLinkMessageField* f = qobject_cast<QGCMAVLinkMessageField*>(_fields.get(static_cast<int>(i)));
@@ -472,8 +473,9 @@ QGCMAVLinkSystem::QGCMAVLinkSystem(QObject* parent, quint8 id)
     : QObject(parent)
     , _id(id)
 {
-    qCDebug(MAVLinkInspectorLog) << "New Vehicle:" << id;
+    qCDebug(MAVLinkInspectorLog) << "Phương tiện mới:" << id;
 }
+
 
 //-----------------------------------------------------------------------------
 QGCMAVLinkSystem::~QGCMAVLinkSystem()
@@ -583,13 +585,13 @@ QGCMAVLinkSystem::append(QGCMAVLinkMessage* message)
 void
 QGCMAVLinkSystem::_checkCompID(QGCMAVLinkMessage* message)
 {
-    if(_compIDsStr.isEmpty()) {
-        _compIDsStr << tr("Comp All");
+    if (_compIDsStr.isEmpty()) {
+        _compIDsStr << tr("Tất cả các thành phần");
     }
-    if(!_compIDs.contains(static_cast<int>(message->cid()))) {
+    if (!_compIDs.contains(static_cast<int>(message->cid()))) {
         int cid = static_cast<int>(message->cid());
         _compIDs.append(cid);
-        _compIDsStr << tr("Comp %1").arg(cid);
+        _compIDsStr << tr("Thành phần %1").arg(cid);
         emit compIDsChanged();
     }
 }
@@ -843,7 +845,7 @@ MAVLinkInspectorController::_vehicleAdded(Vehicle* vehicle)
     } else {
         v = new QGCMAVLinkSystem(this, static_cast<uint8_t>(vehicle->id()));
         _systems.append(v);
-        _systemNames.append(tr("System %1").arg(vehicle->id()));
+        _systemNames.append(tr("Hệ thống %1").arg(vehicle->id()));
     }
     emit systemsChanged();
 }
@@ -856,7 +858,7 @@ MAVLinkInspectorController::_vehicleRemoved(Vehicle* vehicle)
     if(v) {
         v->deleteLater();
         _systems.removeOne(v);
-        QString vs = tr("System %1").arg(vehicle->id());
+        QString vs = tr("Hệ thống %1").arg(vehicle->id());
         _systemNames.removeOne(vs);
         emit systemsChanged();
     }
@@ -871,7 +873,7 @@ MAVLinkInspectorController::_receiveMessage(LinkInterface*, mavlink_message_t me
     if(!v) {
         v = new QGCMAVLinkSystem(this, message.sysid);
         _systems.append(v);
-        _systemNames.append(tr("System %1").arg(message.sysid));
+        _systemNames.append(tr("Hệ thống %1").arg(message.sysid));
         emit systemsChanged();
         if(!_activeSystem) {
             _activeSystem = v;

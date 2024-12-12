@@ -23,7 +23,7 @@ import QGroundControl.Controllers   1.0
 AnalyzePage {
     id:                 geoTagPage
     pageComponent:      pageComponent
-    pageDescription:    qsTr("Used to tag a set of images from a survey mission with gps coordinates. You must provide the binary log from the flight as well as the directory which contains the images to tag.")
+    pageDescription:    qsTr("Dùng để gắn thẻ một tập hợp hình ảnh từ nhiệm vụ khảo sát với tọa độ GPS. Bạn phải cung cấp nhật ký nhị phân từ chuyến bay cũng như thư mục chứa hình ảnh cần gắn thẻ.")
 
     readonly property real _margin:     ScreenTools.defaultFontPixelWidth * 2
     readonly property real _minWidth:   ScreenTools.defaultFontPixelWidth * 20
@@ -62,9 +62,9 @@ AnalyzePage {
                 Layout.columnSpan:  2
             }
             //-----------------------------------------------------------------
-            //-- Log File
+            //-- Tệp nhật ký
             QGCButton {
-                text:               qsTr("Select log file")
+                text:               qsTr("Chọn tệp nhật ký")
                 onClicked:          openLogFile.open()
                 Layout.minimumWidth:_minWidth
                 Layout.maximumWidth:_maxWidth
@@ -72,9 +72,9 @@ AnalyzePage {
                 Layout.alignment:   Qt.AlignVCenter
                 FileDialog {
                     id:             openLogFile
-                    title:          qsTr("Select log file")
+                    title:          qsTr("Chọn tệp nhật ký")
                     folder:         shortcuts.home
-                    nameFilters:    [qsTr("ULog file (*.ulg)"), qsTr("PX4 log file (*.px4log)"), qsTr("All Files (*)")]
+                    nameFilters:    [qsTr("Tệp ULog (*.ulg)"), qsTr("Tệp nhật ký PX4 (*.px4log)"), qsTr("Tất cả tệp (*)")]
                     defaultSuffix:  "ulg"
                     selectExisting: true
                     onAccepted: {
@@ -90,9 +90,9 @@ AnalyzePage {
                 Layout.alignment:   Qt.AlignVCenter
             }
             //-----------------------------------------------------------------
-            //-- Image Directory
+            //-- Thư mục hình ảnh
             QGCButton {
-                text:               qsTr("Select image directory")
+                text:               qsTr("Chọn thư mục hình ảnh")
                 onClicked:          selectImageDir.open()
                 Layout.minimumWidth:_minWidth
                 Layout.maximumWidth:_maxWidth
@@ -100,7 +100,7 @@ AnalyzePage {
                 Layout.alignment:   Qt.AlignVCenter
                 FileDialog {
                     id:             selectImageDir
-                    title:          qsTr("Select image directory")
+                    title:          qsTr("Chọn thư mục hình ảnh")
                     folder:         shortcuts.home
                     selectFolder:   true
                     selectExisting: true
@@ -117,9 +117,9 @@ AnalyzePage {
                 Layout.alignment:   Qt.AlignVCenter
             }
             //-----------------------------------------------------------------
-            //-- Save Directory
+            //-- Thư mục lưu
             QGCButton {
-                text:               qsTr("(Optionally) Select save directory")
+                text:               qsTr("(Tùy chọn) Chọn thư mục lưu")
                 onClicked:          selectDestDir.open()
                 Layout.minimumWidth:_minWidth
                 Layout.maximumWidth:_maxWidth
@@ -127,7 +127,7 @@ AnalyzePage {
                 Layout.alignment:   Qt.AlignVCenter
                 FileDialog {
                     id:             selectDestDir
-                    title:          qsTr("Select save directory")
+                    title:          qsTr("Chọn thư mục lưu")
                     folder:         shortcuts.home
                     selectFolder:   true
                     selectExisting: true
@@ -138,15 +138,15 @@ AnalyzePage {
                 }
             }
             QGCLabel {
-                text:               geoController.saveDirectory === "" ? (geoController.imageDirectory === "" ? qsTr("/TAGGED folder in your image folder") : geoController.imageDirectory + qsTr("/TAGGED")) : geoController.saveDirectory
+                text:               geoController.saveDirectory === "" ? (geoController.imageDirectory === "" ? qsTr("/TAGGED thư mục trong thư mục hình ảnh của bạn") : geoController.imageDirectory + qsTr("/TAGGED")) : geoController.saveDirectory
                 elide:              Text.ElideLeft
                 Layout.fillWidth:   true
                 Layout.alignment:   Qt.AlignVCenter
             }
             //-----------------------------------------------------------------
-            //-- Execute
+            //-- Thực thi
             QGCButton {
-                text:               geoController.inProgress ? qsTr("Cancel Tagging") : qsTr("Start Tagging")
+                text:               geoController.inProgress ? qsTr("Hủy gắn thẻ") : qsTr("Bắt đầu gắn thẻ")
                 width:              ScreenTools.defaultFontPixelWidth * 30
                 enabled:            (geoController.imageDirectory !== "" && geoController.logFile !== "") || geoController.inProgress
                 Layout.alignment:   Qt.AlignHCenter

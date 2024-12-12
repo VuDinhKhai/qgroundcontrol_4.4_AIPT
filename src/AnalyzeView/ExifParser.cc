@@ -18,36 +18,36 @@ double ExifParser::readTime(QByteArray& buf)
     QByteArray tiffHeader("\x49\x49\x2A", 3);
     QByteArray createDateHeader("\x04\x90\x02", 3);
 
-    // find header position
+    // tìm vị trí tiêu đề
     uint32_t tiffHeaderIndex = buf.indexOf(tiffHeader);
 
-    // find creation date header index
+    // tìm vị trí tiêu đề ngày tạo
     uint32_t createDateHeaderIndex = buf.indexOf(createDateHeader);
 
-    // extract size of date-time string, -1 accounting for null-termination
+    // trích xuất kích thước chuỗi ngày-giờ, -1 do có null-termination
     uint32_t* sizeString = reinterpret_cast<uint32_t*>(buf.mid(createDateHeaderIndex + 4, 4).data());
     uint32_t createDateStringSize = qFromLittleEndian(*sizeString) - 1;
 
-    // extract location of date-time string
+    // trích xuất vị trí của chuỗi ngày-giờ
     uint32_t* dataIndex = reinterpret_cast<uint32_t*>(buf.mid(createDateHeaderIndex + 8, 4).data());
     uint32_t createDateStringDataIndex = qFromLittleEndian(*dataIndex) + tiffHeaderIndex;
 
-    // read out data of create date-time field
+    // đọc dữ liệu của trường ngày-giờ tạo
     QString createDate = buf.mid(createDateStringDataIndex, createDateStringSize);
 
     QStringList createDateList = createDate.split(' ');
     if (createDateList.count() < 2) {
-        qWarning() << "Could not decode creation time and date: " << createDateList;
+        qWarning() << "Không thể giải mã thời gian và ngày tạo: " << createDateList;
         return -1.0;
     }
     QStringList dateList = createDateList[0].split(':');
     if (dateList.count() < 3) {
-        qWarning() << "Could not decode creation date: " << dateList;
+        qWarning() << "Không thể giải mã ngày tạo: " << dateList;
         return -1.0;
     }
     QStringList timeList = createDateList[1].split(':');
     if (timeList.count() < 3) {
-        qWarning() << "Could not decode creation time: " << timeList;
+        qWarning() << "Không thể giải mã thời gian tạo: " << timeList;
         return -1.0;
     }
     QDate date(dateList[0].toInt(), dateList[1].toInt(), dateList[2].toInt());
@@ -62,7 +62,7 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
     uint32_t app1HeaderInd = buf.indexOf(app1Header);
     uint16_t *conversionPointer = reinterpret_cast<uint16_t *>(buf.mid(app1HeaderInd + 2, 2).data());
     uint16_t app1Size = *conversionPointer;
-    uint16_t app1SizeEndian = qFromBigEndian(app1Size) + 0xa5;  // change wrong endian
+    uint16_t app1SizeEndian = qFromBigEndian(app1Size) + 0xa5;  // thay đổi endian sai
     QByteArray tiffHeader("\x49\x49\x2A", 3);
     uint32_t tiffHeaderInd = buf.indexOf(tiffHeader);
     conversionPointer = reinterpret_cast<uint16_t *>(buf.mid(tiffHeaderInd + 8, 2).data());
@@ -71,7 +71,7 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
     conversionPointer = reinterpret_cast<uint16_t *>(buf.mid(nextIfdOffsetInd, 2).data());
     uint16_t nextIfdOffset = *conversionPointer;
 
-    // Definition of useful unions and structs
+    // Định nghĩa các union và struct hữu ích
     union char2uint32_u {
         char c[4];
         uint32_t i;
@@ -80,14 +80,14 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
         char c[2];
         uint16_t i;
     };
-    // This struct describes a standart field used in exif files
+    // Cấu trúc này mô tả một trường chuẩn trong exif
     struct field_s {
-        uint16_t tagID;  // Describes which information is added here, e.g. GPS Lat
-        uint16_t type;  // Describes the data type, e.g. string, uint8_t,...
-        uint32_t size;  // Describes the size
-        uint32_t content;  // Either contains the information, or the offset to the exif header where the information is stored (if 32 bits is not enough)
+        uint16_t tagID;    // Mô tả loại thông tin, ví dụ GPS Lat
+        uint16_t type;     // Mô tả kiểu dữ liệu, ví dụ string, uint8_t,...
+        uint32_t size;     // Mô tả kích thước
+        uint32_t content;  // Chứa thông tin hoặc offset đến tiêu đề exif nơi chứa thông tin (nếu 32 bit không đủ)
     };
-    // This struct contains all the fields that we want to add to the image
+    // Cấu trúc này chứa tất cả các trường mà chúng ta muốn thêm vào ảnh
     struct fields_s {
         field_s gpsVersion;
         field_s gpsLatRef;
@@ -99,20 +99,21 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
         field_s gpsMapDatum;
         uint32_t finishedDataField;
     };
-    // These are the additional information that can not be put into a single uin32_t
+    // Cấu trúc này chứa các thông tin mở rộng không thể đặt vừa vào một uint32_t
     struct extended_s {
         uint32_t gpsLat[6];
         uint32_t gpsLon[6];
         uint32_t gpsAlt[2];
         char mapDatum[7];// = {0x57,0x47,0x53,0x2D,0x38,0x34,0x00};
     };
-    // This struct contains all the information we want to add to the image
+    // Cấu trúc này chứa tất cả thông tin chúng ta muốn thêm vào ảnh
     struct readable_s {
         fields_s fields;
         extended_s extendedData;
     };
 
-    // This union is used because for writing the information we have to use a char array, but we still want the information to be available in a more descriptive way
+    // Union này được sử dụng vì khi ghi thông tin cần dùng char array,
+    // nhưng chúng ta vẫn muốn thông tin có sẵn theo cách dễ hiểu hơn
     union {
         char c[0xa3];
         readable_s readable;
@@ -122,17 +123,17 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
     char2uint32_u gpsIFDInd;
     gpsIFDInd.i = nextIfdOffset;
 
-    // this will stay constant
+    // phần này giữ nguyên
     QByteArray gpsInfo("\x25\x88\x04\x00\x01\x00\x00\x00", 8);
     gpsInfo.append(gpsIFDInd.c[0]);
     gpsInfo.append(gpsIFDInd.c[1]);
     gpsInfo.append(gpsIFDInd.c[2]);
     gpsInfo.append(gpsIFDInd.c[3]);
 
-    // filling values to gpsData
+    // điền các giá trị vào gpsData
     uint32_t gpsDataExtInd = gpsIFDInd.i + 2 + sizeof(fields_s);
 
-    // Filling up the fields with the corresponding values
+    // Điền các trường với giá trị tương ứng
     gpsData.readable.fields.gpsVersion.tagID = 0;
     gpsData.readable.fields.gpsVersion.type = 1;
     gpsData.readable.fields.gpsVersion.size = 4;
@@ -175,7 +176,7 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
 
     gpsData.readable.fields.finishedDataField = 0;
 
-    // Filling up the additional information that does not fit into the fields
+    // Điền thông tin mở rộng không vừa trong trường
     gpsData.readable.extendedData.gpsLat[0] = abs(static_cast<int>(geotag.latitude));
     gpsData.readable.extendedData.gpsLat[1] = 1;
     gpsData.readable.extendedData.gpsLat[2] = static_cast<int>((fabs(geotag.latitude) - floor(fabs(geotag.latitude))) * 60.0);
@@ -200,18 +201,18 @@ bool ExifParser::write(QByteArray& buf, GeoTagWorker::cameraFeedbackPacket& geot
     gpsData.readable.extendedData.mapDatum[5] = '4';
     gpsData.readable.extendedData.mapDatum[6] = 0x00;
 
-    // remove 12 spaces from image description, as otherwise we need to loop through every field and correct the new address values
+    // xóa 12 khoảng trắng từ mô tả ảnh, nếu không sẽ phải lặp qua mọi trường và chỉnh lại địa chỉ mới
     buf.remove(nextIfdOffsetInd + 4, 12);
-    // TODO correct size in image description
-    // insert Gps Info to image file
+    // TODO: chỉnh kích thước trong mô tả ảnh
+    // chèn Thông tin GPS vào file ảnh
     buf.insert(nextIfdOffsetInd, gpsInfo, 12);
     char numberOfFields[2] = {0x08, 0x00};
-    // insert number of gps specific fields that we want to add
+    // chèn số trường GPS cụ thể mà chúng ta muốn thêm
     buf.insert(gpsIFDInd.i + tiffHeaderInd, numberOfFields, 2);
-    // insert the gps data
+    // chèn dữ liệu GPS
     buf.insert(gpsIFDInd.i + 2 + tiffHeaderInd, gpsData.c, 0xa3);
 
-    // update the new file size and exif offsets
+    // cập nhật kích thước tệp và offsets exif mới
     char2uint16_u converter;
     converter.i = qToBigEndian(app1SizeEndian);
     buf.replace(app1HeaderInd + 2, 2, converter.c, 2);
