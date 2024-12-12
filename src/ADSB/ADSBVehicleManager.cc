@@ -37,11 +37,11 @@ void ADSBVehicleManager::setToolbox(QGCToolbox* toolbox)
 
 void ADSBVehicleManager::_cleanupStaleVehicles()
 {
-    // Remove all expired ADSB vehicles
+    // Loại bỏ tất cả ADSB vehicles đã hết hạn
     for (int i=_adsbVehicles.count()-1; i>=0; i--) {
         ADSBVehicle* adsbVehicle = _adsbVehicles.value<ADSBVehicle*>(i);
         if (adsbVehicle->expired()) {
-            qCDebug(ADSBVehicleManagerLog) << "Expired " << QStringLiteral("%1").arg(adsbVehicle->icaoAddress(), 0, 16);
+            qCDebug(ADSBVehicleManagerLog) << "Hết hạn " << QStringLiteral("%1").arg(adsbVehicle->icaoAddress(), 0, 16);
             _adsbVehicles.removeAt(i);
             _adsbICAOMap.remove(adsbVehicle->icaoAddress());
             adsbVehicle->deleteLater();
@@ -60,7 +60,7 @@ void ADSBVehicleManager::adsbVehicleUpdate(const ADSBVehicle::ADSBVehicleInfo_t 
             ADSBVehicle* adsbVehicle = new ADSBVehicle(vehicleInfo, this);
             _adsbICAOMap[icaoAddress] = adsbVehicle;
             _adsbVehicles.append(adsbVehicle);
-            qCDebug(ADSBVehicleManagerLog) << "Added " << QStringLiteral("%1").arg(adsbVehicle->icaoAddress(), 0, 16);
+            qCDebug(ADSBVehicleManagerLog) << "Đã thêm " << QStringLiteral("%1").arg(adsbVehicle->icaoAddress(), 0, 16);
         }
     }
 }
@@ -104,16 +104,16 @@ void ADSBTCPLink::_hardwareConnect()
     QObject::connect(_socket, &QTcpSocket::readyRead, this, &ADSBTCPLink::_readBytes);
     _socket->connectToHost(_hostAddress, static_cast<quint16>(_port));
 
-    // Give the socket a second to connect to the other side otherwise error out
+    // Cho socket một giây để kết nối, nếu không sẽ báo lỗi
     if (!_socket->waitForConnected(1000)) {
-        qCDebug(ADSBVehicleManagerLog) << "ADSB Socket failed to connect";
+        qCDebug(ADSBVehicleManagerLog) << "ADSB Socket không thể kết nối";
         emit error(_socket->errorString());
         delete _socket;
         _socket = nullptr;
         return;
     }
 
-    qCDebug(ADSBVehicleManagerLog) << "ADSB Socket connected";
+    qCDebug(ADSBVehicleManagerLog) << "ADSB Socket đã kết nối";
 }
 
 void ADSBTCPLink::_readBytes(void)
@@ -132,10 +132,10 @@ void ADSBTCPLink::_parseLine(const QString &line)
         bool icaoOk;
         int msgType = line.at(4).digitValue();
         if (msgType == -1) {
-            qCDebug(ADSBVehicleManagerLog) << "ADSB Invalid message type " << line.at(4);
+            qCDebug(ADSBVehicleManagerLog) << "ADSB Loại tin nhắn không hợp lệ " << line.at(4);
             return;
         }
-        // Skip unsupported mesg types to avoid parsing
+        // Bỏ qua các loại tin nhắn không được hỗ trợ để tránh phân tích
         if (msgType == 2 || msgType > 6) {
             return;
         }
@@ -184,11 +184,12 @@ void ADSBTCPLink::_parseAndEmitLocation(ADSBVehicle::ADSBVehicleInfo_t &adsbInfo
     int modeCAltitude;
 
     QString altitudeStr = values[11];
-    // Altitude is either Barometric - based on pressure, in ft
-    // or HAE - as reported by GPS - based on WGS84 Ellipsoid, in ft
-    // If altitude ends with H, we have HAE
-    // There's a slight difference between Barometric alt and HAE, but it would require
-    // knowledge about Geoid shape in particular Lat, Lon. It's not worth complicating the code
+    // Độ cao (altitude) là Barometric - dựa trên áp suất, tính bằng feet
+    // hoặc HAE - được báo cáo bởi GPS - dựa trên WGS84 Ellipsoid, tính bằng feet
+    // Nếu độ cao kết thúc bằng ký tự 'H', nghĩa là HAE
+    // Sự khác biệt giữa Barometric alt và HAE là rất nhỏ, và để tính toán chính xác 
+    // sẽ cần kiến thức về hình dạng Geoid tại tọa độ Lat, Lon cụ thể. 
+    // Điều này không đáng để làm phức tạp mã nguồn.
     if (altitudeStr.endsWith('H')) {
         altitudeStr.chop(1);
     }
