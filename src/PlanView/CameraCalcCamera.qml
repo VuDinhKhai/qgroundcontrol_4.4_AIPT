@@ -8,7 +8,7 @@ import QGroundControl.Controls          1.0
 import QGroundControl.FactControls      1.0
 import QGroundControl.Palette           1.0
 
-// Camera calculator "Camera" section for mission item editors
+// Máy tính camera "Camera" cho các biên tập viên mục nhiệm vụ
 ColumnLayout {
     spacing: _margin
 
@@ -65,7 +65,7 @@ ColumnLayout {
             }
         }
 
-        // Camera based grid ui
+        // Giao diện lưới dựa trên camera
         ColumnLayout {
             Layout.fillWidth:   true
             spacing:            _margin
@@ -78,20 +78,20 @@ ColumnLayout {
 
                 QGCRadioButton {
                     width:          _editFieldWidth
-                    text:           "Landscape"
+                    text:           "Phong cảnh"
                     checked:        !!cameraCalc.landscape.value
                     onClicked:      cameraCalc.landscape.value = 1
                 }
 
                 QGCRadioButton {
                     id:             cameraOrientationPortrait
-                    text:           "Portrait"
+                    text:           "Chân dung"
                     checked:        !cameraCalc.landscape.value
                     onClicked:      cameraCalc.landscape.value = 0
                 }
             }
 
-            // Custom camera specs
+            // Thông số camera tùy chỉnh
             ColumnLayout {
                 id:                 custCameraCol
                 Layout.fillWidth:   true
@@ -105,11 +105,11 @@ ColumnLayout {
                     Item { Layout.fillWidth: true }
                     QGCLabel {
                         Layout.preferredWidth:  _root._fieldWidth
-                        text:                   qsTr("Width")
+                        text:                   qsTr("Chiều rộng")
                     }
                     QGCLabel {
                         Layout.preferredWidth:  _root._fieldWidth
-                        text:                   qsTr("Height")
+                        text:                   qsTr("Chiều cao")
                     }
                 }
 
@@ -117,7 +117,7 @@ ColumnLayout {
                     Layout.fillWidth:   true
                     spacing:            _margin
 
-                    QGCLabel { text: qsTr("Sensor"); Layout.fillWidth: true }
+                    QGCLabel { text: qsTr("Cảm biến"); Layout.fillWidth: true }
                     FactTextField {
                         Layout.preferredWidth:  _root._fieldWidth
                         fact:                   cameraCalc.sensorWidth
@@ -132,7 +132,7 @@ ColumnLayout {
                     Layout.fillWidth:   true
                     spacing:            _margin
 
-                    QGCLabel { text: qsTr("Image"); Layout.fillWidth: true }
+                    QGCLabel { text: qsTr("Ảnh"); Layout.fillWidth: true }
                     FactTextField {
                         Layout.preferredWidth:  _root._fieldWidth
                         fact:                   cameraCalc.imageWidth
@@ -147,7 +147,7 @@ ColumnLayout {
                     Layout.fillWidth:   true
                     spacing:            _margin
                     QGCLabel {
-                        text:                   qsTr("Focal length")
+                        text:                   qsTr("Độ dài tiêu cự")
                         Layout.fillWidth:       true
                     }
                     FactTextField {

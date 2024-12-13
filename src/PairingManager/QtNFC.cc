@@ -1,9 +1,9 @@
 /****************************************************************************
  *
- *   (c) 2019 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ *   (c) 2019 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
+ * QGroundControl được cấp phép theo các điều khoản trong tệp
+ * COPYING.md trong thư mục nguồn mã nguồn.
  *
  ****************************************************************************/
 #include "PairingManager.h"
@@ -27,12 +27,12 @@ PairingNFC::start()
     if (manager != nullptr) {
         return;
     }
-    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Waiting for NFC connection"));
-    qCDebug(PairingNFCLog) << "Waiting for NFC connection";
+    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Đang chờ kết nối NFC"));
+    qCDebug(PairingNFCLog) << "Đang chờ kết nối NFC";
 
     manager = new QNearFieldManager(this);
     if (!manager->isAvailable()) {
-        qWarning() << "NFC not available";
+        qWarning() << "NFC không có sẵn";
         delete manager;
         manager = nullptr;
         return;
@@ -47,7 +47,7 @@ PairingNFC::start()
     int result = manager->registerNdefMessageHandler(filter, this, SLOT(handleMessage(QNdefMessage, QNearFieldTarget*)));
 
     if (result < 0)
-        qWarning() << "Platform does not support NDEF message handler registration";
+        qWarning() << "Nền tảng không hỗ trợ đăng ký xử lý tin nhắn NDEF";
 
     manager->startTargetDetection();
     connect(manager, &QNearFieldManager::targetDetected, this, &PairingNFC::targetDetected);
@@ -60,7 +60,7 @@ PairingNFC::stop()
 {
     if (manager != nullptr) {
         qgcApp()->toolbox()->pairingManager()->setStatusMessage("");
-        qCDebug(PairingNFCLog) << "NFC: Stop";
+        qCDebug(PairingNFCLog) << "NFC: Dừng";
         manager->stopTargetDetection();
         delete manager;
         manager = nullptr;
@@ -75,8 +75,8 @@ PairingNFC::targetDetected(QNearFieldTarget *target)
         return;
     }
 
-    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Device detected"));
-    qCDebug(PairingNFCLog) << "NFC: Device detected";
+    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Thiết bị được phát hiện"));
+    qCDebug(PairingNFCLog) << "NFC: Thiết bị được phát hiện";
     connect(target, &QNearFieldTarget::ndefMessageRead, this, &PairingNFC::handlePolledNdefMessage);
     connect(target, SIGNAL(error(QNearFieldTarget::Error,QNearFieldTarget::RequestId)),
             this, SLOT(targetError(QNearFieldTarget::Error,QNearFieldTarget::RequestId)));
@@ -104,15 +104,15 @@ void
 PairingNFC::targetError(QNearFieldTarget::Error error, const QNearFieldTarget::RequestId& id)
 {
     Q_UNUSED(id);
-    qCDebug(PairingNFCLog) << "Error: " << error;
+    qCDebug(PairingNFCLog) << "Lỗi: " << error;
 }
 
 //-----------------------------------------------------------------------------
 void
 PairingNFC::targetLost(QNearFieldTarget *target)
 {
-    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Device removed"));
-    qCDebug(PairingNFCLog) << "NFC: Device removed";
+    qgcApp()->toolbox()->pairingManager()->setStatusMessage(tr("Thiết bị đã được gỡ bỏ"));
+    qCDebug(PairingNFCLog) << "NFC: Thiết bị đã được gỡ bỏ";
     if (target) {
         target->deleteLater();
     }
@@ -122,7 +122,7 @@ PairingNFC::targetLost(QNearFieldTarget *target)
 void
 PairingNFC::handlePolledNdefMessage(QNdefMessage message)
 {
-    qCDebug(PairingNFCLog) << "NFC: Handle NDEF message";
+    qCDebug(PairingNFCLog) << "NFC: Xử lý tin nhắn NDEF";
 //    QNearFieldTarget *target = qobject_cast<QNearFieldTarget *>(sender());
     for (const QNdefRecord &record : message) {
         if (record.isRecordType<QNdefNfcTextRecord>()) {

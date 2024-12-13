@@ -35,7 +35,7 @@ Rectangle {
         } else if (missionItem.altitudeMode === QGroundControl.AltitudeModeTerrainFrame) {
             altModeLabel.text = QGroundControl.altitudeModeShortDescription(QGroundControl.AltitudeModeTerrainFrame)
         } else {
-            altModeLabel.text = qsTr("Internal Error")
+            altModeLabel.text = qsTr("Lỗi Nội bộ")
         }
     }
 
@@ -62,7 +62,7 @@ Rectangle {
             wrapMode:       Text.WordWrap
             font.pointSize: ScreenTools.smallFontPointSize
             text:           missionItem.rawEdit ?
-                                qsTr("Provides advanced access to all commands/parameters. Be very careful!") :
+                                qsTr("Cung cấp truy cập nâng cao đến tất cả các lệnh/ tham số. Hãy rất cẩn thận!") :
                                 missionItem.commandDescription
         }
 
@@ -73,25 +73,25 @@ Rectangle {
             visible:            missionItem.isTakeoffItem && missionItem.wizardMode // Hack special case for takeoff item
 
             QGCLabel {
-                text:               qsTr("Move '%1' %2 to the %3 location. %4")
+                text:               qsTr("Di chuyển '%1' %2 đến vị trí %3. %4")
                 .arg(_controllerVehicle.vtol ? qsTr("T") : qsTr("T"))
-                .arg(_controllerVehicle.vtol ? qsTr("Transition Direction") : qsTr("Takeoff"))
-                .arg(_controllerVehicle.vtol ? qsTr("desired") : qsTr("climbout"))
-                .arg(_controllerVehicle.vtol ? (qsTr("Ensure distance from launch to transition direction is far enough to complete transition.")) : "")
+                .arg(_controllerVehicle.vtol ? qsTr("Hướng Chuyển Động") : qsTr("Cất cánh"))
+                .arg(_controllerVehicle.vtol ? qsTr("mong muốn") : qsTr("lên"))
+                .arg(_controllerVehicle.vtol ? (qsTr("Đảm bảo khoảng cách từ phóng đến hướng chuyển động là đủ để hoàn thành chuyển động.")) : "")
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
                 visible:            !initialClickLabel.visible
             }
 
             QGCLabel {
-                text:               qsTr("Ensure clear of obstacles and into the wind.")
+                text:               qsTr("Đảm bảo không có vật cản và hướng vào gió.")
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
                 visible:            !initialClickLabel.visible
             }
 
             QGCButton {
-                text:               qsTr("Done")
+                text:               qsTr("Xong")
                 Layout.fillWidth:   true
                 visible:            !initialClickLabel.visible
                 onClicked: {
@@ -102,8 +102,8 @@ Rectangle {
             QGCLabel {
                 id:                 initialClickLabel
                 text:               missionItem.launchTakeoffAtSameLocation ?
-                                        qsTr("Click in map to set planned Takeoff location.") :
-                                        qsTr("Click in map to set planned Launch location.")
+                                        qsTr("Nhấp vào bản đồ để đặt vị trí Cất cánh đã hoạch định.") :
+                                        qsTr("Nhấp vào bản đồ để đặt vị trí Phóng đã hoạch định.")
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
                 visible:            missionItem.isTakeoffItem && !missionItem.launchCoordinate.isValid
@@ -126,7 +126,7 @@ Rectangle {
                     Layout.fillWidth:   true
                     wrapMode:           Text.WordWrap
                     font.pointSize:     ScreenTools.smallFontPointSize
-                    text:               qsTr("Altitude below specifies the approximate altitude of the ground. Normally 0 for landing back at original launch location.")
+                    text:               qsTr("Độ cao dưới đây chỉ định độ cao xấp xỉ của mặt đất. Thường là 0 cho việc hạ cánh trở lại vị trí phóng ban đầu.")
                     visible:            missionItem.isLandCommand
                 }
 
@@ -154,7 +154,7 @@ Rectangle {
 
                         QGCLabel {
                             Layout.alignment:   Qt.AlignBaseline
-                            text:               qsTr("Altitude")
+                            text:               qsTr("Độ cao")
                             font.pointSize:     ScreenTools.smallFontPointSize
                         }
                         QGCLabel {
@@ -180,7 +180,7 @@ Rectangle {
 
                 QGCLabel {
                     font.pointSize:     ScreenTools.smallFontPointSize
-                    text:               qsTr("Actual AMSL alt sent: %1 %2").arg(missionItem.amslAltAboveTerrain.valueString).arg(missionItem.amslAltAboveTerrain.units)
+                    text:               qsTr("Độ cao AMSL thực tế được gửi: %1 %2").arg(missionItem.amslAltAboveTerrain.valueString).arg(missionItem.amslAltAboveTerrain.units)
                     visible:            missionItem.altitudeMode === QGroundControl.AltitudeModeCalcAboveTerrain
                 }
             }
@@ -240,7 +240,7 @@ Rectangle {
 
                 QGCCheckBox {
                     id:         flightSpeedCheckbox
-                    text:       qsTr("Flight Speed")
+                    text:       qsTr("Tốc độ bay")
                     checked:    missionItem.speedSection.specifyFlightSpeed
                     onClicked:  missionItem.speedSection.specifyFlightSpeed = checked
                     visible:    missionItem.speedSection.available

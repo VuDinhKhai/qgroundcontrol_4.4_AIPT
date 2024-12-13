@@ -5,23 +5,23 @@ import QGroundControl               1.0
 import QGroundControl.ScreenTools   1.0
 import QGroundControl.Controls      1.0
 
-// Statistics section for TransectStyleComplexItems
+// Phần thống kê cho các mục TransectStyleComplexItems
 Grid {
-    // The following properties must be available up the hierarchy chain
-    //property var    missionItem       ///< Mission Item for editor
+    // Các thuộc tính sau phải có sẵn trong chuỗi phân cấp
+    //property var    missionItem       ///< Mục nhiệm vụ cho biên tập viên
 
     columns:        2
     columnSpacing:  ScreenTools.defaultFontPixelWidth
 
-    QGCLabel { text: qsTr("Survey Area") }
+    QGCLabel { text: qsTr("Diện Tích Khảo Sát") }
     QGCLabel { text: QGroundControl.unitsConversion.squareMetersToAppSettingsAreaUnits(missionItem.coveredArea).toFixed(2) + " " + QGroundControl.unitsConversion.appSettingsAreaUnitsString }
 
-    QGCLabel { text: qsTr("Photo Count") }
+    QGCLabel { text: qsTr("Số Ảnh") }
     QGCLabel { text: missionItem.cameraShots }
 
-    QGCLabel { text: qsTr("Photo Interval") }
-    QGCLabel { text: missionItem.timeBetweenShots.toFixed(1) + " " + qsTr("secs") }
+    QGCLabel { text: qsTr("Khoảng Thời Gian Ảnh") }
+    QGCLabel { text: missionItem.timeBetweenShots.toFixed(1) + " " + qsTr("giây") }
 
-    QGCLabel { text: qsTr("Trigger Distance") }
+    QGCLabel { text: qsTr("Khoảng Cách Kích Hoạt") }
     QGCLabel { text: missionItem.cameraCalc.adjustedFootprintFrontal.valueString + " " + missionItem.cameraCalc.adjustedFootprintFrontal.units }
 }

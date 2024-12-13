@@ -235,7 +235,7 @@ Item {
             sourceItem:
                 MissionItemIndexLabel {
                 index:      _missionItem.sequenceNumber
-                label:      _useLoiterToAlt ? qsTr("Loiter") : qsTr("Approach")
+                label:      _useLoiterToAlt ? qsTr("Quay vòng") : qsTr("Tiếp cận")
                 checked:    _missionItem.isCurrentItem
 
                 onClicked: _root.clicked(_missionItem.sequenceNumber)
@@ -256,7 +256,7 @@ Item {
             sourceItem:
                 MissionItemIndexLabel {
                 index:      _missionItem.lastSequenceNumber
-                label:      qsTr("Land")
+                label:      qsTr("Hạ cánh")
                 checked:    _missionItem.isCurrentItem
 
                 onClicked: _root.clicked(_missionItem.sequenceNumber)

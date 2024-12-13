@@ -20,7 +20,7 @@ import QGroundControl.FactSystem    1.0
 import QGroundControl.FactControls  1.0
 import QGroundControl.Palette       1.0
 
-// Editor for Fixed Wing Landing Pattern complex mission item
+// Trình chỉnh sửa cho mục nhiệm vụ mô hình hạ cánh cố định
 Rectangle {
     id:         _root
     height:     visible ? ((editorColumn.visible ? editorColumn.height : editorColumnNeedLandingPoint.height) + (_margin * 2)) : 0
@@ -28,7 +28,7 @@ Rectangle {
     color:      qgcPal.windowShadeDark
     radius:     _radius
 
-    // The following properties must be available up the hierarchy chain
+    // Các thuộc tính sau phải có sẵn trong chuỗi phân cấp trên
     //property real   availableWidth    ///< Width for control
     //property var    missionItem       ///< Mission Item for editor
 
@@ -37,8 +37,8 @@ Rectangle {
     property var    _missionVehicle:            _masterControler.controllerVehicle
     property real   _margin:                    ScreenTools.defaultFontPixelWidth / 2
     property real   _spacer:                    ScreenTools.defaultFontPixelWidth / 2
-    property string _setToVehicleHeadingStr:    qsTr("Set to vehicle heading")
-    property string _setToVehicleLocationStr:   qsTr("Set to vehicle location")
+    property string _setToVehicleHeadingStr:    qsTr("Đặt theo hướng xe")
+    property string _setToVehicleLocationStr:   qsTr("Đặt theo vị trí xe")
     property bool   _showCameraSection:         !_missionVehicle.apmFirmware
     property int    _altitudeMode:              missionItem.altitudesAreRelative ? QGroundControl.AltitudeModeRelative : QGroundControl.AltitudeModeAbsolute
 
@@ -55,7 +55,7 @@ Rectangle {
             id:             finalApproachSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Final approach")
+            text:           qsTr("Tiếp cận cuối cùng")
         }
 
         Column {
@@ -67,7 +67,7 @@ Rectangle {
             Item { width: 1; height: _spacer }
 
             FactCheckBox {
-                text:       qsTr("Use loiter to altitude")
+                text:       qsTr("Sử dụng loiter để độ cao")
                 fact:       missionItem.useLoiterToAlt
                 visible:    missionItem.useLoiterToAlt.visible
             }
@@ -77,7 +77,7 @@ Rectangle {
                 anchors.right:   parent.right
                 columns:         2
 
-                QGCLabel { text: qsTr("Altitude") }
+                QGCLabel { text: qsTr("Độ cao") }
 
                 AltitudeFactTextField {
                     Layout.fillWidth:   true
@@ -86,7 +86,7 @@ Rectangle {
                 }
 
                 QGCLabel {
-                    text:       qsTr("Radius")
+                    text:       qsTr("Bán kính")
                     visible:    missionItem.useLoiterToAlt.rawValue
                 }
 
@@ -100,7 +100,7 @@ Rectangle {
             Item { width: 1; height: _spacer }
 
             FactCheckBox {
-                text:       qsTr("Loiter clockwise")
+                text:       qsTr("Loiter theo chiều kim đồng hồ")
                 fact:       missionItem.loiterClockwise
                 visible:    missionItem.useLoiterToAlt.rawValue
             }
@@ -116,7 +116,7 @@ Rectangle {
             id:             landingPointSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Landing point")
+            text:           qsTr("Điểm hạ cánh")
         }
 
         Column {
@@ -132,14 +132,14 @@ Rectangle {
                 anchors.right:   parent.right
                 columns:         2
 
-                QGCLabel { text: qsTr("Heading") }
+                QGCLabel { text: qsTr("Hướng") }
 
                 FactTextField {
                     Layout.fillWidth:   true
                     fact:               missionItem.landingHeading
                 }
 
-                QGCLabel { text: qsTr("Altitude") }
+                QGCLabel { text: qsTr("Độ cao") }
 
                 AltitudeFactTextField {
                     Layout.fillWidth:   true
@@ -147,7 +147,7 @@ Rectangle {
                     altitudeMode:       _altitudeMode
                 }
 
-                QGCLabel { text: qsTr("Landing Dist") }
+                QGCLabel { text: qsTr("Khoảng cách hạ cánh") }
 
                 FactTextField {
                     fact:               missionItem.landingDistance
@@ -167,7 +167,7 @@ Rectangle {
 
         QGCCheckBox {
             anchors.right:  parent.right
-            text:           qsTr("Altitudes relative to launch")
+            text:           qsTr("Độ cao tương đối với khởi động")
             checked:        missionItem.altitudesAreRelative
             visible:        QGroundControl.corePlugin.options.showMissionAbsoluteAltitude || !missionItem.altitudesAreRelative
             onClicked:      missionItem.altitudesAreRelative = checked
@@ -177,7 +177,7 @@ Rectangle {
             id:             cameraSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Camera")
+            text:           qsTr("Máy ảnh")
             visible:        _showCameraSection
         }
 
@@ -215,7 +215,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Actual flight path will vary.")
+                text:                   qsTr("* Đường bay thực tế sẽ thay đổi.")
             }
 
             QGCLabel {
@@ -224,7 +224,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Avoid tailwind on approach to land.")
+                text:                   qsTr("* Tránh gió đuôi khi tiếp cận để hạ cánh.")
             }
 
             QGCLabel {
@@ -233,7 +233,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Ensure landing distance is enough to complete transition.")
+                text:                   qsTr("* Đảm bảo khoảng cách hạ cánh đủ để hoàn thành chuyển đổi.")
             }
         }
     }
@@ -259,14 +259,14 @@ Rectangle {
                 anchors.right:          parent.right
                 wrapMode:               Text.WordWrap
                 horizontalAlignment:    Text.AlignHCenter
-                text:                   qsTr("Click in map to set landing point.")
+                text:                   qsTr("Nhấp vào bản đồ để đặt điểm hạ cánh.")
             }
 
             QGCLabel {
                 anchors.left:           parent.left
                 anchors.right:          parent.right
                 horizontalAlignment:    Text.AlignHCenter
-                text:                   qsTr("- or -")
+                text:                   qsTr("- hoặc -")
                 visible:                globals.activeVehicle
             }
 
@@ -298,11 +298,11 @@ Rectangle {
             QGCLabel {
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
-                text:               qsTr("Drag the loiter point to adjust landing direction for wind and obstacles as well as distance to land point.")
+                text:               qsTr("Kéo điểm loiter để điều chỉnh hướng hạ cánh cho gió và chướng ngại vật cũng như khoảng cách đến điểm hạ cánh.")
             }
 
             QGCButton {
-                text:               qsTr("Done")
+                text:               qsTr("Hoàn tất")
                 Layout.fillWidth:   true
                 onClicked: {
                     missionItem.wizardMode = false

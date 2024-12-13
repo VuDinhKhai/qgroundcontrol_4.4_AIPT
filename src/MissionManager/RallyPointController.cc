@@ -97,12 +97,11 @@ bool RallyPointController::load(const QJsonObject& json, QString& errorString)
     if (!JsonHelper::validateKeys(json, keyInfoList, errorString)) {
         return false;
     }
-
     QString errorStr;
     QString errorMessage = tr("Rally: %1");
 
     if (json[JsonHelper::jsonVersionKey].toInt() != _jsonCurrentVersion) {
-        errorString = tr("Rally Points supports version %1").arg(_jsonCurrentVersion);
+        errorString = tr("Rally Points hỗ trợ phiên bản %1").arg(_jsonCurrentVersion);
         return false;
     }
 

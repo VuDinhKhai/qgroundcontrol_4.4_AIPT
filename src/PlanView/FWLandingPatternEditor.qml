@@ -37,8 +37,8 @@ Rectangle {
     property var    _missionVehicle:                _masterControler.controllerVehicle
     property real   _margin:                    ScreenTools.defaultFontPixelWidth / 2
     property real   _spacer:                    ScreenTools.defaultFontPixelWidth / 2
-    property string _setToVehicleHeadingStr:    qsTr("Set to vehicle heading")
-    property string _setToVehicleLocationStr:   qsTr("Set to vehicle location")
+    property string _setToVehicleHeadingStr:    qsTr("Đặt theo hướng của xe")
+    property string _setToVehicleLocationStr:   qsTr("Đặt theo vị trí của xe")
     property bool   _showCameraSection:         !_missionVehicle.apmFirmware
     property int    _altitudeMode:              missionItem.altitudesAreRelative ? QGroundControl.AltitudeModeRelative : QGroundControl.AltitudeModeAbsolute
 
@@ -55,7 +55,7 @@ Rectangle {
             id:             finalApproachSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Final approach")
+            text:           qsTr("Tiếp cận cuối")
         }
 
         Column {
@@ -67,7 +67,7 @@ Rectangle {
             Item { width: 1; height: _spacer }
 
             FactCheckBox {
-                text:       qsTr("Use loiter to altitude")
+                text:       qsTr("Sử dụng loiter để đạt độ cao")
                 fact:       missionItem.useLoiterToAlt
                 visible:    missionItem.useLoiterToAlt.visible
             }
@@ -77,7 +77,7 @@ Rectangle {
                 anchors.right:   parent.right
                 columns:         2
 
-                QGCLabel { text: qsTr("Altitude") }
+                QGCLabel { text: qsTr("Độ cao") }
 
                 AltitudeFactTextField {
                     Layout.fillWidth:   true
@@ -86,7 +86,7 @@ Rectangle {
                 }
 
                 QGCLabel {
-                    text:       qsTr("Radius")
+                    text:       qsTr("Bán kính")
                     visible:    missionItem.useLoiterToAlt.rawValue
                 }
 
@@ -100,7 +100,7 @@ Rectangle {
             Item { width: 1; height: _spacer }
 
             FactCheckBox {
-                text:       qsTr("Loiter clockwise")
+                text:       qsTr("Loiter ngược chiều kim đồng hồ")
                 fact:       missionItem.loiterClockwise
                 visible:    missionItem.useLoiterToAlt.rawValue
             }
@@ -116,7 +116,7 @@ Rectangle {
             id:             landingPointSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Landing point")
+            text:           qsTr("Điểm hạ cánh")
         }
 
         Column {
@@ -132,14 +132,14 @@ Rectangle {
                 anchors.right:   parent.right
                 columns:         2
 
-                QGCLabel { text: qsTr("Heading") }
+                QGCLabel { text: qsTr("Hướng") }
 
                 FactTextField {
                     Layout.fillWidth:   true
                     fact:               missionItem.landingHeading
                 }
 
-                QGCLabel { text: qsTr("Altitude") }
+                QGCLabel { text: qsTr("Độ cao") }
 
                 AltitudeFactTextField {
                     Layout.fillWidth:   true
@@ -149,7 +149,7 @@ Rectangle {
 
                 QGCRadioButton {
                     id:                 specifyLandingDistance
-                    text:               qsTr("Distance")
+                    text:               qsTr("Khoảng cách")
                     checked:            missionItem.valueSetIsDistance.rawValue
                     onClicked:          missionItem.valueSetIsDistance.rawValue = checked
                     Layout.fillWidth:   true
@@ -163,7 +163,7 @@ Rectangle {
 
                 QGCRadioButton {
                     id:                 specifyGlideSlope
-                    text:               qsTr("Glide Slope")
+                    text:               qsTr("Độ dốc trượt")
                     checked:            !missionItem.valueSetIsDistance.rawValue
                     onClicked:          missionItem.valueSetIsDistance.rawValue = !checked
                     Layout.fillWidth:   true
@@ -188,7 +188,7 @@ Rectangle {
 
         QGCCheckBox {
             anchors.right:  parent.right
-            text:           qsTr("Altitudes relative to launch")
+            text:           qsTr("Độ cao tương đối so với phóng")
             checked:        missionItem.altitudesAreRelative
             visible:        QGroundControl.corePlugin.options.showMissionAbsoluteAltitude || !missionItem.altitudesAreRelative
             onClicked:      missionItem.altitudesAreRelative = checked
@@ -198,7 +198,7 @@ Rectangle {
             id:             cameraSection
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Camera")
+            text:           qsTr("Máy ảnh")
             visible:        _showCameraSection
         }
 
@@ -236,7 +236,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Approximate glide slope altitudes.")
+                text:                   qsTr("* Độ cao trượt dốc gần đúng.")
             }
 
             QGCLabel {
@@ -245,7 +245,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Actual flight path will vary.")
+                text:                   qsTr("* Điểm bay thực tế sẽ thay đổi.")
             }
 
             QGCLabel {
@@ -254,7 +254,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  qgcPal.warningText
                 font.pointSize:         ScreenTools.smallFontPointSize
-                text:                   qsTr("* Avoid tailwind on landing.")
+                text:                   qsTr("* Tránh gió ngược khi hạ cánh.")
             }
         }
     }
@@ -280,14 +280,14 @@ Rectangle {
                 anchors.right:          parent.right
                 wrapMode:               Text.WordWrap
                 horizontalAlignment:    Text.AlignHCenter
-                text:                   qsTr("Click in map to set landing point.")
+                text:                   qsTr("Nhấp vào bản đồ để đặt điểm hạ cánh.")
             }
 
             QGCLabel {
                 anchors.left:           parent.left
                 anchors.right:          parent.right
                 horizontalAlignment:    Text.AlignHCenter
-                text:                   qsTr("- or -")
+                text:                   qsTr("- hoặc -")
                 visible:                globals.activeVehicle
             }
 
@@ -319,11 +319,11 @@ Rectangle {
             QGCLabel {
                 Layout.fillWidth:   true
                 wrapMode:           Text.WordWrap
-                text:               qsTr("Drag the loiter point to adjust landing direction for wind and obstacles.")
+                text:               qsTr("Kéo điểm loiter để điều chỉnh hướng hạ cánh cho gió và chướng ngại vật.")
             }
 
             QGCButton {
-                text:               qsTr("Done")
+                text:               qsTr("Xong")
                 Layout.fillWidth:   true
                 onClicked: {
                     missionItem.wizardMode = false

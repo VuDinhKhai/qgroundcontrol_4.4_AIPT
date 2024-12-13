@@ -15,7 +15,7 @@ import QGroundControl.FlightMap     1.0
 
 TransectStyleComplexItemEditor {
     transectAreaDefinitionComplete: missionItem.surveyAreaPolygon.isValid
-    transectAreaDefinitionHelp:     qsTr("Use the Polygon Tools to create the polygon which outlines your survey area.")
+    transectAreaDefinitionHelp:     qsTr("Sử dụng các công cụ Polygon để tạo ra đa giác bao quanh khu vực khảo sát của bạn.")
     transectValuesHeaderName:       qsTr("Transects")
     transectValuesComponent:        _transectValuesComponent
     presetsTransectValuesComponent: _transectValuesComponent
@@ -36,7 +36,7 @@ TransectStyleComplexItemEditor {
             rowSpacing:         _margin
             columns:            2
 
-            QGCLabel { text: qsTr("Angle") }
+            QGCLabel { text: qsTr("Góc") }
             FactTextField {
                 fact:                   missionItem.gridAngle
                 Layout.fillWidth:       true
@@ -58,7 +58,7 @@ TransectStyleComplexItemEditor {
             }
 
             QGCLabel {
-                text:       qsTr("Turnaround dist")
+                text:       qsTr("Khoảng cách quay lại")
                 visible:    !forPresets
             }
             FactTextField {
@@ -74,25 +74,25 @@ TransectStyleComplexItemEditor {
 
                 model: [
                     {
-                        text:       qsTr("Hover and capture image"),
+                        text:       qsTr("Lơ lửng và chụp ảnh"),
                         fact:       missionItem.hoverAndCapture,
                         enabled:    missionItem.cameraCalc.distanceMode === QGroundControl.AltitudeModeRelative || missionItem.cameraCalc.distanceMode === QGroundControl.AltitudeModeAbsolute,
                         visible:    missionItem.hoverAndCaptureAllowed
                     },
                     {
-                        text:       qsTr("Refly at 90 deg offset"),
+                        text:       qsTr("Bay lại với độ lệch 90 độ"),
                         fact:       missionItem.refly90Degrees,
                         enabled:    missionItem.cameraCalc.distanceMode !== QGroundControl.AltitudeModeCalcAboveTerrain,
                         visible:    true
                     },
                     {
-                        text:       qsTr("Images in turnarounds"),
+                        text:       qsTr("Ảnh trong các lượt quay lại"),
                         fact:       missionItem.cameraTriggerInTurnAround,
                         enabled:    missionItem.hoverAndCaptureAllowed ? !missionItem.hoverAndCapture.rawValue : true,
                         visible:    true
                     },
                     {
-                        text:       qsTr("Fly alternate transects"),
+                        text:       qsTr("Bay các transects xen kẽ"),
                         fact:       missionItem.flyAlternateTransects,
                         enabled:    true,
                         visible:    _vehicle ? (_vehicle.fixedWing || _vehicle.vtol) : false
@@ -104,7 +104,7 @@ TransectStyleComplexItemEditor {
 
     KMLOrSHPFileDialog {
         id:             kmlOrSHPLoadDialog
-        title:          qsTr("Select Polygon File")
+        title:          qsTr("Chọn Tệp Polygon")
         selectExisting: true
 
         onAcceptedForLoad: {

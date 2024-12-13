@@ -15,12 +15,12 @@ import QGroundControl.FlightMap     1.0
 
 TransectStyleComplexItemEditor {
     transectAreaDefinitionComplete: _missionItem.corridorPolyline.isValid
-    transectAreaDefinitionHelp:     qsTr("Use the Polyline Tools to create the polyline which defines the corridor.")
-    transectValuesHeaderName:       qsTr("Corridor")
+    transectAreaDefinitionHelp:     qsTr("Sử dụng Công cụ Đa giác để tạo đa giác xác định hành lang.")
+    transectValuesHeaderName:       qsTr("Hành lang")
     transectValuesComponent:        _transectValuesComponent
     presetsTransectValuesComponent: _transectValuesComponent
 
-    // The following properties must be available up the hierarchy chain
+    // Các thuộc tính sau phải có sẵn trong chuỗi phân cấp
     //  property real   availableWidth    ///< Width for control
     //  property var    missionItem       ///< Mission Item for editor
 
@@ -35,14 +35,14 @@ TransectStyleComplexItemEditor {
             rowSpacing:     _margin
             columns:        2
 
-            QGCLabel { text: qsTr("Width") }
+            QGCLabel { text: qsTr("Chiều rộng") }
             FactTextField {
                 fact:               _missionItem.corridorWidth
                 Layout.fillWidth:   true
             }
 
             QGCLabel {
-                text:       qsTr("Turnaround dist")
+                text:       qsTr("Khoảng cách quay đầu")
                 visible:    !forPresets
             }
             FactTextField {
@@ -53,7 +53,7 @@ TransectStyleComplexItemEditor {
 
             FactCheckBox {
                 Layout.columnSpan:  2
-                text:               qsTr("Images in turnarounds")
+                text:               qsTr("Ảnh trong quay đầu")
                 fact:               _missionItem.cameraTriggerInTurnAround
                 enabled:            _missionItem.hoverAndCaptureAllowed ? !_missionItem.hoverAndCapture.rawValue : true
                 visible:            !forPresets

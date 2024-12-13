@@ -203,7 +203,7 @@ Rectangle {
                 id: hamburgerMenu
 
                 QGCMenuItem {
-                    text:           qsTr("Move to vehicle position")
+                    text:           qsTr("Di chuyển đến vị trí phương tiện")
                     visible:        missionItem.specifiesCoordinate
                     enabled:        _activeVehicle
                     onTriggered:    missionItem.coordinate = _activeVehicle.coordinate
@@ -212,13 +212,13 @@ Rectangle {
                 }
 
                 QGCMenuItem {
-                    text:           qsTr("Move to previous item position")
+                    text:           qsTr("Di chuyển đến vị trí mục trước")
                     visible:        _missionController.previousCoordinate.isValid
                     onTriggered:    missionItem.coordinate = _missionController.previousCoordinate
                 }
 
                 QGCMenuItem {
-                    text:           qsTr("Edit position...")
+                    text:           qsTr("Sửa vị trí...")
                     visible:        missionItem.specifiesCoordinate
                     onTriggered:    editPositionDialog.createObject(mainWindow).open()
                 }
@@ -228,7 +228,7 @@ Rectangle {
                 }
 
                 QGCMenuItem {
-                    text:       qsTr("Show all values")
+                    text:       qsTr("Hiển thị tất cả các giá trị")
                     checkable:  true
                     checked:    missionItem.isSimpleItem ? missionItem.rawEdit : false
                     visible:    missionItem.isSimpleItem && !_waypointsOnlyMode
@@ -238,7 +238,7 @@ Rectangle {
                             if (missionItem.friendlyEditAllowed) {
                                 missionItem.rawEdit = false
                             } else {
-                                mainWindow.showMessageDialog(qsTr("Mission Edit"), qsTr("You have made changes to the mission item which cannot be shown in Simple Mode"))
+                                mainWindow.showMessageDialog(qsTr("Sửa Mission"), qsTr("Bạn đã thực hiện các thay đổi đối với mục mission item không thể hiển thị trong Chế độ Đơn giản"))
                             }
                         } else {
                             missionItem.rawEdit = true
@@ -248,7 +248,7 @@ Rectangle {
                 }
 
                 QGCMenuItem {
-                    text:       qsTr("Item #%1").arg(missionItem.sequenceNumber)
+                    text:       qsTr("Mục #%1").arg(missionItem.sequenceNumber)
                     enabled:    false
                 }
             }
@@ -264,8 +264,8 @@ Rectangle {
         anchors.top:            commandPicker.bottom
         visible:                _currentItem && !_readyForSave
         text:                   missionItem.readyForSaveState === VisualMissionItem.NotReadyForSaveTerrain ?
-                                    qsTr("Incomplete: Waiting on terrain data.") :
-                                    qsTr("Incomplete: Item not fully specified.")
+                                    qsTr("Không hoàn thành: Đang chờ dữ liệu địa hình.") :
+                                    qsTr("Không hoàn thành: Mục không được chỉ định đầy đủ.")
         wrapMode:               Text.WordWrap
         horizontalAlignment:    Text.AlignHCenter
         color:                  qgcPal.warningText

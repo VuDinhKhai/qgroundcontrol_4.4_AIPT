@@ -1,9 +1,9 @@
 /****************************************************************************
  *
- *   (c) 2019 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ *   (c) 2019 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
+ * QGroundControl được cấp phép theo các điều khoản trong tệp
+ * COPYING.md trong thư mục nguồn mã nguồn.
  *
  ****************************************************************************/
 
@@ -77,7 +77,7 @@ PairingManager::_pairingCompleted(QString name)
     emit pairedListChanged();
     emit pairedVehicleChanged();
     //_app->informationMessageBoxOnMainThread("", tr("Paired with %1").arg(name));
-    setPairingStatus(PairingSuccess, tr("Pairing Successfull"));
+    setPairingStatus(PairingSuccess, tr("Kết nối thành công với %1").arg(name));
 }
 
 //-----------------------------------------------------------------------------
@@ -87,7 +87,7 @@ PairingManager::_connectionCompleted(QString /*name*/)
     //QString pwd = _remotePairingMap["PWD"].toString();
     //_toolbox->microhardManager()->switchToConnectionEncryptionKey(pwd);
     //_app->informationMessageBoxOnMainThread("", tr("Connected to %1").arg(name));
-    setPairingStatus(PairingConnected, tr("Connection Successfull"));
+    setPairingStatus(PairingConnected, tr("Kết nối thành công"));
 }
 
 //-----------------------------------------------------------------------------
@@ -101,7 +101,7 @@ PairingManager::_startUpload(QString pairURL, QJsonDocument jsonDoc)
     _uploadManager = new QNetworkAccessManager(this);
 
     QString str = jsonDoc.toJson(QJsonDocument::JsonFormat::Compact);
-    qCDebug(PairingManagerLog) << "Starting upload to: " << pairURL << " " << str;
+    qCDebug(PairingManagerLog) << "Bắt đầu tải lên đến: " << pairURL << " " << str;
     _uploadData = QString::fromStdString(_aes.encrypt(str.toStdString()));
     _uploadURL = pairURL;
     _startUploadRequest();
@@ -138,32 +138,32 @@ PairingManager::_uploadFinished()
     if (reply) {
         if (_uploadManager != nullptr) {
             if (reply->error() == QNetworkReply::NoError) {
-                qCDebug(PairingManagerLog) << "Upload finished.";
+                qCDebug(PairingManagerLog) << "Tải lên hoàn tất.";
                 QByteArray bytes = reply->readAll();
                 QString str = QString::fromUtf8(bytes.data(), bytes.size());
-                qCDebug(PairingManagerLog) << "Reply: " << str;
+                qCDebug(PairingManagerLog) << "Trả lời: " << str;
                 auto a = str.split(QRegExp("\\s+"));
                 if (a[0] == "Accepted" && a.length() > 1) {
                     _pairingCompleted(a[1]);
                 } else if (a[0] == "Connected" && a.length() > 1) {
                     _connectionCompleted(a[1]);
                 } else if (a[0] == "Connection" && a.length() > 1) {
-                    setPairingStatus(PairingConnectionRejected, tr("Connection Rejected"));
-                    qCDebug(PairingManagerLog) << "Connection error: " << str;
+                    setPairingStatus(PairingConnectionRejected, tr("Kết nối bị từ chối"));
+                    qCDebug(PairingManagerLog) << "Lỗi kết nối: " << str;
                 } else {
-                    setPairingStatus(PairingRejected, tr("Pairing Rejected"));
-                    qCDebug(PairingManagerLog) << "Pairing error: " << str;
+                    setPairingStatus(PairingRejected, tr("Kết nối bị từ chối"));
+                    qCDebug(PairingManagerLog) << "Lỗi kết nối: " << str;
                 }
                 _uploadManager->deleteLater();
                 _uploadManager = nullptr;
             } else {
                 if(++_pairRetryCount > 3) {
-                    qCDebug(PairingManagerLog) << "Giving up";
-                    setPairingStatus(PairingError, tr("No Response From Vehicle"));
+                    qCDebug(PairingManagerLog) << "Từ chối";
+                    setPairingStatus(PairingError, tr("Không có phản hồi từ phương tiện"));
                     _uploadManager->deleteLater();
                     _uploadManager = nullptr;
                 } else {
-                    qCDebug(PairingManagerLog) << "Upload error: " + reply->errorString();
+                    qCDebug(PairingManagerLog) << "Lỗi tải lên: " + reply->errorString();
                     _startUploadRequest();
                 }
             }
@@ -188,7 +188,7 @@ PairingManager::_parsePairingJsonFile()
 void
 PairingManager::connectToPairedDevice(QString name)
 {
-    setPairingStatus(PairingConnecting, tr("Connecting to %1").arg(name));
+    setPairingStatus(PairingConnecting, tr("Đang kết nối đến %1").arg(name));
     QFile file(_pairingCacheFile(name));
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QString json = file.readAll();
@@ -214,7 +214,7 @@ PairingManager::_updatePairedDeviceNameList()
     while (it.hasNext()) {
         QFileInfo fileInfo(it.next());
         _deviceList.append(fileInfo.fileName());
-        qCDebug(PairingManagerLog) << "Listing: " << fileInfo.fileName();
+        qCDebug(PairingManagerLog) << "Danh sách: " << fileInfo.fileName();
     }
 }
 
@@ -244,26 +244,26 @@ PairingManager::_parsePairingJson(QString jsonEnc)
     if (json == "") {
         json = jsonEnc;
     }
-    qCDebug(PairingManagerLog) << "Parsing JSON: " << json;
+    qCDebug(PairingManagerLog) << "Phân tích JSON: " << json;
 
     _jsonDoc = QJsonDocument::fromJson(json.toUtf8());
 
     if (_jsonDoc.isNull()) {
-        setPairingStatus(PairingError, tr("Invalid Pairing File"));
-        qCDebug(PairingManagerLog) << "Failed to create Pairing JSON doc.";
+        setPairingStatus(PairingError, tr("Tệp kết nối không hợp lệ"));
+        qCDebug(PairingManagerLog) << "Không thể tạo tài liệu JSON kết nối.";
         return;
     }
     if (!_jsonDoc.isObject()) {
-        setPairingStatus(PairingError, tr("Error Parsing Pairing File"));
-        qCDebug(PairingManagerLog) << "Pairing JSON is not an object.";
+        setPairingStatus(PairingError, tr("Lỗi phân tích tệp kết nối"));
+        qCDebug(PairingManagerLog) << "Tài liệu JSON kết nối không phải là một đối tượng.";
         return;
     }
 
     QJsonObject jsonObj = _jsonDoc.object();
 
     if (jsonObj.isEmpty()) {
-        setPairingStatus(PairingError, tr("Error Parsing Pairing File"));
-        qCDebug(PairingManagerLog) << "Pairing JSON object is empty.";
+        setPairingStatus(PairingError, tr("Lỗi phân tích tệp kết nối"));
+        qCDebug(PairingManagerLog) << "Đối tượng JSON kết nối trống.";
         return;
     }
 
@@ -275,8 +275,8 @@ PairingManager::_parsePairingJson(QString jsonEnc)
     }
 
     if (linkType.length()==0) {
-        setPairingStatus(PairingError, tr("Error Parsing Pairing File"));
-        qCDebug(PairingManagerLog) << "Pairing JSON is malformed.";
+        setPairingStatus(PairingError, tr("Lỗi phân tích tệp kết nối"));
+        qCDebug(PairingManagerLog) << "Tài liệu JSON kết nối bị lỗi.";
         return;
     }
 
@@ -382,7 +382,7 @@ void
 PairingManager::_writeJson(QJsonDocument &jsonDoc, QString fileName)
 {
     QString val = jsonDoc.toJson(QJsonDocument::JsonFormat::Compact);
-    qCDebug(PairingManagerLog) << "Write json " << val;
+    qCDebug(PairingManagerLog) << "Ghi json " << val;
     QString enc = QString::fromStdString(_aes.encrypt(val.toStdString()));
 
     QFile file(fileName);
@@ -453,7 +453,7 @@ PairingManager::_createMicrohardConnectJson(QString cert2)
 QStringList
 PairingManager::pairingLinkTypeStrings()
 {
-    //-- Must follow same order as enum LinkType in LinkConfiguration.h
+    //-- Phải theo cùng một thứ tự như enum LinkType trong LinkConfiguration.h
     static QStringList list;
     int i = 0;
     if (!list.size()) {
@@ -492,7 +492,7 @@ PairingManager::startMicrohardPairing()
 {
     stopPairing();
     _pairRetryCount = 0;
-    setPairingStatus(PairingActive, tr("Pairing..."));
+    setPairingStatus(PairingActive, tr("Kết nối..."));
     _parsePairingJson(_assumeMicrohardPairingJson());
 }
 #endif
@@ -514,7 +514,7 @@ void
 PairingManager::startNFCScan()
 {
     stopPairing();
-    setPairingStatus(PairingActive, tr("Pairing..."));
+    setPairingStatus(PairingActive, tr("Kết nối..."));
     pairingNFC.start();
 }
 
