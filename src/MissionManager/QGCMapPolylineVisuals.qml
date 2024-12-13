@@ -37,8 +37,8 @@ Item {
     property real   _zorderSplitHandle:     QGroundControl.zOrderMapItems + 2
     property var    _savedVertices:         [ ]
 
-    readonly property string _corridorToolsText:    qsTr("Polyline Tools")
-    readonly property string _traceText:            qsTr("Click in the map to add vertices. Click 'Done Tracing' when finished.")
+    readonly property string _corridorToolsText:    qsTr("Công cụ Polyline")
+    readonly property string _traceText:            qsTr("Nhấp vào bản đồ để thêm đỉnh. Nhấp 'Hoàn thành theo dõi' khi xong.")
 
     function _addCommonVisuals() {
         if (_objMgrCommonVisuals.empty) {
@@ -125,7 +125,7 @@ Item {
     QGCFileDialog {
         id:             kmlLoadDialog
         folder:         QGroundControl.settingsManager.appSettings.missionSavePath
-        title:          qsTr("Select KML File")
+        title:          qsTr("Chọn tệp KML")
         selectExisting: true
         nameFilters:    ShapeFileHelper.fileDialogKMLFilters
 
@@ -147,12 +147,12 @@ Item {
 
         QGCMenuItem {
             id:             removeVertexItem
-            text:           qsTr("Remove vertex" )
+            text:           qsTr("Xóa đỉnh" )
             onTriggered:    mapPolyline.removeVertex(menu._removeVertexIndex)
         }
 
         QGCMenuItem {
-            text:           qsTr("Edit position..." )
+            text:           qsTr("Sửa vị trí..." )
             onTriggered:    editPositionDialog.createObject(mainWindow, { coordinate: mapPolyline.path[menu._removeVertexIndex] }).open()
         }
     }
@@ -331,14 +331,14 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Basic")
+                text:               qsTr("Cơ Bản")
                 visible:            !mapPolyline.traceMode
                 onClicked:          _resetPolyline()
             }
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               mapPolyline.traceMode ? qsTr("Done Tracing") : qsTr("Trace")
+                text:               mapPolyline.traceMode ? qsTr("Hoàn Tất Theo Dõi") : qsTr("Theo Dõi")
                 onClicked: {
                     if (mapPolyline.traceMode) {
                         if (mapPolyline.count < 2) {

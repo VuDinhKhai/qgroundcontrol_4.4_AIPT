@@ -230,7 +230,7 @@ bool TransectStyleComplexItem::_load(const QJsonObject& complexObject, bool forP
         version = 2;
     }
     if (version != 2) {
-        errorString = tr("TransectStyleComplexItem version %2 not supported").arg(version);
+        errorString = tr("Phiên bản TransectStyleComplexItem %2 không được hỗ trợ").arg(version);
         return false;
     }
 

@@ -282,19 +282,19 @@ bool MissionItem::load(const QJsonObject& json, int sequenceNumber, QString& err
     }
 
     if (convertedJson[VisualMissionItem::jsonTypeKey] != VisualMissionItem::jsonTypeSimpleItemValue) {
-        errorString = tr("Type found: %1 must be: %2").arg(convertedJson[VisualMissionItem::jsonTypeKey].toString()).arg(VisualMissionItem::jsonTypeSimpleItemValue);
+        errorString = tr("Kiểu tìm thấy: %1 phải là: %2").arg(convertedJson[VisualMissionItem::jsonTypeKey].toString()).arg(VisualMissionItem::jsonTypeSimpleItemValue);
         return false;
     }
 
     QJsonArray rgParams = convertedJson[_jsonParamsKey].toArray();
     if (rgParams.count() != 7) {
-        errorString = tr("%1 key must contains 7 values").arg(_jsonParamsKey);
+        errorString = tr("%1 key phải chứa 7 giá trị").arg(_jsonParamsKey);
         return false;
     }
 
     for (int i=0; i<4; i++) {
         if (rgParams[i].type() != QJsonValue::Double && rgParams[i].type() != QJsonValue::Null) {
-            errorString = tr("Param %1 incorrect type %2, must be double or null").arg(i+1).arg(rgParams[i].type());
+            errorString = tr("Tham số %1 sai kiểu %2, phải là số đôi hoặc null").arg(i+1).arg(rgParams[i].type());
             return false;
         }
     }

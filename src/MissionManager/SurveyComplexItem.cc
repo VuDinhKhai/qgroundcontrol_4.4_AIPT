@@ -163,10 +163,9 @@ bool SurveyComplexItem::load(const QJsonObject& complexObject, int sequenceNumbe
     if (!JsonHelper::validateKeys(complexObject, versionKeyInfoList, errorString)) {
         return false;
     }
-
     int version = complexObject[JsonHelper::jsonVersionKey].toInt();
     if (version < 2 || version > 5) {
-        errorString = tr("Survey items do not support version %1").arg(version);
+        errorString = tr("Các mục khảo sát không hỗ trợ phiên bản %1").arg(version);
         return false;
     }
 
@@ -177,14 +176,14 @@ bool SurveyComplexItem::load(const QJsonObject& complexObject, int sequenceNumbe
 
         _recalcComplexDistance();
         if (_cameraShots == 0) {
-            // Shot count was possibly not available from plan file
+            // Số lần chụp có thể không có sẵn từ tệp kế hoạch
             _recalcCameraShots();
         }
     } else {
-        // Must be v2 or v3
+        // Phải là v2 hoặc v3
         QJsonObject v3ComplexObject = complexObject;
         if (version == 2) {
-            // Convert to v3
+            // Chuyển đổi sang v3
             if (v3ComplexObject.contains(VisualMissionItem::jsonTypeKey) && v3ComplexObject[VisualMissionItem::jsonTypeKey].toString() == QStringLiteral("survey")) {
                 v3ComplexObject[VisualMissionItem::jsonTypeKey] = VisualMissionItem::jsonTypeComplexItemValue;
                 v3ComplexObject[ComplexMissionItem::jsonComplexItemTypeKey] = jsonComplexItemTypeValue;
@@ -194,7 +193,7 @@ bool SurveyComplexItem::load(const QJsonObject& complexObject, int sequenceNumbe
             return false;
         }
 
-        // V2/3 doesn't include individual items so we need to rebuild manually
+        // V2/3 không bao gồm các mục riêng lẻ nên chúng ta cần phải xây dựng lại thủ công
         _rebuildTransects();
     }
 
@@ -223,7 +222,7 @@ bool SurveyComplexItem::_loadV4V5(const QJsonObject& complexObject, int sequence
     QString itemType = complexObject[VisualMissionItem::jsonTypeKey].toString();
     QString complexType = complexObject[ComplexMissionItem::jsonComplexItemTypeKey].toString();
     if (itemType != VisualMissionItem::jsonTypeComplexItemValue || complexType != jsonComplexItemTypeValue) {
-        errorString = tr("%1 does not support loading this complex mission item type: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
+        errorString = tr("%1 không hỗ trợ việc tải loại mục nhiệm vụ phức tạp này: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
         return false;
     }
 
@@ -279,7 +278,7 @@ bool SurveyComplexItem::_loadV3(const QJsonObject& complexObject, int sequenceNu
     QString itemType = complexObject[VisualMissionItem::jsonTypeKey].toString();
     QString complexType = complexObject[ComplexMissionItem::jsonComplexItemTypeKey].toString();
     if (itemType != VisualMissionItem::jsonTypeComplexItemValue || complexType != jsonV3ComplexItemTypeValue) {
-        errorString = tr("%1 does not support loading this complex mission item type: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
+        errorString = tr("%1 không hỗ trợ tải loại mục phức tạp này: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
         return false;
     }
 
@@ -327,7 +326,7 @@ bool SurveyComplexItem::_loadV3(const QJsonObject& complexObject, int sequenceNu
         _cameraCalc.setCameraBrand(CameraCalc::canonicalManualCameraName());
     } else {
         if (!complexObject.contains(_jsonV3CameraObjectKey)) {
-            errorString = tr("%1 but %2 object is missing").arg("manualGrid = false").arg("camera");
+            errorString = tr("%1 nhưng %2 object bị thiếu").arg("manualGrid = false").arg("camera");
             _ignoreRecalc = false;
             return false;
         }

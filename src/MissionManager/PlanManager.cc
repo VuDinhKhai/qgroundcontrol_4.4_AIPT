@@ -174,69 +174,69 @@ void PlanManager::_ackTimeout(void)
 
     switch (_expectedAck) {
     case AckNone:
-        qCWarning(PlanManagerLog) << QStringLiteral("_ackTimeout %1 timeout with AckNone").arg(_planTypeString());
-        _sendError(InternalError, tr("Internal error occurred during Mission Item communication: _ackTimeOut:_expectedAck == AckNone"));
+        qCWarning(PlanManagerLog) << QStringLiteral("_ackTimeout %1 timeout với AckNone").arg(_planTypeString());
+        _sendError(InternalError, tr("Lỗi nội bộ xảy ra trong quá trình giao tiếp mục tiêu: _ackTimeOut:_expectedAck == AckNone"));
         break;
     case AckMissionCount:
-        // MISSION_COUNT message expected
+        // TIN NHẮN MISSION_COUNT được mong đợi
         if (_retryCount > _maxRetryCount) {
-            _sendError(MaxRetryExceeded, tr("Mission request list failed, maximum retries exceeded."));
+            _sendError(MaxRetryExceeded, tr("Yêu cầu danh sách nhiệm vụ thất bại, vượt quá số lần thử lại tối đa."));
             _finishTransaction(false);
         } else {
             _retryCount++;
-            qCDebug(PlanManagerLog) << tr("Retrying %1 REQUEST_LIST retry Count").arg(_planTypeString()) << _retryCount;
+            qCDebug(PlanManagerLog) << tr("Thử lại %1 REQUEST_LIST số lần thử lại").arg(_planTypeString()) << _retryCount;
             _requestList();
         }
         break;
     case AckMissionItem:
-        // MISSION_ITEM expected
+        // TIN NHẮN MISSION_ITEM được mong đợi
         if (_retryCount > _maxRetryCount) {
-            _sendError(MaxRetryExceeded, tr("Mission read failed, maximum retries exceeded."));
+            _sendError(MaxRetryExceeded, tr("Đọc nhiệm vụ thất bại, vượt quá số lần thử lại tối đa."));
             _finishTransaction(false);
         } else {
             _retryCount++;
-            qCDebug(PlanManagerLog) << tr("Retrying %1 MISSION_REQUEST retry Count").arg(_planTypeString()) << _retryCount;
+            qCDebug(PlanManagerLog) << tr("Thử lại %1 MISSION_REQUEST số lần thử lại").arg(_planTypeString()) << _retryCount;
             _requestNextMissionItem();
         }
         break;
     case AckMissionRequest:
-        // MISSION_REQUEST is expected, or MISSION_ACK to end sequence
+        // TIN NHẮN MISSION_REQUEST được mong đợi, hoặc MISSION_ACK để kết thúc chuỗi
         if (_itemIndicesToWrite.count() == 0) {
-            // Vehicle did not send final MISSION_ACK at end of sequence
-            _sendError(ProtocolError, tr("Mission write failed, vehicle failed to send final ack."));
+            // Phương tiện không gửi MISSION_ACK cuối cùng tại cuối chuỗi
+            _sendError(ProtocolError, tr("Viết nhiệm vụ thất bại, phương tiện không gửi ack cuối cùng."));
             _finishTransaction(false);
         } else if (_itemIndicesToWrite[0] == 0) {
-            // Vehicle did not respond to MISSION_COUNT, try again
+            // Phương tiện không phản hồi MISSION_COUNT, thử lại
             if (_retryCount > _maxRetryCount) {
-                _sendError(MaxRetryExceeded, tr("Mission write mission count failed, maximum retries exceeded."));
+                _sendError(MaxRetryExceeded, tr("Viết số lượng nhiệm vụ thất bại, vượt quá số lần thử lại tối đa."));
                 _finishTransaction(false);
             } else {
                 _retryCount++;
-                qCDebug(PlanManagerLog) << QStringLiteral("Retrying %1 MISSION_COUNT retry Count").arg(_planTypeString()) << _retryCount;
+                qCDebug(PlanManagerLog) << QStringLiteral("Thử lại %1 MISSION_COUNT số lần thử lại").arg(_planTypeString()) << _retryCount;
                 _writeMissionCount();
             }
         } else {
-            // Vehicle did not request all items from ground station
-            _sendError(ProtocolError, tr("Vehicle did not request all items from ground station: %1").arg(_ackTypeToString(_expectedAck)));
+            // Phương tiện không yêu cầu tất cả các mục từ trạm mặt đất
+            _sendError(ProtocolError, tr("Phương tiện không yêu cầu tất cả các mục từ trạm mặt đất: %1").arg(_ackTypeToString(_expectedAck)));
             _expectedAck = AckNone;
             _finishTransaction(false);
         }
         break;
     case AckMissionClearAll:
-        // MISSION_ACK expected
+        // TIN NHẮN MISSION_ACK được mong đợi
         if (_retryCount > _maxRetryCount) {
-            _sendError(MaxRetryExceeded, tr("Mission remove all, maximum retries exceeded."));
+            _sendError(MaxRetryExceeded, tr("Xóa tất cả nhiệm vụ, vượt quá số lần thử lại tối đa."));
             _finishTransaction(false);
         } else {
             _retryCount++;
-            qCDebug(PlanManagerLog) << tr("Retrying %1 MISSION_CLEAR_ALL retry Count").arg(_planTypeString()) << _retryCount;
+            qCDebug(PlanManagerLog) << tr("Thử lại %1 MISSION_CLEAR_ALL số lần thử lại").arg(_planTypeString()) << _retryCount;
             _removeAllWorker();
         }
         break;
     case AckGuidedItem:
-        // MISSION_REQUEST is expected, or MISSION_ACK to end sequence
+        // TIN NHẮN MISSION_REQUEST được mong đợi, hoặc MISSION_ACK để kết thúc chuỗi
     default:
-        _sendError(AckTimeoutError, tr("Vehicle did not respond to mission item communication: %1").arg(_ackTypeToString(_expectedAck)));
+        _sendError(AckTimeoutError, tr("Phương tiện không phản hồi với giao tiếp mục tiêu: %1").arg(_ackTypeToString(_expectedAck)));
         _expectedAck = AckNone;
         _finishTransaction(false);
     }
@@ -343,11 +343,10 @@ void PlanManager::_handleMissionCount(const mavlink_message_t& message)
         _requestNextMissionItem();
     }
 }
-
 void PlanManager::_requestNextMissionItem(void)
 {
     if (_itemIndicesToRead.count() == 0) {
-        _sendError(InternalError, tr("Internal Error: Call to Vehicle _requestNextMissionItem with no more indices to read"));
+        _sendError(InternalError, tr("Lỗi Nội bộ: Gọi đến _requestNextMissionItem của Xe với không có chỉ số nào để đọc nữa"));
         return;
     }
 
@@ -502,11 +501,10 @@ void PlanManager::_handleMissionRequest(const mavlink_message_t& message)
     if (!_checkForExpectedAck(AckMissionRequest)) {
         return;
     }
-
-    qCDebug(PlanManagerLog) << QStringLiteral("_handleMissionRequest %1 sequenceNumber").arg(_planTypeString()) << missionRequestSeq;
+    qCDebug(PlanManagerLog) << QStringLiteral("_handleMissionRequest %1 sốSequence").arg(_planTypeString()) << missionRequestSeq;
 
     if (missionRequestSeq > _writeMissionItems.count() - 1) {
-        _sendError(RequestRangeError, tr("Vehicle requested item outside range, count:request %1:%2. Send to Vehicle failed.").arg(_writeMissionItems.count()).arg(missionRequestSeq));
+        _sendError(RequestRangeError, tr("Phương tiện đã yêu cầu mục nằm ngoài phạm vi, số lượng:yêu cầu %1:%2. Gửi đến Phương tiện thất bại.").arg(_writeMissionItems.count()).arg(missionRequestSeq));
         _finishTransaction(false);
         return;
     }
@@ -619,20 +617,20 @@ void PlanManager::_handleMissionAck(const mavlink_message_t& message)
         }
         break;
     case AckMissionClearAll:
-        // MAV_MISSION_ACCEPTED expected
+        // MAV_MISSION_ACCEPTED được mong đợi
         if (missionAck.type != MAV_MISSION_ACCEPTED) {
-            _sendError(VehicleAckError, tr("Vehicle remove all failed. Error: %1").arg(_missionResultToString((MAV_MISSION_RESULT)missionAck.type)));
+            _sendError(VehicleAckError, tr("Xe không thể xóa tất cả. Lỗi: %1").arg(_missionResultToString((MAV_MISSION_RESULT)missionAck.type)));
         }
         _finishTransaction(missionAck.type == MAV_MISSION_ACCEPTED);
         break;
     case AckGuidedItem:
-        // MISSION_REQUEST is expected, or MAV_MISSION_ACCEPTED to end sequence
+        // MISSION_REQUEST được mong đợi, hoặc MAV_MISSION_ACCEPTED để kết thúc chuỗi
         if (missionAck.type == MAV_MISSION_ACCEPTED) {
-            qCDebug(PlanManagerLog) << QStringLiteral("_handleMissionAck %1 guided mode item accepted").arg(_planTypeString());
+            qCDebug(PlanManagerLog) << QStringLiteral("_handleMissionAck %1 mục tiêu chế độ hướng dẫn được chấp nhận").arg(_planTypeString());
             _finishTransaction(true, true /* apmGuidedItemWrite */);
         } else {
-            // FIXME: Protocol error
-            _sendError(VehicleAckError, tr("Vehicle returned error: %1. %2Vehicle did not accept guided item.").arg(_missionResultToString((MAV_MISSION_RESULT)missionAck.type)));
+            // FIXME: Lỗi giao thức
+            _sendError(VehicleAckError, tr("Xe trả về lỗi: %1. %2Xe không chấp nhận mục tiêu hướng dẫn.").arg(_missionResultToString((MAV_MISSION_RESULT)missionAck.type)));
             _finishTransaction(false, true /* apmGuidedItemWrite */);
         }
         break;
@@ -740,56 +738,55 @@ QString PlanManager::_lastMissionReqestString(MAV_MISSION_RESULT result)
 QString PlanManager::_missionResultToString(MAV_MISSION_RESULT result)
 {
     QString error;
-
     switch (result) {
     case MAV_MISSION_ACCEPTED:
-        error = tr("Mission accepted.");
+        error = tr("Nhiệm vụ được chấp nhận.");
         break;
     case MAV_MISSION_ERROR:
-        error = tr("Unspecified error.");
+        error = tr("Lỗi không xác định.");
         break;
     case MAV_MISSION_UNSUPPORTED_FRAME:
-        error = tr("Coordinate frame is not supported.");
+        error = tr("Khung tọa độ không được hỗ trợ.");
         break;
     case MAV_MISSION_UNSUPPORTED:
-        error = tr("Command is not supported.");
+        error = tr("Lệnh không được hỗ trợ.");
         break;
     case MAV_MISSION_NO_SPACE:
-        error = tr("Mission item exceeds storage space.");
+        error = tr("Mục nhiệm vụ vượt quá không gian lưu trữ.");
         break;
     case MAV_MISSION_INVALID:
-        error = tr("One of the parameters has an invalid value.");
+        error = tr("Một trong các tham số có giá trị không hợp lệ.");
         break;
     case MAV_MISSION_INVALID_PARAM1:
-        error = tr("Param 1 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 1.");
         break;
     case MAV_MISSION_INVALID_PARAM2:
-        error = tr("Param 2 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 2.");
         break;
     case MAV_MISSION_INVALID_PARAM3:
-        error = tr("Param 3 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 3.");
         break;
     case MAV_MISSION_INVALID_PARAM4:
-        error = tr("Param 4 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 4.");
         break;
     case MAV_MISSION_INVALID_PARAM5_X:
-        error = tr("Param 5 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 5.");
         break;
     case MAV_MISSION_INVALID_PARAM6_Y:
-        error = tr("Param 6 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 6.");
         break;
     case MAV_MISSION_INVALID_PARAM7:
-        error = tr("Param 7 invalid value.");
+        error = tr("Giá trị không hợp lệ của Param 7.");
         break;
     case MAV_MISSION_INVALID_SEQUENCE:
-        error = tr("Received mission item out of sequence.");
+        error = tr("Nhận được mục nhiệm vụ không đúng thứ tự.");
         break;
     case MAV_MISSION_DENIED:
-        error = tr("Not accepting any mission commands.");
+        error = tr("Không chấp nhận bất kỳ lệnh nhiệm vụ nào.");
         break;
     default:
-        qWarning(PlanManagerLog) << QStringLiteral("Fell off end of switch statement %1 %2").arg(_planTypeString()).arg(result);
-        error = tr("Unknown error: %1.").arg(result);
+        qWarning(PlanManagerLog) << QStringLiteral("Rơi khỏi cuối của câu lệnh switch %1 %2").arg(_planTypeString()).arg(result);
+        error = tr("Lỗi không biết: %1.").arg(result);
         break;
     }
 

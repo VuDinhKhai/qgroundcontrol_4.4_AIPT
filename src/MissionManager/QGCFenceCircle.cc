@@ -72,7 +72,7 @@ bool QGCFenceCircle::loadFromJson(const QJsonObject& json, QString& errorString)
     }
 
     if (json[JsonHelper::jsonVersionKey].toInt() != _jsonCurrentVersion) {
-        errorString = tr("GeoFence Circle only supports version %1").arg(_jsonCurrentVersion);
+        errorString = tr("Hình tròn GeoFence chỉ hỗ trợ phiên bản %1").arg(_jsonCurrentVersion);
         return false;
     }
 

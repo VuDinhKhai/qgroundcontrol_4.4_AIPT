@@ -23,7 +23,7 @@
 
 QGC_LOGGING_CATEGORY(StructureScanComplexItemLog, "StructureScanComplexItemLog")
 
-const QString StructureScanComplexItem::name(StructureScanComplexItem::tr("Structure Scan"));
+const QString StructureScanComplexItem::name(StructureScanComplexItem::tr("Quét Cấu Trúc"));
 
 const char* StructureScanComplexItem::settingsGroup =               "StructureScan";
 const char* StructureScanComplexItem::_entranceAltName =            "EntranceAltitude";
@@ -228,17 +228,16 @@ bool StructureScanComplexItem::load(const QJsonObject& complexObject, int sequen
     }
 
     _structurePolygon.clear();
-
     QString itemType = complexObject[VisualMissionItem::jsonTypeKey].toString();
     QString complexType = complexObject[ComplexMissionItem::jsonComplexItemTypeKey].toString();
     if (itemType != VisualMissionItem::jsonTypeComplexItemValue || complexType != jsonComplexItemTypeValue) {
-        errorString = tr("%1 does not support loading this complex mission item type: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
+        errorString = tr("%1 không hỗ trợ tải loại mục tiêu nhiệm vụ phức tạp này: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
         return false;
     }
 
     int version = complexObject[JsonHelper::jsonVersionKey].toInt();
     if (version != 3) {
-        errorString = tr("%1 version %2 not supported").arg(jsonComplexItemTypeValue).arg(version);
+        errorString = tr("%1 phiên bản %2 không được hỗ trợ").arg(jsonComplexItemTypeValue).arg(version);
         return false;
     }
 

@@ -632,7 +632,7 @@ bool LandingComplexItem::_load(const QJsonObject& complexObject, int sequenceNum
     QString itemType = complexObject[VisualMissionItem::jsonTypeKey].toString();
     QString complexType = complexObject[ComplexMissionItem::jsonComplexItemTypeKey].toString();
     if (itemType != VisualMissionItem::jsonTypeComplexItemValue || complexType != jsonComplexItemTypeValue) {
-        errorString = tr("%1 does not support loading this complex mission item type: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
+        errorString = tr("%1 không hỗ trợ tải loại mục phức tạp này: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
         return false;
     }
 
@@ -652,9 +652,9 @@ bool LandingComplexItem::_load(const QJsonObject& complexObject, int sequenceNum
         bool loiterAltitudeRelative = complexObject[_jsonDeprecatedLoiterAltitudeRelativeKey].toBool();
         bool landingAltitudeRelative = complexObject[_jsonDeprecatedLandingAltitudeRelativeKey].toBool();
         if (loiterAltitudeRelative != landingAltitudeRelative) {
-            qgcApp()->showAppMessage(tr("Fixed Wing Landing Pattern: "
-                                        "Setting the loiter and landing altitudes with different settings for altitude relative is no longer supported. "
-                                        "Both have been set to relative altitude. Be sure to adjust/check your plan prior to flight."));
+            qgcApp()->showAppMessage(tr("Mẫu Đổ Hạ cánh Cánh Sửa: "
+                                        "Cài đặt độ cao loiter và hạ cánh với các cài đặt khác nhau cho độ cao tương đối không được hỗ trợ nữa. "
+                                        "Cả hai đã được đặt thành độ cao tương đối. Hãy đảm bảo điều chỉnh/kiểm tra kế hoạch của bạn trước khi bay."));
             _altitudesAreRelative = true;
         } else {
             _altitudesAreRelative = loiterAltitudeRelative;

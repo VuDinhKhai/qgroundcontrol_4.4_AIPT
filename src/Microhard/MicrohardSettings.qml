@@ -60,7 +60,7 @@ Rectangle {
                     anchors.horizontalCenter:   parent.horizontalCenter
                     QGCLabel {
                         id:             generalLabel
-                        text:           qsTr("General")
+                        text:           qsTr("Tổng Quát")
                         font.family:    ScreenTools.demiboldFontFamily
                     }
                 }
@@ -77,7 +77,7 @@ Rectangle {
                         Column {
                             spacing:        ScreenTools.defaultFontPixelWidth
                             FactCheckBox {
-                                text:       qsTr("Enable Microhard")
+                                text:       qsTr("Kích hoạt Microhard")
                                 fact:       _microhardEnabledFact
                                 enabled:    true
                                 visible:    _microhardEnabledFact ? _microhardEnabledFact.visible : false
@@ -95,7 +95,7 @@ Rectangle {
                     visible:                    _microhardEnabled
                     QGCLabel {
                         id:                     statusLabel
-                        text:                   qsTr("Connection Status")
+                        text:                   qsTr("Trạng Thái Kết Nối")
                         font.family:            ScreenTools.demiboldFontFamily
                     }
                 }
@@ -117,45 +117,45 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             columns: 2
                             QGCLabel {
-                                text:           qsTr("Ground Unit:")
+                                text:           qsTr("Đơn Vị Mặt Đất:")
                                 Layout.minimumWidth: _labelWidth
                             }
                             QGCLabel {
                                 function getStatus(status) {
                                     if (status === 1)
-                                        return qsTr("Connected");
+                                        return qsTr("Kết Nối");
                                     else if (status === -1)
-                                        return qsTr("Login Error")
+                                        return qsTr("Lỗi Đăng Nhập")
                                     else
-                                        return qsTr("Not Connected")
+                                        return qsTr("Không Kết Nối")
                                 }
                                 text:           getStatus(QGroundControl.microhardManager.connected)
                                 color:          QGroundControl.microhardManager.connected === 1 ? qgcPal.colorGreen : qgcPal.colorRed
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Air Unit:")
+                                text:           qsTr("Đơn Vị Không:")
                             }
                             QGCLabel {
                                 function getStatus(status) {
                                     if (status === 1)
-                                        return qsTr("Connected");
+                                        return qsTr("Kết Nối");
                                     else if (status === -1)
-                                        return qsTr("Login Error")
+                                        return qsTr("Lỗi Đăng Nhập")
                                     else
-                                        return qsTr("Not Connected")
+                                        return qsTr("Không Kết Nối")
                                 }
                                 text:           getStatus(QGroundControl.microhardManager.linkConnected)
                                 color:          QGroundControl.microhardManager.linkConnected === 1 ? qgcPal.colorGreen : qgcPal.colorRed
                             }
                             QGCLabel {
-                                text:           qsTr("Uplink RSSI:")
+                                text:           qsTr("RSSI Uplink:")
                             }
                             QGCLabel {
                                 text:           QGroundControl.microhardManager.linkConnected && QGroundControl.microhardManager.uplinkRSSI < 0 ? QGroundControl.microhardManager.uplinkRSSI : ""
                             }
                             QGCLabel {
-                                text:           qsTr("Downlink RSSI:")
+                                text:           qsTr("RSSI Downlink:")
                             }
                             QGCLabel {
                                 text:           QGroundControl.microhardManager.linkConnected && QGroundControl.microhardManager.downlinkRSSI < 0 ? QGroundControl.microhardManager.downlinkRSSI : ""
@@ -173,7 +173,7 @@ Rectangle {
                     visible:                    _microhardEnabled
                     QGCLabel {
                         id:                     ipSettingsLabel
-                        text:                   qsTr("Network Settings")
+                        text:                   qsTr("Cài Đặt Mạng")
                         font.family:            ScreenTools.demiboldFontFamily
                     }
                 }
@@ -195,7 +195,7 @@ Rectangle {
                             anchors.horizontalCenter: parent.horizontalCenter
                             columns: 2
                             QGCLabel {
-                                text:           qsTr("Local IP Address:")
+                                text:           qsTr("Địa Chỉ IP Địa Phương:")
                                 Layout.minimumWidth: _labelWidth
                             }
                             QGCTextField {
@@ -206,7 +206,7 @@ Rectangle {
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Remote IP Address:")
+                                text:           qsTr("Địa Chỉ IP Từ Xa:")
                             }
                             QGCTextField {
                                 id:             remoteIP
@@ -216,7 +216,7 @@ Rectangle {
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Network Mask:")
+                                text:           qsTr("Mặt Nạ Mạng:")
                             }
                             QGCTextField {
                                 id:             netMask
@@ -226,7 +226,7 @@ Rectangle {
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Configuration User Name:")
+                                text:           qsTr("Tên Đăng Nhập Cấu Hình:")
                             }
                             QGCTextField {
                                 id:             configUserName
@@ -235,7 +235,7 @@ Rectangle {
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Configuration Password:")
+                                text:           qsTr("Mật Khẩu Cấu Hình:")
                             }
                             QGCTextField {
                                 id:             configPassword
@@ -245,7 +245,7 @@ Rectangle {
                                 Layout.minimumWidth: _valueWidth
                             }
                             QGCLabel {
-                                text:           qsTr("Encryption key:")
+                                text:           qsTr("Khóa Mã Hóa:")
                             }
                             QGCTextField {
                                 id:             encryptionKey
@@ -279,7 +279,7 @@ Rectangle {
                                 return true
                             }
                             enabled:            testEnabled()
-                            text:               qsTr("Apply")
+                            text:               qsTr("Áp Dụng")
                             anchors.horizontalCenter:   parent.horizontalCenter
                             onClicked: {
                                 QGroundControl.microhardManager.setIPSettings(localIP.text, remoteIP.text, netMask.text, configUserName.text, configPassword.text, encryptionKey.text)

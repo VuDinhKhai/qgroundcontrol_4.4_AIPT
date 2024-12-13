@@ -154,12 +154,12 @@ void GeoFenceManager::_planManagerLoadComplete(bool removeAllRequested)
                 expectedVertexCount = item->param1();
                 expectedCommand = command;
             } else if (expectedVertexCount != item->param1()){
-                // In the middle of a polygon, but count suddenly changed
-                emit error(BadPolygonItemFormat, tr("GeoFence load: Vertex count change mid-polygon - actual:expected").arg(item->param1()).arg(expectedVertexCount));
+                // Ở giữa một đa giác, nhưng số lượng đỉnh đột nhiên thay đổi
+                emit error(BadPolygonItemFormat, tr("Tải GeoFence: Số lượng đỉnh thay đổi giữa đa giác - thực tế:được mong đợi").arg(item->param1()).arg(expectedVertexCount));
                 break;
             } if (expectedCommand != command) {
-                // Command changed before last polygon was completely loaded
-                emit error(BadPolygonItemFormat, tr("GeoFence load: Polygon type changed before last load complete - actual:expected").arg(command).arg(expectedCommand));
+                // Lệnh thay đổi trước khi đa giác cuối cùng được tải hoàn chỉnh
+                emit error(BadPolygonItemFormat, tr("Tải GeoFence: Kiểu đa giác thay đổi trước khi tải hoàn chỉnh cuối cùng - thực tế:được mong đợi").arg(command).arg(expectedCommand));
                 break;
             }
             nextPolygon.appendVertex(QGeoCoordinate(item->param5(), item->param6()));
@@ -171,8 +171,8 @@ void GeoFenceManager::_planManagerLoadComplete(bool removeAllRequested)
             }
         } else if (command == MAV_CMD_NAV_FENCE_CIRCLE_INCLUSION || command == MAV_CMD_NAV_FENCE_CIRCLE_EXCLUSION) {
             if (nextPolygon.count() != 0) {
-                // Incomplete polygon
-                emit error(IncompletePolygonLoad, tr("GeoFence load: Incomplete polygon loaded"));
+                // Đa giác không hoàn chỉnh
+                emit error(IncompletePolygonLoad, tr("Tải GeoFence: Đa giác không hoàn chỉnh được tải"));
                 break;
             }
             QGCFenceCircle circle(QGeoCoordinate(item->param5(), item->param6()), item->param1(), command == MAV_CMD_NAV_FENCE_CIRCLE_INCLUSION /* inclusion */);
@@ -180,7 +180,7 @@ void GeoFenceManager::_planManagerLoadComplete(bool removeAllRequested)
         } else if (command == MAV_CMD_NAV_FENCE_RETURN_POINT) {
             _breachReturnPoint = QGeoCoordinate(item->param5(), item->param6(), item->param7());
         } else {
-            emit error(UnsupportedCommand, tr("GeoFence load: Unsupported command %1").arg(item->command()));
+            emit error(UnsupportedCommand, tr("Tải GeoFence: Lệnh không được hỗ trợ %1").arg(item->command()));
             break;
         }
     }

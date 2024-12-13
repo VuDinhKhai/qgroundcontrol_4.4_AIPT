@@ -788,7 +788,7 @@ bool MissionController::_loadJsonMissionFileV2(const QJsonObject& json, QmlObjec
         // Convert to QJsonObject
         const QJsonValue& itemValue = rgMissionItems[i];
         if (!itemValue.isObject()) {
-            errorString = tr("Mission item %1 is not an object").arg(i);
+            errorString = tr("Mục nhiệm vụ %1 không phải là một đối tượng").arg(i);
             return false;
         }
         const QJsonObject itemObject = itemValue.toObject();
@@ -874,10 +874,10 @@ bool MissionController::_loadJsonMissionFileV2(const QJsonObject& json, QmlObjec
                 qCDebug(MissionControllerLog) << "Corridor Scan load complete: nextSequenceNumber" << nextSequenceNumber;
                 visualItems->append(corridorItem);
             } else {
-                errorString = tr("Unsupported complex item type: %1").arg(complexItemType);
+                errorString = tr("Loại mục phức tạp không được hỗ trợ: %1").arg(complexItemType);
             }
         } else {
-            errorString = tr("Unknown item type: %1").arg(itemType);
+            errorString = tr("Loại mục không rõ: %1").arg(itemType);
             return false;
         }
     }
@@ -900,7 +900,7 @@ bool MissionController::_loadJsonMissionFileV2(const QJsonObject& json, QmlObjec
                     }
                 }
                 if (!found) {
-                    errorString = tr("Could not find doJumpId: %1").arg(findDoJumpId);
+                    errorString = tr("Không thể tìm thấy doJumpId: %1").arg(findDoJumpId);
                     return false;
                 }
             }
@@ -973,12 +973,12 @@ bool MissionController::_loadTextMissionFile(QTextStream& stream, QmlObjectListM
                 }
                 firstItem = false;
             } else {
-                errorString = tr("The mission file is corrupted.");
+                errorString = tr("Tệp nhiệm vụ bị hỏng.");
                 return false;
             }
         }
     } else {
-        errorString = tr("The mission file is not compatible with this version of %1.").arg(qgcApp()->applicationName());
+        errorString = tr("Tệp nhiệm vụ không tương thích với phiên bản này của %1.").arg(qgcApp()->applicationName());
         return false;
     }
 
@@ -1041,7 +1041,7 @@ bool MissionController::load(const QJsonObject& json, QString& errorString)
 bool MissionController::loadJsonFile(QFile& file, QString& errorString)
 {
     QString         errorStr;
-    QString         errorMessage = tr("Mission: %1");
+    QString         errorMessage = tr("Nhiệm vụ: %1");
     QJsonDocument   jsonDoc;
     QByteArray      bytes = file.readAll();
 
@@ -1065,7 +1065,7 @@ bool MissionController::loadJsonFile(QFile& file, QString& errorString)
 bool MissionController::loadTextFile(QFile& file, QString& errorString)
 {
     QString     errorStr;
-    QString     errorMessage = tr("Mission: %1");
+    QString     errorMessage = tr("Nhiệm vụ: %1");
     QByteArray  bytes = file.readAll();
     QTextStream stream(bytes);
 

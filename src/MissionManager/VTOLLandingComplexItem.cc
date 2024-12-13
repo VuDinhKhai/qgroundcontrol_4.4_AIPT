@@ -79,7 +79,7 @@ bool VTOLLandingComplexItem::load(const QJsonObject& complexObject, int sequence
 
     int version = complexObject[JsonHelper::jsonVersionKey].toInt();
     if (version != 1) {
-        errorString = tr("%1 complex item version %2 not supported").arg(jsonComplexItemTypeValue).arg(version);
+        errorString = tr("%1 phiên bản mục phức tạp %2 không được hỗ trợ").arg(jsonComplexItemTypeValue).arg(version);
         _ignoreRecalcSignals = false;
         return false;
     }

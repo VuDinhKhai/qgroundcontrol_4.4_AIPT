@@ -235,7 +235,7 @@ bool CameraCalc::load(const QJsonObject& originalJson, bool deprecatedFollowTerr
         version = 2;
     }
     if (version != 2) {
-        errorString = tr("CameraCalc section version %1 not supported").arg(version);
+        errorString = tr("Phần CameraCalc phiên bản %1 không được hỗ trợ").arg(version);
         return false;
     }
 
@@ -307,12 +307,12 @@ QString CameraCalc::canonicalManualCameraName(void)
 
 QString CameraCalc::xlatCustomCameraName(void)
 {
-    return tr("Custom Camera");
+    return tr("Máy Ảnh Tùy Chỉnh");
 }
 
 QString CameraCalc::xlatManualCameraName(void)
 {
-    return tr("Manual (no camera specs)");
+    return tr("Thủ Công (không có thông số máy ảnh)");
 }
 
 void CameraCalc::setDistanceMode(QGroundControlQmlGlobal::AltMode altMode)

@@ -65,7 +65,7 @@ bool QGCFencePolygon::loadFromJson(const QJsonObject& json, bool required, QStri
     }
 
     if (json[JsonHelper::jsonVersionKey].toInt() != _jsonCurrentVersion) {
-        errorString = tr("GeoFence Polygon only supports version %1").arg(_jsonCurrentVersion);
+        errorString = tr("Hình đa giác GeoFence chỉ hỗ trợ phiên bản %1").arg(_jsonCurrentVersion);
         return false;
     }
 

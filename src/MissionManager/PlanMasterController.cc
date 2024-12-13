@@ -209,7 +209,7 @@ void PlanMasterController::loadFromVehicle(void)
     } else {
         SharedLinkInterfacePtr sharedLink = weakLink.lock();
         if (sharedLink->linkConfiguration()->isHighLatency()) {
-            qgcApp()->showAppMessage(tr("Download not supported on high latency links."));
+            qgcApp()->showAppMessage(tr("Tải xuống không được hỗ trợ trên các liên kết có độ trễ cao."));
             return;
         }
     }
@@ -454,11 +454,10 @@ void PlanMasterController::saveToFile(const QString& filename)
     if (!QFileInfo(filename).fileName().contains(".")) {
         planFilename += QString(".%1").arg(fileExtension());
     }
-
     QFile file(planFilename);
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qgcApp()->showAppMessage(tr("Plan save error %1 : %2").arg(filename).arg(file.errorString()));
+        qgcApp()->showAppMessage(tr("Lỗi lưu kế hoạch %1 : %2").arg(filename).arg(file.errorString()));
         _currentPlanFile.clear();
         emit currentPlanFileChanged();
     } else {
@@ -470,7 +469,7 @@ void PlanMasterController::saveToFile(const QString& filename)
         }
     }
 
-    // Only clear dirty bit if we are offline
+    // Chỉ xóa bit bẩn nếu chúng ta đang offline
     if (offline()) {
         setDirty(false);
     }
@@ -490,7 +489,7 @@ void PlanMasterController::saveToKml(const QString& filename)
     QFile file(kmlFilename);
 
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qgcApp()->showAppMessage(tr("KML save error %1 : %2").arg(filename).arg(file.errorString()));
+        qgcApp()->showAppMessage(tr("Lỗi lưu KML %1 : %2").arg(filename).arg(file.errorString()));
     } else {
         KMLPlanDomDocument planKML;
         _missionController.addMissionToKML(planKML);
@@ -561,8 +560,8 @@ QStringList PlanMasterController::loadNameFilters(void) const
 {
     QStringList filters;
 
-    filters << tr("Supported types (*.%1 *.%2 *.%3 *.%4)").arg(AppSettings::planFileExtension).arg(AppSettings::missionFileExtension).arg(AppSettings::waypointsFileExtension).arg("txt") <<
-               tr("All Files (*)");
+    filters << tr("Các loại được hỗ trợ (*.%1 *.%2 *.%3 *.%4)").arg(AppSettings::planFileExtension).arg(AppSettings::missionFileExtension).arg(AppSettings::waypointsFileExtension).arg("txt") <<
+               tr("Tất cả các tệp (*)");
     return filters;
 }
 
@@ -571,7 +570,7 @@ QStringList PlanMasterController::saveNameFilters(void) const
 {
     QStringList filters;
 
-    filters << tr("Plan Files (*.%1)").arg(fileExtension()) << tr("All Files (*)");
+    filters << tr("Tệp Kế hoạch (*.%1)").arg(fileExtension()) << tr("Tất cả các tệp (*)");
     return filters;
 }
 

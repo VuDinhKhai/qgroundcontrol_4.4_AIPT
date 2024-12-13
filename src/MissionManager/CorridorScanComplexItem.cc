@@ -22,7 +22,7 @@
 
 QGC_LOGGING_CATEGORY(CorridorScanComplexItemLog, "CorridorScanComplexItemLog")
 
-const QString CorridorScanComplexItem::name(CorridorScanComplexItem::tr("Corridor Scan"));
+const QString CorridorScanComplexItem::name(CorridorScanComplexItem::tr("Quét Hành Lang"));
 
 const char* CorridorScanComplexItem::settingsGroup =            "CorridorScan";
 const char* CorridorScanComplexItem::corridorWidthName =        "CorridorWidth";
@@ -117,18 +117,18 @@ bool CorridorScanComplexItem::_loadWorker(const QJsonObject& complexObject, int 
         _ignoreRecalc = false;
         return false;
     }
-
+    
     QString itemType = complexObject[VisualMissionItem::jsonTypeKey].toString();
     QString complexType = complexObject[ComplexMissionItem::jsonComplexItemTypeKey].toString();
     if (itemType != VisualMissionItem::jsonTypeComplexItemValue || complexType != jsonComplexItemTypeValue) {
-        errorString = tr("%1 does not support loading this complex mission item type: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
+        errorString = tr("%1 không hỗ trợ tải loại mục phức tạp này: %2:%3").arg(qgcApp()->applicationName()).arg(itemType).arg(complexType);
         _ignoreRecalc = false;
         return false;
     }
 
     int version = complexObject[JsonHelper::jsonVersionKey].toInt();
     if (version != 2) {
-        errorString = tr("%1 complex item version %2 not supported").arg(jsonComplexItemTypeValue).arg(version);
+        errorString = tr("Phiên bản mục phức tạp %1 không được hỗ trợ: %2").arg(jsonComplexItemTypeValue).arg(version);
         _ignoreRecalc = false;
         return false;
     }

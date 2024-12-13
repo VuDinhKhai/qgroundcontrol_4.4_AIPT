@@ -13,7 +13,7 @@
 #include "FixedWingLandingComplexItem.h"
 
 BlankPlanCreator::BlankPlanCreator(PlanMasterController* planMasterController, QObject* parent)
-    : PlanCreator(planMasterController, tr("Blank"), QStringLiteral("/qmlimages/PlanCreator/BlankPlanCreator.png"), parent)
+    : PlanCreator(planMasterController, tr("Trống"), QStringLiteral("/qmlimages/PlanCreator/BlankPlanCreator.png"), parent)
 {
 
 }

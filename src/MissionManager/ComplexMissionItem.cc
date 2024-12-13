@@ -50,23 +50,22 @@ QStringList ComplexMissionItem::presetNames(void)
     settings.beginGroup(_presetSettingsKey);
     return settings.childKeys();
 }
-
 void ComplexMissionItem::loadPreset(const QString& name)
 {
     Q_UNUSED(name);
-    qgcApp()->showAppMessage(tr("This Pattern does not support Presets."));
+    qgcApp()->showAppMessage(tr("Mẫu này không hỗ trợ Presets."));
 }
 
 void ComplexMissionItem::savePreset(const QString& name)
 {
     Q_UNUSED(name);
-    qgcApp()->showAppMessage(tr("This Pattern does not support Presets."));
+    qgcApp()->showAppMessage(tr("Mẫu này không hỗ trợ Presets."));
 }
 
 void ComplexMissionItem::deletePreset(const QString& name)
 {
     if (qgcApp()->toolbox()->corePlugin()->options()->surveyBuiltInPresetNames().contains(name)) {
-        qgcApp()->showAppMessage(tr("'%1' is a built-in preset which cannot be deleted.").arg(name));
+        qgcApp()->showAppMessage(tr("'%1' là một preset mặc định không thể xóa.").arg(name));
         return;
     }
 

@@ -48,8 +48,8 @@ Item {
     property real _zorderSplitHandle:   QGroundControl.zOrderMapItems + 2
     property real _zorderCenterHandle:  QGroundControl.zOrderMapItems + 1   // Lowest such that drag or split takes precedence
 
-    readonly property string _polygonToolsText: qsTr("Polygon Tools")
-    readonly property string _traceText:        qsTr("Click in the map to add vertices. Click 'Done Tracing' when finished.")
+    readonly property string _polygonToolsText: qsTr("Công cụ Polygon")
+    readonly property string _traceText:        qsTr("Nhấp vào bản đồ để thêm đỉnh. Nhấp 'Hoàn thành Vẽ' khi xong.")
 
     function addCommonVisuals() {
         if (_objMgrCommonVisuals.empty) {
@@ -221,7 +221,7 @@ Item {
 
     KMLOrSHPFileDialog {
         id:             kmlOrSHPLoadDialog
-        title:          qsTr("Select Polygon File")
+        title:          qsTr("Chọn Tệp Polygon")
         selectExisting: true
 
         onAcceptedForLoad: {
@@ -245,11 +245,10 @@ Item {
         function popupCenter() {
             menu.popup()
         }
-
         QGCMenuItem {
             id:             removeVertexItem
             visible:        !_circleMode
-            text:           qsTr("Remove vertex")
+            text:           qsTr("Xóa đỉnh")
             onTriggered: {
                 if (menu._editingVertexIndex >= 0) {
                     mapPolygon.removeVertex(menu._editingVertexIndex)
@@ -262,19 +261,19 @@ Item {
         }
 
         QGCMenuItem {
-            text:           qsTr("Set radius..." )
+            text:           qsTr("Đặt bán kính..." )
             visible:        _circleMode
             onTriggered:    _editCircleRadius = true
         }
 
         QGCMenuItem {
-            text:           qsTr("Edit position..." )
+            text:           qsTr("Sửa vị trí..." )
             visible:        _circleMode
             onTriggered:    editCenterPositionDialog.createObject(mainWindow).open()
         }
 
         QGCMenuItem {
-            text:           qsTr("Edit position..." )
+            text:           qsTr("Sửa vị trí..." )
             visible:        !_circleMode && menu._editingVertexIndex >= 0
             onTriggered:    editVertexPositionDialog.createObject(mainWindow).open()
         }
@@ -522,11 +521,11 @@ Item {
         id: editCenterPositionDialog
 
         EditPositionDialog {
-            title:      qsTr("Edit Center Position")
+            title:      qsTr("Sửa Vị Trí Trung Tâm")
             coordinate: mapPolygon.center
             onCoordinateChanged: {
-                // Prevent spamming signals on vertex changes by setting centerDrag = true when changing center position.
-                // This also fixes a bug where Qt gets confused by all the signalling and draws a bad visual.
+                // Ngăn chặn việc gửi tín hiệu liên tục trên các thay đổi đỉnh bằng cách đặt centerDrag = true khi thay đổi vị trí trung tâm.
+                // Điều này cũng sửa lỗi nơi Qt bị nhầm lẫn bởi tất cả các tín hiệu và vẽ một hình ảnh xấu.
                 mapPolygon.centerDrag = true
                 mapPolygon.center = coordinate
                 mapPolygon.centerDrag = false
@@ -538,7 +537,7 @@ Item {
         id: editVertexPositionDialog
 
         EditPositionDialog {
-            title:      qsTr("Edit Vertex Position")
+            title:      qsTr("Sửa Vị Trí Đỉnh")
             coordinate: mapPolygon.vertexCoordinate(menu._editingVertexIndex)
             onCoordinateChanged: {
                 mapPolygon.adjustVertex(menu._editingVertexIndex, coordinate)
@@ -591,21 +590,21 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Basic")
+                text:               qsTr("Cơ Bản")
                 visible:            !mapPolygon.traceMode
                 onClicked:          _resetPolygon()
             }
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Circular")
+                text:               qsTr("Hình Tròn")
                 visible:            !mapPolygon.traceMode
                 onClicked:          _resetCircle()
             }
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               mapPolygon.traceMode ? qsTr("Done Tracing") : qsTr("Trace")
+                text:               mapPolygon.traceMode ? qsTr("Hoàn Tất Vẽ") : qsTr("Vẽ")
                 onClicked: {
                     if (mapPolygon.traceMode) {
                         if (mapPolygon.count < 3) {
@@ -623,7 +622,7 @@ Item {
 
             QGCButton {
                 _horizontalPadding: 0
-                text:               qsTr("Load KML/SHP...")
+                text:               qsTr("Tải KML/SHP...")
                 onClicked:          kmlOrSHPLoadDialog.openForLoad()
                 visible:            !mapPolygon.traceMode
             }

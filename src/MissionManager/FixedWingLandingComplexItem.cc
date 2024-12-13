@@ -19,7 +19,7 @@
 
 QGC_LOGGING_CATEGORY(FixedWingLandingComplexItemLog, "FixedWingLandingComplexItemLog")
 
-const QString FixedWingLandingComplexItem::name(FixedWingLandingComplexItem::tr("Fixed Wing Landing"));
+const QString FixedWingLandingComplexItem::name(FixedWingLandingComplexItem::tr("Hạ Cánh Sửa Định"));
 
 const char* FixedWingLandingComplexItem::settingsGroup                      = "FixedWingLanding";
 const char* FixedWingLandingComplexItem::jsonComplexItemTypeValue           = "fwLandingPattern";
@@ -95,7 +95,7 @@ bool FixedWingLandingComplexItem::load(const QJsonObject& complexObject, int seq
 
         _valueSetIsDistanceFact.setRawValue(complexObject[_jsonValueSetIsDistanceKey].toBool());
     } else {
-        errorString = tr("%1 complex item version %2 not supported").arg(jsonComplexItemTypeValue).arg(version);
+        errorString = tr("%1 mục phức tạp phiên bản %2 không được hỗ trợ").arg(jsonComplexItemTypeValue).arg(version);
         _ignoreRecalcSignals = false;
         return false;
     }

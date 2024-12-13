@@ -149,16 +149,16 @@ bool GeoFenceController::load(const QJsonObject& json, QString& errorString)
     if (!JsonHelper::validateKeys(json, keyInfoList, errorString)) {
         return false;
     }
-
+    
     if (json[JsonHelper::jsonVersionKey].toInt() != _jsonCurrentVersion) {
-        errorString = tr("GeoFence supports version %1").arg(_jsonCurrentVersion);
+        errorString = tr("GeoFence hỗ trợ phiên bản %1").arg(_jsonCurrentVersion);
         return false;
     }
 
     QJsonArray jsonPolygonArray = json[_jsonPolygonsKey].toArray();
     for (const QJsonValue jsonPolygonValue: jsonPolygonArray) {
         if (jsonPolygonValue.type() != QJsonValue::Object) {
-            errorString = tr("GeoFence polygon not stored as object");
+            errorString = tr("GeoFence đa giác không được lưu dưới dạng đối tượng");
             return false;
         }
 
@@ -172,7 +172,7 @@ bool GeoFenceController::load(const QJsonObject& json, QString& errorString)
     QJsonArray jsonCircleArray = json[_jsonCirclesKey].toArray();
     for (const QJsonValue jsonCircleValue: jsonCircleArray) {
         if (jsonCircleValue.type() != QJsonValue::Object) {
-            errorString = tr("GeoFence circle not stored as object");
+            errorString = tr("GeoFence hình tròn không được lưu dưới dạng đối tượng");
             return false;
         }
 
