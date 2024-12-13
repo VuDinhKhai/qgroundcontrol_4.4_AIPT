@@ -24,12 +24,11 @@
 QGC_LOGGING_CATEGORY(FirmwarePluginLog, "FirmwarePluginLog")
 
 static FirmwarePluginFactoryRegister* _instance = nullptr;
-
-const QString guided_mode_not_supported_by_vehicle = QObject::tr("Guided mode not supported by Vehicle.");
+const QString guided_mode_not_supported_by_vehicle = QObject::tr("Chế độ được hướng dẫn không được hỗ trợ bởi Phương tiện.");
 
 QVariantList FirmwarePlugin::_cameraList;
 
-const QString FirmwarePlugin::px4FollowMeFlightMode(QObject::tr("Follow Me"));
+const QString FirmwarePlugin::px4FollowMeFlightMode(QObject::tr("Theo dõi Tôi"));
 
 FirmwarePluginFactory::FirmwarePluginFactory(void)
 {
