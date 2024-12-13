@@ -1,9 +1,9 @@
 /****************************************************************************
  *
- * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ * (c) 2009-2020 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
+ * QGroundControl được cấp phép theo các điều khoản trong tệp
+ * COPYING.md trong thư mục nguồn mã nguồn.
  *
  ****************************************************************************/
 
@@ -15,31 +15,31 @@ import QGroundControl.ScreenTools   1.0
 import QGroundControl.Controls      1.0
 
 
-/// Polygon drawing item. Add to your control and call methods to get support for polygon drawing and adjustment.
+/// Mục vẽ đa giác. Thêm vào điều khiển của bạn và gọi các phương thức để có được sự hỗ trợ cho việc vẽ và điều chỉnh đa giác.
 Item {
     id: _root
 
-    // These properties must be provided by the consumer
-    property var    map            ///< Map control
-    property var    callbackObject ///< Callback item
+    // Những thuộc tính này phải được cung cấp bởi người tiêu dùng
+    property var    map            ///< Bản đồ điều khiển
+    property var    callbackObject ///< Mục gọi lại
 
-    // These properties can be queried by the consumer
+    // Những thuộc tính này có thể được truy vấn bởi người tiêu dùng
     property bool   drawingPolygon:     false
     property bool   adjustingPolygon:   false
-    property bool   polygonReady:       _currentPolygon ? _currentPolygon.path.length > 2 : false   ///< true: enough points have been captured to create a closed polygon
+    property bool   polygonReady:       _currentPolygon ? _currentPolygon.path.length > 2 : false   ///< true: đủ điểm đã được chụp để tạo ra một đa giác đóng
 
-    property var    _helpLabel                                  ///< Dynamically added help label component
-    property var    _newPolygon                                 ///< Dynamically added polygon which represents all polygon points including the one currently being drawn
-    property var    _currentPolygon                             ///< Dynamically added polygon which represents the currently completed polygon
-    property var    _nextPointLine                              ///< Dynamically added line which goes from last polygon point to the new one being drawn
-    property var    _mobileSegment                              ///< Dynamically added line between first and second polygon point for mobile
-    property var    _mobilePoint                                ///< Dynamically added point showing first polygon point on mobile
-    property var    _mouseArea                                  ///< Dynamically added MouseArea which handles all clicking and mouse movement
-    property var    _vertexDragList:    [ ]                     ///< Dynamically added vertex drag points
+    property var    _helpLabel                                  ///< Mục nhãn trợ giúp được thêm vào động
+    property var    _newPolygon                                 ///< Mục đa giác mới được thêm vào động, đại diện cho tất cả các điểm đa giác bao gồm cả điểm đang được vẽ
+    property var    _currentPolygon                             ///< Mục đa giác hiện tại được thêm vào động, đại diện cho đa giác đã hoàn thành hiện tại
+    property var    _nextPointLine                              ///< Mục dòng tiếp theo được thêm vào động, đại diện cho dòng mới đang được vẽ
+    property var    _mobileSegment                              ///< Mục dòng di động được thêm vào động, đại diện cho dòng giữa điểm đa giác đầu tiên và thứ hai cho di động
+    property var    _mobilePoint                                ///< Mục điểm di động được thêm vào động, đại diện cho điểm đa giác đầu tiên trên di động
+    property var    _mouseArea                                  ///< Mục khu vực chuột được thêm vào động, xử lý tất cả các nhấp chuột và di chuyển chuột
+    property var    _vertexDragList:    [ ]                     ///< Mục danh sách kéo điểm đa giác được thêm vào động
     property bool   _mobile:            ScreenTools.isMobile
 
-    /// Begin capturing a new polygon
-    ///     polygonCaptureStarted will be signalled through callbackObject
+    /// Bắt đầu chụp một đa giác mới
+    ///     polygonCaptureStarted sẽ được ký hiệu thông qua callbackObject
     function startCapturePolygon() {
         _helpLabel =        helpLabelComponent.createObject     (map)
         _newPolygon =       newPolygonComponent.createObject    (map)
@@ -59,9 +59,9 @@ Item {
         callbackObject.polygonCaptureStarted()
     }
 
-    /// Finish capturing the polygon
-    ///     polygonCaptureFinished will be signalled through callbackObject
-    /// @return true: polygon completed, false: not enough points to complete polygon
+    /// Kết thúc chụp đa giác
+    ///     polygonCaptureFinished sẽ được ký hiệu thông qua callbackObject
+    /// @return true: đa giác hoàn thành, false: không đủ điểm để hoàn thành đa giác
     function finishCapturePolygon() {
         if (!polygonReady) {
             return false
@@ -141,7 +141,7 @@ Item {
         callbackObject.polygonAdjustFinished()
     }
 
-    /// Cancels an in progress draw or adjust
+    /// Hủy bỏ một vẽ hoặc điều chỉnh đang diễn ra
     function cancelPolygonEdit() {
         _cancelAdjustPolygon()
         _cancelCapturePolygon()
@@ -175,27 +175,27 @@ Item {
             anchors.right:          parent.right
             horizontalAlignment:    Text.AlignHCenter
             map:                    _root.map
-            text:                   qsTr("Click to add point %1").arg(ScreenTools.isMobile || !polygonReady ? "" : qsTr("- Right Click to end polygon"))
+            text:                   qsTr("Nhấp để thêm điểm %1").arg(ScreenTools.isMobile || !polygonReady ? "" : qsTr("- Nhấp chuột phải để kết thúc đa giác"))
 
             Connections {
                 target: _root
 
                 onDrawingPolygonChanged: {
                     if (drawingPolygon) {
-                        polygonHelp.text = qsTr("Click to add point")
+                        polygonHelp.text = qsTr("Nhấp để thêm điểm")
                     }
                     polygonHelp.visible = drawingPolygon
                 }
 
                 onPolygonReadyChanged: {
                     if (polygonReady && !ScreenTools.isMobile) {
-                        polygonHelp.text = qsTr("Click to add point - Right Click to end polygon")
+                        polygonHelp.text = qsTr("Nhấp để thêm điểm - Nhấp chuột phải để kết thúc đa giác")
                     }
                 }
 
                 onAdjustingPolygonChanged: {
                     if (adjustingPolygon) {
-                        polygonHelp.text = qsTr("Adjust polygon by dragging corners")
+                        polygonHelp.text = qsTr("Điều chỉnh đa giác bằng cách kéo góc")
                     }
                     polygonHelp.visible = adjustingPolygon
                 }
@@ -218,7 +218,7 @@ Item {
                 if (mouse.button == Qt.LeftButton) {
                     justClicked = true
                     if (_newPolygon.path.length > 2) {
-                        // Make sure the new line doesn't intersect the existing polygon
+                        // Đảm bảo dòng mới không giao nhau với đa giác hiện tại
                         var lastSegment = _newPolygon.path.length - 2
                         var newLineA = map.fromCoordinate(_newPolygon.path[lastSegment], false /* clipToViewPort */)
                         var newLineB = map.fromCoordinate(_newPolygon.path[lastSegment+1], false /* clipToViewPort */)
@@ -234,18 +234,18 @@ Item {
                     var clickCoordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
                     var polygonPath = _newPolygon.path
                     if (polygonPath.length === 0) {
-                        // Add first coordinate
+                        // Thêm tọa độ đầu tiên
                         polygonPath.push(clickCoordinate)
                     } else {
-                        // Add subsequent coordinate
+                        // Thêm tọa độ tiếp theo
                         if (ScreenTools.isMobile) {
-                            // Since mobile has no mouse, the onPositionChangedHandler will not fire. We have to add the coordinate
-                            // here instead.
+                            // Vì di động không có chuột, onPositionChangedHandler sẽ không kích hoạt. Chúng ta phải thêm tọa độ
+                            // ở đây thay vì.
                             justClicked = false
                             polygonPath.push(clickCoordinate)
                         } else {
-                            // The onPositionChanged handler for mouse movement will have already added the coordinate to the array.
-                            // Just update it to the final position
+                            // onPositionChanged handler cho di chuyển chuột đã thêm tọa độ vào mảng.
+                            // Chỉ cần cập nhật nó đến vị trí cuối cùng
                             polygonPath[_newPolygon.path.length - 1] = clickCoordinate
                         }
                     }
@@ -256,7 +256,7 @@ Item {
                         _mobilePoint.coordinate = _currentPolygon.path[0]
                         _mobilePoint.visible = true
                     } else if (_mobile && _currentPolygon.path.length === 2) {
-                        // Show initial line segment on mobile
+                        // Hiển thị đoạn thẳng ban đầu trên di động
                         _mobileSegment.path = [ _currentPolygon.path[0], _currentPolygon.path[1] ]
                         _mobileSegment.visible = true
                         _mobilePoint.visible = false
@@ -271,19 +271,19 @@ Item {
 
             onPositionChanged: {
                 if (ScreenTools.isMobile) {
-                    // We don't track mouse drag on mobile
+                    // Chúng tôi không theo dõi kéo chuột trên di động
                     return
                 }
                 if (_newPolygon.path.length) {
                     var dragCoordinate = map.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
                     var polygonPath = _newPolygon.path
                     if (justClicked){
-                        // Add new drag coordinate
+                        // Thêm tọa độ kéo mới
                         polygonPath.push(dragCoordinate)
                         justClicked = false
                     }
 
-                    // Update drag line
+                    // Cập nhật dòng kéo
                     _nextPointLine.path = [ _newPolygon.path[_newPolygon.path.length - 2], dragCoordinate ]
 
                     polygonPath[_newPolygon.path.length - 1] = dragCoordinate
@@ -293,7 +293,7 @@ Item {
         }
     }
 
-    /// Polygon being drawn, including new point
+    /// Đa giác đang được vẽ, bao gồm điểm mới
     Component {
         id: newPolygonComponent
 
@@ -304,7 +304,7 @@ Item {
         }
     }
 
-    /// Current complete polygon
+    /// Đa giác hoàn thành hiện tại
     Component {
         id: currentPolygonComponent
 
@@ -315,7 +315,7 @@ Item {
         }
     }
 
-    /// First line segment to show on mobile
+    /// Dòng đầu tiên để hiển thị trên di động
     Component {
         id: mobileSegmentComponent
 
@@ -326,7 +326,7 @@ Item {
         }
     }
 
-    /// First line segment to show on mobile
+    /// Điểm đầu tiên để hiển thị trên di động
     Component {
         id: mobilePointComponent
 
@@ -344,7 +344,7 @@ Item {
         }
     }
 
-    /// Next line for polygon
+    /// Dòng tiếp theo cho đa giác
     Component {
         id: nextPointComponent
 

@@ -162,7 +162,7 @@ DropButton {
             QGCLabel { text: qsTr("Center map on:") }
 
             QGCButton {
-                text:               qsTr("Mission")
+                text:               qsTr("Nhiệm vụ")
                 Layout.fillWidth:   true
                 visible:            showMission
                 enabled:            !followVehicleCheckBox.checked
@@ -174,7 +174,7 @@ DropButton {
             }
 
             QGCButton {
-                text:               qsTr("All items")
+                text:               qsTr("Tất cả các mục")
                 Layout.fillWidth:   true
                 visible:            showAllItems
                 enabled:            !followVehicleCheckBox.checked
@@ -186,7 +186,7 @@ DropButton {
             }
 
             QGCButton {
-                text:               qsTr("Launch")
+                text:               qsTr("Phóng")
                 Layout.fillWidth:   true
                 enabled:            !followVehicleCheckBox.checked
 
@@ -197,7 +197,7 @@ DropButton {
             }
 
             QGCButton {
-                text:               qsTr("Current Location")
+                text:               qsTr("Vị trí hiện tại")
                 Layout.fillWidth:   true
                 enabled:            map.gcsPosition ? map.gcsPosition.isValid && !followVehicleCheckBox.checked : false
 
@@ -209,7 +209,7 @@ DropButton {
 
 
             QGCButton {
-                text:               qsTr("Specified Location")
+                text:               qsTr("Vị trí được chỉ định")
                 Layout.fillWidth:   true
 
                 onClicked: {
@@ -219,7 +219,7 @@ DropButton {
             }
 
             QGCButton {
-                text:               qsTr("Vehicle")
+                text:               qsTr("Phương tiện")
                 Layout.fillWidth:   true
                 enabled:            globals.activeVehicle && globals.activeVehicle.latitude != 0 && globals.activeVehicle.longitude != 0 && !followVehicleCheckBox.checked
 
@@ -231,7 +231,7 @@ DropButton {
 
             QGCCheckBox {
                 id:         followVehicleCheckBox
-                text:       qsTr("Follow Vehicle")
+                text:       qsTr("Theo dõi phương tiện")
                 checked:    followVehicle
                 visible:    showFollowVehicle
 

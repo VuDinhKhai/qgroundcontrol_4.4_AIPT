@@ -26,10 +26,10 @@ ColumnLayout {
     property bool   showMission:          true
     property bool   showAllItems:         true
 
-    QGCLabel { text: qsTr("Center map on:") }
+    QGCLabel { text: qsTr("Trung tâm bản đồ trên:") }
 
     QGCButton {
-        text:               qsTr("Mission")
+        text:               qsTr("Nhiệm vụ")
         Layout.fillWidth:   true
         visible:            showMission
 
@@ -40,7 +40,7 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:               qsTr("All items")
+        text:               qsTr("Tất cả các mục")
         Layout.fillWidth:   true
         visible:            showAllItems
 
@@ -51,7 +51,7 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:               qsTr("Launch")
+        text:               qsTr("Khởi động")
         Layout.fillWidth:   true
 
         onClicked: {
@@ -61,7 +61,7 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:               qsTr("Vehicle")
+        text:               qsTr("Phương tiện")
         Layout.fillWidth:   true
         enabled:            globals.activeVehicle && globals.activeVehicle.coordinate.isValid
 
@@ -72,7 +72,7 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:               qsTr("Current Location")
+        text:               qsTr("Vị trí hiện tại")
         Layout.fillWidth:   true
         enabled:            map.gcsPosition.isValid
 
@@ -83,7 +83,7 @@ ColumnLayout {
     }
 
     QGCButton {
-        text:               qsTr("Specified Location")
+        text:               qsTr("Vị trí được chỉ định")
         Layout.fillWidth:   true
 
         onClicked: {

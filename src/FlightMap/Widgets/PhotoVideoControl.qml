@@ -248,18 +248,18 @@ Rectangle {
             QGCRadioButton {
                 id:             videoGrabRadio
                 font.pointSize: ScreenTools.smallFontPointSize
-                text:           qsTr("Video Grab")
+                text:           qsTr("Chụp Video")
             }
             QGCRadioButton {
                 font.pointSize: ScreenTools.smallFontPointSize
-                text:           qsTr("Camera Trigger")
+                text:           qsTr("Kích hoạt Camera")
                 checked:        true
             }
         }
 
-        // Take Photo, Start/Stop Video button
-        // IMPORTANT: This control supports both mavlink cameras and simple video streams. Do no reference anything here which is not
-        // using the unified properties/functions.
+        // Nút Chụp ảnh, Bắt đầu/Dừng Video
+        // QUAN TRỌNG: Điều này hỗ trợ cả camera mavlink và luồng video đơn giản. Đừng tham chiếu bất cứ điều gì ở đây không
+        // sử dụng các thuộc tính/hàm thống nhất.
         Rectangle {
             Layout.alignment:   Qt.AlignHCenter
             color:              Qt.rgba(0,0,0,0)
@@ -284,7 +284,7 @@ Rectangle {
             }
         }
 
-        // Tracking button
+        // Nút Theo dõi
         Rectangle {
             Layout.alignment:   Qt.AlignHCenter
             color:              _mavlinkCamera && _mavlinkCamera.trackingEnabled ? qgcPal.colorRed : qgcPal.windowShadeLight
@@ -315,12 +315,12 @@ Rectangle {
         }
         QGCLabel {
             Layout.alignment:   Qt.AlignHCenter
-            text:               qsTr("Camera Tracking")
+            text:               qsTr("Theo dõi Camera")
             font.pointSize:     ScreenTools.defaultFontPointSize
             visible:            _mavlinkCamera && _mavlinkCamera.hasTracking
         }
 
-        //-- Status Information
+        //-- Thông tin Trạng thái
         ColumnLayout {
             Layout.alignment:   Qt.AlignHCenter
             spacing:            0
@@ -344,13 +344,13 @@ Rectangle {
             }
             QGCLabel {
                 Layout.alignment:   Qt.AlignHCenter
-                text:               _mavlinkCamera ? qsTr("Free Space: ") + _mavlinkCamera.storageFreeStr : ""
+                text:               _mavlinkCamera ? qsTr("Dung lượng trống: ") + _mavlinkCamera.storageFreeStr : ""
                 font.pointSize:     ScreenTools.defaultFontPointSize
                 visible:            _mavlinkCameraStorageReady
             }
             QGCLabel {
                 Layout.alignment:   Qt.AlignHCenter
-                text:               _mavlinkCamera ? qsTr("Battery: ") + _mavlinkCamera.batteryRemainingStr : ""
+                text:               _mavlinkCamera ? qsTr("Pin: ") + _mavlinkCamera.batteryRemainingStr : ""
                 font.pointSize:     ScreenTools.defaultFontPointSize
                 visible:            _mavlinkCameraBatteryReady
             }
@@ -361,7 +361,7 @@ Rectangle {
         id: settingsDialogComponent
 
         QGCPopupDialog {
-            title:      qsTr("Settings")
+            title:      qsTr("Cài đặt")
             buttons:    StandardButton.Close
 
             ColumnLayout {
@@ -374,7 +374,7 @@ Rectangle {
 
                     property int dynamicRows: 10
 
-                    // First column
+                    // Cột đầu tiên
                     QGCLabel {
                         text:               qsTr("Camera")
                         visible:            _multipleMavlinkCameras
@@ -382,24 +382,24 @@ Rectangle {
                     }
 
                     QGCLabel {
-                        text:               qsTr("Video Stream")
+                        text:               qsTr("Luồng Video")
                         visible:            _multipleMavlinkCameraStreams
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Thermal View Mode")
+                        text:               qsTr("Chế độ Xem Nhiệt")
                         visible:            _mavlinkCameraHasThermalVideoStream
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Blend Opacity")
+                        text:               qsTr("Độ mờ Trộn")
                         visible:            _mavlinkCameraHasThermalVideoStream && _mavlinkCamera.thermalMode === QGCCameraControl.THERMAL_BLEND
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
-                    // Mavlink Camera Protocol active settings
+                    // Các cài đặt hoạt động của giao thức camera mavlink
                     Repeater {
                         model: _mavlinkCamera ? _mavlinkCamera.activeSettings : []
 
@@ -409,42 +409,42 @@ Rectangle {
                     }
 
                     QGCLabel {
-                        text:               qsTr("Photo Mode")
+                        text:               qsTr("Chế độ Ảnh")
                         visible:            _mavlinkCameraHasModes
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Photo Interval (seconds)")
+                        text:               qsTr("Khoảng thời gian Chụp ảnh (giây)")
                         visible:            _mavlinkCameraInPhotoMode && _mavlinkCamera.photoMode === QGCCameraControl.PHOTO_CAPTURE_TIMELAPSE
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Video Grid Lines")
+                        text:               qsTr("Đường lưới Video")
                         visible:            _anyVideoStreamAvailable
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Video Screen Fit")
+                        text:               qsTr("Phù hợp màn hình Video")
                         visible:            _anyVideoStreamAvailable
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Reset Camera Defaults")
+                        text:               qsTr("Khôi phục Cài đặt Camera")
                         visible:            _mavlinkCamera
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
                     QGCLabel {
-                        text:               qsTr("Storage")
+                        text:               qsTr("Lưu trữ")
                         visible:            _mavlinkCameraStorageSupported
                         onVisibleChanged:   gridLayout.dynamicRows += visible ? 1 : -1
                     }
 
-                    // Second column
+                    // Cột thứ hai
                     QGCComboBox {
                         Layout.fillWidth:   true
                         sizeToContents:     true
@@ -466,7 +466,7 @@ Rectangle {
                     QGCComboBox {
                         Layout.fillWidth:   true
                         sizeToContents:     true
-                        model:              [ qsTr("Off"), qsTr("Blend"), qsTr("Full"), qsTr("Picture In Picture") ]
+                        model:              [ qsTr("Tắt"), qsTr("Trộn"), qsTr("Toàn màn hình"), qsTr("Hình trong hình") ]
                         currentIndex:       _mavlinkCamera ? _mavlinkCamera.thermalMode : -1
                         visible:            _mavlinkCameraHasThermalVideoStream
                         onActivated:        _mavlinkCamera.thermalMode = index
@@ -482,7 +482,7 @@ Rectangle {
                         onValueChanged:             _mavlinkCamera.thermalOpacity = value
                     }
 
-                    // Mavlink Camera Protocol active settings
+                    // Các cài đặt hoạt động của giao thức camera mavlink
                     Repeater {
                         model: _mavlinkCamera ? _mavlinkCamera.activeSettings : []
 
@@ -540,7 +540,7 @@ Rectangle {
                     QGCComboBox {
                         Layout.fillWidth:   true
                         sizeToContents:     true
-                        model:              [ qsTr("Single"), qsTr("Time Lapse") ]
+                        model:              [ qsTr("Một lần"), qsTr("Chụp ảnh định kỳ") ]
                         currentIndex:       _mavlinkCamera ? _mavlinkCamera.photoMode : 0
                         visible:            _mavlinkCameraHasModes
                         onActivated:        _mavlinkCamera.photoMode = index
@@ -578,13 +578,13 @@ Rectangle {
 
                     QGCButton {
                         Layout.fillWidth:   true
-                        text:               qsTr("Reset")
+                        text:               qsTr("Khôi phục")
                         visible:            _mavlinkCamera
                         onClicked:          resetPrompt.open()
                         MessageDialog {
                             id:                 resetPrompt
-                            title:              qsTr("Reset Camera to Factory Settings")
-                            text:               qsTr("Confirm resetting all settings?")
+                            title:              qsTr("Khôi phục Cài đặt Camera về Cài đặt Mặc định")
+                            text:               qsTr("Xác nhận khôi phục tất cả cài đặt?")
                             standardButtons:    StandardButton.Yes | StandardButton.No
                             onNo: resetPrompt.close()
                             onYes: {
@@ -596,13 +596,13 @@ Rectangle {
 
                     QGCButton {
                         Layout.fillWidth:   true
-                        text:               qsTr("Format")
+                        text:               qsTr("Định dạng")
                         visible:            _mavlinkCameraStorageSupported
                         onClicked:          formatPrompt.open()
                         MessageDialog {
                             id:                 formatPrompt
-                            title:              qsTr("Format Camera Storage")
-                            text:               qsTr("Confirm erasing all files?")
+                            title:              qsTr("Định dạng Lưu trữ Camera")
+                            text:               qsTr("Xác nhận xóa tất cả các tập tin?")
                             standardButtons:    StandardButton.Yes | StandardButton.No
                             onNo: formatPrompt.close()
                             onYes: {
