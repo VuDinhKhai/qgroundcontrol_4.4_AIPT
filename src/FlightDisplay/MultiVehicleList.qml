@@ -51,7 +51,7 @@ Item {
             QGCLabel {
                 anchors.left:   parent.left
                 anchors.right:  parent.right
-                text:           qsTr("The following commands will be applied to all vehicles")
+                text:           qsTr("Các lệnh sau sẽ được áp dụng cho tất cả các phương tiện")
                 color:          _textColor
                 wrapMode:       Text.WordWrap
                 font.pointSize: ScreenTools.smallFontPointSize
@@ -61,12 +61,12 @@ Item {
                 spacing:            _margin
 
                 QGCButton {
-                    text:       qsTr("Pause")
+                    text:       qsTr("Tạm dừng")
                     onClicked:  _guidedController.confirmAction(_guidedController.actionMVPause)
                 }
 
                 QGCButton {
-                    text:       qsTr("Start Mission")
+                    text:       qsTr("Bắt đầu nhiệm vụ")
                     onClicked:  _guidedController.confirmAction(_guidedController.actionMVStartMission)
                 }
             }
@@ -127,7 +127,7 @@ Item {
 
                         QGCLabel {
                             Layout.alignment:           Qt.AlignHCenter
-                            text:                       _vehicle && _vehicle.armed ? qsTr("Armed") : qsTr("Disarmed")
+                            text:                       _vehicle && _vehicle.armed ? qsTr("Đã được Arm") : qsTr("Chưa được Arm")
                             color:                      _textColor
                         }
                     }
@@ -154,13 +154,13 @@ Item {
                     }
 
                     QGCButton {
-                        text:       qsTr("Start Mission")
+                        text:       qsTr("Bắt đầu nhiệm vụ")
                         visible:    _vehicle && _vehicle.armed && _vehicle.flightMode !== _vehicle.missionFlightMode
                         onClicked:  _vehicle.startMission()
                     }
 
                     QGCButton {
-                        text:       qsTr("Pause")
+                        text:       qsTr("Tạm dừng")
                         visible:    _vehicle && _vehicle.armed && _vehicle.pauseVehicleSupported
                         onClicked:  _vehicle.pauseVehicle()
                     }
@@ -172,7 +172,7 @@ Item {
                     }
 
                     QGCButton {
-                        text:       qsTr("Take control")
+                        text:       qsTr("Lấy kiểm soát")
                         visible:    _vehicle && _vehicle.armed && _vehicle.flightMode !== _vehicle.takeControlFlightMode
                         onClicked:  _vehicle.flightMode = _vehicle.takeControlFlightMode
                     }

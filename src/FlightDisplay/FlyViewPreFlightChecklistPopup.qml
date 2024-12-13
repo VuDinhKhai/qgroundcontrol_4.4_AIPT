@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ * (c) 2009-2020 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
  * QGroundControl is licensed according to the terms in the file
  * COPYING.md in the root of the source code directory.
@@ -18,7 +18,7 @@ import QGroundControl.Controls  1.0
 /// Popup container for preflight checklists
 QGCPopupDialog {
     id:         _root
-    title:      qsTr("Pre-Flight Checklist")
+    title:      qsTr("Danh Sách Kiểm Tra Trước Bay")
     buttons:    StandardButton.Close
 
     property var    _activeVehicle:     QGroundControl.multiVehicleManager.activeVehicle

@@ -59,7 +59,7 @@ Item {
 
         QGCPopupDialog {
             id:         missionCompleteDialog
-            title:      qsTr("Flight Plan complete")
+            title:      qsTr("Kế hoạch bay hoàn thành")
             buttons:    StandardButton.Close
 
             property var activeVehicleCopy: _activeVehicle
@@ -75,14 +75,14 @@ Item {
 
                 QGCLabel {
                     Layout.fillWidth:       true
-                    text:                   qsTr("%1 Images Taken").arg(_activeVehicle.cameraTriggerPoints.count)
+                    text:                   qsTr("%1 Ảnh đã chụp").arg(_activeVehicle.cameraTriggerPoints.count)
                     horizontalAlignment:    Text.AlignHCenter
                     visible:                _activeVehicle.cameraTriggerPoints.count !== 0
                 }
 
                 QGCButton {
                     Layout.fillWidth:   true
-                    text:               qsTr("Remove plan from vehicle")
+                    text:               qsTr("Xóa kế hoạch khỏi xe")
                     visible:            !_activeVehicle.communicationLost// && !_activeVehicle.apmFirmware  // ArduPilot has a bug somewhere with mission clear
                     onClicked: {
                         _planController.removeAllFromVehicle()
@@ -93,7 +93,7 @@ Item {
                 QGCButton {
                     Layout.fillWidth:   true
                     Layout.alignment:   Qt.AlignHCenter
-                    text:               qsTr("Leave plan on vehicle")
+                    text:               qsTr("Để lại kế hoạch trên xe")
                     onClicked:          missionCompleteDialog.close()
 
                 }
@@ -112,7 +112,7 @@ Item {
                     QGCButton {
                         Layout.fillWidth:   true
                         Layout.alignment:   Qt.AlignHCenter
-                        text:               qsTr("Resume Mission From Waypoint %1").arg(globals.guidedControllerFlyView._resumeMissionIndex)
+                        text:               qsTr("Tiếp tục Sứ mệnh Từ Điểm %1").arg(globals.guidedControllerFlyView._resumeMissionIndex)
 
                         onClicked: {
                             globals.guidedControllerFlyView.executeAction(globals.guidedControllerFlyView.actionResumeMission, null, null)
@@ -123,7 +123,7 @@ Item {
                     QGCLabel {
                         Layout.fillWidth:   true
                         wrapMode:           Text.WordWrap
-                        text:               qsTr("Resume Mission will rebuild the current mission from the last flown waypoint and upload it to the vehicle for the next flight.")
+                        text:               qsTr("Tiếp tục Sứ mệnh sẽ tái xây dựng sứ mệnh hiện tại từ điểm đã bay cuối cùng và tải nó lên xe cho chuyến bay tiếp theo.")
                     }
                 }
 
@@ -131,7 +131,7 @@ Item {
                     Layout.fillWidth:   true
                     wrapMode:           Text.WordWrap
                     color:              qgcPal.warningText
-                    text:               qsTr("If you are changing batteries for Resume Mission do not disconnect from the vehicle.")
+                    text:               qsTr("Nếu bạn đang thay pin cho Tiếp tục Sứ mệnh không nên ngắt kết nối khỏi xe.")
                     visible:            globals.guidedControllerFlyView.showResumeMission
                 }
             }

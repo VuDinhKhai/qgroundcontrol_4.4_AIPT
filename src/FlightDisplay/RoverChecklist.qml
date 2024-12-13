@@ -1,9 +1,9 @@
 /****************************************************************************
  *
- *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
+ *   (c) 2009-2016 DỰ ÁN QGROUNDCONTROL <http://www.qgroundcontrol.org>
  *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
+ * QGroundControl được cấp phép theo các điều khoản trong tệp
+ * COPYING.md trong thư mục nguồn mã nguồn.
  *
  ****************************************************************************/
 
@@ -22,11 +22,11 @@ Item {
     PreFlightCheckModel {
         id:     listModel
         PreFlightCheckGroup {
-            name: qsTr("Rover Initial Checks")
+            name: qsTr("Kiểm tra ban đầu của Rover")
 
             PreFlightCheckButton {
-                name:           qsTr("Hardware")
-                manualText:     qsTr("Battery mounted and secured?")
+                name:           qsTr("Phần cứng")
+                manualText:     qsTr("Pin được gắn và cố định?")
             }
 
             PreFlightBatteryCheck {
@@ -47,11 +47,11 @@ Item {
         }
 
         PreFlightCheckGroup {
-            name: qsTr("Please arm the vehicle here")
+            name: qsTr("Vui lòng kích hoạt phương tiện tại đây")
 
             PreFlightCheckButton {
-                name:           qsTr("Mission")
-                manualText:     qsTr("Please confirm mission is valid (waypoints valid, no terrain collision).")
+                name:           qsTr("Nhiệm vụ")
+                manualText:     qsTr("Vui lòng xác nhận nhiệm vụ có hợp lệ (điểm đến hợp lệ, không va chạm với địa hình).")
             }
 
             PreFlightSoundCheck {
@@ -59,22 +59,22 @@ Item {
         }
 
         PreFlightCheckGroup {
-            name: qsTr("Last preparations before launch")
+            name: qsTr("Các chuẩn bị cuối cùng trước khi phóng")
 
             // Check list item group 2 - Final checks before launch
             PreFlightCheckButton {
-                name:           qsTr("Payload")
-                manualText:     qsTr("Configured and started? Payload lid closed?")
+                name:           qsTr("Hàng hóa")
+                manualText:     qsTr("Đã cấu hình và bắt đầu? Nắp hàng hóa đã đóng?")
             }
 
             PreFlightCheckButton {
-                name:           qsTr("Wind & weather")
-                manualText:     qsTr("OK for your platform?")
+                name:           qsTr("Gió & thời tiết")
+                manualText:     qsTr("OK cho nền tảng của bạn?")
             }
 
             PreFlightCheckButton {
-                name:           qsTr("Mission area")
-                manualText:     qsTr("Mission area and path free of obstacles/people?")
+                name:           qsTr("Khu vực nhiệm vụ")
+                manualText:     qsTr("Khu vực nhiệm vụ và đường đi không có chướng ngại vật/người?")
             }
         }
     }

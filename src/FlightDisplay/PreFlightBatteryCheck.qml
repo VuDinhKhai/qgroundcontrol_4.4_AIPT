@@ -13,14 +13,14 @@ import QGroundControl           1.0
 import QGroundControl.Controls  1.0
 import QGroundControl.Vehicle   1.0
 
-// This class stores the data and functions of the check list but NOT the GUI (which is handled somewhere else).
+// Lớp này lưu trữ dữ liệu và các chức năng của danh sách kiểm tra nhưng KHÔNG phải là GUI (được xử lý ở đâu đó).
 PreFlightCheckButton {
-    name:                           qsTr("Battery")
-    manualText:                     qsTr("Battery connector firmly plugged?")
+    name:                           qsTr("Pin")
+    manualText:                     qsTr("Connector pin đã được cắm chắc chắn?")
     telemetryFailure:               _batLow
     telemetryTextFailure:           allowTelemetryFailureOverride ?
-                                        qsTr("Warning - Battery charge below %1%.").arg(failurePercent) :
-                                        qsTr("Battery charge below %1%. Please recharge.").arg(failurePercent)
+                                        qsTr("Cảnh báo - Dung lượng pin dưới %1%.").arg(failurePercent) :
+                                        qsTr("Dung lượng pin dưới %1%. Vui lòng sạc lại.").arg(failurePercent)
     allowTelemetryFailureOverride:  allowFailurePercentOverride
 
     property int    failurePercent:                 40

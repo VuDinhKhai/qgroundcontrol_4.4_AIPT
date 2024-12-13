@@ -66,7 +66,7 @@ Rectangle {
 
         QGCLabel {
             Layout.alignment:   Qt.AlignHCenter
-            text:               qsTr("Terrain Load Progress")
+            text:               qsTr("Tiến độ Tải Địa hình")
             font.pointSize:     ScreenTools.smallFontPointSize
         }
 
@@ -84,7 +84,7 @@ Rectangle {
 
                 QGCLabel {
                     anchors.centerIn:   parent
-                    text:               qsTr("Done")
+                    text:               qsTr("Hoàn thành")
                     visible:            _blocksPending == 0
                 }
             }
