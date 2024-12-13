@@ -72,7 +72,7 @@ void SerialLink::_writeBytes(const QByteArray data)
     } else {
         // Error occurred
         qWarning() << "Serial port not writeable";
-        _emitLinkError(tr("Could not send data - link %1 is disconnected!").arg(_config->name()));
+        _emitLinkError(tr("Không thể gửi dữ liệu - liên kết %1 đã bị ngắt kết nối!").arg(_config->name()));
     }
 }
 
@@ -118,7 +118,7 @@ bool SerialLink::_connect(void)
             }
         }
 
-        _emitLinkError(tr("Error connecting: Could not create port. %1").arg(errorString));
+        _emitLinkError(tr("Lỗi kết nối: Không thể tạo cổng. %1").arg(errorString));
         return false;
     }
     return true;
@@ -245,7 +245,7 @@ void SerialLink::_readBytes(void)
     } else {
         // Error occurred
         qWarning() << "Serial port not readable";
-        _emitLinkError(tr("Could not read data - link %1 is disconnected!").arg(_config->name()));
+        _emitLinkError(tr("Không thể đọc dữ liệu - liên kết %1 đã bị ngắt kết nối!").arg(_config->name()));
     }
 }
 
@@ -281,9 +281,9 @@ bool SerialLink::isConnected() const
 
 void SerialLink::_emitLinkError(const QString& errorMsg)
 {
-    QString msg("Error on link %1. %2");
+    QString msg("Lỗi trên liên kết %1. %2");
     qDebug() << errorMsg;
-    emit communicationError(tr("Link Error"), msg.arg(_config->name()).arg(errorMsg));
+    emit communicationError(tr("Lỗi Liên Kết"), msg.arg(_config->name()).arg(errorMsg));
 }
 
 //--------------------------------------------------------------------------

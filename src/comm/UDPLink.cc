@@ -266,7 +266,7 @@ bool UDPLink::_hardwareConnect()
         QObject::connect(_socket, &QUdpSocket::readyRead, this, &UDPLink::readBytes);
         emit connected();
     } else {
-        emit communicationError(tr("UDP Link Error"), tr("Error binding UDP port: %1").arg(_socket->errorString()));
+        emit communicationError(tr("Lỗi Kết Nối UDP"), tr("Lỗi kết nối cổng UDP: %1").arg(_socket->errorString()));
     }
     return _connectState;
 }
@@ -290,7 +290,7 @@ void UDPLink::_registerZeroconf(uint16_t port, const std::string &regType)
                                                     NULL);
     if (result != kDNSServiceErr_NoError)
     {
-        emit communicationError(tr("UDP Link Error"), tr("Error registering Zeroconf"));
+        emit communicationError(tr("Lỗi Kết Nối UDP"), tr("Lỗi đăng ký Zeroconf"));
         _dnssServiceRef = NULL;
     }
 #else

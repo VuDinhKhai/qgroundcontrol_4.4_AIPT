@@ -40,7 +40,7 @@ QGCTextField {
         id: validationErrorDialogComponent
 
         ParameterEditorDialog {
-            title:          qsTr("Invalid Value")
+            title:          qsTr("Giá trị không hợp lệ")
             validate:       true
             validateValue:  _validateString
             fact:           _textField.fact
@@ -51,7 +51,7 @@ QGCTextField {
         id: helpDialogComponent
 
         ParameterEditorDialog {
-            title:          qsTr("Value Details")
+            title:          qsTr("Chi tiết giá trị")
             fact:           _textField.fact
         }
     }

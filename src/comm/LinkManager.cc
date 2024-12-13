@@ -46,9 +46,9 @@
 QGC_LOGGING_CATEGORY(LinkManagerLog, "LinkManagerLog")
 QGC_LOGGING_CATEGORY(LinkManagerVerboseLog, "LinkManagerVerboseLog")
 
-const char* LinkManager::_defaultUDPLinkName =                  "UDP Link (AutoConnect)";
-const char* LinkManager::_mavlinkForwardingLinkName =           "MAVLink Forwarding Link";
-const char* LinkManager::_mavlinkForwardingSupportLinkName =    "MAVLink Support Forwarding Link";
+const char* LinkManager::_defaultUDPLinkName =                  "Kết nối UDP (Tự động kết nối)";
+const char* LinkManager::_mavlinkForwardingLinkName =           "Kết nối chuyển tiếp MAVLink";
+const char* LinkManager::_mavlinkForwardingSupportLinkName =    "Kết nối hỗ trợ chuyển tiếp MAVLink";
 
 const int LinkManager::_autoconnectUpdateTimerMSecs =   1000;
 #ifdef Q_OS_WIN
@@ -247,7 +247,7 @@ SharedLinkInterfacePtr LinkManager::sharedLinkInterfacePointerForLink(LinkInterf
 bool LinkManager::_connectionsSuspendedMsg(void)
 {
     if (_connectionsSuspended) {
-        qgcApp()->showAppMessage(tr("Connect not allowed: %1").arg(_connectionsSuspendedReason));
+        qgcApp()->showAppMessage(tr("Không cho phép kết nối: %1").arg(_connectionsSuspendedReason));
         return true;
     } else {
         return false;
@@ -612,23 +612,23 @@ void LinkManager::_updateAutoConnectLinks(void)
                     switch (boardType) {
                     case QGCSerialPortInfo::BoardTypePixhawk:
                         if (_autoConnectSettings->autoConnectPixhawk()->rawValue().toBool()) {
-                            pSerialConfig = new SerialConfiguration(tr("%1 on %2 (AutoConnect)").arg(boardName).arg(portInfo.portName().trimmed()));
+                            pSerialConfig = new SerialConfiguration(tr("%1 trên %2 (Tự động kết nối)").arg(boardName).arg(portInfo.portName().trimmed()));
                             pSerialConfig->setUsbDirect(true);
                         }
                         break;
                     case QGCSerialPortInfo::BoardTypePX4Flow:
                         if (_autoConnectSettings->autoConnectPX4Flow()->rawValue().toBool()) {
-                            pSerialConfig = new SerialConfiguration(tr("%1 on %2 (AutoConnect)").arg(boardName).arg(portInfo.portName().trimmed()));
+                            pSerialConfig = new SerialConfiguration(tr("%1 trên %2 (Tự động kết nối)").arg(boardName).arg(portInfo.portName().trimmed()));
                         }
                         break;
                     case QGCSerialPortInfo::BoardTypeSiKRadio:
                         if (_autoConnectSettings->autoConnectSiKRadio()->rawValue().toBool()) {
-                            pSerialConfig = new SerialConfiguration(tr("%1 on %2 (AutoConnect)").arg(boardName).arg(portInfo.portName().trimmed()));
+                            pSerialConfig = new SerialConfiguration(tr("%1 trên %2 (Tự động kết nối)").arg(boardName).arg(portInfo.portName().trimmed()));
                         }
                         break;
                     case QGCSerialPortInfo::BoardTypeOpenPilot:
                         if (_autoConnectSettings->autoConnectLibrePilot()->rawValue().toBool()) {
-                            pSerialConfig = new SerialConfiguration(tr("%1 on %2 (AutoConnect)").arg(boardName).arg(portInfo.portName().trimmed()));
+                            pSerialConfig = new SerialConfiguration(tr("%1 trên %2 (Tự động kết nối)").arg(boardName).arg(portInfo.portName().trimmed()));
                         }
                         break;
 #ifndef __mobile__
@@ -672,7 +672,7 @@ void LinkManager::_updateAutoConnectLinks(void)
 
 void LinkManager::shutdown(void)
 {
-    setConnectionsSuspended(tr("Shutdown"));
+    setConnectionsSuspended(tr("Tắt máy"));
     disconnectAll();
 
     // Wait for all the vehicles to go away to ensure an orderly shutdown and deletion of all objects

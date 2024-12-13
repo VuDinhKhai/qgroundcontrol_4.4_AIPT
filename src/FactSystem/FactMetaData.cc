@@ -36,8 +36,8 @@ const qreal FactMetaData::UnitConsts_s::inchesToCentimeters = 2.54;
 const qreal FactMetaData::UnitConsts_s::ouncesToGrams = 28.3495;
 const qreal FactMetaData::UnitConsts_s::poundsToGrams = 453.592;
 
-const char* FactMetaData::kDefaultCategory = QT_TRANSLATE_NOOP("FactMetaData", "Other");
-const char* FactMetaData::kDefaultGroup    = QT_TRANSLATE_NOOP("FactMetaData", "Misc");
+const char* FactMetaData::kDefaultCategory = QT_TRANSLATE_NOOP("FactMetaData", "Khác");
+const char* FactMetaData::kDefaultGroup    = QT_TRANSLATE_NOOP("FactMetaData", "Linh tinh");
 
 const char* FactMetaData::qgcFileType                           = "FactMetaData";
 const char* FactMetaData::_jsonMetaDataDefinesName              = "QGC.MetaData.Defines";
@@ -265,7 +265,7 @@ QVariant FactMetaData::rawDefaultValue(void) const
     if (_defaultValueAvailable) {
         return _rawDefaultValue;
     } else {
-        qWarning() << "Attempt to access unavailable default value";
+        qWarning() << "Cố gắng truy cập giá trị mặc định không khả dụng";
         return QVariant(0);
     }
 }
@@ -276,7 +276,7 @@ void FactMetaData::setRawDefaultValue(const QVariant& rawDefaultValue)
         _rawDefaultValue = rawDefaultValue;
         _defaultValueAvailable = true;
     } else {
-        qWarning() << "Attempt to set default value which is outside min/max range";
+        qWarning() << "Cố gắng đặt giá trị mặc định nằm ngoài phạm vi min/max";
     }
 }
 
@@ -285,9 +285,9 @@ void FactMetaData::setRawMin(const QVariant& rawMin)
     if (isInRawMinLimit(rawMin)) {
         _rawMin = rawMin;
     } else {
-        qWarning() << "Attempt to set min below allowable value for fact: " << name()
-                   << ", value attempted: " << rawMin
-                   << ", type: " << type() << ", min for type: " << _minForType();
+        qWarning() << "Cố gắng đặt giá trị min dưới giá trị cho phép cho fact:" << name()
+                   << ", giá trị thử:" << rawMin
+                   << ", kiểu:" << type() << ", min cho kiểu:" << _minForType();
         _rawMin = _minForType();
     }
 }
@@ -297,9 +297,9 @@ void FactMetaData::setRawMax(const QVariant& rawMax)
     if (isInRawMaxLimit(rawMax)) {
         _rawMax = rawMax;
     } else {
-        qWarning() << "Attempt to set max above allowable value for fact: " << name()
-                   << ", value attempted: " << rawMax
-                   << ", type: " << type() << ", max for type: " << _maxForType();
+        qWarning() << "Cố gắng đặt giá trị max trên giá trị cho phép cho fact:" << name()
+                   << ", giá trị thử:" << rawMax
+                   << ", kiểu:" << type() << ", max cho kiểu:" << _maxForType();
         _rawMax = _maxForType();
     }
 }
@@ -450,7 +450,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toInt(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<int32_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toInt()).arg(rawMax().toInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toInt()).arg(rawMax().toInt());
             }
         }
         break;
@@ -458,7 +458,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toLongLong(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<int64_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toInt()).arg(rawMax().toInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toInt()).arg(rawMax().toInt());
             }
         }
         break;
@@ -468,7 +468,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toUInt(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<uint32_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toUInt()).arg(rawMax().toUInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toUInt()).arg(rawMax().toUInt());
             }
         }
         break;
@@ -476,7 +476,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toULongLong(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<uint64_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toUInt()).arg(rawMax().toUInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toUInt()).arg(rawMax().toUInt());
             }
         }
         break;
@@ -484,7 +484,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toFloat(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<float>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toDouble()).arg(rawMax().toDouble());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toDouble()).arg(rawMax().toDouble());
             }
         }
         break;
@@ -493,7 +493,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
         typedValue = QVariant(rawValue.toDouble(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInRawLimit<double>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(rawMin().toDouble()).arg(rawMax().toDouble());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(rawMin().toDouble()).arg(rawMax().toDouble());
             }
         }
         break;
@@ -512,7 +512,7 @@ bool FactMetaData::convertAndValidateRaw(const QVariant& rawValue, bool convertO
     }
 
     if (!convertOk) {
-        errorString += tr("Invalid number");
+        errorString += tr("Số không hợp lệ");
     }
 
     return convertOk && errorString.isEmpty();
@@ -538,7 +538,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toInt(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<int32_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toInt()).arg(cookedMax().toInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toInt()).arg(cookedMax().toInt());
             }
         }
         break;
@@ -546,7 +546,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toLongLong(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<int64_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toInt()).arg(cookedMax().toInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toInt()).arg(cookedMax().toInt());
             }
         }
         break;
@@ -556,7 +556,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toUInt(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<uint32_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toUInt()).arg(cookedMax().toUInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toUInt()).arg(cookedMax().toUInt());
             }
         }
         break;
@@ -564,7 +564,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toULongLong(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<uint64_t>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toUInt()).arg(cookedMax().toUInt());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toUInt()).arg(cookedMax().toUInt());
             }
         }
         break;
@@ -572,7 +572,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toFloat(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<float>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toFloat()).arg(cookedMax().toFloat());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toFloat()).arg(cookedMax().toFloat());
             }
         }
         break;
@@ -581,7 +581,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
         typedValue = QVariant(cookedValue.toDouble(&convertOk));
         if (!convertOnly && convertOk) {
             if (!isInCookedLimit<double>(typedValue)) {
-                errorString = tr("Value must be within %1 and %2").arg(cookedMin().toDouble()).arg(cookedMax().toDouble());
+                errorString = tr("Giá trị phải nằm trong khoảng %1 và %2").arg(cookedMin().toDouble()).arg(cookedMax().toDouble());
             }
         }
         break;
@@ -600,7 +600,7 @@ bool FactMetaData::convertAndValidateCooked(const QVariant& cookedValue, bool co
     }
 
     if (!convertOk) {
-        errorString += tr("Invalid number");
+        errorString += tr("Số không hợp lệ");
     }
 
     return convertOk && errorString.isEmpty();

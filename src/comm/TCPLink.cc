@@ -125,7 +125,7 @@ bool TCPLink::_hardwareConnect()
         // Whether a failed connection emits an error signal or not is platform specific.
         // So in cases where it is not emitted, we emit one ourselves.
         if (errorSpy.count() == 0) {
-            emit communicationError(tr("Link Error"), tr("Error on link %1. Connection failed").arg(_config->name()));
+            emit communicationError(tr("Lỗi Kết Nối"), tr("Lỗi trên kết nối %1. Kết nối thất bại").arg(_config->name()));
         }
         delete _socket;
         _socket = nullptr;
@@ -139,7 +139,7 @@ bool TCPLink::_hardwareConnect()
 void TCPLink::_socketError(QAbstractSocket::SocketError socketError)
 {
     Q_UNUSED(socketError);
-    emit communicationError(tr("Link Error"), tr("Error on link %1. Error on socket: %2.").arg(_config->name()).arg(_socket->errorString()));
+    emit communicationError(tr("Lỗi Kết Nối"), tr("Lỗi trên kết nối %1. Lỗi trên socket: %2.").arg(_config->name()).arg(_socket->errorString()));
 }
 
 /**

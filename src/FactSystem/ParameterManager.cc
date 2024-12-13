@@ -745,7 +745,7 @@ void ParameterManager::_waitingParamTimeout(void)
                 } else {
                     // Exceeded max retry count, notify user
                     _waitingWriteParamNameMap[componentId].remove(paramName);
-                    QString errorMsg = tr("Parameter write failed: veh:%1 comp:%2 param:%3").arg(_vehicle->id()).arg(componentId).arg(paramName);
+                    QString errorMsg = tr("Viết tham số thất bại: xe:%1 comp:%2 tham số:%3").arg(_vehicle->id()).arg(componentId).arg(paramName);
                     qCDebug(ParameterManagerLog) << errorMsg;
                     qgcApp()->showAppMessage(errorMsg);
                 }
@@ -765,9 +765,9 @@ void ParameterManager::_waitingParamTimeout(void)
                         goto Out;
                     }
                 } else {
-                    // Exceeded max retry count, notify user
+                    // Vượt quá số lần thử tối đa, thông báo cho người dùng
                     _waitingReadParamNameMap[componentId].remove(paramName);
-                    QString errorMsg = tr("Parameter read failed: veh:%1 comp:%2 param:%3").arg(_vehicle->id()).arg(componentId).arg(paramName);
+                    QString errorMsg = tr("Đọc tham số thất bại: xe:%1 comp:%2 tham số:%3").arg(_vehicle->id()).arg(componentId).arg(paramName);
                     qCDebug(ParameterManagerLog) << errorMsg;
                     qgcApp()->showAppMessage(errorMsg);
                 }
@@ -993,7 +993,7 @@ void ParameterManager::_tryCacheHashLoad(int vehicleId, int componentId, QVarian
             for (const QString& name: cacheMap.keys()) {
                 _debugCacheParamSeen[componentId][name] = false;
             }
-            qgcApp()->showAppMessage(tr("Parameter cache CRC match failed"));
+            qgcApp()->showAppMessage(tr("Sự khớp CRC của bộ nhớ đệm tham số thất bại"));
         }
     }
 }
@@ -1010,7 +1010,7 @@ QString ParameterManager::readParametersFromStream(QTextStream& stream)
             int lineMavId = wpParams.at(0).toInt();
             if (wpParams.size() == 5) {
                 if (_vehicle->id() != lineMavId) {
-                    return QString("The parameters in the stream have been saved from System Id %1, but the current vehicle has the System Id %2.").arg(lineMavId).arg(_vehicle->id());
+                    return QString("Các tham số trong luồng đã được lưu từ Id Hệ thống %1, nhưng xe hiện tại có Id Hệ thống %2.").arg(lineMavId).arg(_vehicle->id());
                 }
 
                 int     componentId = wpParams.at(1).toInt();
@@ -1044,11 +1044,11 @@ QString ParameterManager::readParametersFromStream(QTextStream& stream)
     QString errors;
 
     if (!missingErrors.isEmpty()) {
-        errors = tr("Parameters not loaded since they are not currently on the vehicle: %1\n").arg(missingErrors);
+        errors = tr("Các tham số không được tải vì chúng không hiện có trên xe: %1\n").arg(missingErrors);
     }
 
     if (!typeErrors.isEmpty()) {
-        errors += tr("Parameters not loaded due to type mismatch: %1").arg(typeErrors);
+        errors += tr("Các tham số không được tải do không khớp kiểu: %1").arg(typeErrors);
     }
 
     return errors;
@@ -1190,7 +1190,7 @@ void ParameterManager::_checkInitialLoadComplete(void)
         if (!_logReplay && _debugCacheCRC.contains(componentId) && _debugCacheCRC[componentId]) {
             for (const QString& paramName: _debugCacheParamSeen[componentId].keys()) {
                 if (!_debugCacheParamSeen[componentId][paramName]) {
-                    qDebug() << "Parameter in cache but not on vehicle componentId:Name" << componentId << paramName;
+                    qDebug() << "Tham số trong bộ nhớ đệm nhưng không có trên thành phần xe componentId:Name" << componentId << paramName;
                 }
             }
         }
@@ -1216,14 +1216,14 @@ void ParameterManager::_checkInitialLoadComplete(void)
     _missingParameters = false;
     if (initialLoadFailures) {
         _missingParameters = true;
-        QString errorMsg = tr("%1 was unable to retrieve the full set of parameters from vehicle %2. "
-                              "This will cause %1 to be unable to display its full user interface. "
-                              "If you are using modified firmware, you may need to resolve any vehicle startup errors to resolve the issue. "
-                              "If you are using standard firmware, you may need to upgrade to a newer version to resolve the issue.").arg(qgcApp()->applicationName()).arg(_vehicle->id());
+        QString errorMsg = tr("%1 không thể lấy toàn bộ tập hợp tham số từ xe %2. "
+                              "Điều này sẽ khiến %1 không thể hiển thị giao diện người dùng đầy đủ của mình. "
+                              "Nếu bạn đang sử dụng firmware đã sửa đổi, bạn có thể cần giải quyết bất kỳ lỗi khởi động xe nào để giải quyết vấn đề. "
+                              "Nếu bạn đang sử dụng firmware tiêu chuẩn, bạn có thể cần nâng cấp lên phiên bản mới hơn để giải quyết vấn đề.").arg(qgcApp()->applicationName()).arg(_vehicle->id());
         qCDebug(ParameterManagerLog) << errorMsg;
         qgcApp()->showAppMessage(errorMsg);
         if (!qgcApp()->runningUnitTests()) {
-            qCWarning(ParameterManagerLog) << _logVehiclePrefix(-1) << "The following parameter indices could not be loaded after the maximum number of retries: " << indexList;
+            qCWarning(ParameterManagerLog) << _logVehiclePrefix(-1) << "Các chỉ số tham số sau không thể được tải sau số lần thử tối đa: " << indexList;
         }
     }
 
@@ -1242,8 +1242,8 @@ void ParameterManager::_initialRequestTimeout(void)
         _initialRequestTimeoutTimer.start();
     } else {
         if (!_vehicle->genericFirmware()) {
-            QString errorMsg = tr("Vehicle %1 did not respond to request for parameters. "
-                                  "This will cause %2 to be unable to display its full user interface.").arg(_vehicle->id()).arg(qgcApp()->applicationName());
+            QString errorMsg = tr("Xe %1 không phản hồi yêu cầu tham số. "
+                                  "Điều này sẽ khiến %2 không thể hiển thị giao diện người dùng đầy đủ của mình.").arg(_vehicle->id()).arg(qgcApp()->applicationName());
             qCDebug(ParameterManagerLog) << errorMsg;
             qgcApp()->showAppMessage(errorMsg);
         }

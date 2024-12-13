@@ -37,7 +37,7 @@ void LogReplayLinkConfiguration::copyFrom(LinkConfiguration *source)
     if (ssource) {
         _logFilename = ssource->logFilename();
     } else {
-        qWarning() << "Internal error";
+        qWarning() << "Lỗi nội bộ";
     }
 }
 
@@ -77,10 +77,10 @@ LogReplayLink::LogReplayLink(SharedLinkConfigurationPtr& config)
     , _logFileSize               (0)
 {
     if (!_logReplayConfig) {
-        qWarning() << "Internal error";
+        qWarning() << "Lỗi nội bộ";
     }
 
-    _errorTitle = tr("Log Replay Error");
+    _errorTitle = tr("Lỗi Phát Lại Log");
     
     _readTickTimer.moveToThread(this);
     
@@ -101,7 +101,7 @@ bool LogReplayLink::_connect(void)
 {
     // Disallow replay when any links are connected
     if (qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()) {
-        emit communicationError(_errorTitle, tr("You must close all connections prior to replaying a log."));
+        emit communicationError(_errorTitle, tr("Bạn phải đóng tất cả các kết nối trước khi phát lại log."));
         return false;
     }
 
@@ -266,13 +266,13 @@ bool LogReplayLink::_loadLogFile(void)
     quint64 endTimeUSecs;
 
     if (_logFile.isOpen()) {
-        errorMsg = tr("Attempt to load new log while log being played");
+        errorMsg = tr("Đang cố gắng tải log mới trong khi đang phát log");
         goto Error;
     }
     
     _logFile.setFileName(logFilename);
     if (!_logFile.open(QFile::ReadOnly)) {
-        errorMsg = tr("Unable to open log file: '%1', error: %2").arg(logFilename).arg(_logFile.errorString());
+        errorMsg = tr("Không thể mở file log: '%1', lỗi: %2").arg(logFilename).arg(_logFile.errorString());
         goto Error;
     }
     logFileInfo.setFile(logFilename);
@@ -282,7 +282,7 @@ bool LogReplayLink::_loadLogFile(void)
     endTimeUSecs = _findLastTimestamp();
 
     if (endTimeUSecs <= startTimeUSecs) {
-        errorMsg = tr("The log file '%1' is corrupt or empty.").arg(logFilename);
+        errorMsg = tr("File log '%1' bị hỏng hoặc trống.").arg(logFilename);
         goto Error;
     }
 
@@ -355,7 +355,7 @@ void LogReplayLink::_readNextLogEntry(void)
 
 void LogReplayLink::_play(void)
 {
-    qgcApp()->toolbox()->linkManager()->setConnectionsSuspended(tr("Connect not allowed during Flight Data replay."));
+    qgcApp()->toolbox()->linkManager()->setConnectionsSuspended(tr("Không cho phép kết nối trong khi phát lại dữ liệu bay."));
 #ifndef __mobile__
     qgcApp()->toolbox()->mavlinkProtocol()->suspendLogForReplay(true);
 #endif
@@ -422,7 +422,7 @@ void LogReplayLink::movePlayhead(qreal percentComplete)
 
     // Now seek to the appropriate position, failing gracefully if we can't.
     if (!_logFile.seek(newFilePos)) {
-        _replayError(tr("Unable to seek to new position"));
+        _replayError(tr("Không thể di chuyển đến vị trí mới"));
         return;
     }
 
@@ -442,7 +442,7 @@ void LogReplayLink::movePlayhead(qreal percentComplete)
     // And now jump the necessary number of bytes in the proper direction
     qint64 offset = (newRelativeTimeUSecs - desiredTimeUSecs) * baudRate;
     if (!_logFile.seek(_logFile.pos() + offset)) {
-        _replayError(tr("Unable to seek to new position"));
+        _replayError(tr("Không thể di chuyển đến vị trí mới"));
         return;
     }
 
@@ -590,8 +590,8 @@ QString LogReplayLinkController::_secondsToHMS(int seconds)
     minutesPart -= 60 * hoursPart;
 
     if (hoursPart == 0) {
-        return tr("%2m:%3s").arg(minutesPart, 2, 10, QLatin1Char('0')).arg(secondsPart, 2, 10, QLatin1Char('0'));
+        return tr("%2p:%3s").arg(minutesPart, 2, 10, QLatin1Char('0')).arg(secondsPart, 2, 10, QLatin1Char('0'));
     } else {
-        return tr("%1h:%2m:%3s").arg(hoursPart, 2, 10, QLatin1Char('0')).arg(minutesPart, 2, 10, QLatin1Char('0')).arg(secondsPart, 2, 10, QLatin1Char('0'));
+        return tr("%1g:%2p:%3s").arg(hoursPart, 2, 10, QLatin1Char('0')).arg(minutesPart, 2, 10, QLatin1Char('0')).arg(secondsPart, 2, 10, QLatin1Char('0'));
     }
 }

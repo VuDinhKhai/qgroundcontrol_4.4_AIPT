@@ -176,7 +176,7 @@ void MAVLinkProtocol::logSentBytes(LinkInterface* link, QByteArray b){
         if(_tempLogFile.write(b) != len)
         {
             // If there's an error logging data, raise an alert and stop logging.
-            emit protocolStatusMessage(tr("MAVLink Protocol"), tr("MAVLink Logging failed. Could not write to file %1, logging disabled.").arg(_tempLogFile.fileName()));
+            emit protocolStatusMessage(tr("Giao thức MAVLink"), tr("Ghi nhật ký MAVLink thất bại. Không thể ghi vào tệp %1, đã tắt ghi nhật ký.").arg(_tempLogFile.fileName()));
             _stopLogging();
             _logSuspendError = true;
         }
@@ -212,7 +212,7 @@ void MAVLinkProtocol::receiveBytes(LinkInterface* link, QByteArray b)
                 link->setDecodedFirstMavlinkPacket(true);
                 mavlink_status_t* mavlinkStatus = mavlink_get_channel_status(mavlinkChannel);
                 if (!(mavlinkStatus->flags & MAVLINK_STATUS_FLAG_IN_MAVLINK1) && (mavlinkStatus->flags & MAVLINK_STATUS_FLAG_OUT_MAVLINK1)) {
-                    qCDebug(MAVLinkProtocolLog) << "Switching outbound to mavlink 2.0 due to incoming mavlink 2.0 packet:" << mavlinkStatus << mavlinkChannel << mavlinkStatus->flags;
+                    qCDebug(MAVLinkProtocolLog) << "Chuyển sang mavlink 2.0 do nhận được gói tin mavlink 2.0:" << mavlinkStatus << mavlinkChannel << mavlinkStatus->flags;
                     mavlinkStatus->flags &= ~MAVLINK_STATUS_FLAG_OUT_MAVLINK1;
                     // Set all links to v2
                     setVersion(200);
@@ -306,7 +306,7 @@ void MAVLinkProtocol::receiveBytes(LinkInterface* link, QByteArray b)
                 if(_tempLogFile.write(b) != len)
                 {
                     // If there's an error logging data, raise an alert and stop logging.
-                    emit protocolStatusMessage(tr("MAVLink Protocol"), tr("MAVLink Logging failed. Could not write to file %1, logging disabled.").arg(_tempLogFile.fileName()));
+                    emit protocolStatusMessage(tr("Giao thức MAVLink"), tr("Ghi nhật ký MAVLink thất bại. Không thể ghi vào tệp %1, đã tắt ghi nhật ký.").arg(_tempLogFile.fileName()));
                     _stopLogging();
                     _logSuspendError = true;
                 }
@@ -355,11 +355,11 @@ void MAVLinkProtocol::receiveBytes(LinkInterface* link, QByteArray b)
 
             if (_radio_version_mismatch_count == 5) {
                 // Warn the user if the radio continues to send v1 while the link uses v2
-                emit protocolStatusMessage(tr("MAVLink Protocol"), tr("Detected radio still using MAVLink v1.0 on a link with MAVLink v2.0 enabled. Please upgrade the radio firmware."));
+                emit protocolStatusMessage(tr("Giao thức MAVLink"), tr("Phát hiện radio vẫn đang sử dụng MAVLink v1.0 trên kết nối với MAVLink v2.0. Vui lòng nâng cấp firmware của radio."));
                 // Set to flag warning already shown
                 _radio_version_mismatch_count = -1;
                 // Flick link back to v1
-                qDebug() << "Switching outbound to mavlink 1.0 due to incoming mavlink 1.0 packet:" << mavlinkStatus << mavlinkChannel << mavlinkStatus->flags;
+                qDebug() << "Chuyển sang mavlink 1.0 do nhận được gói tin mavlink 1.0:" << mavlinkStatus << mavlinkChannel << mavlinkStatus->flags;
                 mavlinkStatus->flags |= MAVLINK_STATUS_FLAG_OUT_MAVLINK1;
             }
 #endif
@@ -392,7 +392,7 @@ void MAVLinkProtocol::receiveBytes(LinkInterface* link, QByteArray b)
  **/
 QString MAVLinkProtocol::getName()
 {
-    return tr("MAVLink protocol");
+    return tr("Giao thức MAVLink");
 }
 
 /** @return System id of this application */
@@ -466,8 +466,8 @@ void MAVLinkProtocol::_startLogging(void)
     if (!_tempLogFile.isOpen()) {
         if (!_logSuspendReplay) {
             if (!_tempLogFile.open()) {
-                emit protocolStatusMessage(tr("MAVLink Protocol"), tr("Opening Flight Data file for writing failed. "
-                                                                      "Unable to write to %1. Please choose a different file location.").arg(_tempLogFile.fileName()));
+                emit protocolStatusMessage(tr("Giao thức MAVLink"), tr("Mở tệp dữ liệu bay để ghi thất bại. "
+                                                                      "Không thể ghi vào %1. Vui lòng chọn vị trí tệp khác.").arg(_tempLogFile.fileName()));
                 _closeLogFile();
                 _logSuspendError = true;
                 return;
@@ -535,4 +535,3 @@ void MAVLinkProtocol::deleteTempLogFiles(void)
         QFile::remove(fileInfo.filePath());
     }
 }
-

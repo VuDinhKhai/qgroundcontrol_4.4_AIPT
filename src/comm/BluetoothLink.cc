@@ -53,7 +53,7 @@ void BluetoothLink::_writeBytes(const QByteArray bytes)
         if(_targetSocket->write(bytes) > 0) {
             emit bytesSent(this, bytes);
         } else {
-            qWarning() << "Bluetooth write error";
+            qWarning() << "Lỗi ghi Bluetooth";
         }
     }
 }
@@ -160,7 +160,7 @@ void BluetoothLink::discoveryFinished()
         if(!_targetSocket)
         {
             _connectState = false;
-            emit communicationError("Could not locate Bluetooth device:", _config->device().name);
+            emit communicationError("Không thể tìm thấy thiết bị Bluetooth:", _config->device().name);
         }
     }
 }
@@ -175,14 +175,14 @@ void BluetoothLink::deviceConnected()
 void BluetoothLink::deviceDisconnected()
 {
     _connectState = false;
-    qWarning() << "Bluetooth disconnected";
+    qWarning() << "Bluetooth đã ngắt kết nối";
 }
 
 void BluetoothLink::deviceError(QBluetoothSocket::SocketError error)
 {
     _connectState = false;
-    qWarning() << "Bluetooth error" << error;
-    emit communicationError(tr("Bluetooth Link Error"), _targetSocket->errorString());
+    qWarning() << "Lỗi Bluetooth" << error;
+    emit communicationError(tr("Lỗi Kết Nối Bluetooth"), _targetSocket->errorString());
 }
 
 bool BluetoothLink::isConnected() const
@@ -219,9 +219,9 @@ BluetoothConfiguration::~BluetoothConfiguration()
 QString BluetoothConfiguration::settingsTitle()
 {
     if(qgcApp()->toolbox()->linkManager()->isBluetoothAvailable()) {
-        return tr("Bluetooth Link Settings");
+        return tr("Cài Đặt Kết Nối Bluetooth");
     } else {
-        return tr("Bluetooth Not Available");
+        return tr("Bluetooth Không Khả Dụng");
     }
 }
 
@@ -291,12 +291,12 @@ void BluetoothConfiguration::deviceDiscovered(QBluetoothDeviceInfo info)
     if(!info.name().isEmpty() && info.isValid())
     {
 #if 0
-        qDebug() << "Name:           " << info.name();
-        qDebug() << "Address:        " << info.address().toString();
-        qDebug() << "Service Classes:" << info.serviceClasses();
+        qDebug() << "Tên:           " << info.name();
+        qDebug() << "Địa chỉ:        " << info.address().toString();
+        qDebug() << "Lớp dịch vụ:" << info.serviceClasses();
         QList<QBluetoothUuid> uuids = info.serviceUuids();
         for (QBluetoothUuid uuid: uuids) {
-            qDebug() << "Service UUID:   " << uuid.toString();
+            qDebug() << "UUID dịch vụ:   " << uuid.toString();
         }
 #endif
         BluetoothData data;
