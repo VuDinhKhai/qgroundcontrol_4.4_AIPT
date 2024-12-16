@@ -28,20 +28,20 @@ ColumnLayout {
         columnSpacing:  _colSpacing
         rowSpacing:     _rowSpacing
 
-        QGCLabel { text: qsTr("Device") }
+        QGCLabel { text: qsTr("Thiết bị") }
         QGCLabel {
             Layout.preferredWidth:  _secondColumnWidth
             text:                   subEditConfig.devName
         }
 
-        QGCLabel { text: qsTr("Address") }
+        QGCLabel { text: qsTr("Địa chỉ") }
         QGCLabel {
             Layout.preferredWidth:  _secondColumnWidth
             text:                   subEditConfig.address
         }
     }
 
-    QGCLabel { text: qsTr("Bluetooth Devices") }
+    QGCLabel { text: qsTr("Thiết bị Bluetooth") }
 
     Repeater {
         model: subEditConfig.nameList
@@ -64,13 +64,13 @@ ColumnLayout {
         spacing:            _colSpacing
 
         QGCButton {
-            text:       qsTr("Scan")
+            text:       qsTr("Quét")
             enabled:    !subEditConfig.scanning
             onClicked:  subEditConfig.startScan()
         }
 
         QGCButton {
-            text:       qsTr("Stop")
+            text:       qsTr("Dừng lại")
             enabled:    subEditConfig.scanning
             onClicked:  subEditConfig.stopScan()
         }

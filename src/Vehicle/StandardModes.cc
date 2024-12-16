@@ -168,7 +168,7 @@ QString StandardModes::flightMode(uint32_t custom_mode) const
     if (iter != _modes.end()) {
         return iter->name;
     }
-    return tr("Unknown %2").arg(custom_mode);
+    return tr("Không rõ %2").arg(custom_mode);
 }
 
 bool StandardModes::setFlightMode(const QString &flightMode, uint32_t *custom_mode)

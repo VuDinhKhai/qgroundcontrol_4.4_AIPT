@@ -47,7 +47,7 @@ void LogCompressor::run()
 	// Verify that the input file is useable
 	QFile infile(logFileName);
 	if (!infile.exists() || !infile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-		_signalCriticalError(tr("Log Compressor: Cannot start/compress log file, since input file %1 is not readable").arg(QFileInfo(infile.fileName()).absoluteFilePath()));
+		_signalCriticalError(tr("Log Compressor: Không thể khởi động/nén tệp nhật ký vì tệp đầu vào %1 không thể đọc được").arg(QFileInfo(infile.fileName()).absoluteFilePath()));
 		return;
 	}
 
@@ -64,7 +64,7 @@ void LogCompressor::run()
 	// Verify that the output file is useable
     QFile outTmpFile(outFileName);
     if (!outTmpFile.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Truncate)) {
-		_signalCriticalError(tr("Log Compressor: Cannot start/compress log file, since output file %1 is not writable").arg(QFileInfo(outTmpFile.fileName()).absoluteFilePath()));
+		_signalCriticalError(tr("Log Compressor: Không thể khởi động/nén tệp nhật ký vì tệp đầu ra %1 không thể ghi được").arg(QFileInfo(outTmpFile.fileName()).absoluteFilePath()));
 		return;
 	}
 
@@ -102,7 +102,7 @@ void LogCompressor::run()
     headerLine = headerLine.replace(".", "");
 	outTmpFile.write(headerLine.toLocal8Bit());
 
-    _signalCriticalError(tr("Log compressor: Dataset contains dimensions: ") + headerLine);
+    _signalCriticalError(tr("Log compressor: Bộ dữ liệu chứa các kích thước: ") + headerLine);
 
     // Template list stores a list for populating with data as it's parsed from messages.
     QStringList templateList;

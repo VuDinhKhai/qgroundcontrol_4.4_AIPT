@@ -159,28 +159,28 @@ void UASMessageHandler::handleTextMessage(int, int compId, int severity, QString
     switch (severity)
     {
     case MAV_SEVERITY_EMERGENCY:
-        severityText = tr(" EMERGENCY:");
+        severityText = tr(" KHẨN CẤP:");
         break;
     case MAV_SEVERITY_ALERT:
-        severityText = tr(" ALERT:");
+        severityText = tr(" BÁO ĐỘNG:");
         break;
     case MAV_SEVERITY_CRITICAL:
-        severityText = tr(" Critical:");
+        severityText = tr(" Phê bình:");
         break;
     case MAV_SEVERITY_ERROR:
-        severityText = tr(" Error:");
+        severityText = tr(" Lỗi:");
         break;
     case MAV_SEVERITY_WARNING:
-        severityText = tr(" Warning:");
+        severityText = tr(" Cảnh báo:");
         break;
     case MAV_SEVERITY_NOTICE:
-        severityText = tr(" Notice:");
+        severityText = tr(" Để ý:");
         break;
     case MAV_SEVERITY_INFO:
-        severityText = tr(" Info:");
+        severityText = tr(" Thông tin:");
         break;
     case MAV_SEVERITY_DEBUG:
-        severityText = tr(" Debug:");
+        severityText = tr(" Gỡ lỗi:");
         break;
     default:
         break;

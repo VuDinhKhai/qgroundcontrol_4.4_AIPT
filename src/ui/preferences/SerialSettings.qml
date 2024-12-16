@@ -28,7 +28,7 @@ ColumnLayout {
         rowSpacing:     _rowSpacing
         columnSpacing:  _colSpacing
 
-        QGCLabel { text: qsTr("Serial Port") }
+        QGCLabel { text: qsTr("Cổng nối tiếp") }
         QGCComboBox {
             id:                     commPortCombo
             Layout.preferredWidth:  _secondColumnWidth
@@ -62,7 +62,7 @@ ColumnLayout {
                     }
                 }
                 if (serialPorts.length === 0) {
-                    serialPorts = [ qsTr("None Available") ]
+                    serialPorts = [ qsTr("Không có sẵn") ]
                     index = 0
                 }
                 commPortCombo.model = serialPorts
@@ -70,7 +70,7 @@ ColumnLayout {
             }
         }
 
-        QGCLabel { text: qsTr("Baud Rate") }
+        QGCLabel { text: qsTr("Tốc độ truyền") }
         QGCComboBox {
             id:                     baudCombo
             Layout.preferredWidth:  _secondColumnWidth
@@ -89,7 +89,7 @@ ColumnLayout {
                 }
                 var index = baudCombo.find(baud)
                 if (index === -1) {
-                    console.warn(qsTr("Baud rate name not in combo box"), baud)
+                    console.warn(qsTr("Tên tốc độ truyền không có trong hộp kết hợp"), baud)
                 } else {
                     baudCombo.currentIndex = index
                 }
@@ -99,7 +99,7 @@ ColumnLayout {
 
     QGCCheckBox {
         id:         advancedSettings
-        text:       qsTr("Advanced Settings")
+        text:       qsTr("Cài đặt nâng cao")
         checked:    false
     }
 
@@ -111,15 +111,15 @@ ColumnLayout {
 
         QGCCheckBox {
             Layout.columnSpan:  2
-            text:               qsTr("Enable Flow Control")
+            text:               qsTr("Bật Kiểm soát luồng")
             checked:            subEditConfig.flowControl !== 0
             onCheckedChanged:   subEditConfig.flowControl = checked ? 1 : 0
         }
 
-        QGCLabel { text: qsTr("Parity") }
+        QGCLabel { text: qsTr("Sự ngang bằng") }
         QGCComboBox {
             Layout.preferredWidth:  _secondColumnWidth
-            model:                  [qsTr("None"), qsTr("Even"), qsTr("Odd")]
+            model:                  [qsTr("Không có"), qsTr("Thậm chí"), qsTr("Số lẻ")]
 
             onActivated: {
                 // Hard coded values from qserialport.h
@@ -154,7 +154,7 @@ ColumnLayout {
             }
         }
 
-        QGCLabel { text: qsTr("Data Bits") }
+        QGCLabel { text: qsTr("Bit dữ liệu") }
         QGCComboBox {
             Layout.preferredWidth:  _secondColumnWidth
             model:                  [ "5", "6", "7", "8" ]
@@ -162,7 +162,7 @@ ColumnLayout {
             onActivated:            subEditConfig.dataBits = index + 5
         }
 
-        QGCLabel { text: qsTr("Stop Bits") }
+        QGCLabel { text: qsTr("Dừng Bit") }
         QGCComboBox {
             Layout.preferredWidth:  _secondColumnWidth
             model:                  [ "1", "2" ]

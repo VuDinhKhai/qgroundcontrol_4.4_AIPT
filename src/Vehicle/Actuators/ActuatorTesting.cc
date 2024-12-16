@@ -47,7 +47,7 @@ void ActuatorTest::updateFunctions(const QList<Actuator*> &actuators)
         _actuators->append(actuator);
     }
     if (motorActuator) {
-        _allMotorsActuator = new Actuator(this, tr("All Motors"), motorActuator->min(), motorActuator->max(), motorActuator->defaultValue(),
+        _allMotorsActuator = new Actuator(this, tr("Tất cả các động cơ"), motorActuator->min(), motorActuator->max(), motorActuator->defaultValue(),
                 motorActuator->function(), true);
     }
     resetStates();
@@ -146,13 +146,13 @@ void ActuatorTest::ackHandler(MAV_RESULT commandResult, Vehicle::MavCmdResultFai
         if (!_hadFailure) {
             QString message;
             if (commandResult == MAV_RESULT_TEMPORARILY_REJECTED) {
-                message = tr("Actuator test command temporarily rejected");
+                message = tr("Lệnh kiểm tra bộ truyền động tạm thời bị từ chối");
             } else if (commandResult == MAV_RESULT_DENIED) {
-                message = tr("Actuator test command denied");
+                message = tr("Lệnh kiểm tra bộ truyền động bị từ chố");
             } else if (commandResult == MAV_RESULT_UNSUPPORTED) {
-                message = tr("Actuator test command not supported");
+                message = tr("Lệnh kiểm tra bộ truyền động không được hỗ trợ");
             } else {
-                message = tr("Actuator test command failed");
+                message = tr("Lệnh kiểm tra bộ truyền động không thành công");
             }
             qgcApp()->showAppMessage(message);
             _hadFailure = true;
@@ -185,7 +185,7 @@ void ActuatorTest::sendNext()
 
 void ActuatorTest::sendMavlinkRequest(int function, float value, float timeout)
 {
-    qCDebug(ActuatorsConfigLog) << "Sending actuator test function:" << function << "value:" << value;
+    qCDebug(ActuatorsConfigLog) << "Gửi chức năng kiểm tra bộ truyền động:" << function << "giá trị:" << value;
 
     // TODO: consider using a lower command timeout
 

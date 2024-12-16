@@ -21,12 +21,12 @@ QDomDocument KMLHelper::_loadFile(const QString& kmlFile, QString& errorString)
     errorString.clear();
 
     if (!file.exists()) {
-        errorString = QString(_errorPrefix).arg(tr("File not found: %1").arg(kmlFile));
+        errorString = QString(_errorPrefix).arg(tr("Không tìm thấy tập tin: %1").arg(kmlFile));
         return QDomDocument();
     }
 
     if (!file.open(QIODevice::ReadOnly)) {
-        errorString = QString(_errorPrefix).arg(tr("Unable to open file: %1 error: $%2").arg(kmlFile).arg(file.errorString()));
+        errorString = QString(_errorPrefix).arg(tr("Không thể mở tệp: %1 error: $%2").arg(kmlFile).arg(file.errorString()));
         return QDomDocument();
     }
 
@@ -34,7 +34,7 @@ QDomDocument KMLHelper::_loadFile(const QString& kmlFile, QString& errorString)
     QString errorMessage;
     int errorLine;
     if (!doc.setContent(&file, &errorMessage, &errorLine)) {
-        errorString = QString(_errorPrefix).arg(tr("Unable to parse KML file: %1 error: %2 line: %3").arg(kmlFile).arg(errorMessage).arg(errorLine));
+        errorString = QString(_errorPrefix).arg(tr("Không thể phân tích tệp KML: %1 error: %2 line: %3").arg(kmlFile).arg(errorMessage).arg(errorLine));
         return QDomDocument();
     }
 
@@ -58,7 +58,7 @@ ShapeFileHelper::ShapeType KMLHelper::determineShapeType(const QString& kmlFile,
         return ShapeFileHelper::Polyline;
     }
 
-    errorString = QString(_errorPrefix).arg(tr("No supported type found in KML file."));
+    errorString = QString(_errorPrefix).arg(tr("Không tìm thấy loại được hỗ trợ trong tệp KML."));
     return ShapeFileHelper::Error;
 }
 
@@ -74,13 +74,13 @@ bool KMLHelper::loadPolygonFromFile(const QString& kmlFile, QList<QGeoCoordinate
 
     QDomNodeList rgNodes = domDocument.elementsByTagName("Polygon");
     if (rgNodes.count() == 0) {
-        errorString = QString(_errorPrefix).arg(tr("Unable to find Polygon node in KML"));
+        errorString = QString(_errorPrefix).arg(tr("Không tìm thấy nút Đa giác trong KML"));
         return false;
     }
 
     QDomNode coordinatesNode = rgNodes.item(0).namedItem("outerBoundaryIs").namedItem("LinearRing").namedItem("coordinates");
     if (coordinatesNode.isNull()) {
-        errorString = QString(_errorPrefix).arg(tr("Internal error: Unable to find coordinates node in KML"));
+        errorString = QString(_errorPrefix).arg(tr("Lỗi nội bộ: Không tìm thấy nút tọa độ trong KML"));
         return false;
     }
 
@@ -135,13 +135,13 @@ bool KMLHelper::loadPolylineFromFile(const QString& kmlFile, QList<QGeoCoordinat
 
     QDomNodeList rgNodes = domDocument.elementsByTagName("LineString");
     if (rgNodes.count() == 0) {
-        errorString = QString(_errorPrefix).arg(tr("Unable to find LineString node in KML"));
+        errorString = QString(_errorPrefix).arg(tr("Không tìm thấy nút LineString trong KML"));
         return false;
     }
 
     QDomNode coordinatesNode = rgNodes.item(0).namedItem("coordinates");
     if (coordinatesNode.isNull()) {
-        errorString = QString(_errorPrefix).arg(tr("Internal error: Unable to find coordinates node in KML"));
+        errorString = QString(_errorPrefix).arg(tr("Lỗi nội bộ: Không tìm thấy nút tọa độ trong KML"));
         return false;
     }
 

@@ -106,7 +106,7 @@ void QGCFileDownload::_downloadFinished(void)
     if (downloadFilename.isEmpty()) {
         downloadFilename = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
         if (downloadFilename.isEmpty()) {
-            emit downloadComplete(_originalRemoteFile, QString(), tr("Unabled to find writable download location. Tried downloads and temp directory."));
+            emit downloadComplete(_originalRemoteFile, QString(), tr("Không tìm thấy vị trí tải xuống có thể ghi. Đã thử tải xuống và thư mục tạm thời."));
             return;
         }
     }
@@ -116,7 +116,7 @@ void QGCFileDownload::_downloadFinished(void)
         // Store downloaded file in download location
         QFile file(downloadFilename);
         if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-            emit downloadComplete(_originalRemoteFile, downloadFilename, tr("Could not save downloaded file to %1. Error: %2").arg(downloadFilename).arg(file.errorString()));
+            emit downloadComplete(_originalRemoteFile, downloadFilename, tr("Không thể lưu tệp đã tải xuống vào %1. Lỗi: %2").arg(downloadFilename).arg(file.errorString()));
             return;
         }
 
@@ -139,13 +139,13 @@ void QGCFileDownload::_downloadError(QNetworkReply::NetworkError code)
     QString errorMsg;
     
     if (code == QNetworkReply::OperationCanceledError) {
-        errorMsg = tr("Download cancelled");
+        errorMsg = tr("Tải xuống đã hủy");
 
     } else if (code == QNetworkReply::ContentNotFoundError) {
-        errorMsg = tr("Error: File Not Found");
+        errorMsg = tr("Lỗi: Không tìm thấy tập tin");
 
     } else {
-        errorMsg = tr("Error during download. Error: %1").arg(code);
+        errorMsg = tr("Lỗi trong quá trình tải xuống. Lỗi: %1").arg(code);
     }
 
     emit downloadComplete(_originalRemoteFile, QString(), errorMsg);

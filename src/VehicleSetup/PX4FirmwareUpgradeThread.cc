@@ -150,28 +150,28 @@ void PX4FirmwareUpgradeThreadWorker::_flash(void)
     }
 
     if (_erase()) {
-        emit status(tr("Programming new version..."));
+        emit status(tr("Lập trình phiên bản mới..."));
         
         if (_bootloader->program(_controller->image())) {
-            qCDebug(FirmwareUpgradeLog) << "Program complete";
-            emit status("Program complete");
+            qCDebug(FirmwareUpgradeLog) << "Chương trình hoàn tất";
+            emit status("Chương trình hoàn tất");
         } else {
-            qCDebug(FirmwareUpgradeLog) << "Program failed:" << _bootloader->errorString();
+            qCDebug(FirmwareUpgradeLog) << "Chương trình thất bại:" << _bootloader->errorString();
             goto Error;
         }
         
-        emit status(tr("Verifying program..."));
+        emit status(tr("Đang xác minh chương trình..."));
         
         if (_bootloader->verify(_controller->image())) {
-            qCDebug(FirmwareUpgradeLog) << "Verify complete";
-            emit status(tr("Verify complete"));
+            qCDebug(FirmwareUpgradeLog) << "Xác minh hoàn tất";
+            emit status(tr("Xác minh hoàn tất"));
         } else {
-            qCDebug(FirmwareUpgradeLog) << "Verify failed:" << _bootloader->errorString();
+            qCDebug(FirmwareUpgradeLog) << "Xác minh không thành công:" << _bootloader->errorString();
             goto Error;
         }
     }
     
-    emit status(tr("Rebooting board"));
+    emit status(tr("Đang khởi động lại bảng"));
     _reboot();
 
     _bootloader->close();
@@ -195,15 +195,15 @@ bool PX4FirmwareUpgradeThreadWorker::_erase(void)
     qCDebug(FirmwareUpgradeLog) << "PX4FirmwareUpgradeThreadWorker::_erase";
     
     emit eraseStarted();
-    emit status(tr("Erasing previous program..."));
+    emit status(tr("Xóa chương trình trước đó..."));
     
     if (_bootloader->erase()) {
-        qCDebug(FirmwareUpgradeLog) << "Erase complete";
-        emit status(tr("Erase complete"));
+        qCDebug(FirmwareUpgradeLog) << "Xóa hoàn tất";
+        emit status(tr("Xóa hoàn tất"));
         emit eraseComplete();
         return true;
     } else {
-        qCDebug(FirmwareUpgradeLog) << "Erase failed:" << _bootloader->errorString();
+        qCDebug(FirmwareUpgradeLog) << "Xóa không thành công:" << _bootloader->errorString();
         emit error(_bootloader->errorString());
         return false;
     }

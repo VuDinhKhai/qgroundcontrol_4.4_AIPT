@@ -46,7 +46,7 @@ ColumnLayout {
         QGCLabel {
             Layout.preferredWidth:  parent.width
             wrapMode:               Text.WordWrap
-            text:                   qsTr(" Multiple buttons that have the same action must be pressed simultaneously to invoke the action.")
+            text:                   qsTr(" Nhiều nút có cùng tác dụng phải được nhấn cùng lúc để thực hiện tác vụ.")
         }
         
         Flow {
@@ -96,7 +96,7 @@ ColumnLayout {
                     }
                     QGCCheckBox {
                         id:                         repeatCheck
-                        text:                       qsTr("Repeat")
+                        text:                       qsTr("Lặp lại")
                         enabled:                    currentAssignableAction && _activeJoystick.calibrated && currentAssignableAction.canRepeat
                         onClicked: {
                             _activeJoystick.setButtonRepeat(modelData, checked)
@@ -130,12 +130,12 @@ ColumnLayout {
             }
             QGCLabel {
                 width:                  ScreenTools.defaultFontPixelWidth * 26
-                text:                   qsTr("Function: ")
+                text:                   qsTr("Chức năng: ")
             }
             QGCLabel {
                 width:                  ScreenTools.defaultFontPixelWidth * 26
                 visible:                globals.activeVehicle.supportsJSButton
-                text:                   qsTr("Shift Function: ")
+                text:                   qsTr("Chức năng Shift: ")
             }
         }
         Repeater {
@@ -226,7 +226,7 @@ ColumnLayout {
                 }
                 QGCCheckBox {
                     id:                         repeatCheck
-                    text:                       qsTr("Repeat")
+                    text:                       qsTr("Lặp lại")
                     enabled:                    currentAssignableAction && _activeJoystick.calibrated && currentAssignableAction.canRepeat
                     visible:                    !globals.activeVehicle.supportsJSButton
 
@@ -255,13 +255,13 @@ ColumnLayout {
                 }
 
                 QGCLabel {
-                    text:                   qsTr("QGC functions do not support shift actions")
+                    text:                   qsTr("Các chức năng QGC không hỗ trợ các hành động chuyển đổi")
                     width:                  ScreenTools.defaultFontPixelWidth * 15
                     visible:                hasFirmwareSupport && !buttonActionCombo.isFwAction
                     anchors.verticalCenter: parent.verticalCenter
                 }
                 QGCLabel {
-                    text:                   qsTr("No firmware support")
+                    text:                   qsTr("Không hỗ trợ phần mềm")
                     width:                  ScreenTools.defaultFontPixelWidth * 15
                     visible:                !hasFirmwareSupport
                     anchors.verticalCenter: parent.verticalCenter

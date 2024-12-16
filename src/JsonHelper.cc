@@ -43,7 +43,7 @@ bool JsonHelper::validateRequiredKeys(const QJsonObject& jsonObject, const QStri
     }
 
     if (missingKeys.count() != 0) {
-        errorString = QObject::tr("The following required keys are missing: %1").arg(missingKeys);
+        errorString = QObject::tr("Các khóa bắt buộc sau đây đang bị thiếu: %1").arg(missingKeys);
         return false;
     }
 
@@ -57,20 +57,20 @@ bool JsonHelper::_loadGeoCoordinate(const QJsonValue&   jsonValue,
                                     bool                geoJsonFormat)
 {
     if (!jsonValue.isArray()) {
-        errorString = QObject::tr("value for coordinate is not array");
+        errorString = QObject::tr("giá trị cho tọa độ không phải là mảng");
         return false;
     }
 
     QJsonArray coordinateArray = jsonValue.toArray();
     int requiredCount = altitudeRequired ? 3 : 2;
     if (coordinateArray.count() != requiredCount) {
-        errorString = QObject::tr("Coordinate array must contain %1 values").arg(requiredCount);
+        errorString = QObject::tr("Mảng tọa độ phải chứa %1 giá trị").arg(requiredCount);
         return false;
     }
 
     foreach(const QJsonValue& jsonValue, coordinateArray) {
         if (jsonValue.type() != QJsonValue::Double && jsonValue.type() != QJsonValue::Null) {
-            errorString = QObject::tr("Coordinate array may only contain double values, found: %1").arg(jsonValue.type());
+            errorString = QObject::tr("Mảng tọa độ chỉ có thể chứa các giá trị double, tìm thấy: %1").arg(jsonValue.type());
             return false;
         }
     }
@@ -148,7 +148,7 @@ bool JsonHelper::validateKeyTypes(const QJsonObject& jsonObject, const QStringLi
                 continue;
             }
             if (jsonValue.type() != types[i]) {
-                errorString  = QObject::tr("Incorrect value type - key:type:expected %1:%2:%3").arg(valueKey).arg(_jsonValueTypeToString(jsonValue.type())).arg(_jsonValueTypeToString(types[i]));
+                errorString  = QObject::tr("Kiểu giá trị không đúng - key:type:expected %1:%2:%3").arg(valueKey).arg(_jsonValueTypeToString(jsonValue.type())).arg(_jsonValueTypeToString(types[i]));
                 return false;
             }
         }
@@ -178,7 +178,7 @@ bool JsonHelper::isJsonFile(const QString& fileName, QJsonDocument& jsonDoc, QSt
 {
     QFile jsonFile(fileName);
     if (!jsonFile.open(QFile::ReadOnly)) {
-        errorString = tr("File open failed: file:error %1 %2").arg(jsonFile.fileName()).arg(jsonFile.errorString());
+        errorString = tr("Mở tệp không thành công: file:error %1 %2").arg(jsonFile.fileName()).arg(jsonFile.errorString());
         return false;
     }
     QByteArray jsonBytes = jsonFile.readAll();
@@ -206,18 +206,18 @@ bool JsonHelper::validateInternalQGCJsonFile(const QJsonObject& jsonObject,
     // Make sure file type is correct
     QString fileTypeValue = jsonObject[jsonFileTypeKey].toString();
     if (fileTypeValue != expectedFileType) {
-        errorString = QObject::tr("Incorrect file type key expected:%1 actual:%2").arg(expectedFileType).arg(fileTypeValue);
+        errorString = QObject::tr("Khóa loại tệp không đúng expected:%1 actual:%2").arg(expectedFileType).arg(fileTypeValue);
         return false;
     }
 
     // Version check
     version = jsonObject[jsonVersionKey].toInt();
     if (version < minSupportedVersion) {
-        errorString = QObject::tr("File version %1 is no longer supported").arg(version);
+        errorString = QObject::tr("Phiên bản tệp %1 không còn được hỗ trợ").arg(version);
         return false;
     }
     if (version > maxSupportedVersion) {
-        errorString = QObject::tr("File version %1 is newer than current supported version %2").arg(version).arg(maxSupportedVersion);
+        errorString = QObject::tr("Phiên bản tệp %1 mới hơn phiên bản được hỗ trợ hiện tại %2").arg(version).arg(maxSupportedVersion);
         return false;
     }
 
@@ -331,7 +331,7 @@ QJsonObject JsonHelper::openInternalQGCJsonFile(const QString&  jsonFilename,
 {
     QFile jsonFile(jsonFilename);
     if (!jsonFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        errorString = tr("Unable to open file: '%1', error: %2").arg(jsonFilename).arg(jsonFile.errorString());
+        errorString = tr("Không thể mở tệp '%1', error: %2").arg(jsonFilename).arg(jsonFile.errorString());
         return QJsonObject();
     }
 
@@ -340,19 +340,19 @@ QJsonObject JsonHelper::openInternalQGCJsonFile(const QString&  jsonFilename,
     QJsonParseError jsonParseError;
     QJsonDocument doc = QJsonDocument::fromJson(bytes, &jsonParseError);
     if (jsonParseError.error != QJsonParseError::NoError) {
-        errorString = tr("Unable to parse json file: %1 error: %2 offset: %3").arg(jsonFilename).arg(jsonParseError.errorString()).arg(jsonParseError.offset);
+        errorString = tr("Không thể phân tích tệp json: %1 lỗi: %2 bù trừ: %3").arg(jsonFilename).arg(jsonParseError.errorString()).arg(jsonParseError.offset);
         return QJsonObject();
     }
 
     if (!doc.isObject()) {
-        errorString = tr("Root of json file is not object: %1").arg(jsonFilename);
+        errorString = tr("Gốc của tệp json không phải là đối tượng: %1").arg(jsonFilename);
         return QJsonObject();
     }
 
     QJsonObject jsonObject = doc.object();
     bool success = validateInternalQGCJsonFile(jsonObject, expectedFileType, minSupportedVersion, maxSupportedVersion, version, errorString);
     if (!success) {
-        errorString = tr("Json file: '%1'. %2").arg(jsonFilename).arg(errorString);
+        errorString = tr("Tệp JSON: '%1'. %2").arg(jsonFilename).arg(errorString);
         return QJsonObject();
     }
 
@@ -376,7 +376,7 @@ bool JsonHelper::loadGeoCoordinateArray(const QJsonValue&   jsonValue,
                                         QString&            errorString)
 {
     if (!jsonValue.isArray()) {
-        errorString = QObject::tr("value for coordinate array is not array");
+        errorString = QObject::tr("giá trị cho mảng tọa độ không phải là mảng");
         return false;
     }
     QJsonArray rgJsonPoints = jsonValue.toArray();
@@ -485,7 +485,7 @@ QString JsonHelper::_jsonValueTypeToString(QJsonValue::Type type)
         }
     }
 
-    return QObject::tr("Unknown type: %1").arg(type);
+    return QObject::tr("Loại không xác định: %1").arg(type);
 }
 
 bool JsonHelper::loadPolygon(const QJsonArray& polygonArray, QmlObjectListModel& list, QObject* parent, QString& errorString)

@@ -133,7 +133,7 @@ void FTPManager::_terminateSessionTimeout(void)
 {
     if (++_downloadState.retryCount > _maxRetry) {
         qCDebug(FTPManagerLog) << QString("_terminateSessionTimeout retries exceeded");
-        _downloadComplete(tr("Download failed"));
+        _downloadComplete(tr("Tải xuống không thành công"));
     } else {
         // Try again
         qCDebug(FTPManagerLog) << QString("_terminateSessionTimeout: retrying - retryCount(%1)").arg(_downloadState.retryCount);
@@ -237,9 +237,9 @@ QString FTPManager::_errorMsgFromNak(const MavlinkFTP::Request* nak)
 
     // Nak's normally have 1 byte of data for error code, except for MavlinkFTP::kErrFailErrno which has additional byte for errno
     if ((errorCode == MavlinkFTP::kErrFailErrno && nak->hdr.size != 2) || ((errorCode != MavlinkFTP::kErrFailErrno) && nak->hdr.size != 1)) {
-        errorMsg = tr("Invalid Nak format");
+        errorMsg = tr("Định dạng Nak không hợp lệ");
     } else if (errorCode == MavlinkFTP::kErrFailErrno) {
-        errorMsg = tr("errno %1").arg(nak->data[1]);
+        errorMsg = tr("lỗi %1").arg(nak->data[1]);
     } else {
         errorMsg = MavlinkFTP::errorCodeToString(errorCode);
     }
@@ -261,7 +261,7 @@ void FTPManager::_openFileROBegin(void)
 void FTPManager::_openFileROTimeout(void)
 {
     qCDebug(FTPManagerLog) << "_openFileROTimeout";
-    _downloadComplete(tr("Download failed"));
+    _downloadComplete(tr("Tải xuống không thành công"));
 }
 
 void FTPManager::_openFileROAckOrNak(const MavlinkFTP::Request* ackOrNak)
@@ -283,7 +283,7 @@ void FTPManager::_openFileROAckOrNak(const MavlinkFTP::Request* ackOrNak)
 
         if (ackOrNak->hdr.size != sizeof(uint32_t)) {
             qCDebug(FTPManagerLog) << "_openFileROAckOrNak: Ack ack->hdr.size != sizeof(uint32_t)" << ackOrNak->hdr.size << sizeof(uint32_t);
-            _downloadComplete(tr("Download failed"));
+            _downloadComplete(tr("Tải xuống không thành công"));
             return;
         }
 
@@ -296,11 +296,11 @@ void FTPManager::_openFileROAckOrNak(const MavlinkFTP::Request* ackOrNak)
             _advanceStateMachine();
         } else {
             qCDebug(FTPManagerLog) << "_openFileROAckOrNak: Ack _downloadState.file open failed" << _downloadState.file.errorString();
-            _downloadComplete(tr("Download failed"));
+            _downloadComplete(tr("Tải xuống không thành công"));
         }
     } else if (ackOrNak->hdr.opcode == MavlinkFTP::kRspNak) {
         qCDebug(FTPManagerLog) << "_handlOpenFileROAck: Nak -" << _errorMsgFromNak(ackOrNak);
-        _downloadComplete(tr("Download failed") + ": " + _errorMsgFromNak(ackOrNak));
+        _downloadComplete(tr("Tải xuống không thành công") + ": " + _errorMsgFromNak(ackOrNak));
     }
 }
 
@@ -371,7 +371,7 @@ void FTPManager::_burstReadFileAckOrNak(const MavlinkFTP::Request* ackOrNak)
         _downloadState.file.seek(ackOrNak->hdr.offset);
         int bytesWritten = _downloadState.file.write((const char*)ackOrNak->data, ackOrNak->hdr.size);
         if (bytesWritten != ackOrNak->hdr.size) {
-            _downloadComplete(tr("Download failed: Error saving file"));
+            _downloadComplete(tr("Tải xuống không thành công: Error saving file"));
             return;
         }
         _downloadState.bytesWritten += ackOrNak->hdr.size;
@@ -409,7 +409,7 @@ void FTPManager::_burstReadFileAckOrNak(const MavlinkFTP::Request* ackOrNak)
             }
         } else { /* Don't care is this is out of sequence */
             qCDebug(FTPManagerLog) << "_burstReadFileAckOrNak: Nak -" << _errorMsgFromNak(ackOrNak);
-            _downloadComplete(tr("Download failed"));
+            _downloadComplete(tr("Tải xuống không thành công"));
         }
     }
 }
@@ -418,7 +418,7 @@ void FTPManager::_burstReadFileTimeout(void)
 {
     if (++_downloadState.retryCount > _maxRetry) {
         qCDebug(FTPManagerLog) << QString("_burstReadFileTimeout retries exceeded");
-        _downloadComplete(tr("Download failed"));
+        _downloadComplete(tr("Tải xuống không thành công"));
     } else {
         // Try again
         qCDebug(FTPManagerLog) << QString("_burstReadFileTimeout: retrying - retryCount(%1) offset(%2)").arg(_downloadState.retryCount).arg(_downloadState.expectedOffset);
@@ -456,7 +456,7 @@ void FTPManager::_fillMissingBlocksWorker(bool firstRequest)
             _advanceStateMachine();
         } else {
             qCDebug(FTPManagerLog) << "_fillMissingBlocksWorker: no missing blocks but file still incomplete - bytesWritten:fileSize" << _downloadState.bytesWritten << _downloadState.fileSize;
-            _downloadComplete(tr("Download failed"));
+            _downloadComplete(tr("Tải xuống không thành công"));
         }
     }
 }
@@ -491,7 +491,7 @@ void FTPManager::_fillMissingBlocksAckOrNak(const MavlinkFTP::Request* ackOrNak)
         if (ackOrNak->hdr.offset != _downloadState.expectedOffset) {
             if (++_downloadState.retryCount > _maxRetry) {
                 qCDebug(FTPManagerLog) << QString("_fillMissingBlocksAckOrNak: offset mismatch, retries exceeded");
-                _downloadComplete(tr("Download failed"));
+                _downloadComplete(tr("Tải xuống không thành công"));
                 return;
             }
 
@@ -504,7 +504,7 @@ void FTPManager::_fillMissingBlocksAckOrNak(const MavlinkFTP::Request* ackOrNak)
         _downloadState.file.seek(ackOrNak->hdr.offset);
         int bytesWritten = _downloadState.file.write((const char*)ackOrNak->data, ackOrNak->hdr.size);
         if (bytesWritten != ackOrNak->hdr.size) {
-            _downloadComplete(tr("Download failed: Error saving file"));
+            _downloadComplete(tr("Tải xuống không thành công: Error saving file"));
             return;
         }
         _downloadState.bytesWritten += ackOrNak->hdr.size;
@@ -537,7 +537,7 @@ void FTPManager::_fillMissingBlocksAckOrNak(const MavlinkFTP::Request* ackOrNak)
         }
 
         qCDebug(FTPManagerLog) << "_fillMissingBlocksAckOrNak: Nak -" << _errorMsgFromNak(ackOrNak);
-        _downloadComplete(tr("Download failed"));
+        _downloadComplete(tr("Tải xuống không thành công"));
     }
 
 }
@@ -546,7 +546,7 @@ void FTPManager::_fillMissingBlocksTimeout(void)
 {
     if (++_downloadState.retryCount > _maxRetry) {
         qCDebug(FTPManagerLog) << QString("_fillMissingBlocksTimeout retries exceeded");
-        _downloadComplete(tr("Download failed"));
+        _downloadComplete(tr("Tải xuống không thành công"));
     } else {
         // Ask for current offset again
         qCDebug(FTPManagerLog) << QString("_fillMissingBlocksTimeout: retrying - retryCount(%1) offset(%2)").arg(_downloadState.retryCount).arg(_downloadState.expectedOffset);

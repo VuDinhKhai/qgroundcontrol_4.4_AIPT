@@ -44,7 +44,7 @@ ApplicationWindow {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Button {
-            text:           qsTr("Close")
+            text:           qsTr("Đóng")
             highlighted:    true
             onClicked:      errorWindow.close()
             anchors.horizontalCenter: parent.horizontalCenter

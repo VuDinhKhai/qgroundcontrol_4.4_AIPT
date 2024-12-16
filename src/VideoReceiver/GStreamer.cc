@@ -112,19 +112,19 @@ GStreamer::blacklist(VideoSettings::VideoDecoderOptions option)
     GstRegistry* registry = gst_registry_get();
 
     if (registry == nullptr) {
-        qCCritical(GStreamerLog) << "Failed to get gstreamer registry.";
+        qCCritical(GStreamerLog) << "Không thể lấy được sổ đăng ký gstreamer.";
         return;
     }
 
     auto changeRank = [registry](const char* featureName, uint16_t rank) {
         GstPluginFeature* feature = gst_registry_lookup_feature(registry, featureName);
         if (feature == nullptr) {
-            qCDebug(GStreamerLog) << "Failed to change ranking of feature. Featuer does not exist:" << featureName;
+            qCDebug(GStreamerLog) << "Không thể thay đổi thứ hạng của tính năng. Tính năng không tồn tại:" << featureName;
             return;
         }
 
         qCDebug(GStreamerLog) << "Changing feature (" << featureName << ") to use rank:" << rank;
-        gst_plugin_feature_set_rank(feature, rank);
+        gst_plugin_feature_set_rank(feature, rank);s
         gst_registry_add_feature(registry, feature);
         gst_object_unref(feature);
     };

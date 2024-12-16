@@ -166,13 +166,13 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
             QGCButton {
                 id:         skipButton
-                text:       qsTr("Skip")
+                text:       qsTr("Nhảy")
                 enabled:    controller.calibrating ? controller.skipEnabled : false
                 width:      ScreenTools.defaultFontPixelWidth * 10
                 onClicked:  controller.skipButtonClicked()
             }
             QGCButton {
-                text:       qsTr("Cancel")
+                text:       qsTr("Hủy bỏ")
                 width:      ScreenTools.defaultFontPixelWidth * 10
                 enabled:    controller.calibrating
                 onClicked: {
@@ -184,7 +184,7 @@ Item {
                 id:         nextButton
                 primary:    true
                 enabled:    controller.calibrating ? controller.nextEnabled : true
-                text:       controller.calibrating ? qsTr("Next") : qsTr("Start")
+                text:       controller.calibrating ? qsTr("Kế tiếp") : qsTr("Bắt đầu")
                 width:      ScreenTools.defaultFontPixelWidth * 10
                 onClicked:  controller.nextButtonClicked()
             }

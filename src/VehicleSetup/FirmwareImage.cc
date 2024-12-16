@@ -140,12 +140,12 @@ bool FirmwareImage::_ihxLoad(const QString& ihxFilename)
             !_readByteFromStream(stream, recordType) ||
             !_readBytesFromStream(stream, blockByteCount, bytes) ||
             !_readByteFromStream(stream, crc)) {
-            emit statusMessage(tr("Incorrectly formatted line in .ihx file, line too short"));
+            emit statusMessage(tr("Định dạng dòng không đúng trong tệp .ihx, dòng quá ngắn"));
             return false;
         }
         
         if (!(recordType == 0 || recordType == 1)) {
-            emit statusMessage(tr("Unsupported record type in file: %1").arg(recordType));
+            emit statusMessage(tr("Loại bản ghi không được hỗ trợ trong tệp: %1").arg(recordType));
             return false;
         }
         
@@ -215,7 +215,7 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
     
     QFile px4File(imageFilename);
     if (!px4File.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        emit statusMessage(tr("Unable to open firmware file %1, error: %2").arg(imageFilename, px4File.errorString()));
+        emit statusMessage(tr("Không thể mở tệp chương trình cơ sở %1, lỗi: %2").arg(imageFilename, px4File.errorString()));
         return false;
     }
     
@@ -224,7 +224,7 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
     QJsonDocument doc = QJsonDocument::fromJson(bytes);
     
     if (doc.isNull()) {
-        emit statusMessage(tr("Supplied file is not a valid JSON document"));
+        emit statusMessage(tr("Tệp được cung cấp không phải là tài liệu JSON hợp lệ"));
         return false;
     }
     
@@ -235,7 +235,7 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
     QStringList requiredKeys;
     requiredKeys << _jsonBoardIdKey << _jsonImageKey << _jsonImageSizeKey;
     if (!JsonHelper::validateRequiredKeys(px4Json, requiredKeys, errorString)) {
-        emit statusMessage(tr("Firmware file missing required key: %1").arg(errorString));
+        emit statusMessage(tr("Tệp chương trình cơ sở thiếu khóa bắt buộc: %1").arg(errorString));
         return false;
     }
 
@@ -245,13 +245,13 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
     keys << _jsonBoardIdKey << _jsonParamXmlSizeKey << _jsonParamXmlKey << _jsonAirframeXmlSizeKey << _jsonAirframeXmlKey << _jsonImageSizeKey << _jsonImageKey << _jsonMavAutopilotKey;
     types << QJsonValue::Double << QJsonValue::Double << QJsonValue::String << QJsonValue::Double << QJsonValue::String << QJsonValue::Double << QJsonValue::String << QJsonValue::Double;
     if (!JsonHelper::validateKeyTypes(px4Json, keys, types, errorString)) {
-        emit statusMessage(tr("Firmware file has invalid key: %1").arg(errorString));
+        emit statusMessage(tr("Tệp chương trình cơ sở có khóa không hợp lệ: %1").arg(errorString));
         return false;
     }
 
     uint32_t firmwareBoardId = (uint32_t)px4Json.value(_jsonBoardIdKey).toInt();
     if (!isCompatible(_boardId, firmwareBoardId)) {
-        emit statusMessage(tr("Downloaded firmware board id does not match hardware board id: %1 != %2").arg(firmwareBoardId).arg(_boardId));
+        emit statusMessage(tr("ID bo mạch phần mềm đã tải xuống không khớp với ID bo mạch phần cứng: %1 != %2").arg(firmwareBoardId).arg(_boardId));
         return false;
     }
 
@@ -273,14 +273,14 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
         if (parameterFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
             qint64 bytesWritten = parameterFile.write(decompressedBytes);
             if (bytesWritten != decompressedBytes.count()) {
-                emit statusMessage(tr("Write failed for parameter meta data file, error: %1").arg(parameterFile.errorString()));
+                emit statusMessage(tr("Ghi không thành công cho tệp siêu dữ liệu tham số, lỗi: %1").arg(parameterFile.errorString()));
                 parameterFile.close();
                 QFile::remove(parameterFilename);
             } else {
                 parameterFile.close();
             }
         } else {
-            emit statusMessage(tr("Unable to open parameter meta data file %1 for writing, error: %2").arg(parameterFilename, parameterFile.errorString()));
+            emit statusMessage(tr("Không thể mở tệp siêu dữ liệu tham số %1 để ghi, lỗi: %2").arg(parameterFilename, parameterFile.errorString()));
         }
 
         // Cache this file with the system
@@ -302,14 +302,14 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
             qint64 bytesWritten = airframeFile.write(decompressedBytes);
             if (bytesWritten != decompressedBytes.count()) {
                 // FIXME: What about these warnings?
-                emit statusMessage(tr("Write failed for airframe meta data file, error: %1").arg(airframeFile.errorString()));
+                emit statusMessage(tr("Ghi không thành công vào tệp siêu dữ liệu khung máy bay, lỗi: %1").arg(airframeFile.errorString()));
                 airframeFile.close();
                 QFile::remove(airframeFilename);
             } else {
                 airframeFile.close();
             }
         } else {
-            emit statusMessage(tr("Unable to open airframe meta data file %1 for writing, error: %2").arg(airframeFilename, airframeFile.errorString()));
+            emit statusMessage(tr("Không thể mở tệp siêu dữ liệu khung máy bay %1 để ghi, lỗi: %2").arg(airframeFilename, airframeFile.errorString()));
         }
     }
     
@@ -335,13 +335,13 @@ bool FirmwareImage::_px4Load(const QString& imageFilename)
     
     QFile decompressFile(decompressFilename);
     if (!decompressFile.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
-        emit statusMessage(tr("Unable to open decompressed file %1 for writing, error: %2").arg(decompressFilename, decompressFile.errorString()));
+        emit statusMessage(tr("Không thể mở tệp đã giải nén %1 để ghi, lỗi: %2").arg(decompressFilename, decompressFile.errorString()));
         return false;
     }
     
     qint64 bytesWritten = decompressFile.write(decompressedBytes);
     if (bytesWritten != decompressedBytes.count()) {
-        emit statusMessage(tr("Write failed for decompressed image file, error: %1").arg(decompressFile.errorString()));
+        emit statusMessage(tr("Ghi không thành công vào tệp hình ảnh đã giải nén, lỗi: %1").arg(decompressFile.errorString()));
         return false;
     }
     decompressFile.close();
@@ -365,7 +365,7 @@ bool FirmwareImage::_decompressJsonValue(const QJsonObject&	jsonObject,			///< J
     }
     int decompressedSize = jsonObject.value(QString(sizeKey)).toInt();
     if (decompressedSize == 0) {
-        emit statusMessage(tr("Firmware file has invalid decompressed size for %1").arg(sizeKey));
+        emit statusMessage(tr("Tệp chương trình cơ sở có kích thước giải nén không hợp lệ %1").arg(sizeKey));
         return false;
     }
     
@@ -377,12 +377,12 @@ bool FirmwareImage::_decompressJsonValue(const QJsonObject&	jsonObject,			///< J
     
     QStringList parts = QString(jsonDocBytes).split(QString("\"%1\": \"").arg(bytesKey));
     if (parts.count() == 1) {
-        emit statusMessage(tr("Could not find compressed bytes for %1 in Firmware file").arg(bytesKey));
+        emit statusMessage(tr("Không tìm thấy byte nén cho %1 trong tệp Firmware").arg(bytesKey));
         return false;
     }
     parts = parts.last().split("\"");
     if (parts.count() == 1) {
-        emit statusMessage(tr("Incorrectly formed compressed bytes section for %1 in Firmware file").arg(bytesKey));
+        emit statusMessage(tr("Phần byte nén được định dạng không đúng cho %1 trong tệp Firmware").arg(bytesKey));
         return false;
     }
     
@@ -398,15 +398,15 @@ bool FirmwareImage::_decompressJsonValue(const QJsonObject&	jsonObject,			///< J
     decompressedBytes = qUncompress(raw);
     
     if (decompressedBytes.count() == 0) {
-        emit statusMessage(tr("Firmware file has 0 length %1").arg(bytesKey));
+        emit statusMessage(tr("Tệp chương trình cơ sở có độ dài 0 %1").arg(bytesKey));
         return false;
     }
     if (decompressedBytes.count() != decompressedSize) {
-        emit statusMessage(tr("Size for decompressed %1 does not match stored size: Expected(%1) Actual(%2)").arg(decompressedSize).arg(decompressedBytes.count()));
+        emit statusMessage(tr("Kích thước giải nén %1 không khớp với kích thước đã lưu trữ: Dự kiến(%1) Thực tế(%2)").arg(decompressedSize).arg(decompressedBytes.count()));
         return false;
     }
     
-    emit statusMessage(tr("Successfully decompressed %1").arg(bytesKey));
+    emit statusMessage(tr("Đã giải nén thành công %1").arg(bytesKey));
     
     return true;
 }
@@ -434,7 +434,7 @@ bool FirmwareImage::_binLoad(const QString& imageFilename)
 {
     QFile binFile(imageFilename);
     if (!binFile.open(QIODevice::ReadOnly)) {
-        emit statusMessage(tr("Unabled to open firmware file %1, %2").arg(imageFilename, binFile.errorString()));
+        emit statusMessage(tr("Không thể mở tệp chương trình cơ sở %1, %2").arg(imageFilename, binFile.errorString()));
         return false;
     }
     

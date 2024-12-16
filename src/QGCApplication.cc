@@ -199,10 +199,10 @@ QGCApplication::QGCApplication(int &argc, char* argv[], bool unitTesting)
     if (!_runningUnitTests) {
         if (getuid() == 0) {
             _exitWithError(QString(
-                tr("You are running %1 as root. "
-                    "You should not do this since it will cause other issues with %1."
-                    "%1 will now exit.<br/><br/>"
-                    "If you are having serial port issues on Ubuntu, execute the following commands to fix most issues:<br/>"
+                tr("Bạn đang chạy %1 với tư cách là root. "
+                    "Bạn không nên làm điều này vì nó sẽ gây ra các vấn đề khác với %1."
+                    "%1 bây giờ sẽ thoát.<br/><br/>"
+                    "Nếu bạn gặp sự cố cổng nối tiếp trên Ubuntu, hãy thực hiện các lệnh sau để khắc phục hầu hết các sự cố:<br/>"
                     "<pre>sudo usermod -a -G dialout $USER<br/>"
                     "sudo apt-get remove modemmanager</pre>").arg(qgcApp()->applicationName())));
             return;
@@ -215,9 +215,9 @@ QGCApplication::QGCApplication(int &argc, char* argv[], bool unitTesting)
                 if (line.contains("dialout") && !line.contains(getenv("USER"))) {
                     permFile.close();
                     _exitWithError(QString(
-                        tr("The current user does not have the correct permissions to access serial devices. "
-                           "You should also remove modemmanager since it also interferes.<br/><br/>"
-                           "If you are using Ubuntu, execute the following commands to fix these issues:<br/>"
+                        tr("Người dùng hiện tại không có đủ quyền để truy cập vào thiết bị nối tiếp. "
+                           "Bạn cũng nên xóa modemmanager vì nó cũng can thiệp.<br/><br/>"
+                           "Nếu bạn đang sử dụng Ubuntu, hãy thực hiện các lệnh sau để khắc phục những sự cố này:<br/>"
                            "<pre>sudo usermod -a -G dialout $USER<br/>"
                            "sudo apt-get remove modemmanager</pre>")));
                     return;

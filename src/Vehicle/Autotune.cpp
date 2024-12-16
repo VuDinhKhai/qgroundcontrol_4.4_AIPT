@@ -34,7 +34,7 @@ void Autotune::autotuneRequest()
 
     startTimers();
     _autotuneInProgress  = true;
-    _autotuneStatus = tr("Autotune: In progress");
+    _autotuneStatus = tr("Tự động điều chỉnh: Đang tiến hành");
 
     emit autotuneChanged();
 }
@@ -102,39 +102,39 @@ void Autotune::handleAckStatus(uint8_t ackProgress)
     _autotuneProgress = ackProgress/100.f;
 
     if (ackProgress < 20) {
-        _autotuneStatus = tr("Autotune: initializing");
+        _autotuneStatus = tr("Tự động điều chỉnh: khởi tạo");
     }
     else if (ackProgress < 40) {
-        _autotuneStatus = tr("Autotune: roll");
+        _autotuneStatus = tr("Tự động điều chỉnh: cuộn");
     }
     else if (ackProgress < 60) {
-        _autotuneStatus = tr("Autotune: pitch");
+        _autotuneStatus = tr("Tự động điều chỉnh: cao độ");
     }
     else if (ackProgress < 80) {
-        _autotuneStatus = tr("Autotune: yaw");
+        _autotuneStatus = tr("Tự động điều chỉnh: lệch");
     }
     else if (ackProgress == 95) {
-        _autotuneStatus = tr("Wait for disarm");
+        _autotuneStatus = tr("Chờ giải giáp");
 
         if(!_disarmMessageDisplayed) {
-            qgcApp()->showAppMessage(tr("Land and disarm the vehicle in order to apply the parameters."));
+            qgcApp()->showAppMessage(tr("Hạ cánh và tháo vũ khí cho xe để áp dụng các thông số."));
             _disarmMessageDisplayed = true;
         }
     }
     else if (ackProgress < 100) {
-        _autotuneStatus = tr("Autotune: in progress");
+        _autotuneStatus = tr("Tự động điều chỉnh: đang tiến hành");
     }
     else { // success or unknown error
         stopTimers();
         _autotuneInProgress = false;
 
         if (ackProgress == 100) {
-            _autotuneStatus = tr("Autotune: Success");
+            _autotuneStatus = tr("Tự động điều chỉnh: Thành công");
 
-            qgcApp()->showAppMessage(tr("Autotune successful."));
+            qgcApp()->showAppMessage(tr("Tự động điều chỉnh thành công."));
         }
         else {
-            _autotuneStatus = tr("Autotune: Unknown error");
+            _autotuneStatus = tr("Tự động điều chỉnh: Lỗi không xác định");
         }
     }
 }
@@ -146,7 +146,7 @@ void Autotune::handleAckFailure()
     stopTimers();
     _autotuneInProgress = false;
     _disarmMessageDisplayed = false;
-    _autotuneStatus = tr("Autotune: Failed");
+    _autotuneStatus = tr("Tự động điều chỉnh: Thất bại");
 }
 
 
@@ -156,7 +156,7 @@ void Autotune::handleAckError(uint8_t ackError)
     stopTimers();
     _autotuneInProgress = false;
     _disarmMessageDisplayed = false;
-    _autotuneStatus = tr("Autotune: Ack error %1").arg(ackError);
+    _autotuneStatus = tr("Tự động điều chỉnh: Lỗi xác nhận %1").arg(ackError);
 }
 
 

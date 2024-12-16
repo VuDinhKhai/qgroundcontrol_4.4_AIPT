@@ -37,7 +37,7 @@ bool Bootloader::open(const QString portName)
     _port.setFlowControl(QSerialPort::NoFlowControl);
 
     if (!_port.open(QIODevice::ReadWrite)) {
-        _errorString = tr("Open failed on port %1: %2").arg(portName, _port.errorString());
+        _errorString = tr("Mở không thành công trên cổng %1: %2").arg(portName, _port.errorString());
         return false;
     }
 
@@ -89,12 +89,12 @@ bool Bootloader::getBoardInfo(uint32_t& bootloaderVersion, uint32_t& boardID, ui
             // Put radio into command mode
             _write("+++");
             if (!_port.waitForReadyRead(2000)) {
-                _errorString = tr("Unable to put radio into command mode +++");
+                _errorString = tr("Không thể đưa radio vào chế độ lệnh +++");
                 goto Error;
             }
             QByteArray bytes = _port.readAll();
             if (!bytes.contains("OK")) {
-                _errorString = tr("Radio did not respond to command mode");
+                _errorString = tr("Radio không phản hồi chế độ lệnh");
                 goto Error;
             }
 
@@ -102,14 +102,14 @@ bool Bootloader::getBoardInfo(uint32_t& bootloaderVersion, uint32_t& boardID, ui
             _write("ATI2\r\n");
             QString echo = _getNextLine(2000);
             if (echo.isEmpty() || echo != "ATI2") {
-                _errorString = tr("Radio did not respond to ATI2 command");
+                _errorString = tr("Đài phát thanh không phản hồi lệnh ATI2");
                 goto Error;
             }
             QString boardIdStr = _getNextLine(2000);
             bool ok = false;
             _boardID = boardIdStr.toInt(&ok);
             if (boardIdStr.isEmpty() || !ok) {
-                _errorString = tr("Radio did not return board id");
+                _errorString = tr("Radio không trả về số hiệu bảng");
                 goto Error;
             }
         }
@@ -126,7 +126,7 @@ bool Bootloader::getBoardInfo(uint32_t& bootloaderVersion, uint32_t& boardID, ui
             goto Error;
         }
         if (_bootloaderVersion < BL_REV_MIN || _bootloaderVersion > BL_REV_MAX) {
-            _errorString = tr("Found unsupported bootloader version: %1").arg(_bootloaderVersion);
+            _errorString = tr("Đã tìm thấy phiên bản bộ nạp khởi động không được hỗ trợ: %1").arg(_bootloaderVersion);
             goto Error;
         }
         if (!_protoGetDevice(INFO_BOARD_ID, _boardID)) {
@@ -153,7 +153,7 @@ bool Bootloader::getBoardInfo(uint32_t& bootloaderVersion, uint32_t& boardID, ui
 
 Error:
     qCDebug(FirmwareUpgradeLog) << "getBoardInfo failed:" << _errorString;
-    _errorString.prepend(tr("Get Board Info: "));
+    _errorString.prepend(tr("Nhận thông tin về Hội đồng quản trị: "));
     return false;
 }
 
@@ -162,7 +162,7 @@ bool Bootloader::initFlashSequence(void)
     if (_sikRadio && !_inBootloaderMode) {
         _write("AT&UPDATE\r\n");
         if (!_port.waitForReadyRead(1500)) {
-            _errorString = tr("Unable to reboot radio (ready read)");
+            _errorString = tr("Không thể khởi động lại radio (đã đọc)");
             return false;
         }
         _port.setBaudRate(QSerialPort::Baud115200);
@@ -178,7 +178,7 @@ bool Bootloader::erase(void)
 {
     // Erase is slow, need larger timeout
     if (!_sendCommand(PROTO_CHIP_ERASE, _eraseTimeout)) {
-        _errorString = tr("Erase failed: %1").arg(_errorString);
+        _errorString = tr("Xóa không thành công: %1").arg(_errorString);
         return false;
     }
 
@@ -221,12 +221,12 @@ bool Bootloader::_write(const uint8_t* data, qint64 maxSize)
 {
     qint64 bytesWritten = _port.write((const char*)data, maxSize);
     if (bytesWritten == -1) {
-        _errorString = tr("Write failed: %1").arg(_port.errorString());
+        _errorString = tr("Viết không thành công: %1").arg(_port.errorString());
         qWarning() << _errorString;
         return false;
     }
     if (bytesWritten != maxSize) {
-        _errorString = tr("Incorrect number of bytes returned for write: actual(%1) expected(%2)").arg(bytesWritten).arg(maxSize);
+        _errorString = tr("Số byte trả về không chính xác để ghi: thực tế (%1) dự kiến(%2)").arg(bytesWritten).arg(maxSize);
         qWarning() << _errorString;
         return false;
     }
@@ -247,7 +247,7 @@ bool Bootloader::_read(uint8_t* data, qint64 cBytesExpected, int readTimeout)
     timeout.start();
     while (_port.bytesAvailable() < cBytesExpected) {
         if (timeout.elapsed() > readTimeout) {
-            _errorString = tr("Timeout waiting for bytes to be available");
+            _errorString = tr("Hết thời gian chờ đợi để có byte khả dụng");
             return false;
         }
         _port.waitForReadyRead(100);
@@ -257,7 +257,7 @@ bool Bootloader::_read(uint8_t* data, qint64 cBytesExpected, int readTimeout)
     bytesRead = _port.read((char *)data, cBytesExpected);
 
     if (bytesRead != cBytesExpected) {
-        _errorString = tr("Read failed: error: %1").arg(_port.errorString());
+        _errorString = tr("Đọc không thành công: lỗi: %1").arg(_port.errorString());
         return false;
     }
 
@@ -271,25 +271,25 @@ bool Bootloader::_getCommandResponse(int responseTimeout)
     uint8_t response[2];
     
     if (!_read(response, 2, responseTimeout)) {
-        _errorString.prepend(tr("Get Command Response: "));
+        _errorString.prepend(tr("Nhận phản hồi lệnh: "));
         return false;
     }
     
     // Make sure we get a good sync response
     if (response[0] != PROTO_INSYNC) {
-        _errorString = tr("Invalid sync response: 0x%1 0x%2").arg(response[0], 2, 16, QLatin1Char('0')).arg(response[1], 2, 16, QLatin1Char('0'));
+        _errorString = tr("Phản hồi đồng bộ không hợp lệ: 0x%1 0x%2").arg(response[0], 2, 16, QLatin1Char('0')).arg(response[1], 2, 16, QLatin1Char('0'));
         return false;
     } else if (response[0] == PROTO_INSYNC && response[1] == PROTO_BAD_SILICON_REV) {
-        _errorString = tr("This board is using a microcontroller with faulty silicon and an incorrect configuration and should be put out of service.");
+        _errorString = tr("Bo mạch này sử dụng vi điều khiển có silicon bị lỗi và cấu hình không chính xác nên cần phải ngừng sử dụng.");
         return false;
     } else if (response[1] != PROTO_OK) {
-        QString responseCode = tr("Unknown response code");
+        QString responseCode = tr("Mã phản hồi không xác định");
         if (response[1] == PROTO_FAILED) {
             responseCode = "PROTO_FAILED";
         } else if (response[1] == PROTO_INVALID) {
             responseCode = "PROTO_INVALID";
         }
-        _errorString = tr("Command failed: 0x%1 (%2)").arg(response[1], 2, 16, QLatin1Char('0')).arg(responseCode);
+        _errorString = tr("Lệnh không thành công: 0x%1 (%2)").arg(response[1], 2, 16, QLatin1Char('0')).arg(responseCode);
         return false;
     }
     
@@ -316,7 +316,7 @@ bool Bootloader::_protoGetDevice(uint8_t param, uint32_t& value)
     return true;
     
 Error:
-    _errorString.prepend(tr("Get Device: "));
+    _errorString.prepend(tr("Nhận thiết bị: "));
     return false;
 }
 
@@ -339,7 +339,7 @@ bool Bootloader::_sendCommand(const uint8_t cmd, int responseTimeout)
     return true;
 
 Error:
-    _errorString.prepend(tr("Send Command: "));
+    _errorString.prepend(tr("Gửi lệnh: "));
     return false;
 }
 
@@ -347,7 +347,7 @@ bool Bootloader::_binProgram(const FirmwareImage* image)
 {
     QFile firmwareFile(image->binFilename());
     if (!firmwareFile.open(QIODevice::ReadOnly)) {
-        _errorString = tr("Unable to open firmware file %1: %2").arg(image->binFilename(), firmwareFile.errorString());
+        _errorString = tr("Không thể mở tệp chương trình cơ sở %1: %2").arg(image->binFilename(), firmwareFile.errorString());
         return false;
     }
     uint32_t imageSize = (uint32_t)firmwareFile.size();
@@ -368,7 +368,7 @@ bool Bootloader::_binProgram(const FirmwareImage* image)
         
         int bytesRead = firmwareFile.read((char *)imageBuf, bytesToSend);
         if (bytesRead == -1 || bytesRead != bytesToSend) {
-            _errorString = tr("Firmware file read failed: %1").arg(firmwareFile.errorString());
+            _errorString = tr("Đọc tệp chương trình cơ sở không thành công: %1").arg(firmwareFile.errorString());
             return false;
         }
         
@@ -384,7 +384,7 @@ bool Bootloader::_binProgram(const FirmwareImage* image)
             }
         }
         if (failed) {
-            _errorString = tr("Flash failed: %1 at address 0x%2").arg(_errorString).arg(bytesSent, 8, 16, QLatin1Char('0'));
+            _errorString = tr("Flash không thành công: %1 tại địa chỉ 0x%2").arg(_errorString).arg(bytesSent, 8, 16, QLatin1Char('0'));
             return false;
         }
 
@@ -418,7 +418,7 @@ bool Bootloader::_ihxProgram(const FirmwareImage* image)
         QByteArray  bytes;
         
         if (!image->ihxGetBlock(index, flashAddress, bytes)) {
-            _errorString = tr("Unable to retrieve block from ihx: index %1").arg(index);
+            _errorString = tr("Không thể lấy khối từ ihx: chỉ mục %1").arg(index);
             return false;
         }
         
@@ -438,7 +438,7 @@ bool Bootloader::_ihxProgram(const FirmwareImage* image)
         }
         
         if (failed) {
-            _errorString = tr("Unable to set flash start address: 0x%2").arg(flashAddress, 8, 16, QLatin1Char('0'));
+            _errorString = tr("Không thể thiết lập địa chỉ bắt đầu flash: 0x%2").arg(flashAddress, 8, 16, QLatin1Char('0'));
             return false;
         }
         
@@ -467,7 +467,7 @@ bool Bootloader::_ihxProgram(const FirmwareImage* image)
                 }
             }
             if (failed) {
-                _errorString = tr("Flash failed: %1 at address 0x%2").arg(_errorString).arg(flashAddress, 8, 16, QLatin1Char('0'));
+                _errorString = tr("Flash không thành công: %1 tại địa chỉ 0x%2").arg(_errorString).arg(flashAddress, 8, 16, QLatin1Char('0'));
                 return false;
             }
             
@@ -513,7 +513,7 @@ bool Bootloader::_binVerifyBytes(const FirmwareImage* image)
     
     QFile firmwareFile(image->binFilename());
     if (!firmwareFile.open(QIODevice::ReadOnly)) {
-        _errorString = tr("Unable to open firmware file %1: %2").arg(image->binFilename(), firmwareFile.errorString());
+        _errorString = tr("Không thể mở tệp chương trình cơ sở %1: %2").arg(image->binFilename(), firmwareFile.errorString());
         return false;
     }
     uint32_t imageSize = (uint32_t)firmwareFile.size();
@@ -538,7 +538,7 @@ bool Bootloader::_binVerifyBytes(const FirmwareImage* image)
         
         int bytesRead = firmwareFile.read((char *)fileBuf, bytesToRead);
         if (bytesRead == -1 || bytesRead != bytesToRead) {
-            _errorString = tr("Firmware file read failed: %1").arg(firmwareFile.errorString());
+            _errorString = tr("Đọc tệp chương trình cơ sở không thành công: %1").arg(firmwareFile.errorString());
             return false;
         }
         
@@ -556,13 +556,13 @@ bool Bootloader::_binVerifyBytes(const FirmwareImage* image)
             }
         }
         if (failed) {
-            _errorString = tr("Read failed: %1 at address: 0x%2").arg(_errorString).arg(bytesVerified, 8, 16, QLatin1Char('0'));
+            _errorString = tr("Đọc không thành công: %1 tại địa chỉ: 0x%2").arg(_errorString).arg(bytesVerified, 8, 16, QLatin1Char('0'));
             return false;
         }
 
         for (int i=0; i<bytesToRead; i++) {
             if (fileBuf[i] != readBuf[i]) {
-                _errorString = tr("Compare failed: expected(0x%1) actual(0x%2) at address: 0x%3").arg(fileBuf[i], 2, 16, QLatin1Char('0')).arg(readBuf[i], 2, 16, QLatin1Char('0')).arg(bytesVerified + i, 8, 16, QLatin1Char('0'));
+                _errorString = tr("So sánh không thành công: dự kiến(0x%1) thực tế(0x%2) tại địa chỉ: 0x%3").arg(fileBuf[i], 2, 16, QLatin1Char('0')).arg(readBuf[i], 2, 16, QLatin1Char('0')).arg(bytesVerified + i, 8, 16, QLatin1Char('0'));
                 return false;
             }
         }
@@ -590,7 +590,7 @@ bool Bootloader::_ihxVerifyBytes(const FirmwareImage* image)
         QByteArray  imageBytes;
         
         if (!image->ihxGetBlock(index, readAddress, imageBytes)) {
-            _errorString = tr("Unable to retrieve block from ihx: index %1").arg(index);
+            _errorString = tr("Không thể lấy khối từ ihx: index %1").arg(index);
             return false;
         }
         
@@ -610,7 +610,7 @@ bool Bootloader::_ihxVerifyBytes(const FirmwareImage* image)
         }
         
         if (failed) {
-            _errorString = tr("Unable to set read start address: 0x%2").arg(readAddress, 8, 16, QLatin1Char('0'));
+            _errorString = tr("Không thể thiết lập địa chỉ bắt đầu đọc: 0x%2").arg(readAddress, 8, 16, QLatin1Char('0'));
             return false;
         }
         
@@ -641,7 +641,7 @@ bool Bootloader::_ihxVerifyBytes(const FirmwareImage* image)
                 }
             }
             if (failed) {
-                _errorString = tr("Read failed: %1 at address: 0x%2").arg(_errorString).arg(readAddress, 8, 16, QLatin1Char('0'));
+                _errorString = tr("Đọc không thành công: %1 tại địa chỉ: 0x%2").arg(_errorString).arg(readAddress, 8, 16, QLatin1Char('0'));
                 return false;
             }
             
@@ -649,7 +649,7 @@ bool Bootloader::_ihxVerifyBytes(const FirmwareImage* image)
             
             for (int i=0; i<bytesToRead; i++) {
                 if ((uint8_t)imageBytes[bytesIndex + i] != readBuf[i]) {
-                    _errorString = tr("Compare failed: expected(0x%1) actual(0x%2) at address: 0x%3").arg(imageBytes[bytesIndex + i], 2, 16, QLatin1Char('0')).arg(readBuf[i], 2, 16, QLatin1Char('0')).arg(readAddress + i, 8, 16, QLatin1Char('0'));
+                    _errorString = tr("So sánh không thành công: dự kiến(0x%1) thực tế(0x%2) tại địa chỉ: 0x%3").arg(imageBytes[bytesIndex + i], 2, 16, QLatin1Char('0')).arg(readBuf[i], 2, 16, QLatin1Char('0')).arg(readAddress + i, 8, 16, QLatin1Char('0'));
                     return false;
                 }
             }
@@ -686,7 +686,7 @@ bool Bootloader::_verifyCRC(void)
     }
 
     if (_imageCRC != flashCRC) {
-        _errorString = tr("CRC mismatch: board(0x%1) file(0x%2)").arg(flashCRC, 4, 16, QLatin1Char('0')).arg(_imageCRC, 4, 16, QLatin1Char('0'));
+        _errorString = tr("CRC không khớp: tệp board(0x%1)(0x%2)").arg(flashCRC, 4, 16, QLatin1Char('0')).arg(_imageCRC, 4, 16, QLatin1Char('0'));
         return false;
     }
     
@@ -744,6 +744,6 @@ bool Bootloader::_get3DRRadioBoardId(uint32_t& boardID)
     return true;
 
 Error:
-    _errorString.prepend(tr("Get Board Id: "));
+    _errorString.prepend(tr("Nhận ID bảng: "));
     return false;
 }

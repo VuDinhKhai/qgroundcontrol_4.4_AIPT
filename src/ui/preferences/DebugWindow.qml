@@ -35,7 +35,7 @@ Item {
         anchors.left:    parent.left
         columns: 3
         Text {
-            text:   qsTr("Qt Platform:")
+            text:   qsTr("Nền tảng Qt:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -45,13 +45,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 10")
+            text:   qsTr("Kích thước điểm phông chữ 10")
             color:  qgcPal.text
             font.pointSize: 10
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Default font width:")
+            text:   qsTr("Chiều rộng phông chữ mặc định:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -61,13 +61,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 10.5")
+            text:   qsTr("Kích thước điểm phông chữ 10,5")
             color:  qgcPal.text
             font.pointSize: 10.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Default font height:")
+            text:   qsTr("Chiều cao phông chữ mặc định:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -77,13 +77,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 11")
+            text:   qsTr("Kích thước điểm phông chữ 11")
             color:  qgcPal.text
             font.pointSize: 11
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Default font pixel size:")
+            text:   qsTr("Kích thước pixel phông chữ mặc định:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -93,13 +93,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 11.5")
+            text:   qsTr("Kích thước điểm phông chữ 11,5")
             color:  qgcPal.text
             font.pointSize: 11.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Default font point size:")
+            text:   qsTr("Kích thước phông chữ mặc định:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -109,13 +109,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 12")
+            text:   qsTr("Kích thước điểm phông chữ 12")
             color:  qgcPal.text
             font.pointSize: 12
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("QML Screen Desktop:")
+            text:   qsTr("Màn hình QML Desktop:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -125,13 +125,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 12.5")
+            text:   qsTr("Kích thước điểm phông chữ12.5")
             color:  qgcPal.text
             font.pointSize: 12.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("QML Screen Size:")
+            text:   qsTr("Kích thước màn hình QML:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -141,13 +141,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("Font Point Size 13")
+            text:   qsTr("Kích thước điểm phông chữ 13")
             color:  qgcPal.text
             font.pointSize: 13
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:   qsTr("QML Pixel Density:")
+            text:   qsTr("Mật độ điểm ảnh QML:")
             color:  qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -157,13 +157,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 13.5")
+            text:           qsTr("Kích thước điểm phông chữ 13.5")
             color:          qgcPal.text
             font.pointSize: 13.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("QML Pixel Ratio:")
+            text:           qsTr("Tỷ lệ điểm ảnh QML:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -173,13 +173,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 14")
+            text:           qsTr("Kích thước điểm phông chữ 14")
             color:          qgcPal.text
             font.pointSize: 14
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Default Point:")
+            text:           qsTr("Điểm mặc định:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -189,13 +189,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 14.5")
+            text:           qsTr("Kích thước điểm phông chữ 14.5")
             color:          qgcPal.text
             font.pointSize: 14.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Computed Font Height:")
+            text:           qsTr("Chiều cao phông chữ được tính toán:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -205,13 +205,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 15")
+            text:           qsTr("Kích thước điểm phông chữ 15")
             color:          qgcPal.text
             font.pointSize: 15
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Computed Screen Height:")
+            text:           qsTr("Chiều cao màn hình được tính toán:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -221,13 +221,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 15.5")
+            text:           qsTr("Kích thước điểm phông chữ 15.5")
             color:          qgcPal.text
             font.pointSize: 15.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Computed Screen Width:")
+            text:           qsTr("Chiều rộng màn hình được tính toán:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -237,13 +237,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 16")
+            text:           qsTr("Kích thước điểm phông chữ 16")
             color:          qgcPal.text
             font.pointSize: 16
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Desktop Available Width:")
+            text:           qsTr("Chiều rộng có sẵn của máy tính để bàn:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -253,13 +253,13 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 16.5")
+            text:           qsTr("Kích thước điểm phông chữ 16.5")
             color:          qgcPal.text
             font.pointSize: 16.5
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Desktop Available Height:")
+            text:           qsTr("Chiều cao có sẵn của máy tính để bàn:")
             color:          qgcPal.text
             font.family:    ScreenTools.normalFontFamily
         }
@@ -269,7 +269,7 @@ Item {
             font.family:    ScreenTools.normalFontFamily
         }
         Text {
-            text:           qsTr("Font Point Size 17")
+            text:           qsTr("Kích thước điểm phông chữ 17")
             color:          qgcPal.text
             font.pointSize: 17
             font.family:    ScreenTools.normalFontFamily

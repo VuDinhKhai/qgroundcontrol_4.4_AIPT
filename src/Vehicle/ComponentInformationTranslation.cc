@@ -203,7 +203,7 @@ QString ComponentInformationTranslation::translateJsonUsingTS(const QString &toT
 
     QFile translatedFile(translatedFileName);
     if (!translatedFile.open(QFile::WriteOnly|QFile::Truncate)) {
-        errorString = tr("File open failed: file:error %1 %2").arg(translatedFile.fileName()).arg(translatedFile.errorString());
+        errorString = tr("Mở tệp không thành công: file:error %1 %2").arg(translatedFile.fileName()).arg(translatedFile.errorString());
         return "";
     }
     translatedFile.write(jsonDoc.toJson());

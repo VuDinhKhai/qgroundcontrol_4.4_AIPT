@@ -100,7 +100,7 @@ QStringList SysStatusSensorInfo::sensorStatus(void) const
         const SensorInfo_t&         sensorInfo      = _sensorInfoMap[sensorBitMask];
 
         if (sensorInfo.enabled && !sensorInfo.healthy) {
-            rgStatus.append(tr("Error"));
+            rgStatus.append(tr("Lỗi"));
         }
     }
     for (int i=0; i<_sensorInfoMap.keys().count(); i++) {
@@ -108,7 +108,7 @@ QStringList SysStatusSensorInfo::sensorStatus(void) const
         const SensorInfo_t&         sensorInfo      = _sensorInfoMap[sensorBitMask];
 
         if (sensorInfo.enabled && sensorInfo.healthy) {
-            rgStatus.append(tr("Normal"));
+            rgStatus.append(tr("Bình thường"));
         }
     }
     for (int i=0; i<_sensorInfoMap.keys().count(); i++) {
@@ -116,7 +116,7 @@ QStringList SysStatusSensorInfo::sensorStatus(void) const
         const SensorInfo_t&         sensorInfo      = _sensorInfoMap[sensorBitMask];
 
         if (!sensorInfo.enabled) {
-            rgStatus.append(tr("Disabled"));
+            rgStatus.append(tr("Bị vô hiệu hóa"));
         }
     }
 
