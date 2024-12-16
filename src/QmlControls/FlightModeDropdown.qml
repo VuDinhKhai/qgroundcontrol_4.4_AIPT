@@ -19,7 +19,7 @@ Item {
     property var activeVehicle  ///< Vehicle to show flight modes for
 
     property int _maxFMCharLength:  10   ///< Maximum number of chars in a flight mode
-    property string flightMode:     activeVehicle ? activeVehicle.flightMode : qsTr("N/A", "No data to display")
+    property string flightMode:     activeVehicle ? activeVehicle.flightMode : qsTr("N/A", "Không có dữ liệu để hiển thị")
 
     onActiveVehicleChanged: _activeVehicleChanged()
 

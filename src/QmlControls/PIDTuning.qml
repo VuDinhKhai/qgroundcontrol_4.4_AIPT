@@ -118,7 +118,7 @@ RowLayout {
         min:            0
         max:            0
         labelFormat:    "%.2f"
-        titleText:      qsTr("sec")
+        titleText:      qsTr("giây")
         tickCount:      11
     }
 
@@ -198,7 +198,7 @@ RowLayout {
 
                 QGCLabel {
                     color:   qgcPal.text
-                    text:    autotuningEnabled.checked ? qsTr("Autotune enabled") : qsTr("Autotune disabled")
+                    text:    autotuningEnabled.checked ? qsTr("Tự động điều chỉnh được bật") : qsTr("Tự động điều chỉnh bị vô hiệu hóa")
                 }
             }
 
@@ -225,7 +225,7 @@ RowLayout {
                         spacing: _margins
                         visible: axis.length > 1
 
-                        QGCLabel { text: qsTr("Select Tuning:") }
+                        QGCLabel { text: qsTr("Chọn điều chỉnh:") }
 
                         Repeater {
                             model: axis
@@ -251,7 +251,7 @@ RowLayout {
                 }
 
                 Column {
-                    QGCLabel { text: qsTr("Clipboard Values:") }
+                    QGCLabel { text: qsTr("Giá trị của bảng tạm:") }
 
                     GridLayout {
                         rows:           savedRepeater.model.length
@@ -277,12 +277,12 @@ RowLayout {
                     spacing: _margins
 
                     QGCButton {
-                        text:       qsTr("Save To Clipboard")
+                        text:       qsTr("Lưu vào bảng tạm")
                         onClicked:  saveTuningParamValues()
                     }
 
                     QGCButton {
-                        text:       qsTr("Restore From Clipboard")
+                        text:       qsTr("Khôi phục từ bảng tạm")
                         onClicked:  resetToSavedTuningParamValues()
                     }
                 }
@@ -339,12 +339,12 @@ RowLayout {
             spacing: _margins
 
             QGCButton {
-                text:       qsTr("Clear")
+                text:       qsTr("Xóa")
                 onClicked:  resetGraphs()
             }
 
             QGCButton {
-                text:       dataTimer.running ? qsTr("Stop") : qsTr("Start")
+                text:       dataTimer.running ? qsTr("Dừng") : qsTr("Bắt đầu")
                 onClicked: {
                     dataTimer.running = !dataTimer.running
                     _last_t = 0
@@ -367,7 +367,7 @@ RowLayout {
         QGCCheckBox {
             visible: showAutoModeChange
             id:     autoModeChange
-            text:   qsTr("Automatic Flight Mode Switching")
+            text:   qsTr("Chuyển đổi chế độ bay tự động")
             onClicked: {
                 if (checked)
                     dataTimer.running = false
@@ -377,12 +377,12 @@ RowLayout {
         Column {
             visible: autoModeChange.checked
             QGCLabel {
-                text:            qsTr("Switches to 'Stabilized' when you click Start.")
+                text:            qsTr("Chuyển sang chế độ 'Ổn định' khi bạn nhấp vào Bắt đầu.")
                 font.pointSize:     ScreenTools.smallFontPointSize
             }
 
             QGCLabel {
-                text:            qsTr("Switches to '%1' when you click Stop.").arg(globals.activeVehicle.pauseFlightMode)
+                text:            qsTr("Chuyển sang '%1' khi bạn nhấp vào Dừng.").arg(globals.activeVehicle.pauseFlightMode)
                 font.pointSize:     ScreenTools.smallFontPointSize
             }
         }

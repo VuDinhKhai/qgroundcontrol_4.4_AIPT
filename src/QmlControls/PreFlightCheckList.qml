@@ -78,7 +78,7 @@ Rectangle {
             height: 1.75*ScreenTools.defaultFontPixelHeight
 
             QGCLabel {
-                text:                   qsTr("Pre-Flight Checklist %1").arg(_passed ? qsTr("(passed)") : "")
+                text:                   qsTr("Danh sách kiểm tra trước khi bay %1").arg(_passed ? qsTr("(vượt qua)") : "")
                 anchors.left:           parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize:         ScreenTools.mediumFontPointSize
@@ -90,7 +90,7 @@ Rectangle {
                 anchors.right:          parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 opacity :               0.2+0.8*(QGroundControl.multiVehicleManager.vehicles.count > 0)
-                tooltip:                qsTr("Reset the checklist (e.g. after a vehicle reboot)")
+                tooltip:                qsTr("Thiết lập lại danh sách kiểm tra (e.g. after a vehicle reboot)")
 
                 onClicked: model.reset()
 

@@ -21,7 +21,7 @@ import QGroundControl.Controllers   1.0
 
 QGCPopupDialog {
     id:         root
-    title:      qsTr("Edit Position")
+    title:      qsTr("Chỉnh sửa vị trí")
     buttons:    mainWindow.showDialogDefaultWidth, StandardButton.Close
 
     property alias coordinate: controller.coordinate
@@ -48,7 +48,7 @@ QGCPopupDialog {
             columns:        2
 
             QGCLabel {
-                text: qsTr("Latitude")
+                text: qsTr("Vĩ độ")
             }
             FactTextField {
                 fact:               controller.latitude
@@ -56,7 +56,7 @@ QGCPopupDialog {
             }
 
             QGCLabel {
-                text: qsTr("Longitude")
+                text: qsTr("Kinh độ")
             }
             FactTextField {
                 fact:               controller.longitude
@@ -64,7 +64,7 @@ QGCPopupDialog {
             }
 
             QGCButton {
-                text:               qsTr("Set Geographic")
+                text:               qsTr("Đặt địa lý")
                 Layout.alignment:   Qt.AlignRight
                 Layout.columnSpan:  2
                 onClicked: {
@@ -76,7 +76,7 @@ QGCPopupDialog {
             Item { width: 1; height: ScreenTools.defaultFontPixelHeight; Layout.columnSpan: 2}
 
             QGCLabel {
-                text: qsTr("Zone")
+                text: qsTr("Khu vực")
             }
             FactTextField {
                 fact:               controller.zone
@@ -84,7 +84,7 @@ QGCPopupDialog {
             }
 
             QGCLabel {
-                text: qsTr("Hemisphere")
+                text: qsTr("Bán cầu")
             }
             FactComboBox {
                 fact:               controller.hemisphere
@@ -93,7 +93,7 @@ QGCPopupDialog {
             }
 
             QGCLabel {
-                text: qsTr("Easting")
+                text: qsTr("Hướng đông")
             }
             FactTextField {
                 fact:               controller.easting
@@ -101,7 +101,7 @@ QGCPopupDialog {
             }
 
             QGCLabel {
-                text: qsTr("Northing")
+                text: qsTr("Hướng bắc")
             }
             FactTextField {
                 fact:               controller.northing
@@ -109,7 +109,7 @@ QGCPopupDialog {
             }
 
             QGCButton {
-                text:               qsTr("Set UTM")
+                text:               qsTr("Đặt UTM")
                 Layout.alignment:   Qt.AlignRight
                 Layout.columnSpan:  2
                 onClicked: {
@@ -129,7 +129,7 @@ QGCPopupDialog {
             }
 
             QGCButton {
-                text:              qsTr("Set MGRS")
+                text:              qsTr("Đặt MGRS")
                 Layout.alignment:  Qt.AlignRight
                 Layout.columnSpan: 2
                 onClicked: {
@@ -141,7 +141,7 @@ QGCPopupDialog {
             Item { width: 1; height: ScreenTools.defaultFontPixelHeight; Layout.columnSpan: 2}
 
             QGCButton {
-                text:              qsTr("Set From Vehicle Position")
+                text:              qsTr("Đặt từ vị trí phương tiện")
                 visible:           QGroundControl.multiVehicleManager.activeVehicle && QGroundControl.multiVehicleManager.activeVehicle.coordinate.isValid
                 Layout.alignment:  Qt.AlignRight
                 Layout.columnSpan: 2

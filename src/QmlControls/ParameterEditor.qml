@@ -60,7 +60,7 @@ Item {
 
         QGCLabel {
             anchors.verticalCenter: parent.verticalCenter
-            text: qsTr("Search:")
+            text: qsTr("Tìm kiếm:")
         }
 
         QGCTextField {
@@ -71,7 +71,7 @@ Item {
         }
 
         QGCButton {
-            text: qsTr("Clear")
+            text: qsTr("Xóa")
             onClicked: {
                 if(ScreenTools.isMobile) {
                     Qt.inputMethod.hide();
@@ -82,7 +82,7 @@ Item {
         }
 
         QGCCheckBox {
-            text:                   qsTr("Show modified only")
+            text:                   qsTr("Chỉ hiển thị bản đã sửa đổi")
             anchors.verticalCenter: parent.verticalCenter
             checked:                controller.showModifiedOnly
             onClicked:              controller.showModifiedOnly = checked
@@ -94,59 +94,59 @@ Item {
         anchors.top:    header.top
         anchors.bottom: header.bottom
         anchors.right:  parent.right
-        text:           qsTr("Tools")
+        text:           qsTr("Công cụ")
         onClicked:      toolsMenu.popup()
     }
 
     QGCMenu {
         id:                 toolsMenu
         QGCMenuItem {
-            text:           qsTr("Refresh")
+            text:           qsTr("Làm mới")
             onTriggered:	controller.refresh()
         }
         QGCMenuItem {
-            text:           qsTr("Reset all to firmware's defaults")
-            onTriggered:    mainWindow.showMessageDialog(qsTr("Reset All"),
-                                                         qsTr("Select Reset to reset all parameters to their defaults.\n\nNote that this will also completely reset everything, including UAVCAN nodes, all vehicle settings, setup and calibrations."),
+            text:           qsTr("Đặt lại tất cả về mặc định của chương trình cơ sở")
+            onTriggered:    mainWindow.showMessageDialog(qsTr("Đặt lại tất cả"),
+                                                         qsTr("Chọn Đặt lại để đặt lại tất cả các thông số về mặc định.\n\nLưu ý rằng thao tác này cũng sẽ đặt lại hoàn toàn mọi thứ, bao gồm các nút UAVCAN, tất cả cài đặt xe, thiết lập và hiệu chuẩn."),
                                                          StandardButton.Cancel | StandardButton.Reset,
                                                          function() { controller.resetAllToDefaults() })
         }
         QGCMenuItem {
-            text:           qsTr("Reset to vehicle's configuration defaults")
+            text:           qsTr("Đặt lại cấu hình mặc định của phương tiện")
             visible:        !_activeVehicle.apmFirmware
-            onTriggered:    mainWindow.showMessageDialog(qsTr("Reset All"),
-                                                         qsTr("Select Reset to reset all parameters to the vehicle's configuration defaults."),
+            onTriggered:    mainWindow.showMessageDialog(qsTr("Đặt lại tất cả"),
+                                                         qsTr("Chọn Đặt lại để đặt lại tất cả các thông số về cấu hình mặc định của phương tiện."),
                                                          StandardButton.Cancel | StandardButton.Reset,
                                                          function() { controller.resetAllToVehicleConfiguration() })
         }
         QGCMenuSeparator { }
         QGCMenuItem {
-            text:           qsTr("Load from file...")
+            text:           qsTr("Tải từ tập tin...")
             onTriggered: {
-                fileDialog.title =          qsTr("Load Parameters")
+                fileDialog.title =          qsTr("Tải tham số")
                 fileDialog.selectExisting = true
                 fileDialog.openForLoad()
             }
         }
         QGCMenuItem {
-            text:           qsTr("Save to file...")
+            text:           qsTr("Lưu vào tập tin...")
             onTriggered: {
-                fileDialog.title =          qsTr("Save Parameters")
+                fileDialog.title =          qsTr("Lưu tham số")
                 fileDialog.selectExisting = false
                 fileDialog.openForSave()
             }
         }
         QGCMenuSeparator { visible: _showRCToParam }
         QGCMenuItem {
-            text:           qsTr("Clear all RC to Param")
+            text:           qsTr("Xóa tất cả RC đến Param")
             onTriggered:	_activeVehicle.clearAllParamMapRC()
             visible:        _showRCToParam
         }
         QGCMenuSeparator { }
         QGCMenuItem {
-            text:           qsTr("Reboot Vehicle")
-            onTriggered:    mainWindow.showMessageDialog(qsTr("Reboot Vehicle"),
-                                                         qsTr("Select Ok to reboot vehicle."),
+            text:           qsTr("Khởi động lại phương tiện")
+            onTriggered:    mainWindow.showMessageDialog(qsTr("Khởi động lại phương tiện"),
+                                                         qsTr("Chọn Ok để khởi động lại phương tiện."),
                                                          StandardButton.Cancel | StandardButton.Ok,
                                                          function() { _activeVehicle.rebootVehicle() })
         }
@@ -299,7 +299,7 @@ Item {
     QGCFileDialog {
         id:             fileDialog
         folder:         _appSettings.parameterSavePath
-        nameFilters:    [ qsTr("Parameter Files (*.%1)").arg(_appSettings.parameterFileExtension) , qsTr("All Files (*)") ]
+        nameFilters:    [ qsTr("Các tập tin tham số (*.%1)").arg(_appSettings.parameterFileExtension) , qsTr("Tất cả các tập tin (*)") ]
 
         onAcceptedForSave: {
             controller.saveToFile(file)

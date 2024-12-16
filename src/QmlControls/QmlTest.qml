@@ -225,11 +225,11 @@ Rectangle {
             spacing:    20
             anchors.centerIn: parent
             QGCLabel {
-                text:   qsTr("Window Color")
+                text:   qsTr("Màu cửa sổ")
                 anchors.verticalCenter: parent.verticalCenter
             }
             QGCButton {
-                text:   qsTr("Import/Export")
+                text:   qsTr("Nhập/Xuất")
                 anchors.verticalCenter: parent.verticalCenter
                 onClicked: paletteImportExportPopup.open()
             }
@@ -237,14 +237,14 @@ Rectangle {
                 spacing:         20
                 anchors.verticalCenter: parent.verticalCenter
                 QGCRadioButton {
-                    text:       qsTr("Light")
+                    text:       qsTr("Sáng")
                     checked:    _root.palette.globalTheme === QGCPalette.Light
                     onClicked: {
                         _root.palette.globalTheme = QGCPalette.Light
                     }
                 }
                 QGCRadioButton {
-                    text:       qsTr("Dark")
+                    text:       qsTr("Tối")
                     checked:    _root.palette.globalTheme === QGCPalette.Dark
                     onClicked: {
                         _root.palette.globalTheme = QGCPalette.Dark
@@ -285,25 +285,25 @@ Rectangle {
                             width: editRoot.cellSize.width; height: editRoot.cellSize.height
                             color: "black"
                             horizontalAlignment: Text.AlignLeft
-                            text: qsTr("Enabled")
+                            text: qsTr("Đã bật")
                         }
                         Text {
                             width: editRoot.cellSize.width; height: editRoot.cellSize.height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Value")
+                            text: qsTr("Giá trị")
                         }
                         Text {
                             width: editRoot.cellSize.width; height: editRoot.cellSize.height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Disabled")
+                            text: qsTr("Tàn tật")
                         }
                         Text {
                             width: editRoot.cellSize.width; height: editRoot.cellSize.height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Value")
+                            text: qsTr("Giá trị")
                         }
                     }
 
@@ -383,21 +383,21 @@ Rectangle {
                             height: ctlPrevColumn._height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("QGC name")
+                            text: qsTr("Tên QGC")
                         }
                         Text {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Enabled")
+                            text: qsTr("Đã bật")
                         }
                         Text {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
                             color: "black"
                             horizontalAlignment: Text.AlignHCenter
-                            text: qsTr("Disabled")
+                            text: qsTr("Bị vô hiệu hóa")
                         }
 
                         // QGCLabel
@@ -412,7 +412,7 @@ Rectangle {
                             QGCLabel {
                                 anchors.fill: parent
                                 anchors.margins: 5
-                                text: qsTr("Label")
+                                text: qsTr("Nhãn")
                             }
                         }
                         Rectangle {
@@ -422,7 +422,7 @@ Rectangle {
                             QGCLabel {
                                 anchors.fill: parent
                                 anchors.margins: 5
-                                text: qsTr("Label")
+                                text: qsTr("Nhãn")
                                 enabled: false
                             }
                         }
@@ -435,12 +435,12 @@ Rectangle {
                         QGCButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            text: qsTr("Button")
+                            text: qsTr("Nút")
                         }
                         QGCButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            text: qsTr("Button")
+                            text: qsTr("Nút")
                             enabled: false
                         }
 
@@ -453,12 +453,12 @@ Rectangle {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
                             primary: true
-                            text: qsTr("Button")
+                            text: qsTr("Nút")
                         }
                         QGCButton {
                             width:  ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            text:   qsTr("Button")
+                            text:   qsTr("Nút")
                             primary: true
                             enabled: false
                         }
@@ -471,14 +471,14 @@ Rectangle {
                         ToolStripHoverButton {
                             width:  ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height * 2
-                            text:   qsTr("Hover Button")
+                            text:   qsTr("Nút di chuột")
                             radius: ScreenTools.defaultFontPointSize
                             imageSource: "/qmlimages/Gears.svg"
                         }
                         ToolStripHoverButton {
                             width:  ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height * 2
-                            text:   qsTr("Hover Button")
+                            text:   qsTr("Nút di chuột")
                             radius: ScreenTools.defaultFontPointSize
                             imageSource: "/qmlimages/Gears.svg"
                             enabled: false
@@ -492,25 +492,25 @@ Rectangle {
                         Menu {
                             id: buttonMenu
                             QGCMenuItem {
-                                text: qsTr("Item 1")
+                                text: qsTr("Mục 1")
                             }
                             QGCMenuItem {
-                                text: qsTr("Item 2")
+                                text: qsTr("Mục 2")
                             }
                             QGCMenuItem {
-                                text: qsTr("Item 3")
+                                text: qsTr("Mục 3")
                             }
                         }
                         QGCButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            text: qsTr("Button")
+                            text: qsTr("Nút")
                             onClicked: buttonMenu.popup()
                         }
                         QGCButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            text: qsTr("Button")
+                            text: qsTr("Nút")
                             enabled: false
                             onClicked: buttonMenu.popup()
                         }
@@ -554,7 +554,7 @@ Rectangle {
                             QGCCheckBox {
                                 anchors.fill: parent
                                 anchors.margins: 5
-                                text: qsTr("Check Box")
+                                text: qsTr("Hộp kiểm tra")
                             }
                         }
                         Rectangle {
@@ -564,7 +564,7 @@ Rectangle {
                             QGCCheckBox {
                                 anchors.fill: parent
                                 anchors.margins: 5
-                                text: qsTr("Check Box")
+                                text: qsTr("Hộp kiểm tra")
                                 enabled: false
                             }
                         }
@@ -594,12 +594,12 @@ Rectangle {
                         QGCComboBox {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            model: [ qsTr("Item 1"), qsTr("Item 2"), qsTr("Item 3") ]
+                            model: [ qsTr("Mục 1"), qsTr("Mục 2"), qsTr("Mục 3") ]
                         }
                         QGCComboBox {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._height
-                            model: [ qsTr("Item 1"), qsTr("Item 2"), qsTr("Item 3") ]
+                            model: [ qsTr("Mục 1"), qsTr("Mục 2"), qsTr("Mục 3") ]
                             enabled: false
                         }
 
@@ -611,12 +611,12 @@ Rectangle {
                         SubMenuButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._colWidth/3
-                            text: qsTr("SUB MENU")
+                            text: qsTr("MENU PHỤ")
                         }
                         SubMenuButton {
                             width: ctlPrevColumn._colWidth
                             height: ctlPrevColumn._colWidth/3
-                            text: qsTr("SUB MENU")
+                            text: qsTr("MENU PHỤ")
                             enabled: false
                         }
                     }

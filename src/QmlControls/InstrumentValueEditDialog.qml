@@ -22,7 +22,7 @@ import QGroundControl.Palette       1.0
 
 QGCPopupDialog {
     id:         root
-    title:      qsTr("Value Display")
+    title:      qsTr("Hiển thị giá trị")
     buttons:    StandardButton.Close
 
     property var instrumentValueData
@@ -38,7 +38,7 @@ QGCPopupDialog {
         id: noFactComponent
 
         QGCLabel {
-            text: qsTr("Valuec requires a connected vehicle for setup.")
+            text: qsTr("Valuec yêu cầu phải có xe được kết nối để thiết lập.")
         }
     }
 
@@ -126,11 +126,11 @@ QGCPopupDialog {
 
             QGCRadioButton {
                 id:                     textRadio
-                text:                   qsTr("Text")
+                text:                   qsTr("Chữ")
                 Component.onCompleted:  checked = instrumentValueData.icon == ""
                 onClicked: {
                     instrumentValueData.icon = ""
-                    instrumentValueData.text = instrumentValueData.fact ? instrumentValueData.fact.shortDescription : qsTr("Label")
+                    instrumentValueData.text = instrumentValueData.fact ? instrumentValueData.fact.shortDescription : qsTr("Nhãn")
                 }
             }
 
@@ -143,7 +143,7 @@ QGCPopupDialog {
                 onEditingFinished:      instrumentValueData.text = text
             }
 
-            QGCLabel { text: qsTr("Size") }
+            QGCLabel { text: qsTr("Kích cỡ") }
 
             QGCComboBox {
                 id:                 fontSizeCombo
@@ -156,12 +156,12 @@ QGCPopupDialog {
 
             QGCCheckBox {
                 Layout.columnSpan:  2
-                text:               qsTr("Show Units")
+                text:               qsTr("Hiển thị đơn vị")
                 checked:            instrumentValueData.showUnits
                 onClicked:          instrumentValueData.showUnits = checked
             }
 
-            QGCLabel { text: qsTr("Range") }
+            QGCLabel { text: qsTr("Phạm vi") }
 
             QGCComboBox {
                 id:                 rangeTypeCombo
@@ -249,7 +249,7 @@ QGCPopupDialog {
 
                 QGCLabel {
                     width:      rowLayout.width
-                    text:       qsTr("Specify the color you want to apply based on value ranges. The color will be applied to the icon if available, otherwise to the value itself.")
+                    text:       qsTr("Chỉ định màu bạn muốn áp dụng dựa trên phạm vi giá trị. Màu sẽ được áp dụng cho biểu tượng nếu có, nếu không thì áp dụng cho chính giá trị.")
                     wrapMode:   Text.WordWrap
                 }
 
@@ -324,7 +324,7 @@ QGCPopupDialog {
                 }
 
                 QGCButton {
-                    text:       qsTr("Add Row")
+                    text:       qsTr("Thêm hàng")
                     onClicked:  instrumentValueData.addRangeValue()
                 }
             }
@@ -356,7 +356,7 @@ QGCPopupDialog {
 
                 QGCLabel {
                     width:      rowLayout.width
-                    text:       qsTr("Specify the icon you want to display based on value ranges.")
+                    text:       qsTr("Chỉ định biểu tượng bạn muốn hiển thị dựa trên phạm vi giá trị.")
                     wrapMode:   Text.WordWrap
                 }
 
@@ -423,7 +423,7 @@ QGCPopupDialog {
                 }
 
                 QGCButton {
-                    text:       qsTr("Add Row")
+                    text:       qsTr("Thêm hàng")
                     onClicked:  instrumentValueData.addRangeValue()
                 }
             }
@@ -455,7 +455,7 @@ QGCPopupDialog {
 
                 QGCLabel {
                     width:      rowLayout.width
-                    text:       qsTr("Specify the icon opacity you want based on value ranges.")
+                    text:       qsTr("Chỉ định độ mờ của biểu tượng mà bạn muốn dựa trên phạm vi giá trị.")
                     wrapMode:   Text.WordWrap
                 }
 
@@ -508,7 +508,7 @@ QGCPopupDialog {
                 }
 
                 QGCButton {
-                    text:       qsTr("Add Row")
+                    text:       qsTr("Thêm hàng")
                     onClicked:  instrumentValueData.addRangeValue()
                 }
             }
@@ -519,7 +519,7 @@ QGCPopupDialog {
         id: iconPickerDialog
 
         QGCPopupDialog {
-            title:      qsTr("Select Icon")
+            title:      qsTr("Chọn Icon")
             buttons:    StandardButton.Close
 
             property var     iconNames

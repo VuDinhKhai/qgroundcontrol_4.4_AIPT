@@ -22,7 +22,7 @@ import QGroundControl.ScreenTools   1.0
 
 QGCPopupDialog {
     id:         root
-    title:      qsTr("Parameter Editor")
+    title:      qsTr("Trình biên tập tham số")
     buttons:    StandardButton.Cancel | StandardButton.Save
 
     property Fact   fact
@@ -146,7 +146,7 @@ QGCPopupDialog {
 
             QGCButton {
                 visible:    _allowDefaultReset
-                text:       qsTr("Reset To Default")
+                text:       qsTr("Đặt lại về mặc định")
 
                 onClicked: {
                     fact.value = fact.defaultValue
@@ -196,53 +196,53 @@ QGCPopupDialog {
 
             QGCLabel {
                 id:         minValueDisplay
-                text:       qsTr("Min: ") + fact.minString
+                text:       qsTr("Tối thiểu: ") + fact.minString
                 visible:    !fact.minIsDefaultForType
             }
 
             QGCLabel {
-                text:       qsTr("Max: ") + fact.maxString
+                text:       qsTr("Tối đa: ") + fact.maxString
                 visible:    !fact.maxIsDefaultForType
             }
 
             QGCLabel {
-                text:       qsTr("Default: ") + fact.defaultValueString
+                text:       qsTr("Mặc định: ") + fact.defaultValueString
                 visible:    _allowDefaultReset
             }
         }
 
         QGCLabel {
-            text:       qsTr("Parameter name: ") + fact.name
+            text:       qsTr("Tên tham số: ") + fact.name
             visible:    fact.componentId > 0 // > 0 means it's a parameter fact
         }
 
         QGCLabel {
             visible:    fact.vehicleRebootRequired
-            text:       qsTr("Vehicle reboot required after change")
+            text:       qsTr("Phương tiện phải khởi động lại sau khi thay đổi")
         }
 
         QGCLabel {
             visible:    fact.qgcRebootRequired
-            text:       qsTr("Application restart required after change")
+            text:       qsTr("Ứng dụng cần khởi động lại sau khi thay đổi")
         }
 
         QGCLabel {
             Layout.fillWidth:   true
             wrapMode:   Text.WordWrap
-            text:       qsTr("Warning: Modifying values while vehicle is in flight can lead to vehicle instability and possible vehicle loss. ") +
-                        qsTr("Make sure you know what you are doing and double-check your values before Save!")
+            text:       qsTr("Cảnh báo: Việc thay đổi giá trị khi phương tiện đang bay có thể khiến phương tiện mất ổn định và có thể mất phương tiện.") +
+                        qsTr("Hãy đảm bảo bạn biết mình đang làm gì và kiểm tra lại các giá trị trước khi Lưu!")
             visible:    fact.componentId != -1
         }
 
         QGCCheckBox {
             id:         forceSave
             visible:    false
-            text:       qsTr("Force save (dangerous!)")
+            text:       qsTr("Buộc lưu (nguy hiểm!)")
         }
 
         QGCCheckBox {
             id:         _advanced
-            text:       qsTr("Advanced settings")
+            text:       qsTr("Cài đặt nâng cao")
             visible:    showRCToParam || factCombo.visible || bitmaskColumn.visible
         }
 
@@ -250,7 +250,7 @@ QGCPopupDialog {
         QGCCheckBox {
             id:         manualEntry
             visible:    _advanced.checked && (factCombo.visible || bitmaskColumn.visible)
-            text:       qsTr("Manual Entry")
+            text:       qsTr("Nhập thủ công")
 
             onClicked: {
                 valueField.text = fact.valueString
@@ -258,7 +258,7 @@ QGCPopupDialog {
         }
 
         QGCButton {
-            text:       qsTr("Set RC to Param")
+            text:       qsTr("Đặt RC thành Param")
             visible:    _advanced.checked && !validate && showRCToParam
             onClicked:  rcToParamDialog.createObject(mainWindow).open()
         }

@@ -92,7 +92,7 @@ Rectangle {
                     id:                 monitorLabel
                     height:             ScreenTools.defaultFontPixelHeight
                     verticalAlignment:  Text.AlignVCenter
-                    text:               qsTr("Monitor:")
+                    text:               qsTr("Màn hình:")
                 }
 
                 Item {
@@ -132,7 +132,7 @@ Rectangle {
                     id:                 thresholdLabel
                     height:             ScreenTools.defaultFontPixelHeight
                     verticalAlignment:  Text.AlignVCenter
-                    text:               qsTr("Threshold:")
+                    text:               qsTr("Ngưỡng:")
                 }
 
                 Item {

@@ -16,7 +16,7 @@ Rectangle {
 
     function pickLogFile() {
         if (globals.activeVehicle) {
-            mainWindow.showMessageDialog(qsTr("Log Replay"), qsTr("You must close all connections prior to replaying a log."))
+            mainWindow.showMessageDialog(qsTr("Nhật ký phát lại"), qsTr("Bạn phải đóng mọi kết nối trước khi phát lại nhật ký."))
             return
         }
 
@@ -27,8 +27,8 @@ Rectangle {
 
     QGCFileDialog {
         id:                 filePicker
-        title:              qsTr("Select Telemetery Log")
-        nameFilters:        [ qsTr("Telemetry Logs (*.%1)").arg(_logFileExtension), qsTr("All Files (*)") ]
+        title:              qsTr("Chọn nhật ký đo từ xa")
+        nameFilters:        [ qsTr("Nhật ký đo từ xa (*.%1)").arg(_logFileExtension), qsTr("Tất cả các tập tin (*)") ]
         selectExisting:     true
         folder:             QGroundControl.settingsManager.appSettings.telemetrySavePath
         onAcceptedForLoad: {
@@ -53,7 +53,7 @@ Rectangle {
         anchors.right:      parent.right
 
         QGCButton {
-            text:       controller.isPlaying ? qsTr("Pause") : qsTr("Play")
+            text:       controller.isPlaying ? qsTr("Tạm dừng") : qsTr("Chạy")
             enabled:    controller.link
             onClicked:  controller.isPlaying = !controller.isPlaying
         }
@@ -102,13 +102,13 @@ Rectangle {
         QGCLabel { text: controller.totalTime }
 
         QGCButton {
-            text:       qsTr("Load Telemetry Log")
+            text:       qsTr("Tải nhật ký đo từ xa")
             onClicked:  pickLogFile()
             visible:    !controller.link
         }
 
         QGCButton {
-            text:       qsTr("Close")
+            text:       qsTr("Đóng")
             onClicked: {
                 var activeVehicle = QGroundControl.multiVehicleManager.activeVehicle
                 if (activeVehicle) {

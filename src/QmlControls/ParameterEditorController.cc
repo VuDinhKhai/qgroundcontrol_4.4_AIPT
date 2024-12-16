@@ -214,7 +214,7 @@ void ParameterEditorController::saveToFile(const QString& filename)
         QFile file(parameterFilename);
 
         if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-            qgcApp()->showAppMessage(tr("Unable to create file: %1").arg(parameterFilename));
+            qgcApp()->showAppMessage(tr("Không thể tạo tập tin: %1").arg(parameterFilename));
             return;
         }
 
@@ -255,7 +255,7 @@ bool ParameterEditorController::buildDiffFromFile(const QString& filename)
     QFile file(filename);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qgcApp()->showAppMessage(tr("Unable to open file: %1").arg(filename));
+        qgcApp()->showAppMessage(tr("Không thể mở tập tin: %1").arg(filename));
         return false;
     }
 

@@ -159,55 +159,55 @@ Popup {
             acceptButton.text = qsTr("Ok")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Open) {
-            acceptButton.text = qsTr("Open")
+            acceptButton.text = qsTr("Mở")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Save) {
-            acceptButton.text = qsTr("Save")
+            acceptButton.text = qsTr("Lưu")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Apply) {
-            acceptButton.text = qsTr("Apply")
+            acceptButton.text = qsTr("Áp dụng")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Open) {
-            acceptButton.text = qsTr("Open")
+            acceptButton.text = qsTr("Mở")
             acceptButton.visible = true
         } else if (buttons & StandardButton.SaveAll) {
-            acceptButton.text = qsTr("Save All")
+            acceptButton.text = qsTr("Lưu tất cả")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Yes) {
-            acceptButton.text = qsTr("Yes")
+            acceptButton.text = qsTr("Có")
             acceptButton.visible = true
         } else if (buttons & StandardButton.YesToAll) {
-            acceptButton.text = qsTr("Yes to All")
+            acceptButton.text = qsTr("Có với tất cả")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Retry) {
-            acceptButton.text = qsTr("Retry")
+            acceptButton.text = qsTr("Thử lại")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Reset) {
-            acceptButton.text = qsTr("Reset")
+            acceptButton.text = qsTr("Cài lại")
             acceptButton.visible = true
         } else if (buttons & StandardButton.RestoreToDefaults) {
-            acceptButton.text = qsTr("Restore to Defaults")
+            acceptButton.text = qsTr("Khôi phục về mặc định")
             acceptButton.visible = true
         } else if (buttons & StandardButton.Ignore) {
-            acceptButton.text = qsTr("Ignore")
+            acceptButton.text = qsTr("Bỏ qua")
             acceptButton.visible = true
         }
 
         // Reject role buttons
         if (buttons & StandardButton.Cancel) {
-            rejectButton.text = qsTr("Cancel")
+            rejectButton.text = qsTr("Hủy bỏ")
             rejectButton.visible = true
         } else if (buttons & StandardButton.Close) {
-            rejectButton.text = qsTr("Close")
+            rejectButton.text = qsTr("Đóng")
             rejectButton.visible = true
         } else if (buttons & StandardButton.No) {
-            rejectButton.text = qsTr("No")
+            rejectButton.text = qsTr("Không")
             rejectButton.visible = true
         } else if (buttons & StandardButton.NoToAll) {
-            rejectButton.text = qsTr("No to All")
+            rejectButton.text = qsTr("Không với tất cả")
             rejectButton.visible = true
         } else if (buttons & StandardButton.Abort) {
-            rejectButton.text = qsTr("Abort")
+            rejectButton.text = qsTr("Hủy bỏ")
             rejectButton.visible = true
         }
 

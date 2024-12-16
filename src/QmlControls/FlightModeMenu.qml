@@ -17,7 +17,7 @@ import QGroundControl.ScreenTools   1.0
 // Label control whichs pop up a flight mode change menu when clicked
 QGCLabel {
     id:     _root
-    text:   currentVehicle ? currentVehicle.flightMode : qsTr("N/A", "No data to display")
+    text:   currentVehicle ? currentVehicle.flightMode : qsTr("N/A", "Không có dữ liệu để hiển thị")
 
     property var    currentVehicle:         QGroundControl.multiVehicleManager.activeVehicle
     property real   mouseAreaLeftMargin:    0

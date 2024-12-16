@@ -124,7 +124,7 @@ T.InstrumentValueArea {
         QGCButton {
             anchors.left:   parent.left
             anchors.right:  parent.right
-            text:           qsTr("Reset To Defaults")
+            text:           qsTr("Đặt lại về mặc định")
             visible:        settingsUnlocked
             onClicked:      resetToDefaults()
         }

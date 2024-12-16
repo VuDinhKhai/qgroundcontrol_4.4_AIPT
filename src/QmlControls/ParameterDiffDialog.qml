@@ -20,7 +20,7 @@ import QGroundControl.FactControls  1.0
 import QGroundControl.Controllers   1.0
 
 QGCPopupDialog {
-    title:      qsTr("Load Parameters")
+    title:      qsTr("Tải tham số")
     buttons:    StandardButton.Cancel | (paramController.diffList.count ? StandardButton.Ok : 0)
 
     property var paramController
@@ -36,8 +36,8 @@ QGCPopupDialog {
             Layout.preferredWidth:  mainGrid.visible ? mainGrid.width : ScreenTools.defaultFontPixelWidth * 40
             wrapMode:               Text.WordWrap
             text:                   paramController.diffList.count ?
-                                        qsTr("The following parameters from the loaded file differ from what is currently set on the Vehicle. Click 'Ok' to update them on the Vehicle.") :
-                                        qsTr("There are no differences between the file loaded and the current settings on the Vehicle.")
+                                        qsTr("Các tham số sau từ tệp đã tải khác với những gì hiện được thiết lập trên phương tiện. Nhấp vào 'Ok' để cập nhật chúng trên phương tiện.") :
+                                        qsTr("Không có sự khác biệt nào giữa tệp đã tải và cài đặt hiện tại trên phương tiện.")
         }
 
         GridLayout {
@@ -65,26 +65,26 @@ QGCPopupDialog {
 
             Repeater {
                 model: paramController.diffMultipleComponents ? 1 : 0
-                QGCLabel { text: qsTr("Comp ID") }
+                QGCLabel { text: qsTr("ID Máy tính") }
             }
             Repeater {
                 model: paramController.diffMultipleComponents ? paramController.diffList : 0
                 QGCLabel { text: object.componentId }
             }
 
-            QGCLabel { text: qsTr("Name") }
+            QGCLabel { text: qsTr("Tên") }
             Repeater {
                 model: paramController.diffList
                 QGCLabel { text: object.name }
             }
 
-            QGCLabel { text: qsTr("File") }
+            QGCLabel { text: qsTr("Tài liệu") }
             Repeater {
                 model: paramController.diffList
                 QGCLabel { text: object.fileValue + " " + object.units }
             }
 
-            QGCLabel { text: qsTr("Vehicle") }
+            QGCLabel { text: qsTr("Phương tiện") }
             Repeater {
                 model: paramController.diffList
                 QGCLabel { text: object.noVehicleValue ? qsTr("N/A") : object.vehicleValue + " " + object.units }

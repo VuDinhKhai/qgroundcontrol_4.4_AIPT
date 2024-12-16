@@ -119,7 +119,7 @@ Item {
                 width:      40 * ScreenTools.defaultFontPixelWidth
                 spacing:    ScreenTools.defaultFontPixelHeight / 2
 
-                QGCLabel { text: qsTr("Path: %1").arg(_mobileShortPath) }
+                QGCLabel { text: qsTr("Đường dẫn: %1").arg(_mobileShortPath) }
 
                 Repeater {
                     id:     fileRepeater
@@ -150,7 +150,7 @@ Item {
                             onAboutToHide: fileButton.highlight = false
 
                             QGCMenuItem {
-                                text:           qsTr("Delete")
+                                text:           qsTr("Xóa bỏ")
                                 onTriggered: {
                                     controller.deleteFile(hamburgerMenu.fileToDelete)
                                     fileRepeater.model = controller.getFiles(folder, _rgExtensions)
@@ -161,7 +161,7 @@ Item {
                 }
 
                 QGCLabel {
-                    text:       qsTr("No files")
+                    text:       qsTr("Không có tập tin")
                     visible:    fileRepeater.model.length === 0
                 }
             }
@@ -201,7 +201,7 @@ Item {
                     anchors.right:  parent.right
                     spacing:        ScreenTools.defaultFontPixelWidth
 
-                    QGCLabel { text: qsTr("New file name:") }
+                    QGCLabel { text: qsTr("Tên tập tin mới:") }
 
                     QGCTextField {
                         id:                 filenameTextField
@@ -215,7 +215,7 @@ Item {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
                     wrapMode:       Text.WordWrap
-                    text:           qsTr("The file %1 exists. Click Save again to replace it.").arg(filenameTextField.text)
+                    text:           qsTr("Tệp %1 đã tồn tại. Nhấp vào Lưu lần nữa để thay thế.").arg(filenameTextField.text)
                     visible:        false
                     color:          qgcPal.warningText
                 }
@@ -223,7 +223,7 @@ Item {
                 SectionHeader {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    text:           qsTr("Save to existing file:")
+                    text:           qsTr("Lưu vào tập tin hiện có:")
                 }
 
                 Repeater {
@@ -255,7 +255,7 @@ Item {
                             onAboutToHide: fileButton.highlight = false
 
                             QGCMenuItem {
-                                text:           qsTr("Delete")
+                                text:           qsTr("Xóa bỏ")
                                 onTriggered: {
                                     controller.deleteFile(hamburgerMenu.fileToDelete)
                                     fileRepeater.model = controller.getFiles(folder, [ _rgExtensions ])

@@ -24,7 +24,7 @@ Item {
     property var  _autotune:   globals.activeVehicle.autotune
     property real _margins:    ScreenTools.defaultFontPixelHeight
 
-    readonly property string dialogTitle: qsTr("Autotune")
+    readonly property string dialogTitle: qsTr("Tự động điều chỉnh")
 
     QGCPalette {
         id:                palette
@@ -49,13 +49,13 @@ Item {
             }
 
             onClicked: mainWindow.showMessageDialog(dialogTitle,
-                                                    qsTr("WARNING!\
-            \n\nThe auto-tuning procedure should be executed with caution and requires the vehicle to fly stable enough before attempting the procedure! \
-            \n\nBefore starting the auto-tuning process, make sure that: \
-            \n1. You have read the auto-tuning guide and have followed the preliminary steps \
-            \n2. The current control gains are good enough to stabilize the drone in presence of medium disturbances \
-            \n3. You are ready to abort the auto-tuning sequence by moving the RC sticks, if anything unexpected happens. \
-            \n\nClick Ok to start the auto-tuning process.\n"),
+                                                    qsTr("CẢNH BÁO!\
+            \n\nQuy trình tự động điều chỉnh phải được thực hiện một cách thận trọng và yêu cầu phương tiện phải bay đủ ổn định trước khi thực hiện quy trình! \
+            \n\nTrước khi bắt đầu quá trình tự động điều chỉnh, hãy đảm bảo rằng: \
+            \n1. Bạn đã đọc hướng dẫn tự động điều chỉnh và đã làm theo các bước sơ bộ \
+            \n2. Các mức tăng kiểm soát hiện tại đủ tốt để ổn định máy bay không người lái khi có nhiễu động trung bình \
+            \n3. Bạn đã sẵn sàng hủy bỏ trình tự điều chỉnh tự động bằng cách di chuyển cần điều khiển RC nếu có bất kỳ điều gì bất ngờ xảy ra. \
+            \n\nNhấn vào Ok để bắt đầu quá trình tự động điều chỉnh.\n"),
                                                     StandardButton.Ok | StandardButton.Cancel,
                                                     function() { _autotune.autotuneRequest() })
         }

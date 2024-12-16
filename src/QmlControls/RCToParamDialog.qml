@@ -20,7 +20,7 @@ import QGroundControl.FactControls  1.0
 import QGroundControl.Controllers   1.0
 
 QGCPopupDialog {
-    title:      qsTr("RC To Param")
+    title:      qsTr("RC Đến Param")
     buttons:    StandardButton.Cancel | StandardButton.Ok
 
     property alias tuningFact: controller.tuningFact
@@ -38,13 +38,13 @@ QGCPopupDialog {
             Layout.preferredWidth:  mainGrid.width
             Layout.fillWidth:       true
             wrapMode:               Text.WordWrap
-            text:                   qsTr("Bind an RC Channel to a parameter value. Tuning IDs can be mapped to an RC Channel from Radio Setup page.")
+            text:                   qsTr("Liên kết một Kênh RC với một giá trị tham số. ID điều chỉnh có thể được ánh xạ tới một Kênh RC từ trang Thiết lập Radio.")
         }
 
         QGCLabel {
             Layout.preferredWidth:  mainGrid.width
             Layout.fillWidth:       true
-            text:                   qsTr("Waiting on parameter update from Vehicle.")
+            text:                   qsTr("Đang chờ cập nhật thông số từ phương tiện.")
             visible:                !controller.ready
         }
 
@@ -55,10 +55,10 @@ QGCPopupDialog {
             columnSpacing:  ScreenTools.defaultDialogControlSpacing
             enabled:        controller.ready
 
-            QGCLabel { text: qsTr("Parameter") }
+            QGCLabel { text: qsTr("Tham số") }
             QGCLabel { text: tuningFact.name }
 
-            QGCLabel { text: qsTr("Tuning ID") }
+            QGCLabel { text: qsTr("ID điều chỉnh") }
             QGCComboBox {
                 id:                 tuningID
                 Layout.fillWidth:   true
@@ -66,25 +66,25 @@ QGCPopupDialog {
                 model:              [ 1, 2, 3 ]
             }
 
-            QGCLabel { text: qsTr("Scale") }
+            QGCLabel { text: qsTr("Tỉ lệ") }
             QGCTextField {
                 id:     scale
                 text:   controller.scale.valueString
             }
 
-            QGCLabel { text: qsTr("Center Value") }
+            QGCLabel { text: qsTr("Giá trị trung tâm") }
             QGCTextField {
                 id:     centerValue
                 text:   controller.center.valueString
             }
 
-            QGCLabel { text: qsTr("Min Value") }
+            QGCLabel { text: qsTr("Giá trị tối thiểu") }
             QGCTextField {
                 id:     minValue
                 text:   controller.min.valueString
             }
 
-            QGCLabel { text: qsTr("Max Value") }
+            QGCLabel { text: qsTr("Giá trị tối đa") }
             QGCTextField {
                 id:     maxValue
                 text:   controller.max.valueString
@@ -95,7 +95,7 @@ QGCPopupDialog {
             Layout.preferredWidth:  mainGrid.width
             Layout.fillWidth:       true
             wrapMode:               Text.WordWrap
-            text:                   qsTr("Double check that all values are correct prior to confirming dialog.")
+            text:                   qsTr("Kiểm tra lại xem tất cả giá trị có chính xác không trước khi xác nhận hộp thoại.")
         }
     }
 }

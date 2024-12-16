@@ -84,9 +84,9 @@ Item {
             QGCFileDialog {
                 id:             writeDialog
                 folder:         QGroundControl.settingsManager.appSettings.logSavePath
-                nameFilters:    [qsTr("Log files (*.txt)"), qsTr("All Files (*)")]
+                nameFilters:    [qsTr("Tệp nhật ký (*.txt)"), qsTr("Tất cả các tập tin (*)")]
                 selectExisting: false
-                title:          qsTr("Select log save file")
+                title:          qsTr("Chọn tệp lưu nhật ký")
                 onAcceptedForSave: {
                     debugMessageModel.writeMessages(file);
                     visible = false;
@@ -104,7 +104,7 @@ Item {
                 anchors.bottom:  parent.bottom
                 anchors.left:    parent.left
                 onClicked:       writeDialog.openForSave()
-                text:            qsTr("Save App Log")
+                text:            qsTr("Lưu nhật ký ứng dụng")
             }
 
             QGCLabel {
@@ -112,7 +112,7 @@ Item {
                 anchors.left:           writeButton.right
                 anchors.leftMargin:     ScreenTools.defaultFontPixelWidth
                 anchors.verticalCenter: gstCombo.verticalCenter
-                text:                   qsTr("GStreamer Debug Level")
+                text:                   qsTr("Mức gỡ lỗi GStreamer")
                 visible:                QGroundControl.settingsManager.appSettings.gstDebugLevel.visible
             }
 
@@ -131,7 +131,7 @@ Item {
                 anchors.right:          filterButton.left
                 anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
                 anchors.bottom:         parent.bottom
-                text:                   qsTr("Show Latest")
+                text:                   qsTr("Hiển thị mới nhất")
                 checkable:              true
                 checked:                true
 
@@ -146,7 +146,7 @@ Item {
                 id:             filterButton
                 anchors.bottom: parent.bottom
                 anchors.right:  parent.right
-                text:           qsTr("Set Logging")
+                text:           qsTr("Thiết lập ghi nhật ký")
                 onClicked:      filtersDialogComponent.createObject(mainWindow).open()
             }
         }
@@ -156,7 +156,7 @@ Item {
         id: filtersDialogComponent
 
         QGCPopupDialog {
-            title:      qsTr("Logging categories")
+            title:      qsTr("Thể loại ghi nhật ký")
             buttons:    StandardButton.Close
 
             ColumnLayout {
@@ -167,7 +167,7 @@ Item {
                     Layout.fillWidth: true
 
                     QGCLabel {
-                        text: qsTr("Search:")
+                        text: qsTr("Tìm kiếm:")
                     }
 
                     QGCTextField {
@@ -178,7 +178,7 @@ Item {
                     }
 
                     QGCButton {
-                        text: qsTr("Clear")
+                        text: qsTr("Xóa")
                         onClicked: searchText.text = ""
                     }
                 }
@@ -186,7 +186,7 @@ Item {
                 Row {
                     spacing:    ScreenTools.defaultFontPixelHeight / 2
                     QGCButton {
-                        text: qsTr("Clear All")
+                        text: qsTr("Xóa tất cả")
                         onClicked: categoryRepeater.setAllLogs(false)
                     }
                 }

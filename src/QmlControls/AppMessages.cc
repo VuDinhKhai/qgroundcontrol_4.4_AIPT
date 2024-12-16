@@ -7,8 +7,6 @@
  *
  ****************************************************************************/
 
-
-
 // Allows QGlobalStatic to work on this translation unit
 #define _LOG_CTOR_ACCESS_ public
 
@@ -27,18 +25,21 @@ static QtMessageHandler old_handler;
 
 static void msgHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
-    const char symbols[] = { 'D', 'E', '!', 'X', 'I' };
+    const char symbols[] = {'D', 'E', '!', 'X', 'I'};
     QString output = QString("[%1] at %2:%3 - \"%4\"").arg(symbols[type]).arg(context.file).arg(context.line).arg(msg);
 
     // Avoid recursion
-    if (!QString(context.category).startsWith("qt.quick")) {
+    if (!QString(context.category).startsWith("qt.quick"))
+    {
         debug_model->log(output);
     }
 
-    if (old_handler != nullptr) {
+    if (old_handler != nullptr)
+    {
         old_handler(type, context, msg);
     }
-    if( type == QtFatalMsg ) abort();
+    if (type == QtFatalMsg)
+        abort();
 }
 
 void AppMessages::installHandler()
@@ -68,7 +69,8 @@ void AppLogModel::writeMessages(const QString dest_file)
 {
     const QString writebuffer(stringList().join('\n').append('\n'));
 
-    QtConcurrent::run([dest_file, writebuffer] {
+    QtConcurrent::run([dest_file, writebuffer]
+                      {
         emit debug_model->writeStarted();
         bool success = false;
         QFile file(dest_file);
@@ -79,8 +81,7 @@ void AppLogModel::writeMessages(const QString dest_file)
         } else {
             qWarning() << "AppLogModel::writeMessages write failed:" << file.errorString();
         }
-        emit debug_model->writeFinished(success);
-    });
+        emit debug_model->writeFinished(success); });
 }
 
 void AppLogModel::log(const QString message)
@@ -94,23 +95,27 @@ void AppLogModel::threadsafeLog(const QString message)
     insertRows(line, 1);
     setData(index(line), message, Qt::DisplayRole);
 
-    if (qgcApp() && qgcApp()->logOutput() && _logFile.fileName().isEmpty()) {
+    if (qgcApp() && qgcApp()->logOutput() && _logFile.fileName().isEmpty())
+    {
         qDebug() << _logFile.fileName().isEmpty() << qgcApp()->logOutput();
-        QGCToolbox* toolbox = qgcApp()->toolbox();
+        QGCToolbox *toolbox = qgcApp()->toolbox();
         // Be careful of toolbox not being open yet
-        if (toolbox) {
+        if (toolbox)
+        {
             QString saveDirPath = qgcApp()->toolbox()->settingsManager()->appSettings()->crashSavePath();
             QDir saveDir(saveDirPath);
             QString saveFilePath = saveDir.absoluteFilePath(QStringLiteral("QGCConsole.log"));
 
             _logFile.setFileName(saveFilePath);
-            if (!_logFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-                qgcApp()->showAppMessage(tr("Open console log output file failed %1 : %2").arg(_logFile.fileName()).arg(_logFile.errorString()));
+            if (!_logFile.open(QIODevice::WriteOnly | QIODevice::Text))
+            {
+                qgcApp()->showAppMessage(tr("Mở tệp đầu ra nhật ký bảng điều khiển không thành công %1 : %2").arg(_logFile.fileName()).arg(_logFile.errorString()));
             }
         }
     }
 
-    if (_logFile.isOpen()) {
+    if (_logFile.isOpen())
+    {
         QTextStream out(&_logFile);
         out << message << "\n";
         _logFile.flush();
