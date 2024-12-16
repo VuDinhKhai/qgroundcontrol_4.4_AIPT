@@ -48,7 +48,7 @@ QGCPopupDialog {
         id: buttonModel
 
         ListElement {
-            modeName:   qsTr("Relative To Launch")
+            modeName:   qsTr("Liên quan đến việc ra mắt")
             help:       qsTr("Các độ cao được chỉ định là tương đối với độ cao của vị trí cất cánh.")
             modeValue:  QGroundControl.AltitudeModeRelative
         }

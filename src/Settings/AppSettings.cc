@@ -107,10 +107,10 @@ DECLARE_SETTINGGROUP(App, "")
             qDebug() << "AndroidInterface::getSDCardPath();" << rootDirPath;
                 if (rootDirPath.isEmpty() || !QDir(rootDirPath).exists()) {
                     rootDirPath.clear();
-                    qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But no SD card present. Using internal storage."));
+                    qgcApp()->showAppMessage(tr("Lưu vào thẻ SD được chỉ định cho dữ liệu ứng dụng. Nhưng không có thẻ SD nào. Sử dụng bộ nhớ trong."));
                 } else if (!QFileInfo(rootDirPath).isWritable()) {
                     rootDirPath.clear();
-                    qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But SD card is write protected. Using internal storage."));
+                    qgcApp()->showAppMessage(tr("Lưu vào thẻ SD được chỉ định cho dữ liệu ứng dụng. Nhưng thẻ SD được bảo vệ chống ghi. Sử dụng bộ nhớ trong."));
                 }
             }
         #endif
@@ -203,7 +203,7 @@ DECLARE_SETTINGSFACT_NO_FUNC(AppSettings, qLocaleLanguage)
         }
         for (int i=0; i<rgOriginalStrings.count(); i++) {
             if (_rgPartialLanguages.contains(rgOriginalValues[i].toInt())) {
-                rgUpdatedStrings.append(rgOriginalStrings[i] + AppSettings::tr(" (Partial)"));
+                rgUpdatedStrings.append(rgOriginalStrings[i] + AppSettings::tr(" (Một phần)"));
                 rgUpdatedValues.append(rgOriginalValues[i].toInt());
             }
         }
@@ -212,7 +212,7 @@ DECLARE_SETTINGSFACT_NO_FUNC(AppSettings, qLocaleLanguage)
         for (int i=0; i<rgOriginalStrings.count(); i++) {
             int languageId = rgOriginalValues[i].toInt();
             if (!_rgReleaseLanguages.contains(languageId)  || !_rgPartialLanguages.contains(languageId)) {
-                rgUpdatedStrings.append(rgOriginalStrings[i] + AppSettings::tr(" (Test only)"));
+                rgUpdatedStrings.append(rgOriginalStrings[i] + AppSettings::tr(" (Chỉ thử nghiệm)"));
                 rgUpdatedValues.append(rgOriginalValues[i].toInt());
             }
         }

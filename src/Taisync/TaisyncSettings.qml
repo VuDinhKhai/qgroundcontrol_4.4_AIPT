@@ -53,7 +53,7 @@ Rectangle {
             spacing:            ScreenTools.defaultFontPixelHeight * 0.5
             anchors.margins:    ScreenTools.defaultFontPixelWidth
             QGCLabel {
-                text:           qsTr("Reboot ground unit for changes to take effect.")
+                text:           qsTr("Khởi động lại thiết bị mặt đất để thay đổi có hiệu lực.")
                 color:          qgcPal.colorOrange
                 visible:        QGroundControl.taisyncManager.needReboot
                 font.family:    ScreenTools.demiboldFontFamily
@@ -68,7 +68,7 @@ Rectangle {
                 anchors.horizontalCenter:   parent.horizontalCenter
                 QGCLabel {
                     id:             generalLabel
-                    text:           qsTr("General")
+                    text:           qsTr("Tổng quan")
                     font.family:    ScreenTools.demiboldFontFamily
                 }
             }
@@ -85,13 +85,13 @@ Rectangle {
                     Column {
                         spacing:        ScreenTools.defaultFontPixelWidth
                         FactCheckBox {
-                            text:       qsTr("Enable Taisync")
+                            text:       qsTr("Bật Taisync")
                             fact:       _taisyncEnabledFact
                             enabled:    !QGroundControl.taisyncManager.needReboot
                             visible:    _taisyncEnabledFact.visible
                         }
                         FactCheckBox {
-                            text:       qsTr("Enable Taisync Video")
+                            text:       qsTr("Bật Taisync Video")
                             fact:       _taisyncVideoEnabledFact
                             visible:    _taisyncVideoEnabledFact.visible
                             enabled:    _taisyncEnabled && !QGroundControl.taisyncManager.needReboot
@@ -109,7 +109,7 @@ Rectangle {
                 visible:                    _taisyncEnabled
                 QGCLabel {
                     id:                     statusLabel
-                    text:                   qsTr("Connection Status")
+                    text:                   qsTr("Trạng thái kết nối")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -131,29 +131,29 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         columns: 2
                         QGCLabel {
-                            text:           qsTr("Ground Unit:")
+                            text:           qsTr("Đơn vị mặt đất:")
                             Layout.minimumWidth: _labelWidth
                         }
                         QGCLabel {
-                            text:           QGroundControl.taisyncManager.connected ? qsTr("Connected") : qsTr("Not Connected")
+                            text:           QGroundControl.taisyncManager.connected ? qsTr("Đã kết nối") : qsTr("Không kết nối")
                             color:          QGroundControl.taisyncManager.connected ? qgcPal.colorGreen : qgcPal.colorRed
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Air Unit:")
+                            text:           qsTr("Đơn vị hàng không:")
                         }
                         QGCLabel {
-                            text:           QGroundControl.taisyncManager.linkConnected ? qsTr("Connected") : qsTr("Not Connected")
+                            text:           QGroundControl.taisyncManager.linkConnected ? qsTr("Đã kết nối") : qsTr("Không kết nối")
                             color:          QGroundControl.taisyncManager.linkConnected ? qgcPal.colorGreen : qgcPal.colorRed
                         }
                         QGCLabel {
-                            text:           qsTr("Uplink RSSI:")
+                            text:           qsTr("Liên kết lên RSSI:")
                         }
                         QGCLabel {
                             text:           QGroundControl.taisyncManager.linkConnected ? QGroundControl.taisyncManager.uplinkRSSI : ""
                         }
                         QGCLabel {
-                            text:           qsTr("Downlink RSSI:")
+                            text:           qsTr("Đường dẫn xuống RSSI:")
                         }
                         QGCLabel {
                             text:           QGroundControl.taisyncManager.linkConnected ? QGroundControl.taisyncManager.downlinkRSSI : ""
@@ -171,7 +171,7 @@ Rectangle {
                 visible:                    _taisyncEnabled && QGroundControl.taisyncManager.connected
                 QGCLabel {
                     id:                     devInfoLabel
-                    text:                   qsTr("Device Info")
+                    text:                   qsTr("Thông tin thiết bị")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -193,7 +193,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         columns: 2
                         QGCLabel {
-                            text:           qsTr("Serial Number:")
+                            text:           qsTr("Số seri:")
                             Layout.minimumWidth: _labelWidth
                         }
                         QGCLabel {
@@ -201,7 +201,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Firmware Version:")
+                            text:           qsTr("Phiên bản phần mềm:")
                         }
                         QGCLabel {
                             text:           QGroundControl.taisyncManager.connected ? QGroundControl.taisyncManager.fwVersion : ""
@@ -219,7 +219,7 @@ Rectangle {
                 visible:                    _taisyncEnabled && QGroundControl.taisyncManager.linkConnected
                 QGCLabel {
                     id:                     radioSettingsLabel
-                    text:                   qsTr("Radio Settings")
+                    text:                   qsTr("Cài đặt Radio")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -241,7 +241,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         columns: 2
                         QGCLabel {
-                            text:           qsTr("Radio Mode:")
+                            text:           qsTr("Chế độ Radio:")
                             Layout.minimumWidth: _labelWidth
                         }
                         FactComboBox {
@@ -251,7 +251,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Radio Frequency:")
+                            text:           qsTr("Tần số vô tuyến:")
                         }
                         FactComboBox {
                             fact:           QGroundControl.taisyncManager.radioChannel
@@ -272,7 +272,7 @@ Rectangle {
                 visible:                    _taisyncEnabled && QGroundControl.taisyncManager.linkConnected
                 QGCLabel {
                     id:                     videoSettingsLabel
-                    text:                   qsTr("Video Settings")
+                    text:                   qsTr("Cài đặt video")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -294,7 +294,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         columns: 2
                         QGCLabel {
-                            text:           qsTr("Video Output:")
+                            text:           qsTr("Đầu ra video:")
                             Layout.minimumWidth: _labelWidth
                         }
                         FactComboBox {
@@ -304,7 +304,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Encoder:")
+                            text:           qsTr("Bộ mã hóa:")
                         }
                         FactComboBox {
                             fact:           QGroundControl.taisyncManager.videoMode
@@ -313,7 +313,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Bit Rate:")
+                            text:           qsTr("Tốc độ bit:")
                         }
                         FactComboBox {
                             fact:           QGroundControl.taisyncManager.videoRate
@@ -334,7 +334,7 @@ Rectangle {
                 visible:                    _taisyncEnabled && QGroundControl.taisyncManager.connected
                 QGCLabel {
                     id:                     rtspSettingsLabel
-                    text:                   qsTr("Streaming Settings")
+                    text:                   qsTr("Cài đặt phát trực tuyến")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -367,7 +367,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Account:")
+                            text:           qsTr("Tài khoản:")
                         }
                         QGCTextField {
                             id:             rtspAccount
@@ -376,7 +376,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Password:")
+                            text:           qsTr("Mật khẩu:")
                         }
                         QGCTextField {
                             id:             rtspPassword
@@ -403,7 +403,7 @@ Rectangle {
                             return true
                         }
                         enabled:            testEnabled() && !QGroundControl.taisyncManager.needReboot
-                        text:               qsTr("Apply")
+                        text:               qsTr("Áp dụng")
                         anchors.horizontalCenter:   parent.horizontalCenter
                         onClicked: {
                             setRTSPDialog.open()
@@ -412,8 +412,8 @@ Rectangle {
                             id:                 setRTSPDialog
                             icon:               StandardIcon.Warning
                             standardButtons:    StandardButton.Yes | StandardButton.No
-                            title:              qsTr("Set Streaming Settings")
-                            text:               qsTr("Once changed, you will need to reboot the ground unit for the changes to take effect.\n\nConfirm change?")
+                            title:              qsTr("Thiết lập cài đặt phát trực tuyến")
+                            text:               qsTr("Sau khi thay đổi, bạn sẽ cần khởi động lại thiết bị mặt đất để những thay đổi có hiệu lực.\n\nXác nhận thay đổi?")
                             onYes: {
                                 QGroundControl.taisyncManager.setRTSPSettings(rtspURI.text, rtspAccount.text, rtspPassword.text)
                                 setRTSPDialog.close()
@@ -435,7 +435,7 @@ Rectangle {
                 visible:                    _taisyncEnabled && (!ScreenTools.isiOS && !ScreenTools.isAndroid)
                 QGCLabel {
                     id:                     ipSettingsLabel
-                    text:                   qsTr("Network Settings")
+                    text:                   qsTr("Cài đặt mạng")
                     font.family:            ScreenTools.demiboldFontFamily
                 }
             }
@@ -457,7 +457,7 @@ Rectangle {
                         anchors.horizontalCenter: parent.horizontalCenter
                         columns: 2
                         QGCLabel {
-                            text:           qsTr("Local IP Address:")
+                            text:           qsTr("Địa chỉ IP cục bộ:")
                             Layout.minimumWidth: _labelWidth
                         }
                         QGCTextField {
@@ -468,7 +468,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Ground Unit IP Address:")
+                            text:           qsTr("Địa chỉ IP của đơn vị mặt đất:")
                         }
                         QGCTextField {
                             id:             remoteIP
@@ -478,7 +478,7 @@ Rectangle {
                             Layout.minimumWidth: _valueWidth
                         }
                         QGCLabel {
-                            text:           qsTr("Network Mask:")
+                            text:           qsTr("Mạng Mask:")
                         }
                         QGCTextField {
                             id:             netMask
@@ -509,7 +509,7 @@ Rectangle {
                             return true
                         }
                         enabled:            testEnabled() && !QGroundControl.taisyncManager.needReboot
-                        text:               qsTr("Apply")
+                        text:               qsTr("Áp dụng")
                         anchors.horizontalCenter:   parent.horizontalCenter
                         onClicked: {
                             setIPDialog.open()
@@ -518,8 +518,8 @@ Rectangle {
                             id:                 setIPDialog
                             icon:               StandardIcon.Warning
                             standardButtons:    StandardButton.Yes | StandardButton.No
-                            title:              qsTr("Set Network Settings")
-                            text:               qsTr("Once changed, you will need to reboot the ground unit for the changes to take effect. The local IP address must match the one entered (%1).\n\nConfirm change?").arg(localIP.text)
+                            title:              qsTr("Thiết lập cài đặt mạng")
+                            text:               qsTr("Sau khi thay đổi, bạn sẽ cần khởi động lại thiết bị mặt đất để các thay đổi có hiệu lực. Địa chỉ IP cục bộ phải khớp với địa chỉ đã nhập (%1).\n\nXác nhận thay đổi?").arg(localIP.text)
                             onYes: {
                                 QGroundControl.taisyncManager.setIPSettings(localIP.text, remoteIP.text, netMask.text)
                                 setIPDialog.close()
