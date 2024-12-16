@@ -169,7 +169,7 @@ void FirmwareUpgradeController::startBoardSearch(void)
 {
     LinkManager* linkMgr = qgcApp()->toolbox()->linkManager();
 
-    linkMgr->setConnectionsSuspended(tr("Connect not allowed during Firmware Upgrade."));
+    linkMgr->setConnectionsSuspended(tr("Không được phép kết nối trong quá trình Nâng cấp chương trình cơ sở."));
 
     // FIXME: Why did we get here with active vehicle?
     if (!qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()) {
@@ -287,10 +287,10 @@ void FirmwareUpgradeController::_foundBoardInfo(int bootloaderVersion, int board
     _bootloaderBoardID          = static_cast<uint32_t>(boardID);
     _bootloaderBoardFlashSize   = static_cast<uint32_t>(flashSize);
     
-    _appendStatusLog(tr("Connected to bootloader:"));
-    _appendStatusLog(tr("  Version: %1").arg(_bootloaderVersion));
-    _appendStatusLog(tr("  Board ID: %1").arg(_bootloaderBoardID));
-    _appendStatusLog(tr("  Flash size: %1").arg(_bootloaderBoardFlashSize));
+    _appendStatusLog(tr("Đã kết nối với bộ nạp khởi động:"));
+    _appendStatusLog(tr("  Phiên bản: %1").arg(_bootloaderVersion));
+    _appendStatusLog(tr("  ID bảng: %1").arg(_bootloaderBoardID));
+    _appendStatusLog(tr("  Kích thước Flash: %1").arg(_bootloaderBoardFlashSize));
     
     if (_startFlashWhenBootloaderFound) {
         flash(_startFlashWhenBootloaderFoundFirmwareIdentity);
@@ -373,18 +373,18 @@ void FirmwareUpgradeController::_getFirmwareFile(FirmwareIdentifier firmwareId)
     QHash<FirmwareIdentifier, QString>* prgFirmware = _firmwareHashForBoardId(static_cast<int>(_bootloaderBoardID));
     if (firmwareId.firmwareType == CustomFirmware) {
         _firmwareFilename = QString();
-        _errorCancel(tr("Custom firmware selected but no filename given."));
+        _errorCancel(tr("Đã chọn chương trình cơ sở tùy chỉnh nhưng không cung cấp tên tệp."));
     } else {
         if (prgFirmware->contains(firmwareId)) {
             _firmwareFilename = prgFirmware->value(firmwareId);
         } else {
-            _errorCancel(tr("Unable to find specified firmware for board type"));
+            _errorCancel(tr("Không tìm thấy chương trình cơ sở được chỉ định cho loại bo mạch"));
             return;
         }
     }
     
     if (_firmwareFilename.isEmpty()) {
-        _errorCancel(tr("No firmware file selected"));
+        _errorCancel(tr("Không có tập tin chương trình cơ sở nào được chọn"));
     } else {
         _downloadFirmware();
     }
@@ -395,8 +395,8 @@ void FirmwareUpgradeController::_downloadFirmware(void)
 {
     Q_ASSERT(!_firmwareFilename.isEmpty());
     
-    _appendStatusLog(tr("Downloading firmware..."));
-    _appendStatusLog(tr(" From: %1").arg(_firmwareFilename));
+    _appendStatusLog(tr("Đang tải xuống chương trình cơ sở..."));
+    _appendStatusLog(tr(" Từ: %1").arg(_firmwareFilename));
     
     QGCFileDownload* downloader = new QGCFileDownload(this);
     connect(downloader, &QGCFileDownload::downloadComplete, this, &FirmwareUpgradeController::_firmwareDownloadComplete);
@@ -417,7 +417,7 @@ void FirmwareUpgradeController::_firmwareDownloadProgress(qint64 curr, qint64 to
 void FirmwareUpgradeController::_firmwareDownloadComplete(QString /*remoteFile*/, QString localFile, QString errorMsg)
 {
     if (errorMsg.isEmpty()) {
-    _appendStatusLog(tr("Download complete"));
+    _appendStatusLog(tr("Tải xuống hoàn tất"));
     
     FirmwareImage* image = new FirmwareImage(this);
     
@@ -425,18 +425,18 @@ void FirmwareUpgradeController::_firmwareDownloadComplete(QString /*remoteFile*/
     connect(image, &FirmwareImage::errorMessage, this, &FirmwareUpgradeController::_error);
     
     if (!image->load(localFile, _bootloaderBoardID)) {
-        _errorCancel(tr("Image load failed"));
+        _errorCancel(tr("Tải hình ảnh không thành công"));
         return;
     }
     
     // We can't proceed unless we have the bootloader
     if (!_bootloaderFound) {
-        _errorCancel(tr("Bootloader not found"));
+        _errorCancel(tr("Không tìm thấy bộ nạp khởi động"));
         return;
     }
     
     if (_bootloaderBoardFlashSize != 0 && image->imageSize() > _bootloaderBoardFlashSize) {
-        _errorCancel(tr("Image size of %1 is too large for board flash size %2").arg(image->imageSize()).arg(_bootloaderBoardFlashSize));
+        _errorCancel(tr("Kích thước hình ảnh %1 quá lớn so với kích thước bảng flash %2").arg(image->imageSize()).arg(_bootloaderBoardFlashSize));
         return;
     }
 
@@ -468,7 +468,7 @@ void FirmwareUpgradeController::_flashComplete(void)
     delete _image;
     _image = nullptr;
     
-    _appendStatusLog(tr("Upgrade complete"), true);
+    _appendStatusLog(tr("Nâng cấp hoàn tất"), true);
     _appendStatusLog("------------------------------------------", false);
     emit flashComplete();
     qgcApp()->toolbox()->linkManager()->setConnectionsAllowed();
@@ -526,7 +526,7 @@ void FirmwareUpgradeController::_appendStatusLog(const QString& text, bool criti
 void FirmwareUpgradeController::_errorCancel(const QString& msg)
 {
     _appendStatusLog(msg, false);
-    _appendStatusLog(tr("Upgrade cancelled"), true);
+    _appendStatusLog(tr("Đã hủy nâng cấp"), true);
     _appendStatusLog("------------------------------------------", false);
     emit error();
     cancel();
@@ -602,7 +602,7 @@ void FirmwareUpgradeController::_buildAPMFirmwareNames(void)
     if (_apmFirmwareNamesBestIndex == -1) {
         _apmFirmwareNamesBestIndex++;
         if (_apmFirmwareNames.count() > 1) {
-            _apmFirmwareNames.prepend(tr("Choose board type"));
+            _apmFirmwareNames.prepend(tr("Chọn loại bảng"));
             _apmFirmwareUrls.prepend(QString());
         }
     }

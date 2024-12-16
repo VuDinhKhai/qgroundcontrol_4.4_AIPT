@@ -48,19 +48,19 @@ bool SHPFileHelper::_validateSHPFiles(const QString& shpFile, int* utmZone, bool
                         }
                     }
                     if (*utmZone == 0) {
-                        errorString = QString(_errorPrefix).arg(tr("UTM projection is not in supported format. Must be PROJCS[\"WGS_1984_UTM_Zone_##N/S"));
+                        errorString = QString(_errorPrefix).arg(tr("Phép chiếu UTM không có định dạng được hỗ trợ. Phải là PROJCS[\"WGS_1984_UTM_Zone_##N/S"));
                     }
                 } else {
-                    errorString = QString(_errorPrefix).arg(tr("Only WGS84 or UTM projections are supported."));
+                    errorString = QString(_errorPrefix).arg(tr("Chỉ hỗ trợ phép chiếu WGS84 hoặc UTM."));
                 }
             } else {
-                errorString = QString(_errorPrefix).arg(tr("PRJ file open failed: %1").arg(prjFile.errorString()));
+                errorString = QString(_errorPrefix).arg(tr("Không mở được tệp PRJ: %1").arg(prjFile.errorString()));
             }
         } else {
-            errorString = QString(_errorPrefix).arg(tr("File not found: %1").arg(prjFilename));
+            errorString = QString(_errorPrefix).arg(tr("Không tìm thấy tập tin: %1").arg(prjFilename));
         }
     } else {
-        errorString = QString(_errorPrefix).arg(tr("File is not a .shp file: %1").arg(shpFile));
+        errorString = QString(_errorPrefix).arg(tr("Tệp không phải là tệp .shp: %1").arg(shpFile));
     }
 
     return errorString.isEmpty();
@@ -76,7 +76,7 @@ SHPHandle SHPFileHelper::_loadShape(const QString& shpFile, int* utmZone, bool* 
 
     if (_validateSHPFiles(shpFile, utmZone, utmSouthernHemisphere, errorString)) {
         if (!(shpHandle = SHPOpen(shpFile.toUtf8(), "rb"))) {
-            errorString = QString(_errorPrefix).arg(tr("SHPOpen failed."));
+            errorString = QString(_errorPrefix).arg(tr("SHPOpen không thành công."));
         }
     }
 
@@ -98,11 +98,11 @@ ShapeFileHelper::ShapeType SHPFileHelper::determineShapeType(const QString& shpF
         SHPGetInfo(shpHandle, &cEntities /* pnEntities */, &type, Q_NULLPTR /* padfMinBound */, Q_NULLPTR /* padfMaxBound */);
         qDebug() << "SHPGetInfo" << shpHandle << cEntities << type;
         if (cEntities != 1) {
-            errorString = QString(_errorPrefix).arg(tr("More than one entity found."));
+            errorString = QString(_errorPrefix).arg(tr("Đã tìm thấy nhiều hơn một thực thể."));
         } else if (type == SHPT_POLYGON) {
             shapeType = ShapeFileHelper::Polygon;
         } else {
-            errorString = QString(_errorPrefix).arg(tr("No supported types found."));
+            errorString = QString(_errorPrefix).arg(tr("Không tìm thấy loại nào được hỗ trợ."));
         }
     }
 
@@ -130,13 +130,13 @@ bool SHPFileHelper::loadPolygonFromFile(const QString& shpFile, QList<QGeoCoordi
     int cEntities, shapeType;
     SHPGetInfo(shpHandle, &cEntities, &shapeType, Q_NULLPTR /* padfMinBound */, Q_NULLPTR /* padfMaxBound */);
     if (shapeType != SHPT_POLYGON) {
-        errorString = QString(_errorPrefix).arg(tr("File does not contain a polygon."));
+        errorString = QString(_errorPrefix).arg(tr("Tệp không chứa đa giác."));
         goto Error;
     }
 
     shpObject = SHPReadObject(shpHandle, 0);
     if (shpObject->nParts != 1) {
-        errorString = QString(_errorPrefix).arg(tr("Only single part polygons are supported."));
+        errorString = QString(_errorPrefix).arg(tr("Chỉ hỗ trợ đa giác một phần."));
         goto Error;
     }
 

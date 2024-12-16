@@ -28,7 +28,7 @@ ColumnLayout {
         Layout.fillWidth:       true
         font.pointSize:         ScreenTools.smallFontPointSize
         wrapMode:               Text.WordWrap
-        text:                   qsTr("Note: For best perfomance, please disable AutoConnect to UDP devices on the General page.")
+        text:                   qsTr("Lưu ý: Để có hiệu suất tốt nhất, vui lòng tắt Tự động kết nối với thiết bị UDP trên trang Chung.")
     }
 
     RowLayout {
@@ -45,7 +45,7 @@ ColumnLayout {
         }
     }
 
-    QGCLabel { text: qsTr("Server Addresses (optional)") }
+    QGCLabel { text: qsTr("Địa chỉ máy chủ (tùy chọn)") }
 
     Repeater {
         model: subEditConfig.hostList
@@ -59,7 +59,7 @@ ColumnLayout {
             }
 
             QGCButton {
-                text:       qsTr("Remove")
+                text:       qsTr("Loại bỏ")
                 onClicked:  subEditConfig.removeHost(modelData)
             }
         }
@@ -71,10 +71,10 @@ ColumnLayout {
         QGCTextField {
             id:                     hostField
             Layout.preferredWidth:  _secondColumnWidth
-            placeholderText:        qsTr("Example: 127.0.0.1:14550")
+            placeholderText:        qsTr("Ví dụ: 127.0.0.1:14550")
         }
         QGCButton {
-            text:       qsTr("Add Server")
+            text:       qsTr("Thêm máy chủ")
             enabled:    hostField.text !== ""
             onClicked: {
                 subEditConfig.addHost(hostField.text)

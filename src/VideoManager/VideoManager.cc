@@ -297,14 +297,14 @@ VideoManager::startRecording(const QString& videoFile)
     }
 #if defined(QGC_GST_STREAMING)
     if (!_videoReceiver[0]) {
-        qgcApp()->showAppMessage(tr("Video receiver is not ready."));
+        qgcApp()->showAppMessage(tr("Bộ thu video chưa sẵn sàng."));
         return;
     }
 
     const VideoReceiver::FILE_FORMAT fileFormat = static_cast<VideoReceiver::FILE_FORMAT>(_videoSettings->recordingFormat()->rawValue().toInt());
 
     if(fileFormat < VideoReceiver::FILE_FORMAT_MIN || fileFormat >= VideoReceiver::FILE_FORMAT_MAX) {
-        qgcApp()->showAppMessage(tr("Invalid video format defined."));
+        qgcApp()->showAppMessage(tr("Định dạng video không hợp lệ."));
         return;
     }
     QString ext = kFileExtension[fileFormat - VideoReceiver::FILE_FORMAT_MIN];
@@ -315,7 +315,7 @@ VideoManager::startRecording(const QString& videoFile)
     QString savePath = qgcApp()->toolbox()->settingsManager()->appSettings()->videoSavePath();
 
     if (savePath.isEmpty()) {
-        qgcApp()->showAppMessage(tr("Unabled to record video. Video save path must be specified in Settings."));
+        qgcApp()->showAppMessage(tr("Không thể quay video. Đường dẫn lưu video phải được chỉ định trong Cài đặt."));
         return;
     }
 

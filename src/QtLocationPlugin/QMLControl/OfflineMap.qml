@@ -260,7 +260,7 @@ Item {
             Column {
                 spacing: ScreenTools.defaultFontPixelHeight / 2
 
-                QGCLabel { text:       qsTr("Max Cache Disk Size (MB):") }
+                QGCLabel { text:       qsTr("Kích thước đĩa đệm tối đa (MB):") }
 
                 QGCTextField {
                     id:                 maxCacheSize
@@ -276,7 +276,7 @@ Item {
                     anchors.left:   parent.left
                     anchors.right:  parent.right
                     wrapMode:       Text.WordWrap
-                    text:           qsTr("Max Cache Memory Size (MB):")
+                    text:           qsTr("Kích thước bộ nhớ đệm tối đa (MB):")
                 }
 
                 QGCTextField {

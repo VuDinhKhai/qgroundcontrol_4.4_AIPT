@@ -83,7 +83,7 @@ Rectangle {
         icon:       StandardIcon.Warning
         standardButtons: StandardButton.Close
         title:      qsTr("Ghi nhật ký MAVLink")
-        text:       qsTr("Please enter an email address before uploading MAVLink log files.")
+        text:       qsTr("Vui lòng nhập địa chỉ email trước khi tải tệp nhật ký MAVLink lên.")
     }
 
     QGCFlickable {
@@ -127,7 +127,7 @@ Rectangle {
                         QGCLabel {
                             width:              _labelWidth
                             anchors.baseline:   sysidField.baseline
-                            text:               qsTr("MAVLink System ID:")
+                            text:               qsTr("ID hệ thống MAVLink:")
                         }
                         QGCTextField {
                             id:     sysidField

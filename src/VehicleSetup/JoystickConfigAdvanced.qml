@@ -33,20 +33,20 @@ Item {
         //-------------------------------------------------------------
         //-------------------------------------------------------------
         QGCRadioButton {
-            text:               qsTr("Full down stick is zero throttle")
+            text:               qsTr("Cần số xuống hết cỡ là số không")
             checked:            _activeJoystick ? _activeJoystick.throttleMode === 1 : false
             onClicked:          _activeJoystick.throttleMode = 1
             Layout.columnSpan:  2
         }
         QGCRadioButton {
-            text:               qsTr("Center stick is zero throttle")
+            text:               qsTr("Thanh trung tâm là số không")
             checked:            _activeJoystick ? _activeJoystick.throttleMode === 0 : false
             onClicked:          _activeJoystick.throttleMode = 0
             Layout.columnSpan:  2
         }
         //-------------------------------------------------------------
         QGCLabel {
-            text:               qsTr("Spring loaded throttle smoothing")
+            text:               qsTr("Làm trơn bướm ga lò xo")
             visible:            _activeJoystick ? _activeJoystick.throttleMode === 0 : false
             Layout.alignment:   Qt.AlignVCenter
             Layout.minimumWidth: ScreenTools.defaultFontPixelWidth * 36
@@ -58,7 +58,7 @@ Item {
         }
         //-------------------------------------------------------------
         QGCLabel {
-            text:               qsTr("Allow negative Thrust")
+            text:               qsTr("Cho phép lực đẩy tiêu cực")
             visible:            globals.activeVehicle.supportsNegativeThrust
             Layout.alignment:   Qt.AlignVCenter
         }
@@ -70,7 +70,7 @@ Item {
         }
         //---------------------------------------------------------------------
         QGCLabel {
-            text:               qsTr("Exponential:")
+            text:               qsTr("Hàm mũ:")
         }
         Row {
             spacing:            ScreenTools.defaultFontPixelWidth
@@ -90,7 +90,7 @@ Item {
         //-----------------------------------------------------------------
         //-- Enable Advanced Mode
         QGCLabel {
-            text:               qsTr("Enable further advanced settings (careful!)")
+            text:               qsTr("Bật thêm các cài đặt nâng cao (cẩn thận!)")
             Layout.alignment:   Qt.AlignVCenter
             Layout.minimumWidth: ScreenTools.defaultFontPixelWidth * 36
         }
@@ -106,7 +106,7 @@ Item {
         //-----------------------------------------------------------------
         //-- Axis Message Frequency
         QGCLabel {
-            text:               qsTr("Axis frequency (Hz):")
+            text:               qsTr("Tần số trục (Hz):")
             Layout.alignment:   Qt.AlignVCenter
             visible:            advancedSettings.checked
         }
@@ -124,7 +124,7 @@ Item {
         //-----------------------------------------------------------------
         //-- Button Repeat Frequency
         QGCLabel {
-            text:               qsTr("Button repeat frequency (Hz):")
+            text:               qsTr("Tần số lặp lại của nút (Hz):")
             Layout.alignment:   Qt.AlignVCenter
             visible:            advancedSettings.checked
         }
@@ -142,7 +142,7 @@ Item {
         //-----------------------------------------------------------------
         //-- Enable circle correction
         QGCLabel {
-            text:               qsTr("Enable circle correction")
+            text:               qsTr("Bật hiệu chỉnh vòng tròn")
             Layout.alignment:   Qt.AlignVCenter
             visible:            advancedSettings.checked
         }
@@ -177,10 +177,10 @@ Item {
             font.pointSize:     ScreenTools.smallFontPointSize
             wrapMode:           Text.WordWrap
             visible:            advancedSettings.checked
-            text:   qsTr("Deadband can be set during the first ") +
-                    qsTr("step of calibration by gently wiggling each axis. ") +
-                    qsTr("Deadband can also be adjusted by clicking and ") +
-                    qsTr("dragging vertically on the corresponding axis monitor.")
+            text:   qsTr("Deadband có thể được thiết lập trong lần đầu tiên") +
+                    qsTr("bước hiệu chuẩn bằng cách lắc nhẹ từng trục. ") +
+                    qsTr("Khoảng chết cũng có thể được điều chỉnh bằng cách nhấp và ") +
+                    qsTr("kéo theo chiều dọc trên màn hình trục tương ứng.")
         }
     }
 }

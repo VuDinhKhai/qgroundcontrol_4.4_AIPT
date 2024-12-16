@@ -40,7 +40,7 @@ Item {
             //---------------------------------------------------------------------
             //-- Enable Joystick
             QGCLabel {
-                text:               _requiresCalibration ? qsTr("Enable not allowed (Calibrate First)") : qsTr("Enable joystick input")
+                text:               _requiresCalibration ? qsTr("Không cho phép bật (Hiệu chỉnh trước)") : qsTr("Bật đầu vào cần điều khiển")
                 Layout.alignment:   Qt.AlignVCenter
                 Layout.minimumWidth: ScreenTools.defaultFontPixelWidth * 36
             }
@@ -72,7 +72,7 @@ Item {
             //---------------------------------------------------------------------
             //-- Joystick Selector
             QGCLabel {
-                text:               qsTr("Active joystick:")
+                text:               qsTr("Cần điều khiển chủ động:")
                 Layout.alignment:   Qt.AlignVCenter
             }
             QGCComboBox {
@@ -84,7 +84,7 @@ Item {
                 Component.onCompleted: {
                     var index = joystickCombo.find(joystickManager.activeJoystickName)
                     if (index === -1) {
-                        console.warn(qsTr("Active joystick name not in combo"), joystickManager.activeJoystickName)
+                        console.warn(qsTr("Tên cần điều khiển hoạt động không có trong combo"), joystickManager.activeJoystickName)
                     } else {
                         joystickCombo.currentIndex = index
                     }
@@ -102,7 +102,7 @@ Item {
             //---------------------------------------------------------------------
             //-- RC Mode
             QGCLabel {
-                text:               qsTr("RC Mode:")
+                text:               qsTr("Chế độ RC:")
                 Layout.alignment:   Qt.AlignVCenter
                 visible:            !_buttonsOnly
             }
@@ -159,7 +159,7 @@ Item {
                     rowSpacing:         ScreenTools.defaultFontPixelHeight
                     anchors.centerIn:   parent
                     QGCLabel {
-                        text:               globals.activeVehicle.sub ? qsTr("Lateral") : qsTr("Roll")
+                        text:               globals.activeVehicle.sub ? qsTr("Bên") : qsTr("Cuộn")
                         Layout.minimumWidth: ScreenTools.defaultFontPixelWidth * 12
                     }
                     AxisMonitor {

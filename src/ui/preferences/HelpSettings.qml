@@ -34,21 +34,21 @@ Rectangle {
             id:         grid
             columns:    2
 
-            QGCLabel { text: qsTr("QGroundControl User Guide") }
+            QGCLabel { text: qsTr("Hướng dẫn sử dụng QGroundControl") }
             QGCLabel {
                 linkColor:          qgcPal.text
                 text:               "<a href=\"https://docs.qgroundcontrol.com\">https://docs.qgroundcontrol.com</a>"
                 onLinkActivated:    Qt.openUrlExternally(link)
             }
 
-            QGCLabel { text: qsTr("PX4 Users Discussion Forum") }
+            QGCLabel { text: qsTr("Diễn đàn thảo luận của người dùng PX4") }
             QGCLabel {
                 linkColor:          qgcPal.text
                 text:               "<a href=\"http://discuss.px4.io/c/qgroundcontrol\">http://discuss.px4.io/c/qgroundcontrol</a>"
                 onLinkActivated:    Qt.openUrlExternally(link)
             }
 
-            QGCLabel { text: qsTr("ArduPilot Users Discussion Forum") }
+            QGCLabel { text: qsTr("Diễn đàn thảo luận người dùng ArduPilot") }
             QGCLabel {
                 linkColor:          qgcPal.text
                 text:               "<a href=\"https://discuss.ardupilot.org/c/ground-control-software/qgroundcontrol\">https://discuss.ardupilot.org/c/ground-control-software/qgroundcontrol</a>"

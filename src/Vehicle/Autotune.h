@@ -57,7 +57,7 @@ private:
     Vehicle* _vehicle                {nullptr};
     bool     _autotuneInProgress     {false};
     float    _autotuneProgress       {0.0};
-    QString  _autotuneStatus         {tr("Autotune: Not performed")};
+    QString  _autotuneStatus         {tr("Tự động điều chỉnh: Không thực hiện")};
     bool     _disarmMessageDisplayed {false};
 
     QTimer   _pollTimer;         // the frequency at which the polling should be performed

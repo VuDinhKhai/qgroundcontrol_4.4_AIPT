@@ -132,7 +132,7 @@ FactMetaData* CompInfoParam::factMetaDataForName(const QString& name, FactMetaDa
                     factMetaData->setGroup(name.left(i));
                 }
                 if (compId != MAV_COMP_ID_AUTOPILOT1) {
-                    factMetaData->setCategory(tr("Component %1").arg(compId));
+                    factMetaData->setCategory(tr("Thành phần %1").arg(compId));
                 }
             }
             _nameToMetaDataMap[name] = factMetaData;
@@ -259,7 +259,7 @@ void CompInfoParam::_cachePX4MetaDataFile(const QString& metaDataFile)
     plugin->_getParameterMetaDataVersionInfo(metaDataFile, newMajorVersion, newMinorVersion);
     if (newMajorVersion != 1) {
         newMajorVersion = 1;
-        qgcApp()->showAppMessage(tr("Internal Error: Parameter MetaData major must be 1"));
+        qgcApp()->showAppMessage(tr("Lỗi nội bộ: Tham số MetaData major phải là 1"));
     }
     qCDebug(CompInfoParamLog) << "ParameterManager::cacheMetaDataFile file:major;minor" << metaDataFile << newMajorVersion << newMinorVersion;
 

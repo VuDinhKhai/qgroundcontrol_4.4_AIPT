@@ -159,7 +159,7 @@ Rectangle {
 
                         QGCLabel {
                             anchors.fill:           parent
-                            text:                   qsTr("ARM STATUS")
+                            text:                   qsTr("TRẠNG THÁI CÁNH TAY")
                             wrapMode:               Text.WordWrap
                             horizontalAlignment:    Text.AlignHCenter
                             verticalAlignment:      Text.AlignVCenter
@@ -183,7 +183,7 @@ Rectangle {
 
                         QGCLabel {
                             anchors.fill:           parent
-                            text:                   _activeRID && _activeVehicle.remoteIDManager.commsGood ? qsTr("RID COMMS") : qsTr("NOT CONNECTED")
+                            text:                   _activeRID && _activeVehicle.remoteIDManager.commsGood ? qsTr("TRUYỀN THÔNG RID") : qsTr("KHÔNG KẾT NỐI")
                             wrapMode:               Text.WordWrap
                             horizontalAlignment:    Text.AlignHCenter
                             verticalAlignment:      Text.AlignVCenter
@@ -225,7 +225,7 @@ Rectangle {
 
                         QGCLabel {
                             anchors.fill:           parent
-                            text:                   qsTr("BASIC ID")
+                            text:                   qsTr("ID CƠ BẢN")
                             wrapMode:               Text.WordWrap
                             horizontalAlignment:    Text.AlignHCenter
                             verticalAlignment:      Text.AlignVCenter
@@ -249,7 +249,7 @@ Rectangle {
 
                         QGCLabel {
                             anchors.fill:           parent
-                            text:                   qsTr("OPERATOR ID")
+                            text:                   qsTr("ID NHÀ ĐIỀU HÀNH")
                             wrapMode:               Text.WordWrap
                             horizontalAlignment:    Text.AlignHCenter
                             verticalAlignment:      Text.AlignVCenter
@@ -298,11 +298,11 @@ Rectangle {
                 spacing:                    _margins
 
                 // -----------------------------------------------------------------------------------------
-                // ---------------------------------------- ARM STATUS -----------------------------------------
-                // Arm status error
+                // ---------------------------------------- TRẠNG THÁI CÁNH TAY -----------------------------------------
+                // TRẠNG THÁI CÁNH TAY error
                 QGCLabel {
                     id:                 armStatusLabel
-                    text:               qsTr("ARM STATUS")
+                    text:               qsTr("TRẠNG THÁI CÁNH TAY")
                     Layout.alignment:   Qt.AlignHCenter
                     font.pointSize:     ScreenTools.mediumFontPointSize
                     visible:            _activeVehicle && !_activeVehicle.remoteIDManager.armStatusGood
@@ -329,7 +329,7 @@ Rectangle {
                         columnSpacing:              _margins * 2
 
                         QGCLabel {
-                            text:               qsTr("Arm status error: ")
+                            text:               qsTr("TRẠNG THÁI CÁNH TAY error: ")
                             Layout.fillWidth:   true
                         }
                         QGCLabel {
@@ -344,7 +344,7 @@ Rectangle {
                 // Region of operation to accomodate for different requirements
                 QGCLabel {
                     id:                 regionLabel
-                    text:               qsTr("Region")
+                    text:               qsTr("Vùng đất")
                     Layout.alignment:   Qt.AlignHCenter
                     font.pointSize:     ScreenTools.mediumFontPointSize
                 }
@@ -496,7 +496,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Latitude Fixed(-90 to 90)")
+                            text:               qsTr("Vĩ độ cố định(-90 to 90)")
                             visible:            _locationType == RemoteIDSettings.LocationType.FIXED
                             Layout.fillWidth:   true
                         }
@@ -507,7 +507,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Longitude Fixed(-180 to 180)")
+                            text:               qsTr("Kinh độ cố định(-180 to 180)")
                             visible:            _locationType == RemoteIDSettings.LocationType.FIXED
                             Layout.fillWidth:   true
                         }
@@ -518,7 +518,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Altitude Fixed")
+                            text:               qsTr("Độ cao cố định")
                             visible:            _locationType == RemoteIDSettings.LocationType.FIXED
                             Layout.fillWidth:   true
                         }
@@ -529,7 +529,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Latitude")
+                            text:               qsTr("Vĩ độ")
                             Layout.fillWidth:   true
                             visible:            _locationType != RemoteIDSettings.LocationType.TAKEOFF
                         }
@@ -540,7 +540,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Longitude")
+                            text:               qsTr("Kinh độ")
                             Layout.fillWidth:   true
                             visible:            _locationType != RemoteIDSettings.LocationType.TAKEOFF
                         }
@@ -552,8 +552,8 @@ Rectangle {
 
                         QGCLabel {
                             text:               _regionOperation == RemoteIDSettings.RegionOperation.FAA ?
-                                                qsTr("Altitude") + qsTr(" (Mandatory)") :
-                                                qsTr("Altitude")
+                                                qsTr("Độ cao") + qsTr(" (Bắt buộc)") :
+                                                qsTr("Độ cao")
                             Layout.fillWidth:   true
                             visible:            _locationType != RemoteIDSettings.LocationType.TAKEOFF
                         }
@@ -564,7 +564,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Heading")
+                            text:               qsTr("Tiêu đề")
                             Layout.fillWidth:   true
                             visible:            _locationType != RemoteIDSettings.LocationType.TAKEOFF
                         }
@@ -575,7 +575,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:               qsTr("Hor. Accuracy")
+                            text:               qsTr("Hor. Độ chính xác")
                             Layout.fillWidth:   true
                             visible:            _locationType != RemoteIDSettings.LocationType.TAKEOFF
                         }
@@ -600,7 +600,7 @@ Rectangle {
                         columnSpacing:              _margins * 2
 
                         QGCLabel {
-                            text: qsTr("NMEA External GPS Device")
+                            text: qsTr("Thiết bị GPS ngoài NMEA")
                         }
                         QGCComboBox {
                             id:                     nmeaPortCombo
@@ -631,7 +631,7 @@ Rectangle {
 
                         QGCLabel {
                             visible:          nmeaPortCombo.currentText !== gpsUdpPort && nmeaPortCombo.currentText !== gpsDisabled
-                            text:             qsTr("NMEA GPS Baudrate")
+                            text:             qsTr("Tốc độ truyền dữ liệu GPS NMEA")
                         }
                         QGCComboBox {
                             visible:                nmeaPortCombo.currentText !== gpsUdpPort && nmeaPortCombo.currentText !== gpsDisabled
@@ -651,7 +651,7 @@ Rectangle {
                         }
 
                         QGCLabel {
-                            text:       qsTr("NMEA stream UDP port")
+                            text:       qsTr("Cổng UDP luồng NMEA")
                             visible:    nmeaPortCombo.currentText === gpsUdpPort
                         }
                         FactTextField {
@@ -666,7 +666,7 @@ Rectangle {
                 // -------------------------------------- BASIC ID -------------------------------------------
                 QGCLabel {
                     id:                 basicIDLabel
-                    text:               qsTr("BASIC ID")
+                    text:               qsTr("ID CƠ BẢN")
                     Layout.alignment:   Qt.AlignHCenter
                     font.pointSize:     ScreenTools.mediumFontPointSize
                 }
@@ -688,8 +688,8 @@ Rectangle {
                         anchors.horizontalCenter:   parent.horizontalCenter
                         anchors.bottomMargin:       _margins * 2
                         width:                      basicIDGrid.width
-                        text:                       qsTr("Note: This parameter is optional if Basic ID is already set on RID device. " +
-                                                         "On that case, this one will be registered as Basic ID 2")
+                        text:                       qsTr("Lưu ý: Tham số này là tùy chọn nếu ID cơ bản đã được thiết lập trên thiết bị RID. " +
+                                                         "Trong trường hợp đó, cái này sẽ được đăng ký là ID cơ bản 2")
                         wrapMode:                   Text.Wrap
                         visible:                    QGroundControl.settingsManager.remoteIDSettings.basicIDType.visible
 
@@ -804,7 +804,7 @@ Rectangle {
                         QGCLabel {
                             text:               _regionOperation == RemoteIDSettings.RegionOperation.FAA ?
                                                 QGroundControl.settingsManager.remoteIDSettings.operatorID.shortDescription :
-                                                QGroundControl.settingsManager.remoteIDSettings.operatorID.shortDescription + qsTr(" (Mandatory)")
+                                                QGroundControl.settingsManager.remoteIDSettings.operatorID.shortDescription + qsTr(" (Bắt buộc)")
                             visible:            QGroundControl.settingsManager.remoteIDSettings.operatorID.visible
                             Layout.alignment:   Qt.AlignHCenter
                             Layout.fillWidth:   true
@@ -931,10 +931,10 @@ Rectangle {
                         anchors.top:                selfIDGrid.bottom
                         anchors.horizontalCenter:   parent.horizontalCenter
                         anchors.bottomMargin:       _margins * 2
-                        text:                       qsTr("Note: Even if this box is unset, QGroundControl will send self ID message " +
-                                                         "if an emergency is set, or after it has been cleared. \
-                                                         The message for each kind of selfID is saved and preserves reboots. Select " +
-                                                         "each type on the Self ID type dropdown to configure the message to be sent")
+                        text:                       qsTr("Lưu ý: Ngay cả khi hộp này không được đặt, QGroundControl vẫn sẽ gửi tin nhắn ID của chính mình " +
+                                                         "nếu tình trạng khẩn cấp được thiết lập hoặc sau khi tình trạng khẩn cấp đã được giải quyết. \
+                                                         Tin nhắn cho mỗi loại selfID được lưu và bảo toàn các lần khởi động lại. Chọn " +
+                                                         "mỗi loại trên danh sách thả xuống loại ID bản thân để cấu hình tin nhắn sẽ được gửi")
                         wrapMode:                   Text.Wrap
                         visible:                    QGroundControl.settingsManager.remoteIDSettings.selfIDType.visible
                     }

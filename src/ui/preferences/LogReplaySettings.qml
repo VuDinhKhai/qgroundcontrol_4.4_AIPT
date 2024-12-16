@@ -23,7 +23,7 @@ RowLayout {
         subEditConfig.filename = logField.text
     }
 
-    QGCLabel { text: qsTr("Log File") }
+    QGCLabel { text: qsTr("Tệp Nhật ký") }
 
     QGCTextField {
         id:     logField
@@ -38,8 +38,8 @@ RowLayout {
 
     QGCFileDialog {
         id:                 filePicker
-        title:              qsTr("Select Telemetery Log")
-        nameFilters:        [ qsTr("Telemetry Logs (*.%1)").arg(_logFileExtension), qsTr("All Files (*)") ]
+        title:              qsTr("Chọn Nhật ký đo từ xa")
+        nameFilters:        [ qsTr("Nhật ký đo từ xa (*.%1)").arg(_logFileExtension), qsTr("Tất cả các tập tin (*)") ]
         selectExisting:     true
         folder:             QGroundControl.settingsManager.appSettings.telemetrySavePath
         onAcceptedForLoad: {

@@ -389,7 +389,7 @@ QStringList VehicleLinkManager::linkStatuses(void) const
     QStringList rgStatuses;
 
     for (const LinkInfo_t& linkInfo: _rgLinkInfo) {
-        rgStatuses.append(linkInfo.commLost ? tr("Comm Lost") : "");
+        rgStatuses.append(linkInfo.commLost ? tr("Mất liên lạc") : "");
     }
 
     return rgStatuses;

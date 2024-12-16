@@ -253,8 +253,8 @@ int main(int argc, char *argv[])
     if (!guard.tryToRun()) {
         // QApplication is necessary to use QMessageBox
         QApplication errorApp(argc, argv);
-        QMessageBox::critical(nullptr, QObject::tr("Error"),
-            QObject::tr("A second instance of %1 is already running. Please close the other instance and try again.").arg(QGC_APPLICATION_NAME)
+        QMessageBox::critical(nullptr, QObject::tr("Lỗi"),
+            QObject::tr("Phiên bản thứ hai của %1 đang chạy. Vui lòng đóng phiên bản kia và thử lại.").arg(QGC_APPLICATION_NAME)
         );
         return -1;
     }

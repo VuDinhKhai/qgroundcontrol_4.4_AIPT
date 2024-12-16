@@ -73,35 +73,35 @@ bool MotorAssignment::initAssignment(int selectedActuatorIdx, int firstMotorsFun
     if (numAssigned == 0 && _functionFacts[selectedActuatorIdx].size() >= numMotors) {
         _assignMotors = true;
         extraMessage = tr(
-R"(<br />No motors are assigned yet.
-By saying yes, all motors will be assigned to the first %1 channels of the selected output (%2)
- (you can also first assign all motors, then start the identification).<br />)").arg(numMotors).arg(selectedActuatorOutputName);
+R"(<br />Chưa có động cơ nào được chỉ định.
+Bằng cách nói có, tất cả các động cơ sẽ được gán cho %1 kênh đầu tiên của đầu ra đã chọn (%2)
+ (bạn cũng có thể đầu tiên chỉ định tất cả các động cơ, sau đó bắt đầu nhận dạng).<br />)").arg(numMotors).arg(selectedActuatorOutputName);
 
     } else if (numAssigned > 0 && numAssignedToSelected == 0 && _functionFacts[selectedActuatorIdx].size() >= numMotors) {
         _assignMotors = true;
         extraMessage = tr(
-R"(<br />Motors are currently assigned to a different output.
-By saying yes, all motors will be reassigned to the first %1 channels of the selected output (%2).<br />)")
+R"(<br />Động cơ hiện đang được gán cho đầu ra khác.
+Bằng cách nói có, tất cả các động cơ sẽ được chỉ định lại cho %1 kênh đầu tiên của đầu ra đã chọn (%2).<br />)")
             .arg(numMotors).arg(selectedActuatorOutputName);
 
     } else if (numAssigned < numMotors) {
-        _message = tr("Not all motors are assigned yet. Either clear all existing assignments or assign all motors to an output.");
+        _message = tr("Chưa chỉ định tất cả động cơ. Hãy xóa tất cả các chỉ định hiện có hoặc chỉ định tất cả động cơ cho một đầu ra.");
         emit messageChanged();
         return false;
     }
 
     _message = tr(
-R"(This will automatically spin individual motors at 15% thrust.<br /><br />
-<b>Warning: Only proceed if you removed all propellers</b>.<br />
+R"(Điều này sẽ tự động quay từng động cơ với lực đẩy 15%.<br /><br />
+<b>Cảnh báo: Chỉ tiến hành nếu bạn đã tháo hết cánh quạt</b>.<br />
 %1
 <br />
-The procedure is as following:<br />
-- After confirming, the first motor starts to spin for 0.5 seconds.<br />
-- Then click on the motor that was spinning.<br />
-- The above steps are repeated for all motors.<br />
-- The motor output functions will automatically be reassigned by the selected order.<br />
+Quy trình thực hiện như sau:<br />
+- Sau khi xác nhận, động cơ đầu tiên bắt đầu quay trong 0,5 giây.<br />
+- Sau đó nhấp vào động cơ đang quay.<br />
+- Lặp lại các bước trên cho tất cả các động cơ.<br />
+- Các chức năng đầu ra của động cơ sẽ tự động được chỉ định lại theo thứ tự đã chọn.<br />
 <br />
-Do you wish to proceed?)").arg(extraMessage);
+Bạn có muốn tiếp tục không?)").arg(extraMessage);
     emit messageChanged();
 
     _selectedActuatorIdx = selectedActuatorIdx;
@@ -208,13 +208,13 @@ void MotorAssignment::ackHandler(MAV_RESULT commandResult, Vehicle::MavCmdResult
     _commandInProgress = false;
     if (failureCode != Vehicle::MavCmdResultFailureNoResponseToCommand && commandResult != MAV_RESULT_ACCEPTED) {
         abort();
-        qgcApp()->showAppMessage(tr("Actuator test command failed"));
+        qgcApp()->showAppMessage(tr("Lệnh kiểm tra bộ truyền động không thành công"));
     }
 }
 
 void MotorAssignment::sendMavlinkRequest(int function, float value)
 {
-    qCDebug(ActuatorsConfigLog) << "Sending actuator test function:" << function << "value:" << value;
+    qCDebug(ActuatorsConfigLog) << "Gửi chức năng kiểm tra bộ truyền động:" << function << "giá trị:" << value;
 
     Vehicle::MavCmdAckHandlerInfo_t handlerInfo = {};
     handlerInfo.resultHandler       = ackHandlerEntry;

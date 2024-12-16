@@ -124,13 +124,13 @@ TaisyncManager::setToolbox(QGCToolbox* toolbox)
     {
         //-- Radio Mode
         QStringList enums;
-        enums.append(tr("Auto"));
-        enums.append(tr("Manual"));
+        enums.append(tr("Tự động"));
+        enums.append(tr("Thủ công"));
         FactMetaData* metaData = _createMetadata(kRADIO_MODE, enums);
         _radioMode = new Fact(kTAISYNC_GROUP, metaData, this);
         QQmlEngine::setObjectOwnership(_radioMode, QQmlEngine::CppOwnership);
-        _radioModeList.append("auto");
-        _radioModeList.append("manual");
+        _radioModeList.append("tự động");
+        _radioModeList.append("thủ công");
         connect(_radioMode, &Fact::_containerRawValueChanged, this, &TaisyncManager::_radioSettingsChanged);
     }
     {
@@ -169,15 +169,15 @@ TaisyncManager::setToolbox(QGCToolbox* toolbox)
     {
         //-- Video Rate
         QStringList enums;
-        enums.append(tr("Low"));
-        enums.append(tr("Medium"));
+        enums.append(tr("Thấp"));
+        enums.append(tr("Trung bình"));
         enums.append(tr("High"));
         FactMetaData* metaData = _createMetadata(kVIDEO_RATE, enums);
         _videoRate = new Fact(kTAISYNC_GROUP, metaData, this);
         QQmlEngine::setObjectOwnership(_videoRate, QQmlEngine::CppOwnership);
-        _videoRateList.append("low");
-        _videoRateList.append("middle");
-        _videoRateList.append("high");
+        _videoRateList.append("thấp");
+        _videoRateList.append("trung bình");
+        _videoRateList.append("Cao");
         connect(_videoRate, &Fact::_containerRawValueChanged, this, &TaisyncManager::_videoSettingsChanged);
     }
     //-- Start it all

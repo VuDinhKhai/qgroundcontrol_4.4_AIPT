@@ -26,7 +26,7 @@ SetupPage {
     id:                 joystickPage
     pageComponent:      pageComponent
     pageName:           qsTr("Joystick")
-    pageDescription:    "" // qsTr("Joystick Setup is used to configure and calibrate joysticks.")
+    pageDescription:    "" // qsTr("Thiết lập cần điều khiển được sử dụng để cấu hình và hiệu chỉnh cần điều khiển.")
 
     readonly property real  _maxButtons:         64
     readonly property real  _attitudeLabelWidth: ScreenTools.defaultFontPixelWidth * 12
@@ -76,18 +76,18 @@ SetupPage {
                 }
                 anchors.top:    parent.top
                 QGCTabButton {
-                    text:       qsTr("General")
+                    text:       qsTr("Tổng quan")
                     visible:    _allowJoystickSelection
                 }
                 QGCTabButton {
-                    text:       qsTr("Button Assigment")
+                    text:       qsTr("Phân công nút")
                 }
                 QGCTabButton {
-                    text:       qsTr("Calibration")
+                    text:       qsTr("Hiệu chuẩn")
                     visible:    _activeJoystick.axisCount != 0
                 }
                 QGCTabButton {
-                    text:       qsTr("Advanced")
+                    text:       qsTr("Trình độ cao")
                     visible:    _activeJoystick.axisCount != 0
                 }
             }

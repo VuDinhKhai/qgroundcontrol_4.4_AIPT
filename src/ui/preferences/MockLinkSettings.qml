@@ -70,18 +70,18 @@ GridLayout {
     QGCCheckBox {
         id:                 sendStatus
         Layout.columnSpan:  2
-        text:               qsTr("Send Status Text and Voice")
+        text:               qsTr("Gửi Trạng thái Văn bản và Giọng nói")
         checked:            subEditConfig.sendStatus
     }
 
     QGCCheckBox {
         id:                 incrementVehicleId
         Layout.columnSpan:  2
-        text:               qsTr("Increment Vehicle Id")
+        text:               qsTr("Tăng ID phương tiện")
         checked:            subEditConfig.incrementVehicleId
     }
 
-    QGCLabel { text: qsTr("Firmware") }
+    QGCLabel { text: qsTr("Phần mềm") }
     QGCComboBox {
         id:                     firmwareTypeCombo
         Layout.preferredWidth:  _secondColumnWidth
@@ -91,7 +91,7 @@ GridLayout {
     }
 
     QGCLabel {
-        text:       qsTr("Vehicle Type")
+        text:       qsTr("Kiểu phương tiện")
         visible:    firmwareTypeCombo.apmFirmwareSelected
     }
     QGCComboBox {

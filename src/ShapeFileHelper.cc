@@ -37,7 +37,7 @@ bool ShapeFileHelper::_fileIsKML(const QString& file, QString& errorString)
     } else if (file.endsWith(AppSettings::shpFileExtension)) {
         return false;
     } else {
-        errorString = QString(_errorPrefix).arg(tr("Unsupported file type. Only .%1 and .%2 are supported.").arg(AppSettings::kmlFileExtension).arg(AppSettings::shpFileExtension));
+        errorString = QString(_errorPrefix).arg(tr("Loại tệp không được hỗ trợ. Chỉ hỗ trợ .%1 và .%2.").arg(AppSettings::kmlFileExtension).arg(AppSettings::shpFileExtension));
     }
 
     return true;
@@ -90,7 +90,7 @@ bool ShapeFileHelper::loadPolylineFromFile(const QString& file, QList<QGeoCoordi
         if (fileIsKML) {
             KMLHelper::loadPolylineFromFile(file, coords, errorString);
         } else {
-            errorString = QString(_errorPrefix).arg(tr("Polyline not support from SHP files."));
+            errorString = QString(_errorPrefix).arg(tr("Tệp SHP không hỗ trợ polyline."));
         }
     }
 
@@ -99,10 +99,10 @@ bool ShapeFileHelper::loadPolylineFromFile(const QString& file, QList<QGeoCoordi
 
 QStringList ShapeFileHelper::fileDialogKMLFilters(void) const
 {
-    return QStringList(tr("KML Files (*.%1)").arg(AppSettings::kmlFileExtension));
+    return QStringList(tr("Tập tin KML (*.%1)").arg(AppSettings::kmlFileExtension));
 }
 
 QStringList ShapeFileHelper::fileDialogKMLOrSHPFilters(void) const
 {
-    return QStringList(tr("KML/SHP Files (*.%1 *.%2)").arg(AppSettings::kmlFileExtension).arg(AppSettings::shpFileExtension));
+    return QStringList(tr("Tập tin KML/SHP (*.%1 *.%2)").arg(AppSettings::kmlFileExtension).arg(AppSettings::shpFileExtension));
 }

@@ -316,31 +316,31 @@ void UAS::getStatusForCode(int statusCode, QString& uasState, QString& stateDesc
     {
     case MAV_STATE_UNINIT:
         uasState = tr("UNINIT");
-        stateDescription = tr("Unitialized, booting up.");
+        stateDescription = tr("Chưa khởi tạo, đang khởi động.");
         break;
     case MAV_STATE_BOOT:
         uasState = tr("BOOT");
-        stateDescription = tr("Booting system, please wait.");
+        stateDescription = tr("Hệ thống khởi động, vui lòng đợi.");
         break;
     case MAV_STATE_CALIBRATING:
         uasState = tr("CALIBRATING");
-        stateDescription = tr("Calibrating sensors, please wait.");
+        stateDescription = tr("Đang hiệu chuẩn cảm biến, vui lòng đợi.");
         break;
     case MAV_STATE_ACTIVE:
         uasState = tr("ACTIVE");
-        stateDescription = tr("Active, normal operation.");
+        stateDescription = tr("Hoạt động bình thường, tích cực.");
         break;
     case MAV_STATE_STANDBY:
         uasState = tr("STANDBY");
-        stateDescription = tr("Standby mode, ready for launch.");
+        stateDescription = tr("Chế độ chờ, sẵn sàng khởi chạy.");
         break;
     case MAV_STATE_CRITICAL:
         uasState = tr("CRITICAL");
-        stateDescription = tr("FAILURE: Continuing operation.");
+        stateDescription = tr("THẤT ​​BẠI: Hoạt động tiếp tục.");
         break;
     case MAV_STATE_EMERGENCY:
         uasState = tr("EMERGENCY");
-        stateDescription = tr("EMERGENCY: Land Immediately!");
+        stateDescription = tr("TÌNH TRẠNG KHẨN CẤP: Hạ cánh ngay lập tức!");
         break;
         //case MAV_STATE_HILSIM:
         //uasState = tr("HIL SIM");
@@ -349,12 +349,12 @@ void UAS::getStatusForCode(int statusCode, QString& uasState, QString& stateDesc
 
     case MAV_STATE_POWEROFF:
         uasState = tr("SHUTDOWN");
-        stateDescription = tr("Powering off system.");
+        stateDescription = tr("Tắt hệ thống.");
         break;
 
     default:
         uasState = tr("UNKNOWN");
-        stateDescription = tr("Unknown system state");
+        stateDescription = tr("Trạng thái hệ thống không xác định");
         break;
     }
 }

@@ -49,13 +49,13 @@ void Action::ackHandler(MAV_RESULT commandResult, Vehicle::MavCmdResultFailureCo
 {
     _commandInProgress = false;
     if (failureCode != Vehicle::MavCmdResultFailureNoResponseToCommand && commandResult != MAV_RESULT_ACCEPTED) {
-        qgcApp()->showAppMessage(tr("Actuator action command failed"));
+        qgcApp()->showAppMessage(tr("Lệnh hành động của bộ truyền động không thành công"));
     }
 }
 
 void Action::sendMavlinkRequest()
 {
-    qCDebug(ActuatorsConfigLog) << "Sending actuator action, function:" << _outputFunction << "type:" << (int)_type;
+    qCDebug(ActuatorsConfigLog) << "Gửi hành động, chức năng của bộ truyền động:" << _outputFunction << "kiểu:" << (int)_type;
 
     Vehicle::MavCmdAckHandlerInfo_t handlerInfo = {};
     handlerInfo.resultHandler       = ackHandlerEntry;
