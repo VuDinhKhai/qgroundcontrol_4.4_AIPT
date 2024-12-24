@@ -46,6 +46,12 @@ jobs:
         run: |
           df -h
           free -m
+      # Cài đặt Eigen
+      - name: Install Eigen
+        run: |
+          sudo apt update
+          sudo apt install libeigen3-dev
+          
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@v1.3.1
         with:
