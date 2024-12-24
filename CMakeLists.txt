@@ -157,7 +157,7 @@ endif()
 
 # Sets the default flags for compilation and linking.
 include(CompileOptions)
-
+include_directories(${PROJECT_SOURCE_DIR}/libs/eigen)
 include_directories(
 	libs/eigen
 
